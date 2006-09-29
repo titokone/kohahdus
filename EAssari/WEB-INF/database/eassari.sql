@@ -37,7 +37,7 @@ create table course (
   courseid            varchar(20) not null primary key,  /* course identifier */
   coursename          varchar(40),                       /* course name - not used currently */
   coursemetadata      varchar(2000),                     /* course metadata in xml format - not used */
-  courselogo          varchar(80),                       /*  url to the image file that contains course logo */
+  courselogo          varchar(80),                       /* url to the image file that contains course logo */
   coursestyle         varchar(80)                        /* name of the course specific css style sheet */                            
 );
 
