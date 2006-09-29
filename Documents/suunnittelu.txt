@@ -1,3 +1,63 @@
+Tietosisältö
+- Käyttäjät
+- Tehtävät
+- Kriteerit
+- Aihepiirit
+- Ratkaisut
+- Kurssit
+
+Toiminnot
+- Rekisteröinti
+- Kirjautuminen
+- Tehtävän luonti/muokkaus
+- Tehtävän ratkaiseminen
+- Kurssiraportti
+- Opiskelijaraportti
+- Tehtävälistaus (opiskelija)
+- Tehtävälistaus (opettaja)
+- Tehtävän poisto
+- Omien tietojen muokkaus
+
+Luokat
+- Tehtävä (sisältää tehtävänannon ja joukon kriteereitä)
+- Kriteeri (abstrakti yliluokka)
+  - Rekisterikriteeri
+  - Muuttujakriteeri
+  - Koodin koko kriteeri
+  - Suoritetut käskyt kriteeri
+  - Pinon koko kriteeri
+  - Globaalin muistin koko kriteeri
+  - Muistiviittaus kriteeri
+  - Dataviittuaus kriteeri
+  - Tulostuskriteeri
+  - Käskykriteeri
+    - Pakollinen käsky kritteri
+    - Kielletty käsky kritteri 
+- Käyttäjä	
+  - Oppilas?
+  - Opettaja?
+- Aihepiiri (moduuli)
+- Answer (näyttää tehtävän, kutsuu analyzeria arvioimaan ratkaisun)
+- Analyzer (Hakee tehtävän, suorittaa ratkaisun, vertaa kriteerit, palauttaa feedbackin)
+- Displayer
+- Feedback
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
