@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="EAssari/src"/>
+	<classpathentry kind="src" path="EAssari/WEB-INF/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/servlet.jar"/>
 	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/kxml2.jar"/>

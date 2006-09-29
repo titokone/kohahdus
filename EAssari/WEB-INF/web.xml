@@ -4,14 +4,14 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-  <display-name>Trainer</display-name>
+  <display-name>Kohahdus</display-name>
   <description>
-     Trainer developmemt
+     Titotititiitititit nalle...
   </description>
 
   <context-param>
     <param-name>confile</param-name>
-    <param-value>/home/laine/tc/webapps/Trainer/WEB-INF/trainerconfig.dat</param-value>
+    <param-value>/home/tkt_koha/tomcat/webapps/EAssari/WEB-INF/trainerconfig.dat</param-value>
     <description>
         configuration file
     </description>
