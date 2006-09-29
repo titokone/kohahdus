@@ -31,8 +31,8 @@ Luokat
   - Dataviittuaus kriteeri
   - Tulostuskriteeri
   - Käskykriteeri
-    - Pakollinen käsky kritteri
-    - Kielletty käsky kritteri 
+    - Pakollinen käsky kritteri?
+    - Kielletty käsky kritteri?
 - Käyttäjä	
   - Oppilas?
   - Opettaja?
