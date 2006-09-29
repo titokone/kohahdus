@@ -22,9 +22,19 @@
   <servlet-class>TestServlet</servlet-class> 
 </servlet>
 
+<servlet>
+  <servlet-name>Answer</servlet-name> 
+  <servlet-class>fi.helsinki.cs.kohahdus.Answer</servlet-class> 
+</servlet>
+
 <servlet-mapping>
   <servlet-name>invoker</servlet-name> 
   <url-pattern>/servlet/*</url-pattern> 
+</servlet-mapping>
+
+<servlet-mapping>
+  <servlet-name>Answer</servlet-name> 
+  <url-pattern>/Answer</url-pattern> 
 </servlet-mapping>
 
 </web-app>
