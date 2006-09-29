@@ -1,0 +1,4 @@
+dbDriver      oracle.jdbc.OracleDriver
+dbServer      jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test
+dbLogin       kohahdus
+dbPassword    b1tt1

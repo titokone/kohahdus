@@ -1,0 +1,100 @@
+h1	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 18pt;
+        color: #663300;^
+}
+
+h2	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 16pt;
+	color: #663300;
+}
+	
+h3	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 14pt;
+        color: #663300;^
+}
+	
+h4	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 12pt;
+}
+
+h5	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+}
+
+p	{
+	font-family: Verdana, Arial, sans-serif;
+}
+	
+table {border-style: ridge;
+       border-collapse: collapse;
+       padding: 10px;
+}
+
+ 
+tr   {border: solid 2px;
+      border-collapse: collapse;
+      border-spacing: 0pt;
+      border_color: blue;
+}
+
+td   {font-family: Verdana, Arial, sans-serif;
+      border-collapse: collapse;
+}
+
+th { 
+   font-family: Verdana, Arial, sans-serif;
+   font-weight: bold;
+}
+
+table.tasktable {background-color: #F8F8FF;
+}
+
+th.taskheader {background-color: #B0C4DE;
+      height: 30pt;
+      border-collapse:collapse;
+      border-style: ridge;
+      border-width: 5px;
+             }
+
+td.setting {font-family: times;
+font-style: italic;
+border-collapsed: separate;
+border: solid blue 1px;
+background-color: #FAFAD2; 
+padding: 10pt;
+}
+
+
+td.fname {font-family: times;
+vertical-align: top;
+border_collapsed: collapsed;
+border: solid blue 1px;
+padding: 10pt;
+}
+
+td.buttons {font-family: Verdana, Arial, sans-serif;
+vertical-align: top;
+border-collapsed: collapsed;
+border-style: ridge;
+border-width: 5px;
+padding 5pt;
+}
+	
+body {
+	font-family: Verdana, Arial, sans-serif;
+}
+	
+ol, ul, li {
+	font-family: Verdana, Arial, sans-serif;
+}
+	
+blockquote {
+	font-family: Verdana, Arial, sans-serif;
+}
+
+

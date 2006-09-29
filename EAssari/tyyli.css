@@ -1,0 +1,65 @@
+h1	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 18pt;
+}
+
+h2	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 16pt;
+}
+	
+h3	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 14pt;
+}
+	
+h4	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 12pt;
+}
+
+h5	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+}
+
+p	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+}
+	
+table, tr, td {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+}
+	
+body {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+	background-color : #FFFFFF;
+	margin-left: 10%;
+	margin-right: 10%
+}
+	
+ol, ul, li {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+}
+	
+blockquote {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+}
+
+.lista {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 12pt;
+	margin-left: 10%;
+} 
+
+.popup {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+	margin-left: 5%;
+	margin-right: 5%
+}

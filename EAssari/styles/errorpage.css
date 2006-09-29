@@ -1,0 +1,50 @@
+h1	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 18pt;
+}
+
+h2	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 16pt;
+}
+	
+h3	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 14pt;
+}
+	
+p	{
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+}
+	
+table { background: #D8BFD8;
+        border: medium ridge;
+        font-family: Verdana, Arial, sans-serif;
+        width: 80%
+      }
+
+th    { background: #F0E68C;
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 110%;
+        color: red; 
+        padding: 10px;
+     }
+
+td   { background: white;
+       font-family: Verdana, Arial, sans-serif;
+       font-size: 100%;
+       padding: 1em;
+   }
+
+body {	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+	background-color : #FFFFFF;
+	margin-left: 10%;
+	margin-right: 10%
+}
+	
+ol, ul, li {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 11pt;
+}
