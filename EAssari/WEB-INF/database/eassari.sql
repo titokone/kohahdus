@@ -127,7 +127,7 @@ create table taskattributes(
 
 
 /*****
-* Schemas for the plugin initialization parameters
+* Schemas for the plugin initialization parameters ( EI KÄYTETÄ? )
 */
 create table pluginparameters(
  classname varchar(40) not null,            /* the name of the plugin class */
@@ -144,7 +144,7 @@ create table pluginparameters(
 
 
 /****
-* structure of plugin initialization parameters  
+* structure of plugin initialization parameters ( EI KÄYTETÄ? )
 */
 create table pluginparamattributes (
  classname varchar(40) not null,           /* the name of the plugin class */
