@@ -1,0 +1,956 @@
+\tableofcontents
+
+\newcounter{laskuri}
+\newcounter{KLaskuri}
+\newcounter{VLaskuri}
+
+\section{Johdanto ja yleiskatsaus}
+
+Kohahdus on järjestelmä automaattisesti tarkastettavien TTK-91-konekielen harjoitustehtävien luomiseen ja ratkaisemiseen. Järjestelmä on tarkoitettu käytettäväksi opetuksen tukena, opetettaessa Tietokoneen toiminta -kurssia. Tietojenkäsittelytieteen opettajat voivat tehdä järjestelmään uusia tehtäviä ja määritellä kuinka ne tarkastetaan automaattisesti. Tietokoneen toiminta -kurssin opiskelijat ja kurssin tehtävistä kiinnostuneet itseopiskelijat voivat ratkaista tehtäviä ja saada palautetta niiden onnistumisesta.
+
+Painopiste projektissa on opettajan ja opiskelijan käyttöliittymillä. Käyttöliittymistä tehdään mahdollisimman selkeät ja helppokäyttöiset. Opettajan käyttöliittymän avulla määritellään tehtävät parametreineen ja kuinka opiskelijan ratkaisun oikeellisuus tarkistetaan, sekä nähdään statistiikkatietoja opiskelijoiden suorituksista. Opiskelijan käyttöliittymän avulla opiskelija valitsee tehtäviä, syöttää niiden ratkaisut ja saa palautetta vastauksensa oikeellisuudesta.
+
+Projekti käyttää valmiina olevaa Titokone-simulaattoria harjoitustehtävien ratkaisemiseen. Projekti rakennetaan valmiina olevaan eAssari-kehykseen, joka sopii geneeriseen automaattisesti tarkistettavien tehtävien määrittelyyn ja toteutukseen.
+
+Järjestelmä toteutetaan Java-kielellä ja järjestelmän käyttö vaatii, että selain tukee JavaScript-kieltä ja CSS-tyylitiedostoja. 
+
+Tässä dokumentissa esitellään käytettävät termit luvussa 2, sidosryhmät ja järjestelmäarkkitehtuuri luvussa 3, käyttäjävaatimukset luvussa 4, käyttötapaukset luvussa 5 ja järjestelmävaatimukset luvussa 6.
+
+\section{Käytettäviä termejä}
+
+
+TTK91=Auvo Häkkisen kehittämä ohjelmointikieli, joka läheisesti muistuttaa symbolista konekieltä.
+
+KOKSI=Auvo Häkkisen kirjoittama konekielisimulaattori, joka toteuttaa TTK-91-kielen.
+
+eAssari=Tietokantapohjainen ympäristö ohjelmallisesti tarkastettavien harjoitus- ja koetehtävien suorittamiseen
+
+Titokone=Koski-nimisen Ohjelmistotuotantoprojektiryhmän vuonna 2004 rakentama järjestelmä konekielisten ohjelmien kääntämiseen.
+
+Koski=Vuoden 2004 Ohjelmistotuotantoprojekti joka rakensi konekielen simulaattorin ja debug-ympäristön, eli Titokoneen
+
+Koskelo=Vuoden 2004 Ohjelmistotuotantoprojekti joka yritti (ja siinä osittain onnistuikin) integroida Titokoneen ja eAssari-kehyksen yhteen.
+
+Kriteeri=Sääntö jonka mukaan tehtävän oikeellisuus tarkistetaan. Kriteereitä voi olla monta yhdelle tehtävälle.
+
+
+\section{Käyttäjäryhmät ja järjestelmäarkkitehtuuri}
+
+\subsection{Käyttäjäryhmät}
+
+Konekielisen ohjelmoinnin harjoitteluympäristöä tulevat käyttämään Tietojenkäsittelytieteen laitoksen opettajat ja opiskelijat. Käyttäjäryhmiä on näin ollen kaksi. Opettaja voi luoda uusia tehtäviä sekä muokata ja poistaa vanhoja. Lisäksi hän saa nähtäväkseen statistiikkatietoja opiskelijoiden suorituksista. Opiskelija saa nähtäväkseen kaikki tehtävät tai halutessaan vain tietyt valintakriteerit täyttävät tehtävät. Opiskelija voi ratkaista tehtäviä ja saa palautetta yrityksistään.
+
+\subsection{Sidokset vanhoihin projekteihin}
+
+Projektissa tullaan käyttämään Koski-ryhmän Titokonetta tehtävien kääntämiseen, sekä eAssari-kehystä tehtävien näyttämiseen ja istuntotietoihin.  
+Koskelo-ryhmän tuotetta ei tulla suoraan käyttämään, tosin Koskelon dokumentaatioon tutustutaan, ja voidaan ottaa oppia esimerkiksi tehtävän oikeellisuuden kriteereistä.
+
+
+\subsection{Järjestelmäarkkitehtuuri}
+
+
+Kuvassa 1 on esitetty järjestelmän käyttäjät, ulkoiset liittymät sekä keskeisin järjestelmien välillä liikkuva tieto.
+
+\begin{figure}[h]     
+  \includegraphics[width=14cm] {jarjarkkiteht.eps}     
+  \caption{Kohahduksen yhteydet eAssariin ja Titokoneeseen}
+\end{figure} 
+
+EAssari tarjoaa Kohahdukselle tehtävälistan. Opiskelija voi Kohahduksesta valita tehtävän, jonka haluaa ratkaista. Tehtävä haetaan eAssarista Kohahduksen esitettäväksi. Opiskelijan vastauksena antama ohjelma tai sen osa lähetetään Titokoneelle, joka palauttaa tuloste- ja muita tietoja ohjelman suorituksesta. Kohahdus vertaa saatua tietoa tehtävän kriteereihin, ja tämän perusteella antaa palautetta opiskelijalle.
+
+
+Opettaja voi Kohahduksessa luoda uuden tehtävän. Tehtävä tallennetaan eAssarin tietokantaan, ja näin se on opiskelijan nähtävissä tehtävälistauksessa.
+
+
+\begin{figure}[h]
+  \includegraphics[width=17cm] {tilasiirtymat.eps}
+  \caption{Kohahduksen tilasiirtymät}
+\end{figure}
+
+
+
+\section{Käyttäjävaatimukset}
+
+Käyttäjävaatimuksissa käytetään luokittelua
+
+\begin{description}
+\item[Tunnus]: K tarkoittaa käyttäjävaatimusta ja K:n perässä on käyttäjävaatimuksen numero
+\item[Prioriteetti]: Vaatimuksen prioriteetti
+
+1 Toteutetaan varmasti
+
+2 Toteutetaan mahdollisesti
+
+3 Toteutataan lopuksi jos aikaa on
+
+4 Ei toteuteta
+
+\item[Nimi]: Vaatimuksen nimi
+\item[Kuvaus]: Vaatimuksen tarkempi kuvaus
+\end{description}
+
+
+
+\subsection{Toiminnalliset käyttäjävaatimukset}
+
+\begin{list}{\textbf{K\arabic{laskuri}.}}{\usecounter{laskuri}}
+\setcounter{laskuri}{\value{KLaskuri}}
+
+\item Tehtävien kieli 
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus] Tehtävät voivat olla joko suomeksi tai englanniksi
+\end{description}
+
+\item Opettajan käyttöliittymien kieli
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus] Opettajan käyttöliittymän toteutetaan englannin kielellä. 
+\end{description}
+
+\begin{description}
+\item[Tunnus]: K2
+\item[Prioriteetti]: 3
+\item[Nimi]: Opettajan käyttöliittymien kieli
+\item[Kuvaus]: Opettajan käyttöliittymä toteutetaan myös suomen kielellä.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 1
+\item[Nimi]: Opiskelijan käyttöliittymien kieli
+\item[Kuvaus] Opiskelijan käyttöliittymä on oltava englanniksi ja suomeksi.
+\end{description}
+
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Nimi]: Ohjelmointitehtävä
+\item[Kuvaus] Järjestelmä mahdollistaa ohjelmointitehtävän, jossa opiskelijaa pyydetään kirjoittamaan TTK-91-kielinen ohjelma, joka ratkaisee annetun
+tehtävän. Opiskelija kirjoittaa vastauksen tyhjään tekstikenttään
+\end{description}
+
+\begin{description}
+\item [Prioriteetti]: 1
+\item [Nimi]: Täydennystehtävä
+\item [Kuvaus] Järjestelmä mahdollistaa täydennystehtävän, jossa opiskelijalle näkyy valmiiksi osa ratkaisua josta puuttuu yksi kohta. Opiskelija täydentää puuttuvan kohdan.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 4
+\item[Nimi]: Dynaaminen tehtävä
+\item[Kuvaus] Kolmatta mahdollista tehtävätyyppiä, dynaamista tehtävää ei toteuteta. Dynaaminen tehtävä on sellainen, joka generoidaan samalla kun opiskelija avaa tehtävän. Näin tehtävässä voi olla joka käynnistyskerralla erilaiset arvot annetuissa rajoissa. Tällaisen tehtäväntyypin mahdollinen myöhempi lisääminen, esimerkiksi uuden Ohjelmistotuotantoryhmän toimesta, huomioidaan kuitenkin mahdollisuuksien mukaan, tehden tämä lisääminen mahdollisimman helpoksi.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 1
+\item[Nimi]: Testisyötteet
+\item[Kuvaus] Vastauksien oikeellisuuden tarkastuksessa käytetään sekä näkyviä syötteitä että salaisia syötteitä. Syötteet ovat aina kokonaislukuja. Salaisten syötteiden käytön tarkoituksena on estää mahdollisten oikopolkujen käyttäminen, esimerkiksi yritys tulostaa pelkkä vastaus ilman pyydettyä ohjelmarakennetta.
+\end{description}
+
+\subsection{Käyttäjävaatimukset opettajalle}
+
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 1
+\item[Nimi]: Opettajan kirjautuminen 
+\item[Kuvaus]: Opettaja voi kirjautua järjestelmään 
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 1
+\item[Nimi]: Tehtävälistaus
+\item[Kuvaus]: Opettaja saa nähtäväkseen kaikki järjestelmässä olevat tehtävät. Opettaja voi myös hakea tehtävien suoritustilastoja tietyltä aikaväliltä. Haun jälkeen Kohahdus antaa taulukon kyseisistä tehtävistä ja opiskelijoiden suorituksista.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 2
+\item[Nimi]: Raporttien tulostaminen
+\item[Kuvaus]: Opettaja voi pyytää järjestelmältä raporttia opiskelijan suorituksista. Opettaja voi hakea nimen perusteella opiskelijan suorittamat tehtävät.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 1
+\item[Nimi]: Uuden tehtävän lisääminen
+\item[Kuvaus]: Opettaja voi lisätä uuden tehtävän, määritellä sillä tarkistuskriteerit, palautteet ja aihepiirin johon tehtävä kuuluu.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 1
+\item[Nimi]: Tehtävän muokkaaminen
+\item[Kuvaus]: Opettaja voi muokata tehtävää ja sen tarkistuskriteerejä
+\end{description}
+
+
+
+\subsection{Käyttäjävaatimukset opiskelijalle}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 1
+\item[Nimi]: Rekisteröityminen
+\item[Kuvaus]: Opiskelija voi rekisteröityä järjestelmän käyttäjäksi.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 1
+\item[Nimi]: Kirjautuminen
+\item[Kuvaus]: Opiskelija voi kirjautua järjestelmään
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 1
+\item[Nimi]: Tehtävien selailu
+\item[Kuvaus]: Opiskelija voi selailla järjestelmässä olevia tehtäviä, joko kaikkia tai hänen valitsemiensa kriteerien mukaan lajiteltuja.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 1
+\item[Nimi]: Tehtävään vastaaminen
+\item[Kuvaus]: Opiskelija voi vastata valitsemaansa tehtävään ja saada palautetta vastauksestaan.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Prioriteetti]: 3
+\item[Nimi]: Omien tietojen muuttaminen
+\item[Kuvaus]: Opiskelija voi muokata omia tietojaan.
+\end{description}
+
+\subsection{Palautteet}
+
+Palaute on keskeisessä osassa toteutettavassa ohjelmistossa ja järjestelmän tuleekin pystyä antamaan monipuolista palautetta opiskelijalle.
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Kuvaus]: Ohjelma kääntyy Titokoneessa, kaikki tehtävälle määritellyt kriteerit täyttyvät, ja ohjelma toimii oikein sekä normaalilla että salaisella syötteellä
+\end{description}
+Palaute: Annetaan opiskelijalle palaute jossa kerrotaan tehtävän onnistuneen
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Kuvaus]: Opiskelijan tekemän ohjelman kääntäminen ei onnistu
+\end{description}
+Palaute: Annetaan opiskelijalle palaute jossa kerrotaan sekä että tehtävä ei onnistunut ja että missä kohtaa virhe tapahtui. Virhe-ilmoituksista annetaan ensimmäinen.
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Kuvaus]: Tehtävä ei toimi normaalilla syötteellä
+\end{description}
+Palaute: Ohjelma ei toiminut kun käytettiin tavallista syötettä. Lisäksi kerrotaan mahdollisimman tarkasti missä kohdassa virhe tapahtui.
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Kuvaus]: Tehtävä ei toimi salaisella syötteellä
+\end{description}
+Palaute: Ohjelma ei toiminut kun käytettiin salaista syötettä. Lisäksi kerrotaan mahdollisimman tarkasti missä kohdassa virhe tapahtui.
+
+
+
+
+\subsection{Ei-toiminnalliset käyttäjävaatimukset}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Nimi]: Opettajan käyttöliittymä tulee olla selkeä
+\item[Kuvaus]: Käyttöliittymän on oltava ehdottoman selkeä, ja hyvä käytettävyydeltään. Projektissa on on käyttöliittymä priorisoitu tärkeimmäksi yksittäiseksi ominaisuudeksi. Käyttöliittymän tulee olla niin havainnollinen ja itsestäänselvä että sen käyttö onnistuu opettajalta vähäisellä käyttöohjeisiin tutustumisella.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Nimi]: Opiskelijan käyttöliittymän tulee olla selkeä ja itsensä selittävä
+\item[Kuvaus]: Opiskelijan käyttöliittymän tulee olla niin havainnollinen, että sen käyttämiseksi ei välttämättä tarvitse tutustua käyttöohjeisiin.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Nimi]: Palautteet käyttäjälle
+\item[Kuvaus]: Palautteiden on oltava tarkkoja ja yksityiskohtaisia.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Kx
+\item[Nimi]: Ei turhia siirtymiä sivujen välillä.
+\item[Kuvaus]: Yritetään pitää sivusiirtymien määrä minimissä. Eli käytetään mahdollisimman vähän next-tyyppisiä painikkeita lomakkeissa.
+\end{description}
+
+\end{list}
+
+\subsection{Käyttäytyminen virhetilanteissa}
+
+Järjestelmän käyttö vaatii sisäänkirjautumista
+Sekä opettajan että opiskelijan on kirjauttuva sisään järjestelmään pystyäkseen käyttämään sitä.
+
+
+mahdolliset virhetilanteet ja niihin reagoiminen:
+
+\emph{Väärä tunnus kirjautumisen yhteydessä}
+
+
+Annetaan virheilmoitus "Väärä tunnus tai salasana, yritä uudestaan"
+
+\emph{Väärä salasana kirjautumisen yhteydessä}
+
+
+Annetaan virheilmoitus "Väärä tunnus tai salasana, yritä uudestaan"
+
+\emph{Väärän tyyppinen syöte tehtävän luonnissa}
+
+
+Jos opettaja antaa vääräntyyppisen syötteen tehtävän luonnissa, tästä annetaan virheilmoitus. Esimerkki: Opettaja yrittää antaa rekisterille R1 arvon "k".
+
+
+\emph{Väärän tyyppinen syöte opiskelijan vastauksessa}
+
+
+Jos opiskelija antaa vääräntyyppisen syötteen kenttään, tästä annetaan virheilmoitus. Esimerkki: opiskelija kirjoittaa syöte-kenttään kirjaimia, vaikka kyseinen kenttä saa sisältää vain kokonaislukuja (kaikkien Titokoneen syötteiden tulee olla kokonaislukuja).
+
+\emph{Verkkoyhteys ei toimi}
+
+
+Annetaavan virheilmoitus "Verkkoyhteys ei toimi"
+
+\emph{Tietokantavirhe}
+
+
+Jos tietokantayhteys pätkii
+
+
+
+\section{Käyttötapaukset}
+
+\begin{figure}[h]
+     \includegraphics[width=14cm] {kayttotapaukset.eps}
+     \caption{Käyttötapauskaavio}
+\end{figure}
+
+
+\subsection{Opettajan käyttötapaukset}
+
+\emph{Järjestelmään kirjautuminen}
+
+
+Opettaja voi kirjautua järjestelmään tunnuksella ja salasanallaan.
+
+\emph{Tehtävien selaaminen}
+
+
+Opettaja voi selata järjestelmässä olevia tehtäviä.
+
+\emph{Tehtävän lisäys}
+
+
+Opettaja voi lisätä tehtävän järjestelmään määrittelemällä sille nimen, kuvauksen, kielen, tehtävänannon, näkyvät ja salaiset syötteet sekä erilaisia oikeellisuus- ja laatukriteerejä.
+
+\emph{Tehtävän muokkaaminen}
+
+
+Opettaja voi muokata mitä tahansa tehtävää, myös jonkin toisen opettajan määrittelemää. Tehtävän kaikki ominaisuudet ovat muokattavissa.
+
+\emph{Tehtävän poisto}
+
+
+Opettaja voi poistaa minkä tahansa tehtävän, myös jonkin toisen opettajan määrittelemän tehtävän.
+
+\emph{Raportin katseleminen}
+
+
+Opettaja voi pyytää raportin opiskelijoiden suorituksista. Raportti on helposti tulostettavassa muodossa.
+
+\emph{Uloskirjautuminen}
+
+
+Kun opettaja ei enää käytä järjestelmää, hän voi kirjautua ulos.
+
+
+\subsection{Opiskelijan käyttötapaukset}
+
+\emph{Rekisteröityminen}
+
+
+Opiskelijan pitää rekisteröityä ennen ensimmäistä käyttökertaa.
+
+\emph{Kirjautuminen}
+
+
+Rekisteröityään opiskelija voi kirjautua järjestelmään.
+
+\emph{Tehtävien katselu}
+
+
+Käyttääkseen järjestelmää opiskelijan on kirjauduttava sisään järjestelmään. Kirjauduttuaan opiskelija saa nähtäväkseen järjestelmässä olevat moduulit. Moduulin nimeä napauttamalla opiskelija saa nähtäväkseen listauksen kyseisen moduulin tehtävistä ja jokaista tehtävää kohden tiedon onko tehtävä a) tekemättä, b) tehty mutta hylätty, vai c) tehty ja hyväksytty.
+
+\emph{Tehtävien ratkaiseminen}
+
+
+Valittuaan em. tehtävälistauksesta haluamansa tehtävän opiskelija voi yrittää ratkaista sen syöttämällä kenttiin pyydetyn konekielisen ohjelman (ohjelmointitehtävä) tai sen osan (täydennystehtävä) sekä ohjelmalle annettavat syötteet ja lähettämällä sen järjestelmän tarkistettavaksi. Järjestelmä pisteyttää tehtävän ja antaa palautetta tehtävää luodessa/muokatessa annettujen kriteerien mukaan sekä mahdollisesti Titokone-simulaattorin ohjelman suorituksesta antamien tietojen mukaan. Opiskelija voi aina halutessaan palata tehtävälistaukseen ja yrittää jotakin toista tehtävää.
+
+\emph{Keskeneräisen tehtävän tallentaminen}
+
+
+Opiskelijan on mahdollista tallentaa keskeneräinen tehtävä. Samalla tehtävä pysyy tekstikentässä, että sen muokkaamista voidaan suoraan jatkaa.
+
+\emph{Uloskirjautuminen}
+
+
+Kun opiskelija ei enää käytä järjestelmää, hän voi kirjautua ulos.
+
+
+\section{Järjestelmävaatimukset}
+
+
+Järjestelmävaatimukset ovat muotoa
+
+\begin{description}
+\item[Tunnus]: V tarkoittaa järjestelmävaatimusta ja numero yksilöi vaatimuksen
+\item[Prioriteetti]:
+1 Toteutetaan varmasti
+2 Toteutetaan mahdollisesti
+3 Toteutataan lopuksi jos aikaa on
+4 Ei toteuteta
+\item[Nimi]: Järjestelmävaatimuksen nimi
+\item[Kuvaus]: Järjestelmävaatimuksen tarkempi kuvaus
+\end{description}
+
+\subsection{Toiminnalliset vaatimukset}
+
+\subsubsection{Kirjautuminen ja tunnuksen luominen}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Opettajan kirjautuminen järjestelmään
+\item[Kuvaus]: Opettaja voi kirjautua järjestelmään.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Opettajan tunnuksen luominen
+\item[Kuvaus]: Asiakkaan kanssa on sovittu että opettajat lisätään järjestelmään erillisillä SQL-lauseilla. Toimintoa ei siis toteuteta tämän projektin puitteissa.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Opiskelijan tunnuksen luominen
+\item[Kuvaus]: Opiskelija voi luoda tunnuksen järjestelmään. Opiskelija antaa tunnuksen luomisen yhteydessä nimensä, käyttäjätunnuksen, salasanan, opiskelijatyypin, sähköpostiosoittensa ja henkilötunnuksensa. Opiskelijatyypillä tarkoitetaan tässä sitä minkälainen suhde opiskelijalla on järjestelmään, esimerkiksi itseopiskelija tai vuoden 2006 syksyn opiskelija.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Opiskelijan tietojen muokkaaminen
+\item[Kuvaus]: Opiskelija voi muokata salasanaansa, opiskelijatyyppiään, sähköpostiosoitettaan.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Opiskelijan kirjautuminen järjestelmään
+\item[Kuvaus]: Opiskelija voi kirjautua järjestelmään luomallaan tunnuksella.
+\end{description}
+
+\subsubsection{Tehtävätyypit}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Ohjelmointitehtävä
+\item[Kuvaus]: Ohjelmointitehtävässä opiskelija kirjoittaa TTK-91 -kielisen koodin, jonka pitäisi ratkaista
+annettu tehtävä.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Täydennystehtävä
+\item[Kuvaus]: Täydennystehtävässä on annettu valmiiksi osa vastauksesta, mutta se sisältää puuttuvan kohdan, johon opiskelijan tulee kirjoittaa oma vastauksensa. Tämä puuttuva kohta voi edeltää tehtävän annettua osuutta, olla sen keskellä, tai sen jälkeen.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 3
+\item[Nimi]: Dynaaminen tehtävä
+\item[Kuvaus]: Dynaaminen tehtävä on tehtävä, jonka sisältö määräytyy vasta kun tehtävä avataan. Tätä tehtävä tyyppiä ei toteuteta projektissa, mutta mahdollisuuksien mukaan huomioidaan että sen lisääminen myöhemmin olisi mahdollista esimerkeksi uuden Ohjelmistotuotanto-ryhmän puolesta.
+\end{description}
+
+
+\subsubsection{Uuden tehtävän luonti}
+
+\begin{description}
+\item[Tunnus]: V1
+\item[Prioriteetti]: 1
+\item[Nimi]: Uuden tehtävän lisäys
+\item[Kuvaus]: Opettaja lisää uuden tehtävän ja määrittelee sille tarkistuskriteerit, sekä palautteet, jotka opiskelija saa eri tilanteissa. Lisäksi tehtävälle voi 
+määritellä aihepiirin. Tehtävän määrittelyn pitää mahtua yhdelle sivulle. Määrittelyn ei tarvitse mahtua ruutuun kerralla, eli määrittelysivua voi joutua skrollaamaan, mutta tehtävän määrittely ei saa sisältää sivusiirtymiä. Uusi tehtävä on normaalissa tekstimuodossa.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 3
+\item[Nimi]: Uuden tehtävän luonti vanhan tehtävän pohjalta
+\item[Kuvaus]: Opettaja voi luoda uuden tehtävän, siten että uuden tehtävän alkuarvot ovat asetettu vanhan tehtävän mukaisesti.
+\end{description}
+
+\subsubsection{Tehtävän määrittely}
+
+\begin{description}
+\item[Tunnus]: V2
+\item[Prioriteetti]: 1
+\item[Nimi]: Kriteerien määrittely tehtävälle
+\item[Kuvaus]: Opettaja saa valita montako kriteeriä määrittelee uudelle tehtävälle.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Palautteen määrittely tehtävälle
+\item[Kuvaus]: Opettaja voi määritellä tehtävälle eri tilanteissa annettavan palautteen. Palautekentissä on valmiina oletuspalaute, jota opettaja voi käyttää jos ei halua 
+määritellä tarkempaa palautetta.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 2
+\item[Nimi]: Tehtävän aihepiiri
+\item[Kuvaus]: Opettaja voi määritellä tehtävälle aihepiirin johon tehtävä kuuluu. Esimerkki: Tehtävällä on aihepiiri Aliohjelmatehtävät.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Tarkistusmallin valinta
+\item[Kuvaus]: Opettaja valitsee tarkistetaanko tehtävä annettujen arvojen perusteella vai malliratkaisun perusteella. Oletuksena on annettujen arvojen perusteella. Jos 
+opettaja valitsee malliratkaisun, web-sivulle ilmestyy kohta johon malliratkaisun voi kirjoittaa.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: V3
+\item[Prioriteetti]: 1
+\item[Nimi]: Opettajan tehtävälistaus
+\item[Kuvaus]: Opettajan tehtävälistauksessa esitetään tehtävien nimi, tyyppi, kategoria ja kieli.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: V3
+\item[Prioriteetti]: 1
+\item[Nimi]: Opiskelijan tehtävälistaus
+\item[Kuvaus]: Opiskelijan tehtävälistauksessa esitetään tehtävien nimi, tyyppi, kuvaus ja yrityskerrat, sekä tieto siitä onko hyväksytty, kesken tai ei vielä kertaakaan 
+yritetty.
+\end{description}
+
+
+
+
+\subsubsection{Tehtävän muokkaus}
+
+\begin{description}
+\item[Tunnus]: V4
+\item[Prioriteetti]: 1
+\item[Nimi]: Vanhan tehtävän muokkaus
+\item[Kuvaus]: Opettaja voi muokata vanhaa tehtävää. Kaikki tehtävät ovat kaikkien opettajien muokattavissa.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Raportti opiskelijoiden suorituksista
+\item[Kuvaus]: Opettaja voi tulostaa raportin opiskelijoiden suorituksista. Raporttiin tulee opiskelijan nimi ja suoritettujen tehtävien lukumäärä.
+\end{description}
+
+
+\subsubsection{Tehtävään vastaaminen}
+
+\begin{description}
+\item[Tunnus]: V5
+\item[Prioriteetti]: 1
+\item[Nimi]: Tehtävän valitseminen
+\item[Kuvaus]: Opiskelija selaa tarjolla olevia tehtäviä ja valitsee haluamansa. Tässä listassa erotellaan opiskelijan jo ratkaisemat tehtävät.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: V6
+\item[Prioriteetti]: 1
+\item[Nimi]: Tehtävään vastaaminen
+\item[Kuvaus]: Opiskelija kirjoittaa TTK-91 kielisen ohjelman, jonka pitäisi ratkaista annettu ongelma.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Tehtävän kuittaaminen ratkaistuksi
+\item[Kuvaus]: Opiskelija on kirjoittanut valmiiksi ratkaisunsa tehtävään ja painaa "lähetä vastaus" -nappia. Järjestelmä kertoo miten tehtävä onnistui.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Käännöksen palaute Titokoneesta
+\item[Kuvaus]: Jos käännös onnistuu, Titokone ei anna erillistä palautetta. Jos käännös epäonnistuu annetaan ensimmäinen käännöksessä löytynyt virheilmoitus. Mahdollisiin 
+seuraaviin virheisiin ei reagoida.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 2
+\item[Nimi]: Suoritusstatistiikka
+\item[Kuvaus]: Käyttäjälle näytetään tilastotietoja ohjelman suorituksesta. Tässä tilastossa on suoritettujen käskyjen määrä, muistiviitteiden määrä, dataviitteiden määrä 
+ja koodin koko.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Keskeneräisen tehtävän tallennus
+\item[Kuvaus]: Opiskelija voi tallentaa keskeneräisen tehtävän painamalla "lähetä vastaus" -nappia. Samalla kun tehtävä käännetään, siihen astinen vastaus tallennetaan.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 2
+\item[Nimi]: Tehtyjen tehtävien näkyminen
+\item[Kuvaus]: Opiskelijalle tallennetaan ratkaistut tehtävät. Nämä tiedot näytetään opiskelijan selatessa tehtävälistaa.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Priotiteetti]: 2
+\item[Nimi]: Opiskelijan pisteiden esitys
+\item[Kuvaus]: Opiskelijan keräämät pisteet esitetään opiskelijan käyttöliittymän alareunassa.
+\end{description}
+
+
+Järjestelmävaatimukset kriteereille
+
+
+\begin{description}
+\item[Tunnus]: V7
+\item[Prioriteetti]: 1
+\item[Nimi]: Tehtävien tarkastuskriteerit
+\item[Kuvaus]: Kriteerit määrittelevät miten vastauksien oikeellisuus tarkastetaan. Kriteerien mukaisesti päätetään onko vastaus hyväksyttävä, ja valitaan minkälainen palaute opiskelijalle annetaan. Kutakin kriteerityyppiä voi olla useita, ja niille voi jokaiselle antaa omat palautteensa. Esimerkki: Rekisterin R2 arvo oli väärä tai Rekisterin R3 arvo oli väärä.
+\end{description}
+
+
+
+\subsubsection{Hyväksymiskriteerit}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Hyväksymiskriteerit
+\item[Kuvaus]: Hyväksymiskriteerit määrittelet millä ehdoin tehtävän ratkaisu hyväksytään tai hylätään.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: V8
+\item[Prioriteetti]: 1
+\item[Nimi]: Vastauksen maksimikoko (32:n bitin sanoina)
+\item[Kuvaus]: Vastauskoodille voidaan määritellä maksimikoko, jota pidempi vastaus ei saa olla.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: V10
+\item[Prioriteetti]: 2
+\item[Nimi]: Suoritettujen käskyjen lukumäärä
+\item[Kuvaus]: Vastaukselle voidaa määritellä kriteeriksi käskyjen lukumäärä, jota ei saa ylittää. Tämä on tärkeää etenkin sen vuoksi, ettei ohjelman suoritus voi jäädä ikuiseen silmukkaan.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Hyväksymisraja
+\item[Kuvaus]: Kun opettaja luo uuden tehtävän sille määritellään hyväksymisraja. Tätä samaa käytetään paitsi laadullisena kriteerinä myös stop-kriteerinä. Jos on suoritettu enemmän kuin hyväksymisrajan verran käskyjä, suoritus lopetetaan ja näin estetään ikuiseen silmukkaan joutuminen. Jos opettaja unohtaa määritellä hyväksymisrajan, hyväksymisrajaksi asetetaan vakioarvo. Laadullisena kriteerinä hyväksymisrajaa käsitellään nimellä vastauksen ihannekoko (vaatimus Vx).
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Rekisterin arvo
+\item[Kuvaus]: Kriteerinä voidaan käyttää valitun rekisterin arvoa ohjelman suorituksen päätyttyä. Esim. Onko rekisterin R3 arvo ohjelman suorituksen päätyttyä 4?
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+Prioriteetti 2
+\item[Nimi]: Suoritettujen muistiviittausten lukumäärä
+\item[Kuvaus]: Kriteerinä voidaan käyttää suoritettujen muistiviittausten lukumäärä. Muistiviittauksilla tarkoitetaan koodi- ja dataviitteiden summaa.
+\end{description}
+
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 3
+\item[Nimi]: Data ja koodi erikseen
+\item[Kuvaus]: dataviitteet ja muistiviitteet olisi hyvä erotella
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 3
+\item[Nimi]: Data-alueen koko
+\item[Kuvaus]: Data-alue tarkoittaa globaalisti määriteltyjä tietorakenteita
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 3
+\item[Nimi]: Pinon koko
+\item[Kuvaus]: Kriteerinä voidaan käyttää pinon kokoa
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Jonkun tietyn muuttujan (esim. X) arvo
+\item[Kuvaus]: Kriteerinä voi olla jonkun tietyn muuttujan arvo ohjelman suorituksen jälkeen.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Tulostetun luvun arvo
+\item[Kuvaus]: Kriteereinä voidaan käyttää sitä mitä opiskelijan ohjelma on tulostanut Titokoneen näytölle (CRT),
+esimerkiksi luku 4.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Pakolliset käskyt
+\item[Kuvaus]: Ohjelmalle voidaan määritellä pakollisia käskyjä, joiden käyttöä vaaditaan hyväksyttyyn suoritukseen.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Kielletyt käskyt
+\item[Kuvaus]: Ohjelmalle voidaan määritellä käskyjä joita ei saa käyttää. Näiden käskyjen käyttö johtaa vastauksen hylkäämiseen. Esimerkki: MUL.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 4
+\item[Nimi]: Tiedostoon tulostetun luvun arvo
+\item[Kuvaus]: Kriteerinä voi olla tiedostoon tulostetun luvun arvo.
+\end{description}
+
+
+
+\subsubsection{Laadulliset kriteerit}
+
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Laadulliset kriteerit
+\item[Kuvaus]: Laadullisten kriteerien perusteella voidaan antaa negatiivista tai positiivista palautetta, mutta ne eivät vaikuta tehtävän hyväksymiseen. Jos laadullinen kriteeri täyttyy, annetaan sille määritelty positiivinen palaute.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: V9
+\item[Prioriteetti]: 2
+\item[Nimi]: Vastauksen ihannekoko (32:n bitin sanoina)
+\item[Kuvaus]: Vastauskoodille voidaan määritellä ihannekoko. Jos opiskelin vastaus pienempi tai yhtä suuri kuin ihannekoko, annetaan opiskelijalle kiitokset lyhyestä ratkaisusta.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 2
+\item[Nimi]: Data-alueen ihannekoko
+\item[Kuvaus]: Data-alue tarkoittaa globaalisti määriteltyjä tietorakenteita, ja data-alueelle voidaan määritellä ihannekoko.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 3
+\item[Nimi]: Pinon ihannekoko
+\item[Kuvaus]: Pinon ihannekokoa voidaan käyttää laadullisena kriteerinä.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 2
+\item[Nimi]: Suoritettujen käskyjen ihannelukumäärää
+\item[Kuvaus]: Suoritettujen käskyjen lukumäärää voidaan käyttää laadullisena kriteerinä.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 2
+\item[Nimi]: Suoritettujen muistiviitteiden ihannelukumäärä
+\item[Kuvaus]: Suoritetuille muistiviitteille voidaan antaa ihannelukumäärä
+\end{description}
+
+
+
+
+\subsubsection{Kriteerien käyttäminen}
+
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 2
+\item[Nimi]: Kriteerin ja vastauksen vertailu
+\item[Kuvaus]: Opiskelijan vastausta voidaan vertailla kriteeriin nähden operaatioilla =, !=, <, >, <= ja >=. Opettaja määrittelee nämä tehtävää luodessaan.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Kriteerien yhdistäminen tehtävän oikeellisuuden määrittämisessä
+\item[Kuvaus]: Kriteerit yhdistetään aina AND-tyyppisesti.
+\end{description}
+
+
+\subsubsection{Muita järjestelmävaatimuksia}
+
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 3
+\item[Nimi]: Tehtävämoduulien luokittelu
+\item[Kuvaus]: Tehtävät voi luokitella pieniksi kokonaisuuksi. Esimerkki: Opettaja määrittelee moduulin "alkeistehtävät", joka sisältää helppoja tehtäviä.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 3
+\item[Nimi]: Tehtävämoduulin lisäys
+\item[Kuvaus]: Opettaja voi lisätä uuden tehtävämoduulin
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Opiskelijan käyttöliittymän kieli
+\item[Kuvaus]: Opiskelijan käyttöliittymä on sekä suomeksi että englanniksi.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Opettajan käyttöliittymä englanniksi
+\item[Kuvaus]: Opettajan käyttöliittymä tehdään englannin kielellä
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 3
+\item[Nimi]: Opettajan käyttöliittymä suomeksi
+\item[Kuvaus]: Opettajan käyttöliittymä tehdään jos ehditään myös suomenkielisenä
+\end{description}
+
+
+\subsection{Titokoneen mahdollinen muokkaus}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 1
+\item[Nimi]: Symbolitaulu Titokoneesta
+\item[Kuvaus]: Titokoneen muokkaus siten että symbolitaulu saadaan tulostettua
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Prioriteetti]: 2
+\item[Nimi]: Makefile Titokoneelle
+\item[Kuvaus]: Luodaan Titokoneelle makefile. Makefile kääntää Titokoneen, luo Titokoneesta jar- ja zip-muotoiset levityspaketit sekä luo javadocin.
+\end{description}
+
+
+
+\subsection{Ei-toiminnalliset järjestelmävaatimukset}
+
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Kuormitus
+\item[Kuvaus]: Se kuinka monta käyttäjää järjestelmä pystyy käsittelemään kerralla, ja montako
+käyttäjää vuositasolla periytyy eAssarista ja Titokoneesta. Tarkat tiedot asiasta eivät ole tämän projektin ulottuvissa.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Opettajan käyttöliittymän selkeys
+\item[Kuvaus]: Käyttöliittymän tulee olla mahdollisimman selkeä ja helppokäyttöinen. Hyvä käyttöliittymä on sellainen joka on niin havainnollinen, että sen käyttöohjeisiin tarvitsee tutustua tuskin ollenkaan.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Opiskelijan käyttöliittymän selkeys
+\item[Kuvaus]: Käyttöliittymän tulee olla mahdollisimman selkeä ja helppokäyttöinen. Hyvä käyttöliittymä on sellainen joka on niin havainnollinen, että sen käyttöohjeisiin tarvitsee tutustua tuskin ollenkaan. Opiskelijan käyttöliittymästä tehdään sellainen, että sen käyttäminen ei vaadi ollenkaan käyttöohjetta.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Tehtävän pisteytys
+\item[Kuvaus]: Tehtävästä voi saada pisteitä joko 0 tai 100. 0 Tarkoittaa että tehtävä ei ole onnistunut ja 100 että tehtävä on ratkaistu.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Helppokäyttöisyys
+\item[Kuvaus]: Järjestelmän on oltava joka suhteessa mahdollisimman helppokäyttöinen.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Selkeä käyttöohje opettajalle ja oppilaalle
+\item[Kuvaus]: Käyttöohjeen tulee olla kattava ja selkeä.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Opettaja vastaa kriteerien mielekkyydestä
+\item[Kuvaus]: Opettaja on vastuussa siitä, että tehtävänanto ja kriteerit vastaavat toisiaan ja ovat muutenkin järkeviä. Järjestelmä ei tee tarkistuksia tehtävien mielekkyydestä.
+\end{description}
+
+
+
+\subsection{Toimintaympäristövaatimukset}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: eAssari-yhteensopivuus
+\item[Kuvaus]: Järjestelmän tulee toimia yhteistyössä eAssari-kehyksen kanssa
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Titokone-yhteensopivuus
+\item[Kuvaus]: Järjestelmän tulee toimia yhteistyössä Titokoneen kanssa
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Sijainti
+\item[Kuvaus]: Järjestelmä sijaitsee Helsingin Yliopiston palvelimella db.cs.helsinki.fi
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Tuetut selaimet
+\item[Kuvaus]: Kohahduksen taataan toimivan uusimmilla Firefox (1.5.x) ja Internet Explorer (6) -selaimilla ja ohjelman käyttö ei vaadi erillisten laajennustan asentamista. Hyvin todennäköisesti järjestelmä toimii myös ko. selainten vanhemmilla versioilla ja muilla selaimilla, mutta ainoastaan uusimmat Firefox ja Internet Explorer taataan toimivaksi.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: JavaScript
+\item[Kuvaus]: Järjestelmä vaatii JavaScriptiä toimiakseen. Jos JavaScript on selaimesta pois päällä, tästä huomautetaan kirjautumissivulle tultaessa. Itse kirjautuminen ei onnistu ilman JavaScriptiä, vaan kirjautumisyrityksestä ilman JavaScriptiä annetaan kehoitus laittaa JavaScript päälle.
+\end{description}
+
+\begin{description}
+\item[Tunnus]: Vx
+\item[Nimi]: Käyttöjärjestelmä
+\item[Kuvaus]: Kohahduksen taataan toimivan sekä Windows XP:ssä että uudemmissa Linuxeissa, joita Tietojenkäsittelytieteen laitoksella käytetään.
+\end{description}

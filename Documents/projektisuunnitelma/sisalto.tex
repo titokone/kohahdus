@@ -1,0 +1,485 @@
+% Esimerkki oman komennon määrittämisestä. Jos komentoa tarvitaan useissa
+% dokumenteissa, se kannattaa mielummin laittaa asetukset.tex-tiedostoon.
+\newcommand{\tiedostonimi}[1]{\texttt{#1}}
+\newcommand{\termi}[1]{\textit{#1}}
+
+\section{Johdanto}
+
+Tämä on ohjelmistotuotantoprojektiryhmän Esim projektisunnitelma.
+Projektin tarkoituksena on tuottaa ydinohjelmisto
+ohjelmistotuotantoprojektien keskitetylle hallintajärjestelmälle.
+
+Ohjelmistotuotantoprojektien keskitetty hallintajärjestelmä (jatkossa
+Okha-järjestelmä) tarjoaa palveluita ohjelmistotuotantoprojektien
+jäsenille, ohjaajille, asiakkaille ja vastuuhenkilöille.
+
+%% Loput Okha-järjestelmän kuvauksesta tähän
+
+Esim-ryhmän tehtävänä on suunnitella ja toteuttaa Okha-järjestelmän
+ydinohjelmisto.  Se sisältää
+
+\begin{itemize}
+\item koko Okha-järjestelmän tietotarpeet täyttävän tietokannan,
+\item käyttäjien hallinnan:lisäykset, tietojen muutokset, poistot,
+\item sisäänkirjautumisen,
+\item projektien jäsenten tuntikirjanpidon ja
+\item projektikohtaiset ilmoitustaulut.
+\end{itemize}
+
+\section{Projektiorganisaatio}
+
+Esim-ryhmä seuraa demokraattinen hajautettu -ryhmämallia. Jokaisella
+ryhmän jäsenellä on vastuualue, josta hänellä on ylin päätäntävalta.
+Muuten ryhmän toiminta on tasa-arvoista.  Kaikki saavat esittää
+kysymyksiä, kommentteja ja palautetta kenelle tahansa.
+
+Ryhmän jäsenten vastuualueet ovat seuraavat:
+\begin{description}
+\item[Aino Airaksinen.] Projektipäällikkö, Vara-vaatimusmäärittelyvastaava.
+\item[Eila Eskola.] Vaatimusmäärittelyvastaava, Vara-suunnitteluvastaava.
+\item[Ida Isola.] Suunnitteluvastaava, Vara-koodivastaava.
+\item[Olli Osuma.] Testausvastaava, vara-dokumenttivastaava.
+\item[Unto Uusimaa.] Koodivastaava, vara-testausvastaava.
+\item[Yrjö Ylivirta.] Dokumenttivastaava, vara-projektipäällikkö.
+\end{description}
+
+Vastuualueiden tehtäväkuvaukset ovat seuraavat:
+\begin{description}
+\item[Projektipäällikkö.] Projektipäällikkö vastaa
+projektisuunnitelmasta, projektin aikataulusta, henkilöiden
+allokoinnista tehtäviin ja riskienhallinnasta.
+\item[Vaatimusmäärittelyvastaava.] Vaatimusmäärittelyvastaava toimii
+asiakkaiden ja projektiryhmän yhdyshenkilönä, vastaa vaatimusmäärittelyn
+osavaiheiden onnistumisesta, määrää vaatimusdokumentin rakenteen,
+toimii puheenjohtajana vaatimusmäärittelyyn liittyvissä kokouksissa ja
+vastaa siitä, että kaikki tuotteelta halutut vaatimukset saadaan
+kirjattua ylös.
+\item[Suunnitteluvastaava.] Suunnitteluvastaava vastaa siitä, että
+komponenttien väliset rajapinnat ovat yhdenmukaiset, suunnittelu
+tehdään projektin kannalta riittävällä tarkkuudella, tietokannan
+määrittely täyttää sille asetetut tavoitteet ja suunnitelma ja
+järjestelmäarkkitehtuuri ovat yhdenmukaiset.
+\item[Koodivastaava.] Koodivastaava vastaa siitä, että koodien ulkoasu
+on yhteneväinen, kaikki tekevät yksikkötestauksen, rajapinnat ovat
+yhtenevät myös kooditasolla ja koodi vastaa suunnittelua sekä
+arkkitehtuuri- että komponenttitasolla.
+\item[Testausvastaava.] Testausvastaava vastaa siitä, että kaikki
+käyttötapaukset testataan, kaikki käyttäjän vaatimukset testataan,
+kaikki kirjatut poikkeustilanteet testataan ja asiakkaalle annetaan
+mahdollisuus hyväksymistestaukseen.
+\item[Dokumenttivastaava.] Dokumenttivastaava vastaa siitä, että
+dokumenttien ulkoasu on yhteneväinen, dokumentit ovat luettavassa
+kunnossa ja dokumenttien sisältö on kattava. Dokuementtivastaava pitää
+yllä projektin kotisivua.
+\end{description}
+
+Jokaiselle vastuualueelle on määrätty varavastaava.  Varavastaava
+perehtyy alueeseen, ja jos varsinainen vastaava jonkin riskin
+toteutumisen seurauksena ei pysty jatkamaan vastaavana, varavastaava
+ottaa tehtävän itselleen.
+
+\section{Riskianalyysi}
+
+Projektiryhmä käyttää riskin todennäköisyydelle seuraavaa luokitusta:
+\begin{description}
+\item[Lähes varma (++++++).] Riski toteutuu todennäköisyydellä $p > 0,9$
+\item[Varma (+++++).] Riski toteutuu todennäköisyydellä $0,7 < p \leq 0,9$
+\item[Keskiverto (++++).] Riski toteutuu todennäköisyydellä $0,5 < p \leq 0,7$
+\item[Alle keskiverto (+++).] Riski toteutuu todennäköisyydellä $0,3 <p \leq 0,5$
+\item[Mahdollinen (++).] Riski toteutuu todennäköisyydellä $0,1 < p \leq 0,3$
+\item[Epätodennäköinen (+).] Riski toteutuu todennäköisyydellä $p < 0,1$
+\end{description}
+
+Projektiryhmä käyttää riskin vakavuudelle
+seuraavaa luokitusta:
+\begin{description}
+\item[Katastrofaalinen (******).] Riskin toteutuminen lopettaa projektin.
+\item[Erittäin vakava (*****).] Riskin toteutuminen vahingoittaa projektia ja
+voi estää sen jatkumisen.
+\item[Vakava (****).] Riskin toteutuminen haittaa projektia ja voi estää sen
+pysymisen aikataulussa.
+\item[Keskiverto (***).] Riskin toteutuminen haittaa projektia ja voi estää
+kaikkien haluttujen ominaisuuksien toteuttamisen.
+\item[Lievä (**).] Riskin toteutuminen aiheuttaa projektiin lisätyötä,
+mutta ei estä projektia valmistumasta aikataulussa toivotuin
+ominaisuuksin.
+\item[Erittäin lievä (*).] Riskin toteutuminen aiheuttaa pientä
+epämukavuutta projektissa.
+\end{description}
+
+Projektiryhmä käyttää riskien priorisointiin seuraavaa asteikkoa:
+\begin{description}
+\item[Ykkösluokka (1).] Riskin toteutumisen todennäköisyyttä pienennetään
+aktiivisesti koko projektin kestävin vastatoimin. Riskin toteutuessa on varasuunnitelma.
+\item[Kakkosluokka (2).] Riskin toteutumisen todennäköisyyteen pyritään
+vaikuttamaan projektin alussa tehtävillä päätöksillä. Riskin
+toteutuessa on varasuunnitelma.
+\item[Kolmosluokka (3).] Riskin toteutumisen todennäköisyyteen ei
+vaikuteta.  Riskin toteutuessa on olemassa varasuunnitelma.
+\item[Nelosluokka (4).] Riskiä ei huomioida.
+\end{description}
+
+\subsection{Projektin riskit}
+
+\begin{description}
+\item[Keskeytys.] Projektiryhmän jäsen keskeyttää projektin.
+\item[Hidastelu.] Projektiryhmän jäsen ei tee tehtäviään kunnolla,
+vaan muiden pitää paikata hänen tekemisiään.
+\item[Kemia.] Projektiryhmän jäsenet eivät tule toimeen keskenään.
+\item[Ohjaaja.] Ohjaaja vaihtuu kesken projektin, ohjauksen painotus muuttuu
+\item[Vastuuhenkilö.] Vastuuhenkilö vaihtuu kesken projektin.
+\item[Aikataulu.] Projekti ei pysy aikataulussa. 
+\item[Lista jatkuu...]
+\end{description}
+
+\begin{tabular}{llll} \\
+Nimi & Todennäköisyys & Vaikutus & Prioriteetti \\
+Keskeytys & ++ & ***** & (1) \\
+Hidastelu & ++++ & **** & (2) \\
+Kemia & ++ & ****** & (1) \\
+Ohjaaja & + & ** & (4) \\
+Vastuuhenkilö & + & * & (4) \\
+Aikataulu & +++++ & **** & (2) \\
+\end{tabular}
+  
+\subsection{Tuotteen riskit}
+
+\begin{description}
+\item[Vaatimukset muuttuvat.] Asiakas ei osaa ilmaista vaatimuksia
+selvästi.
+\item[Tekniset haasteet.] Ryhmä ei osaa tehdä haluttua tuotetta.
+\item[Ulkoiset rajapinnat.] Rajapinnat muihin järjestelmiin puuttuvat
+tai ovat vajaat.
+\item[Kokoarvio.] Tuote osoittautuu odotettua suuremmaksi.
+\item[Lista jatkuu...]
+\end{description}
+
+\begin{tabular}{llll} \\
+Nimi & Todennäköisyys & Vaikutus & Prioriteetti \\
+Vaatimukset & +++++ & *** & (3) \\
+Tekniset & ++ & *** & (3) \\
+Ulkoiset & + & ***** & (4) \\
+Kokoarvio & +++++ & **** & (1) \\
+\end{tabular}
+
+\subsection{Organisaation riskit}
+
+\begin{description}
+\item[Kurssi muuttuu.] Kurssin tavoitteet ja menetelmät muuttuvat
+kesken projektin.
+\item[Tuote löytyy valmiina.] Vastaava tuote löytyy valmiina
+Internetistä.
+\item[Lista jatkuu...]
+\end{description}
+
+\begin{tabular}{llll} \\
+Nimi & Todennäköisyys & Vaikutus & Prioriteetti \\
+Kurssi & + & ***** & (4) \\
+Tuote & ++ & ** & (4) \\
+\end{tabular}
+
+\subsection{Riskien hallinta}
+
+Seuraavat riskit on päätetty ottaa huomioon projektissa:
+
+\begin{tabular}{llll} \\
+Nimi & Todennäköisyys & Vaikutus & Prioriteetti \\
+Kemia & ++ & ****** & (1) \\
+Keskeytys & ++ & ***** & (1) \\
+Kokoarvio & +++++ & **** & (1) \\
+Hidastelu & ++++ & **** & (2) \\
+Aikataulu & +++++ & **** & (2) \\
+Vaatimukset & +++++ & *** & (3) \\
+Tekniset & ++ & *** & (3) \\
+\end{tabular}
+
+(Lista olisi luultavasti pitempi, mutta tässä esimerkissä
+riskienhallintaa ei tehty loppuun asti.)
+
+Riskeille on päätetty tehdä seuraavat vastatoimet.
+
+\begin{description}
+\item[Kemia.] Kaikkien jäsenten osallistumista seurataan
+aktiivisesti. Jokainen pitä huolen siitä, että ei anna liian tiukkaa
+kritiikkiä, vaikka osaisi mielestään itse tehdä jonkin asian
+parmemin.  Ohjaajalle ja vastuuhenkilölle kerrotaan heti, kun näyttää
+siltä, että joku syrjäytyy tai jotkut eivät tule lainkaan toimeen
+keskenään.  Pienryhmissä pyritään siihen, että pienryhmän jäsenet
+viihtyvät yhdessä.
+\item[Keskeytys.] Projektin alussa määrätään kullekin vastuualueelle
+vara-vastuuhenkilö.  Keskeytyksiä pyritään estämään pitämällä
+ryhmähenki korkealla.  Tehtävät jaetaan tasaisesti ja
+demokraattisesti.
+\item[Kokoarvio.] Projektisuunnitelman ja vaatimusmäärittelyn jälkeen
+arvioidaan ohjelmiston koot.  Arviointiin lasketaan noin viidennes
+joustovaraa ylöspäin.  Jos tuotteen kokoarvio kasvaa
+vaatimusmäärittelyn jälkeen yli 10.000 koodirivin, asiakkaan kanssa
+keskustellaan alhaisen prioriteetin vaatimusten pudottamisesta.
+\item[Lista jatkuu...]
+\end{description}
+
+Riskien toteutuessa on päätetty seuraavista varasuunnitelmista.
+\begin{description}
+\item[Kemia.] Pahoissa tapauksissa pyydetään vastuuhenkilöä muuttamaan
+ryhmäjakoa.  Lievissä tapauksissa pidetään yhteensopimattomat ihmiset
+poissa toistensa tieltä.
+\item[Keskeytys.] Vara-vastuuhenkilö ottaa keskeyttäneen vastuut
+itselleen.  Asiakkaan kanssa neuvotellaan työn pienentämisestä.
+\item[Kokoarvio.] Toteutusvaiheessa pudotetaan alhaisen prioriteetin
+vaatimuksia pois.  Pahimmassa tapauksessa palataan viikoksi
+suunnittelemaan aiempaa pienempi ydinohjelmisto.
+\item[Lista jatkuu...]
+\end{description}
+
+\section{Laitteisto- ja ohjelmistoympäristön vaatimukset}
+
+Ohjelmisto tehdään TKTL:n Linux-ympäristössä Java 5.0:lla.
+Tietokanta rakennetaan Oracle 10.0 tietokannan hallintajärjestelmän
+päälle. Työskentely-ympäristönä käytetään Eclipse-sovelluskehitintä.
+Kaikki tarvittavat laitteistot ja ohjelmistot ovat käytettävissä
+TKTL:n koneilla.
+
+\section{Koko- ja kustannusarviot}
+
+Okha-järjestelmän ydinohjelmisto voidaan jakaa seuraaviin osiin
+(vertaa Johdanto-luvun listaan):
+
+\begin{itemize}
+\item Sisäänkirjautuminen. Järjestelmä vaatii, että jokaisella
+käyttäjällä on käyttäjätunnus ja salasana.
+\item Tuntikirjanpidon syöttö. Tiedot syötetään kenttä kerrallaan.
+\item Oman tuntikirjanpidon katselu ja muokkaus.
+\item Oman tuntikirjanpidon merkintöjen poisto
+\item Oman ryhmän tuntikirjanpitojen yhteenvetojen katselu.  Tiedot
+näytetään joko viikoittain tai tehtyjen tehtävien mukaan
+ryhmiteltyinä.
+\item Muiden ryhmien tuntikirjanpitojen yhteenvetojen katselu. Tässä
+ovat samat näytöt kuin edellä.
+\item Ryhmän ilmoitustaulun katselu ja viestien kuittaus.
+\item Uuden viestin lisäys ryhmän ilmoitustaululle.
+\item Oman viestin poisto ilmoitustaululta.
+\item Omien tietojen näyttö ja muokkaus.
+\item Ryhmän tietojen näyttö ja muokkaus (ohjaaja ja vastuuhenkilö)
+\item Käyttäjien tietojen näyttö ja muokkaus (vastuuhenkilö)
+\item Käyttäjän ryhmän vaihto (vastuuhenkilö)
+\item Ryhmän lisäys (ohjaaja ja vastuuhenkilö)
+\item Ryhmän tietojen muokkaus (ohjaaja ja vastuuhenkilö)
+\item Ryhmän poisto (vastuuhenkilö)
+\item Käyttäjän poisto (vastuuhenkilö)
+\end{itemize}
+
+\subsection{Toimintopisteanalyysi}
+
+Toimintopisteanalyysi tehdään edellä listatuille järjestelmän
+ominaisuuksille.
+
+\begin{itemize}
+\item Sisäänkirjautuminen. Syötteiden määrä: 2 (käyttäjätunnus ja
+salasana).  Tulosteiden määrä: 0. Kyselyiden määrä: 1. Tiedostojen
+(tietokannan taulujen) määrä: 1-4.  Ulkoisten liittymien määrä: 0.
+\item Tuntikirjanpidon syöttö. Syötteiden määrä: 4 (päivä, pituus
+puolen tunnin tarkkuudella, työvaihe, selitys). Tulosteiden määrä:
+1. Kyselyiden määrä: 1-2 (vanhojen tietojen haku). Tiedostojen määrä:
+1-4. Ulkoisten liittymien määrä: 0.
+\item Oman tuntikirjanpidon katselu ja muokkaus. Syötteiden määrä: 5
+(muokkaustilan valinta + muokattavat kentät). Tulosteiden määrä:
+1. Kyselyiden määrä: 1-2. Tiedostojen määrä: 1-4. Ulkoisten liittymien
+määrä: 0.
+\item Oman ryhmän tuntikirjanpitojen yhteenvetojen katselu. Syötteiden
+määrä: 1 (Yhteenvetorakenteen valinta).  Tulosteiden määrä: 2 (kaksi
+eri näyttöä). Kyselyiden määrä: 2-4 (kaksi tilaa). Tiedostojen määrä:
+1-4. Ulkoisten liittymien määrä: 0.
+\item Lista jatkuu...
+\end{itemize}
+
+Edellisistä luvuista on laskettu minimi-, maksimi- ja odotettu määrä.
+Näistä on laskettu arvio kaavalla a = (minimi + maksimi +
+todennäköinen*4)/6.  Kaava on esitelty muun muassa alan oppikirjoissa
+yleisesti käytettynä arviomenetelmänä.
+
+Edellisen analyysin perusteella saadaan seuraava taulukko:
+
+\begin{tabular}{lllllll} \\
+Pistelähde & minimi & todennäköinen & maksimi & arvio & paino &
+pisteet \\ \hline
+Syötteiden määrä & 40 & 50 & 60 & 50 & 3 & 150 \\
+Tulosteiden määrä & 20 & 25 & 40 & 26 & 5 & 130 \\
+Kyselyiden määrä & 20 & 60 & 120 & 63 & 4 & 252 \\
+Tiedostojen määrä & 10 & 20 & 40 & 21 & 7 & 147 \\
+Ulkoisten liittymien määrä & 2 & 2 & 2 & 2 & 7 & 14 \\ \hline
+Yhteensä & & & & & & 693 \\
+\end{tabular}
+
+Kysymysten painoarvot:
+\begin{tabular}{ll}
+Backup and recovery & 4 \\
+Data communications & 2 \\
+Distributed processing & 0 \\
+Performance critical & 2 \\
+Existing operating environment & 2 \\
+On-line data entry & 5 \\
+Input transaction over multiple screens & 3 \\
+Master files updated on-line & 4 \\
+Information domain values complex & 3 \\
+Internal processing complex & 3 \\
+Code designed for reuse & 4 \\
+Conversion/installation in design & 2 \\
+Multiple installations & 2 \\
+Application designed for change & 5 \\ \hline
+0,01 * summa & 0,41
+\end{tabular}
+
+Arvioitu toimintopisteiden määrä: FP = yht * (0,65 + 0,01 * summa) =
+693 * (0,65+0,41) = 735.
+
+Normaalin ohjelmistotuotantoprojektin toimintopisteiden määrä on noin
+150-300.  Näin ollen arvioitu ohjelmisto on 3-5 kertaa liian suuri.
+Ryhmä ehdottaa asiakkaalle, että ydin kutistetaan kolmasosaan
+nykyisestä toteuttamalla ainoastaan tietokanta, käyttäjien lisäys ja
+poisto, järjestelmään kirjaus sekä omien tietojen syöttö ja katselu.
+
+Lisäys: Asiakas on suostunut järjestelyihin. Uudet toimintopisteet
+ovat seuraavat:
+
+\begin{tabular}{lllllll} \\
+Pistelähde & minimi & todennäköinen & maksimi & arvio & paino &
+pisteet \\ \hline
+Syötteiden määrä & 15 & 20 & 30 & 21 & 3 & 63 \\
+Tulosteiden määrä & 8 & 10 & 13 & 10 & 5 & 50 \\
+Kyselyiden määrä & 5 & 15 & 25 & 15 & 4 & 60 \\
+Tiedostojen määrä & 8 & 12 & 14 & 12 & 7 & 84 \\
+Ulkoisten liittymien määrä & 2 & 2 & 2 & 2 & 7 & 14 \\ \hline
+Yhteensä & & & & & & 271 \\
+\end{tabular}
+
+Arvioitu toimintopisteiden määrä: FP = yht * (0,65 + 0,01 * summa) =
+271 * (0,65+0,41) = 287.
+
+Myös tämä arvo on iso, joten on mahdollista, että projektin edetessä
+järjestelmälle asetettavia vaatimuksia kevennetään.  Muutokset
+raportoidaan tässä ja vaatimusdokumentissa.
+
+\section{Työn ositus}
+
+Projektin kesto on 15 viikkoa, josta yksi viikko on lomaa.
+Projektissa seurataan lineaarista prosessimallia.
+
+Projektin työvaiheet ovat seuraavat:
+\begin{itemize}
+\item Vaatimusmäärittely: viikot 1-5
+\item Suunnittelu: viikot 4-9
+\item Toteutus ja yksikkötestaus: viikot 9-14
+\item Integrointi- ja järjestelmätestaus: viikot 12-14
+\item Demot: viikko 14
+\item Projektin viimeistely ja luovutus: viikot 14-15
+\end{itemize}
+
+Projektin tarkistuspisteet ovat seuraavat:
+\begin{itemize}
+\item Ma 4.9. Projektin aloitus
+\item To 14.9. Projektisuunnitelma valmis
+\item To 28.9. Käyttöliittymädemo asiakkaalle
+\item Ma 2.10. Vaatimusmäärittelyn tarkastus
+\item Pe 6.10. Vaatimusmäärittelyn jäädytys
+\item To 20.10. Suunnitteludokumentin tarkastus
+\item Pe 3.11. Suunnitteludokumentin jäädytys
+\item Pe 17.11. Ohjelmiston ydin valmis
+\item Ma 4.12. Ohjelmisto valmis
+\item Ti 5.12. Ohtu-projektien demopäivä (tarkka päivä auki, viikko on
+oikein)
+\item Pe 8.12. Järjestelmätestaus valmis
+\item Pe 15.12. Tuotteen luovutus
+\end{itemize}
+
+\subsection{Vaatimusmäärittelyn ositus}
+
+Vaatimusmäärittelyn osavaiheet ovat vaatimusten kartoitus, mallien
+teko, vaatimusten tarkennus, vaatimusten validointi ja
+käyttöliittymäprototyypin teko.  Vaatimusmäärittelyä tehdään viikoilla
+1-5.  Osavaiheet jakaantuvat viikoittain seuraavasti:
+
+\begin{itemize}
+\item Vaatimusten kartoitus: viikot 1-3, 5
+\item Mallien teko: viikot 2-4
+\item Vaatimusten tarkennus: viikot 2-4, 5
+\item Vaatimusten validointi: viikko 5
+\item Käli-proton teko: viikot 3-4
+\end{itemize}
+
+Tehtäviin tarvitaan vähintään neljä henkilöä.
+
+\subsection{Suunnittelun ositus}
+
+Suunnittelun osavaiheet ovat yleisarkkitehtuuri, tietokanta,
+sisäänkirjautuminen, tuntikirjanpidon syöttö, tuntikirjanpidon katselu
+ja testaussuunnitelman teko.  Suunnittelua tehdään viikoilla 4-9.
+Osavaiheet jakautuvat viikoittain seuraavasti:
+
+\begin{itemize}
+\item Yleisarkkitehtuuri: viikko 4
+\item Tietokanta: viikot 4-5
+\item Sisäänkirjautuminen: viikot 6-7
+\item Tuntikirjanpidon syöttö: viikot 7-8
+\item Tuntikirjanpidon katselu: viikot 8-9
+\item Testaussuunnitelman teko: viikot 5-9
+\end{itemize}
+
+Tehtäviin tarvitaan vähintään kolme henkilöä.
+
+\subsection{Toteutuksen ja yksikkötestauksen ositus}
+
+Toteutuksen osavaiheet ovat tietokanta, sisäänkirjautuminen,
+tuntikirjanpidon syöttö, tuntikirjanpidon katselu ja koodin
+viimeistely ja yksikkötestien täydennys.  Toteutusta tehdään viikoilla
+9-14.  Osavaiheet jakautuvat viikoittain seuraavasti:
+
+\begin{itemize}
+\item Tietokanta: viikko 9
+\item Sisäänkirjautuminen: viikot 9-10
+\item Tuntikirjanpidon syöttö: viikot 10-11
+\item Tuntikirjanpidon katselu: viikot 11-12
+\item Koodin viimeistely ja yksikkötestien täydennys: viikot 10-14
+\end{itemize}
+
+Tehtäviin tarvitaan vähintään kolme henkilöä.
+
+\subsection{Integrointi- ja järjestelmätestaus}
+
+Integrointi- ja järjestelmätestauksen osavaiheet ovat
+integrointitestaus ja järjestelmätestaus.  Integrointi- ja
+järjestelmätestausta tehdään viikoilla 12-14.  Osavaiheet jakautuvat
+viikoittain seuraavasti:
+
+\begin{itemize}
+\item Integrointitestaus: viikot 12-13
+\item Järjestelmätestaus: viikot 13-14
+\end{itemize}
+
+Tehtäviin tarvitaan vähintään kaksi henkilöä.
+
+\section{Aikataulu}
+
+Edellisen luvun osituksen ja tarkistuspisteiden perusteella tehdään
+seuraava ajoituskaavio, kriittinen polku ja henkilöiden allokointi tehtäviin:
+
+(Ajoituskaavio ja tehtävien allokointi tulisi tähän, mutta sitä ei
+esitellä esimerkissä.  Ajoituskaavion malli löytyy Sommervillen
+7. painoksesta sivulta 103 \cite{sommerville04}.  Edellisen luvun
+osituksen avulla ajoituskaavion teko on suoraviivaista.)
+
+\section{Seuranta- ja raportointimenetelmät}
+
+Projektiryhmä pitää seurantakokouksen joka maanantai 11.9. -
+11.12. välisenä aikana.  Seurantakokouksessa tarkistetaan, että
+projektissa on pysytty aikataulussa ja seurattu projektisuunnitelmaa.
+Seurantakokousten pöytäkirjat talletetaan projektin dokumentteina.
+
+Projektiryhmä pitää kaksi tarkastusta.  Maanantaina
+2.10. (seurantakokouksen jälkeen) pidetään epämuodollinen tarkastus
+vaatimusdokumentista.  Torstaina 20.10. pidetään muodollinen tarkastus
+suunnitteludokumentista.  Tarkastuksissa seurataan Sommervillen luvun
+22.2. ja Ohjelmistotuotantokurssin luentokalvojen tarkastusmallia.
+
+Projektiryhmä raportoi suullisesti viikoittain seurantakokouksen
+yhteydessä laadunvalvontaryhmälle (eli projektin ohjaajalle) projektin
+edistymisestä.

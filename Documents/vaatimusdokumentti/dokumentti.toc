@@ -1,0 +1,34 @@
+\select@language {finnish}
+\contentsline {section}{\numberline {1}Johdanto ja yleiskatsaus}{1}
+\contentsline {subsection}{\numberline {1.1}Toteutuksen jako kahteen iteraatioon}{1}
+\contentsline {section}{\numberline {2}K\"aytett\"avi\"a termej\"a}{2}
+\contentsline {section}{\numberline {3}K\"aytt\"aj\"aryhm\"at ja j\"arjestelm\"aarkkitehtuuri}{2}
+\contentsline {subsection}{\numberline {3.1}K\"aytt\"aj\"aryhm\"at}{2}
+\contentsline {subsection}{\numberline {3.2}Sidokset vanhoihin projekteihin}{2}
+\contentsline {subsection}{\numberline {3.3}J\"arjestelm\"aarkkitehtuuri}{3}
+\contentsline {section}{\numberline {4}K\"aytt\"aj\"avaatimukset}{3}
+\contentsline {subsection}{\numberline {4.1}Toiminnalliset k\"aytt\"aj\"avaatimukset}{4}
+\contentsline {subsection}{\numberline {4.2}Opettajan k\"aytt\"aj\"avaatimukset}{5}
+\contentsline {subsection}{\numberline {4.3}Opiskelijan k\"aytt\"aj\"avaatimukset}{6}
+\contentsline {subsection}{\numberline {4.4}Ei-toiminnalliset k\"aytt\"aj\"avaatimukset}{6}
+\contentsline {subsection}{\numberline {4.5}Palautteet}{7}
+\contentsline {section}{\numberline {5}K\"aytt\"otapaukset}{8}
+\contentsline {subsection}{\numberline {5.1}Opettajan k\"aytt\"otapaukset}{8}
+\contentsline {subsection}{\numberline {5.2}Opiskelijan k\"aytt\"otapaukset}{9}
+\contentsline {section}{\numberline {6}J\"arjestelm\"avaatimukset}{11}
+\contentsline {subsection}{\numberline {6.1}Toiminnalliset vaatimukset}{11}
+\contentsline {subsubsection}{\numberline {6.1.1}Kirjautuminen ja tunnuksen luominen}{11}
+\contentsline {subsubsection}{\numberline {6.1.2}Teht\"av\"atyypit}{12}
+\contentsline {subsubsection}{\numberline {6.1.3}Uuden teht\"av\"an luonti}{12}
+\contentsline {subsubsection}{\numberline {6.1.4}Teht\"av\"an m\"a\"arittely}{13}
+\contentsline {subsubsection}{\numberline {6.1.5}Raportit}{14}
+\contentsline {subsubsection}{\numberline {6.1.6}Teht\"av\"a\"an vastaaminen}{14}
+\contentsline {subsection}{\numberline {6.2}Kriteerien j\"arjestelm\"avaatimukset}{15}
+\contentsline {subsubsection}{\numberline {6.2.1}Hyv\"aksymiskriteerit}{15}
+\contentsline {subsubsection}{\numberline {6.2.2}Laadulliset kriteerit}{17}
+\contentsline {subsubsection}{\numberline {6.2.3}Kriteerien k\"aytt\"aminen}{18}
+\contentsline {subsubsection}{\numberline {6.2.4}Muita j\"arjestelm\"avaatimuksia}{18}
+\contentsline {subsection}{\numberline {6.3}Titokoneen mahdollinen muokkaus}{19}
+\contentsline {subsection}{\numberline {6.4}Ei-toiminnalliset j\"arjestelm\"avaatimukset}{20}
+\contentsline {subsection}{\numberline {6.5}Toimintaymp\"arist\"ovaatimukset}{20}
+\contentsline {subsection}{\numberline {6.6}K\"aytt\"aytyminen virhetilanteissa}{21}

@@ -1,0 +1,69 @@
+% Esimerkki oman komennon määrittämisestä. Jos komentoa tarvitaan useissa
+% dokumenteissa, se kannattaa mielummin laittaa asetukset.tex-tiedostoon.
+\newcommand{\tiedostonimi}[1]{\texttt{#1}}
+\newcommand{\termi}[1]{\textit{#1}}
+
+\section{Johdanto}
+
+Tätä tiedostoa voi käyttää pohjana Ohjelmistotuotantoprojekti-kurssilla
+dokumentaatiota kirjoitettaessa. Tiedosto on tehty kevään 2004 kurssia
+varten.
+
+\section{Esimerkkejä}
+
+Tässä luvussa näytetään esimerkinomaisesti kuinka \LaTeX-ladontajärjestelmän
+ominaisuuksia käytetään. Tiedostosta tiedostonimi{sisalto.tex} voi katsoa,
+miten tämä dokumentti on saatu aikaan. Tämä esimerkki ei ole tarkoitettu
+kattavaksi johdannoksi LaTeX:iin, mutta onneksi verkosta löytyy kosolti
+hyviä ohjeita. Kirjastosta löytyvä Lamportin klassikko~\cite{lamport94} antaa
+myös hyvän perustan LaTeX-ohjelman käytölle.
+
+\subsection{Lähdeviitteet}
+
+Lue ohjelmistotuotantoalan
+kirjallisuutta~\cite{pressman00}\cite{sommerville01},
+tulet viisaammaksi.
+
+\subsection{Taulukot}
+
+Taulukossa~\ref{fig:aikataulukko} näkyy, kuinka paljon aikaa eri projektien
+tekemiseen on mennyt.
+
+\begin{figure}[h]
+\begin{center}
+\begin{tabular}{ll}
+Projekti & Kesto \\
+\hline
+A & 240 h \\
+B & 300 h
+\end{tabular}
+\end{center}
+\caption{Projekteihin käytetty aika}
+\label{fig:aikataulukko}
+\end{figure}
+
+\subsection{Ranskalaiset viivat}
+
+Karkeasti ottaen voidaan sanoa, että \termi{vaatimusmäärittely} koostuu
+kahdesta vaiheesta, jotka ovat seuraavat.
+
+\begin{enumerate}
+\item Vaatimusten kartoitus
+\item Vaatimusten analyysi
+\end{enumerate}
+
+\newpage
+
+Ohjelmistotuotantoprojektin sidosryhmiä ovat
+
+\begin{itemize}
+\item opiskelijat,
+\item ohjaajat,
+\item asiakkaat ja
+\item vastuuhenkilöt.
+\end{itemize}
+
+\subsection{Lainausmerkit}
+
+Muistattehan, että ''sitaatit'' tuotetaan kahden peräkkäisen heittomerkin
+avulla.

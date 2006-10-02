@@ -1,0 +1,71 @@
+Projektisuunnitelma:
+====================
+1. Johdanto
+2. Sanasto
+3. Projektiorganisaatio
+4. Riskianalyysi
+5. Laitteisto- ja ohjelmistovaatimukset
+6. Koko- ja kustannusarviot
+7. Työn ositus
+8. Projektin aikataulu
+9. Seuranta- ja raportointimenetelmät
+
+Vaatimusdokumentti:
+===================
+1. Johdanto
+2. Sanasto
+3. Käyttötapaukset
+4. Käyttäjävaatimukset
+5. Järjestelmäarkkitehtuuri
+6. Järjestelmävaatimukset
+7. Järjestelmämallit
+8. Järjestelmän elinkaari
+9. Liitteet
+
+Suunnitteludokumentti:
+======================
+1. Johdanto
+2. Sanasto
+3. Arkkitehtuurisuunnitelma
+4. Tietokanta
+5. Osajärjestelmät
+6. Komponentit
+7. Luokat
+
+Testaussuunnitelma:
+===================
+1. Johdanto
+2. Sanasto
+3. Yksikkötestaus
+4. Integrointitestaus
+5. Järjestelmätestaus
+6. Muu testaus
+7. Testausaikataulu
+
+Käyttöohje:
+===========
+1. Johdanto
+2. Sanasto
+3. Käynnistysohje
+4. Toiminnot
+5. Esimerkit
+
+Ylläpitodokumentti:
+===================
+1. Johdanto
+2. Sanasto
+3. Asennusohje
+5. Jäädytysten jälkeen muuttuneet vaatimukset
+6. Jäädytysten jälkeen muuttuneet suunnitelman osat
+7. Toteuttamattomat vaatimukset ja suunnitelman osat
+8. Koodin ylläpitoon liittyvät asiat
+9. Muut ylläpitoon vaikuttavat asiat
+
+Yhteenvetodokumentti:
+=====================
+1. Johdanto
+2. Sanasto
+3. Lopputuotteen esittely
+4. Dokumenttien tiivistelmät
+5. Projektin päättöanalyysi
+6. Yhteenveto

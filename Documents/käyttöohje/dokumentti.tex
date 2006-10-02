@@ -1,0 +1,38 @@
+\documentclass[final]{ohtu}
+
+%
+% Omat \usepackage-komennot tulevat tähän. Alle on valmiiksi kirjoitettu
+% usein käytettyjen pakkauksien \usepackage-komennot, jotka pitää
+% aktivoidaan ottamalla rivin alusta kommenttimerkki pois.
+%
+% \usepackage{graphicx}		% kuvien käsittelyyn
+% \usepackage{url}		% verkko-osoitteiden tulostamiseen
+%
+
+% Sisältää kansi- ja etusivun tietoja.
+\input{asetukset}
+
+\title{Käyttöohje}
+\date{\today}
+
+\begin{document}
+% Tulostetaan kansisivu, etusivu ja sisällysluettelo.
+\maketitle
+\projectinfopage
+\setcounter{page}{1}
+\mytableofcontents
+
+% Dokumentin varsinainen sisältö on tiedostossa sisalto.tex.
+\input{sisalto}
+
+% Sisältöosan lopuksi tulee lähteet.
+\bibliographystyle{tktl}
+\bibliography{lahteet}
+
+\lastpage
+\appendices
+
+% Liitteet tiedostossa liitteet.tex.
+\input{liitteet}
+
+\end{document}

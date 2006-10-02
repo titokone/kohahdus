@@ -1,0 +1,1041 @@
+\tableofcontents
+
+\newcounter{laskuri}
+\newcounter{KLaskuri}
+\newcounter{VLaskuri}
+\newcounter{PLaskuri}
+\newcounter{ELaskuri}
+\newcounter{KtLaskuri}
+
+\section{Johdanto ja yleiskatsaus}
+
+Kohahdus on j‰rjestelm‰ automaattisesti tarkastettavien TTK-91-konekielen harjoitusteht‰vien luomiseen ja ratkaisemiseen. J‰rjestelm‰ on tarkoitettu k‰ytett‰v‰ksi opetuksen tukena, opetettaessa Tietokoneen toiminta -kurssia. Tietojenk‰sittelytieteen opettajat voivat tehd‰ j‰rjestelm‰‰n uusia teht‰vi‰ ja m‰‰ritell‰ kuinka ne tarkastetaan automaattisesti. Tietokoneen toiminta -kurssin opiskelijat ja kurssin teht‰vist‰ kiinnostuneet itseopiskelijat voivat ratkaista teht‰vi‰ ja saada palautetta niiden onnistumisesta.
+
+Painopiste projektissa on opettajan ja opiskelijan k‰yttˆliittymill‰. K‰yttˆliittymist‰ tehd‰‰n mahdollisimman selke‰t ja helppok‰yttˆiset. Opettajan k‰yttˆliittym‰n avulla m‰‰ritell‰‰n teht‰v‰t parametreineen ja kuinka opiskelijan ratkaisun oikeellisuus tarkistetaan, sek‰ n‰hd‰‰n statistiikkatietoja opiskelijoiden suorituksista. Opiskelijan k‰yttˆliittym‰n avulla opiskelija valitsee teht‰vi‰, syˆtt‰‰ niiden ratkaisut ja saa palautetta vastauksensa oikeellisuudesta.
+
+Projekti k‰ytt‰‰ valmiina olevaa Titokone-simulaattoria harjoitusteht‰vien ratkaisemiseen. Projekti rakennetaan valmiina olevaan eAssari-kehykseen, joka sopii geneeriseen automaattisesti tarkistettavien teht‰vien m‰‰rittelyyn ja toteutukseen.
+
+J‰rjestelm‰ toteutetaan Java-kielell‰ ja j‰rjestelm‰n k‰yttˆ vaatii, ett‰ selain tukee JavaScript-kielt‰ ja CSS-tyylitiedostoja. J‰rjestelm‰ toimii uusimmilla Firefox ja Internet Explorer-selaimilla.
+
+T‰ss‰ dokumentissa esitell‰‰n k‰ytett‰v‰t termit luvussa 2, sidosryhm‰t ja j‰rjestelm‰arkkitehtuuri luvussa 3, k‰ytt‰j‰vaatimukset luvussa 4, k‰yttˆtapaukset luvussa 5 ja j‰rjestelm‰vaatimukset luvussa 6.
+
+\subsection{Toteutuksen jako kahteen iteraatioon}
+
+K‰yt‰mme projektissa iteratiivista prosessimallia, jossa on kaksi iteraatiota eli toistoa. 
+
+Ensimm‰isess‰ iteraatiossa toteutamme j‰rjestelm‰n k‰yttˆliittym‰n ja 
+eAssaritietokantatoiminnallisuuden. Eli toteutamme k‰yttˆtapaukset Kt1, Kt2, Kt3, Kt5, Kt6, Kt8, Kt9, Kt10, Kt11 ja Kt13 
+
+Toisessa iteraatiossa toteutamme teht‰vien suorittamisen ja tarkastamisen sek‰ j‰ljelle j‰‰neet k‰yttˆliittym‰toiminnallisuudet, eli k‰yttˆtapaukset
+Kt4, Kt7, Kt12, Kt13 ja Kt14.
+
+
+Mik‰li kaikkia k‰yttˆtapauksia ei ehdit‰ ensimm‰isess‰ iteraatiossa toteuttaa, ne siirret‰‰n toiseen iteraatioon. Vastaavasti jos aikaa
+j‰‰ yli, mietit‰‰n jo alustavasti toiselle iteraatiolle suunniteltuja k‰yttˆtapauksia.
+
+
+\section{K‰ytett‰vi‰ termej‰}
+
+
+TTK91=Auvo H‰kkisen kehitt‰m‰ ohjelmointikieli, joka l‰heisesti muistuttaa symbolista konekielt‰.
+
+KOKSI=Auvo H‰kkisen kirjoittama konekielisimulaattori, joka toteuttaa TTK-91-kielen.
+
+J‰rjestelm‰=Projektimme tuotos, Kohahdus
+
+Ohjelma=Opiskelijan kirjoittama TTK91-ohjelma, eli vastaus johonkin teht‰v‰‰n
+
+eAssari=Tietokantapohjainen ymp‰ristˆ ohjelmallisesti tarkastettavien harjoitus- ja koeteht‰vien suorittamiseen
+
+Titokone=Koski-nimisen Ohjelmistotuotantoprojektiryhm‰n vuonna 2004 rakentama j‰rjestelm‰ konekielisten ohjelmien k‰‰nt‰miseen ja suorittamiseen.
+
+Koski=Vuoden 2004 Ohjelmistotuotantoprojekti joka rakensi konekielen simulaattorin ja debug-ymp‰ristˆn, eli Titokoneen
+
+Koskelo=Vuoden 2004 Ohjelmistotuotantoprojekti, joka integroi Titokoneen ja eAssari-kehyksen yhteen. Ratkaisusta ei tullut kuitenkaan k‰yttˆkelpoista,
+eik‰ sit‰ ole otettu k‰yttˆˆn.
+
+Kriteeri=S‰‰ntˆ jonka mukaan teht‰v‰n oikeellisuus tarkistetaan. Kriteereit‰ voi olla monta yhdelle teht‰v‰lle.
+
+Aihepiiri=Teht‰v‰lle t‰ytyy m‰‰ritell‰ aihepiiri, johon teht‰v‰ kuuluu. 
+
+
+
+\section{K‰ytt‰j‰ryhm‰t ja j‰rjestelm‰arkkitehtuuri}
+
+\subsection{K‰ytt‰j‰ryhm‰t}
+
+Konekielisen ohjelmoinnin harjoitteluymp‰ristˆ‰ tulevat k‰ytt‰m‰‰n Tietojenk‰sittelytieteen laitoksen opettajat ja opiskelijat. K‰ytt‰j‰ryhmi‰ on n‰in ollen kaksi. Opettaja voi luoda uusia teht‰vi‰ sek‰ muokata ja poistaa vanhoja. Lis‰ksi h‰n saa n‰ht‰v‰kseen statistiikkatietoja opiskelijoiden suorituksista. Opiskelija saa n‰ht‰v‰kseen kaikki teht‰v‰t tai halutessaan vain tietyt valintakriteerit t‰ytt‰v‰t teht‰v‰t. Opiskelija voi ratkaista teht‰vi‰ ja saa palautetta yrityksist‰‰n.
+
+\subsection{Sidokset vanhoihin projekteihin}
+
+Projektissa tullaan k‰ytt‰m‰‰n Koski-ryhm‰n Titokonetta teht‰vien k‰‰nt‰miseen, sek‰ eAssari-kehyst‰ teht‰vien n‰ytt‰miseen ja istuntotietoihin.
+Koskelon dokumentaatioon tutustutaan, ja voidaan ottaa oppia esimerkiksi teht‰v‰n oikeellisuuden kriteereist‰. Lis‰ksi Koskelon koodia saatetaan k‰ytt‰‰ soveltuvilta osin.
+
+
+\subsection{J‰rjestelm‰arkkitehtuuri}
+
+
+Kuvassa 1 on esitetty j‰rjestelm‰n k‰ytt‰j‰t, ulkoiset liittym‰t sek‰ keskeisin j‰rjestelmien v‰lill‰ liikkuva tieto.
+
+\begin{figure}[h]
+  \includegraphics[width=14cm] {jarjarkkiteht.eps}
+  \caption{Kohahduksen yhteydet eAssariin ja Titokoneeseen}
+\end{figure}
+
+EAssari toimii tietokannank‰sittelykehyksen‰ Kohahdukselle. Opiskelija voi Kohahduksesta valita teht‰v‰n, jonka haluaa ratkaista. Teht‰v‰ haetaan eAssarista Kohahduksen esitett‰v‰ksi. Opiskelijan vastauksena antama ohjelma tai sen osa l‰hetet‰‰n Titokoneelle, joka palauttaa tuloste- ja muita tietoja ohjelman suorituksesta. Kohahdus vertaa saatua tietoa teht‰v‰n kriteereihin, ja t‰m‰n perusteella antaa palautetta opiskelijalle.
+
+
+Opettaja voi Kohahduksessa luoda uuden teht‰v‰n. Teht‰v‰ tallennetaan eAssarin tietokantaan, ja n‰in se on opiskelijan n‰ht‰viss‰ teht‰v‰listauksessa.
+
+
+\section{K‰ytt‰j‰vaatimukset}
+
+
+K‰ytt‰j‰vaatimuksissa k‰ytet‰‰n luokittelua
+
+
+\begin{description}
+\item[Vaatimuksen nimi]
+\item[Prioriteetti]: Vaatimuksen prioriteetti
+
+1 Toteutetaan varmasti
+
+2 Toteutetaan mahdollisesti
+
+3 Toteutataan lopuksi jos aikaa on
+
+4 Ei toteuteta
+
+
+\item[Kuvaus]: Vaatimuksen tarkempi kuvaus
+\end{description}
+
+
+
+
+\subsection{Toiminnalliset k‰ytt‰j‰vaatimukset}
+
+\begin{list}{\textbf{K\arabic{laskuri}.}}{\usecounter{laskuri}}
+\setcounter{laskuri}{\value{KLaskuri}}
+
+\item Opettajan k‰yttˆliittym‰n kieli
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus] Opettajan k‰yttˆliittym‰ toteutetaan englannin kielell‰.
+\end{description}
+
+\item Opettajan k‰yttˆliittym‰n kieli
+\begin{description}
+\item[Prioriteetti]: 3
+\item[Kuvaus]: Opettajan k‰yttˆliittym‰ toteutetaan myˆs suomen kielell‰.
+\end{description}
+
+\item Opiskelijan k‰yttˆliittym‰n kieli\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus] Opiskelijan k‰yttˆliittym‰ on oltava englanniksi ja suomeksi.
+\end{description}
+
+\item Ohjelmointiteht‰v‰\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus] J‰rjestelm‰ mahdollistaa ohjelmointiteht‰v‰n, jossa opiskelijaa pyydet‰‰n kirjoittamaan TTK-91-kielinen ohjelma, joka ratkaisee annetun
+teht‰v‰n. 
+\end{description}
+
+\item T‰ydennysteht‰v‰\label{}
+\begin{description}
+\item [Prioriteetti]: 1
+\item [Nimi]: T‰ydennysteht‰v‰
+\item [Kuvaus] J‰rjestelm‰ mahdollistaa t‰ydennysteht‰v‰n, jossa opiskelijalle n‰kyy valmiiksi osa ratkaisua josta puuttuu yksi kohta. Opiskelija t‰ydent‰‰ puuttuvan kohdan.
+\end{description}
+
+\item Dynaaminen teht‰v‰\label{}
+\begin{description}
+\item[Prioriteetti]: 4
+\item[Kuvaus] Kolmatta mahdollista teht‰v‰tyyppi‰, dynaamista teht‰v‰‰ ei toteuteta. Dynaaminen teht‰v‰ on sellainen, joka generoidaan samalla kun opiskelija avaa teht‰v‰n. N‰in teht‰v‰ss‰ voi olla joka k‰ynnistyskerralla erilaiset arvot annetuissa rajoissa. T‰llaisen teht‰v‰ntyypin mahdollinen myˆhempi lis‰‰minen, esimerkiksi uuden Ohjelmistotuotantoryhm‰n toimesta, huomioidaan kuitenkin mahdollisuuksien mukaan, tehden t‰m‰ lis‰‰minen mahdollisimman helpoksi.
+\end{description}
+
+\item Testisyˆtteet\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus] Vastauksien oikeellisuuden tarkastuksessa k‰ytet‰‰n sek‰ n‰kyvi‰ ett‰ salaisia syˆtteit‰. Syˆtteet ovat aina kokonaislukuja. Salaisten syˆtteiden k‰ytˆn tarkoituksena on est‰‰ mahdollisten oikopolkujen k‰ytt‰minen, esimerkiksi yritys tulostaa pelkk‰ vastaus ilman pyydetty‰ ohjelmarakennetta.
+\end{description}
+
+\subsection{Opettajan k‰ytt‰j‰vaatimukset}
+
+\item Opettajan kirjautuminen \label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi kirjautua j‰rjestelm‰‰n
+\end{description}
+
+
+\item Teht‰v‰listaus\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja saa n‰ht‰v‰kseen kaikki j‰rjestelm‰ss‰ olevat teht‰v‰t, ja voi lajitella ne aihepiirin mukaan. Haun j‰lkeen Kohahdus antaa taulukon kyseisist‰ teht‰vist‰ ja opiskelijoiden suorituksista.
+\end{description}
+
+
+\item Raporttien tulostaminen\label{}
+\begin{description}
+\item[Prioriteetti]: 2
+\item[Kuvaus]: Opettaja voi pyyt‰‰ j‰rjestelm‰lt‰ raporttia opiskelijoiden suorituksista. Opettaja voi myˆs hakea opiskelijanumeron tai henkilˆtunnuksen perusteella yhden opiskelijan suorittamat teht‰v‰t.
+\end{description}
+
+
+\item Uuden teht‰v‰n lis‰‰minen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi lis‰t‰ uuden teht‰v‰n. Pakollisia tietoja uudelle teht‰v‰lle ovat nimi, kieli ja aihepiiri. 
+\end{description}
+
+
+\item Teht‰v‰n muokkaaminen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi muokata teht‰v‰‰, ja t‰m‰ teht‰v‰ voi olla myˆs toisen opettajan luoma. Muokkaamisesta tallennetaan muokkaaja ja muokkausaika.
+\end{description}
+
+\item Teht‰v‰n poistaminen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi poistaa teht‰v‰n.
+\end{description}
+
+\item Teht‰v‰n muokkaaminen uutena\label{}
+\begin{description}
+\item[Prioriteetti]: 2
+\item[Kuvaus]: Opettaja voi muokata uutena vanhaa teht‰v‰‰, eli ottaa pohjaksi vanhan teht‰v‰n, tehd‰ siihen muutoksia, ja sitten tallentaa toisen nimisen‰. 
+\end{description}
+
+\subsection{Opiskelijan k‰ytt‰j‰vaatimukset}
+
+
+\item Rekisterˆityminen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija voi rekisterˆity‰ j‰rjestelm‰n k‰ytt‰j‰ksi.
+\end{description}
+
+
+\item Kirjautuminen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija voi kirjautua j‰rjestelm‰‰n
+\end{description}
+
+
+\item Teht‰vien selailu\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija voi selailla j‰rjestelm‰ss‰ olevia teht‰vi‰, joko kaikkia tai lajiteltuna teht‰v‰n aihepiirin tai sen mukaan onko teht‰v‰ hyv‰ksytysti ratkaistu. 
+\end{description}
+
+\item Suoritustiedot opiskelijalle\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija saa n‰ht‰v‰kseen omat suoritustietonsa, joissa kerrotaan mit‰ teht‰vi‰ opiskelija on suorittanut ja mitk‰ ovat kesken. 
+\end{description}
+
+
+\item Teht‰v‰‰n vastaaminen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija voi vastata valitsemaansa teht‰v‰‰n ja saada palautetta vastauksestaan.
+\end{description}
+
+
+\item Omien tietojen muuttaminen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija voi muokata omia tietojaan.
+\end{description}
+
+
+
+
+\subsection{Ei-toiminnalliset k‰ytt‰j‰vaatimukset}
+
+\item Teht‰vien kieli
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus] Teht‰v‰t voivat olla joko suomeksi tai englanniksi
+\end{description}
+
+\item Opettajan k‰yttˆliittym‰n tulee olla selke‰ ja helppok‰yttˆinen
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: K‰yttˆliittym‰n on oltava ehdottoman selke‰, ja hyv‰ k‰ytett‰vyydelt‰‰n. Projektissa on on k‰yttˆliittym‰ priorisoitu t‰rkeimm‰ksi yksitt‰iseksi ominaisuudeksi. K‰yttˆliittym‰n tulee olla niin havainnollinen ja itsest‰‰nselv‰ ett‰ sen k‰yttˆ onnistuu opettajalta v‰h‰isell‰ k‰yttˆohjeisiin tutustumisella.
+\end{description}
+
+\item Opiskelijan k‰yttˆliittym‰n tulee olla selke‰ ja itsens‰ selitt‰v‰\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelijan k‰yttˆliittym‰n tulee olla havainnollinen. 
+\end{description}
+
+\item Palautteet k‰ytt‰j‰lle\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Oletuspalautteiden on oltava tarkkoja ja yksityiskohtaisia. Opettaja voi muokata palautteita teht‰v‰kohtaisesti.
+\end{description}
+
+\item Ei turhia siirtymi‰ sivujen v‰lill‰.\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Sivusiirtymien m‰‰r‰ pidet‰‰n minimiss‰. Eli k‰ytet‰‰n mahdollisimman v‰h‰n next-tyyppisi‰ painikkeita lomakkeissa.
+\end{description}
+
+\item Opettajan k‰yttˆohje\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettajalle luodaan k‰yttˆohje, joka kuvaa kuinka j‰rjestelm‰‰ k‰ytet‰‰n.  
+\end{description}
+
+\item Opiskelijan k‰yttˆohje\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelijalle ei luoda erillist‰ k‰yttˆohjetta, mutta luodaan lyhyt WWW-sivu, jossa kerrotaan kuinka j‰rjestelm‰‰ k‰ytet‰‰n. T‰lle
+sivulle luodaan linkki j‰rjestelm‰‰n.
+\end{description}
+
+
+\end{list}
+
+
+\subsection{Palautteet}
+
+Palaute on keskeisess‰ osassa toteutettavassa ohjelmistossa ja j‰rjestelm‰n tuleekin pysty‰ antamaan monipuolista palautetta opiskelijalle.
+
+\begin{list}{\textbf{P\arabic{laskuri}.}}{\usecounter{laskuri}}
+\setcounter{laskuri}{\value{PLaskuri}}
+
+
+\item Ohjelma k‰‰ntyy Titokoneessa, kaikki teht‰v‰lle m‰‰ritellyt kriteerit t‰yttyv‰t, ja ohjelma toimii oikein sek‰ normaalilla ett‰ salaisella syˆtteell‰\label{}
+\begin{description}
+\item[Palaute]: Annetaan opiskelijalle palaute jossa kerrotaan teht‰v‰n onnistuneen
+\end{description}
+
+\item Opiskelijan tekem‰n ohjelman k‰‰nt‰minen ei onnistu\label{}
+\begin{description}
+\item[Palaute]: Annetaan opiskelijalle palaute jossa kerrotaan ett‰ teht‰v‰ ei onnistunut sek‰ miss‰ kohtaa virhe tapahtui. Virhe-ilmoituksista annetaan ensimm‰inen.
+\end{description}
+
+\item Teht‰v‰ ei toimi normaalilla syˆtteell‰\label{}
+\begin{description}
+\item[Palaute]: Ohjelma ei toiminut kun k‰ytettiin tavallista syˆtett‰. Lis‰ksi kerrotaan mahdollisimman tarkasti miss‰ kohdassa virhe tapahtui.
+\end{description}
+
+\item Teht‰v‰ ei toimi salaisella syˆtteell‰\label{}
+\begin{description}
+\item[Palaute]: Ohjelma ei toiminut kun k‰ytettiin salaista syˆtett‰. Lis‰ksi kerrotaan mahdollisimman tarkasti miss‰ kohdassa virhe tapahtui. Salaista syˆtett‰ ei n‰ytet‰ opiskelijalle. 
+\end{description}
+
+\end{list}
+
+
+
+\section{K‰yttˆtapaukset}
+
+\begin{figure}[h]
+     \includegraphics[width=14cm] {kayttotapaukset.eps}
+     \caption{K‰yttˆtapauskaavio}
+\end{figure}
+
+
+\subsection{Opettajan k‰yttˆtapaukset}
+
+
+
+\begin{list}{\textbf{Kt\arabic{laskuri}.}}{\usecounter{laskuri}}
+\setcounter{laskuri}{\value{KtLaskuri}}
+
+
+\item{J‰rjestelm‰‰n kirjautuminen}\label{kt1}
+
+
+Opettaja kirjautuu j‰rjestelm‰‰n omalla tunnuksella ja salasanallaan (Kuva 3).
+
+\item{Teht‰vien selaaminen}\label{kt2}
+
+
+Opettaja selaa j‰rjestelm‰ss‰ olevia teht‰vi‰. Teht‰vi‰ voi lajitella ehtojen mukaan.
+
+\item{Teht‰v‰n lis‰ys}\label{kt3}
+
+
+Opettaja lis‰‰ teht‰v‰n j‰rjestelm‰‰n m‰‰rittelem‰ll‰ sille nimen, kielen, aihepiirin, teht‰v‰nannon, n‰kyv‰t ja salaiset syˆtteet sek‰ erilaisia oikeellisuus- ja laatukriteerej‰.
+
+\item{Teht‰v‰n muokkaaminen}\label{kt4}
+
+
+Opettaja muokkaa mit‰ tahansa teht‰v‰‰, myˆs jonkin toisen opettajan m‰‰rittelem‰‰. Teht‰v‰n kaikki ominaisuudet ovat muokattavissa.
+
+\item{Teht‰v‰n tulostaminen}\label{kt5}
+
+
+Opettaja pyyt‰‰ luonti-/muokkausn‰kym‰ss‰ teht‰v‰‰ helposti tulostettavassa muodossa
+
+\item{Teht‰v‰n poisto}\label{kt6}
+
+
+Opettaja poistaa mink‰ tahansa teht‰v‰n, myˆs jonkin toisen opettajan m‰‰rittelem‰n teht‰v‰n.
+
+\item{Raporttien katseleminen}\label{kt7}
+
+
+Opettaja pyyt‰‰ raportin opiskelijoiden suorituksista. Raportti on helposti tulostettavassa muodossa.
+Raportteja on kahdenlaisia: opiskelijakohtaisia ja kurssikohtaisia.
+
+\item{Uloskirjautuminen}\label{kt8}
+
+
+Kun opettaja ei en‰‰ k‰yt‰ j‰rjestelm‰‰, h‰n kirjautuu ulos.
+
+
+\subsection{Opiskelijan k‰yttˆtapaukset}
+
+\item{Rekisterˆityminen}\label{kt9}
+
+
+Opiskelijan pit‰‰ rekisterˆity‰ ennen ensimm‰ist‰ k‰yttˆkertaa.
+
+\item{Kirjautuminen}\label{kt10}
+
+
+Rekisterˆity‰‰n opiskelija kirjautuu j‰rjestelm‰‰n (Kuva 3).
+
+\item{Teht‰vien katselu}\label{kt11}
+
+
+K‰ytt‰‰kseen j‰rjestelm‰‰ opiskelijan on kirjauduttava sis‰‰n j‰rjestelm‰‰n. Kirjauduttuaan opiskelija saa n‰ht‰v‰kseen j‰rjestelm‰ss‰ olevat teht‰v‰t, tai h‰nen valitseman ominaisuudet t‰ytt‰v‰t teht‰v‰t. Teht‰vist‰ on jokaista teht‰v‰‰ kohden tieto onko teht‰v‰ a) tekem‰tt‰, b) tehty mutta hyl‰tty, vai c) tehty ja hyv‰ksytty.
+
+\item{Teht‰vien ratkaiseminen}\label{kt12}
+
+
+Valittuaan em. teht‰v‰listauksesta haluamansa teht‰v‰n opiskelija yritt‰‰ ratkaista sen syˆtt‰m‰ll‰ kenttiin pyydetyn konekielisen ohjelman (ohjelmointiteht‰v‰) tai sen osan (t‰ydennysteht‰v‰) sek‰ ohjelmalle annettavat syˆtteet ja l‰hett‰m‰ll‰ sen j‰rjestelm‰n tarkistettavaksi. J‰rjestelm‰ pisteytt‰‰ teht‰v‰n ja antaa palautetta teht‰v‰‰ luodessa/muokatessa annettujen kriteerien mukaan sek‰ mahdollisesti Titokone-simulaattorin ohjelman suorituksesta antamien tietojen mukaan. Opiskelija voi aina halutessaan palata teht‰v‰listaukseen ja yritt‰‰ jotakin toista teht‰v‰‰.
+
+
+\item{Uloskirjautuminen}\label{kt13}
+
+
+Kun opiskelija ei en‰‰ k‰yt‰ j‰rjestelm‰‰, h‰n kirjautuu ulos.
+
+
+\item{Omien tietojen katselu ja muokkaus}\label{kt14}
+
+
+Opiskelija katselee tai muokkaa omia tietojaan.
+
+
+\end{list}
+
+
+
+\begin{figure}[h]
+  \includegraphics[width=17cm] {tilasiirtymat.eps}
+  \caption{Kohahduksen tilasiirtym‰t}
+\end{figure}
+
+
+\section{J‰rjestelm‰vaatimukset}
+
+
+J‰rjestelm‰vaatimukset ovat muotoa
+
+
+\begin{description}
+\item[Prioriteetti]:
+
+1 Toteutetaan varmasti
+
+2 Toteutetaan mahdollisesti
+
+3 Toteutataan lopuksi jos aikaa on
+
+4 Ei toteuteta
+
+\item[Kuvaus]: J‰rjestelm‰vaatimuksen tarkempi kuvaus
+\end{description}
+
+\subsection{Toiminnalliset vaatimukset}
+
+\subsubsection{Kirjautuminen ja tunnuksen luominen}
+
+
+
+\begin{list}{\textbf{V\arabic{laskuri}.}}{\usecounter{laskuri}}
+
+
+\item Opettajan tunnuksen luominen\label{}
+\begin{description}
+\item[Prioriteetti]: 4
+\item[Kuvaus]: Asiakkaan kanssa on sovittu ett‰ opettajat lis‰t‰‰n j‰rjestelm‰‰n erillisill‰ SQL-lauseilla. Toimintoa ei siis toteuteta t‰m‰n projektin puitteissa.
+\end{description}
+
+
+\item Opettajan kirjautuminen j‰rjestelm‰‰n\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi kirjautua j‰rjestelm‰‰n.
+\end{description}
+
+
+\item Opiskelijan tunnuksen luominen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija voi luoda tunnuksen j‰rjestelm‰‰n. Opiskelija antaa tunnuksen luomisen yhteydess‰ nimens‰, k‰ytt‰j‰tunnuksen, salasanan, opiskelijatyypin, s‰hkˆpostiosoitteensa ja opiskelijanumeronsa/henkilˆtunnuksensa. Opiskelijatyypill‰ tarkoitetaan t‰ss‰ sit‰ mink‰lainen suhde opiskelijalla on j‰rjestelm‰‰n, esimerkiksi itseopiskelija tai vuoden 2006 syksyn opiskelija.
+\end{description}
+
+\item Opiskelijan kirjautuminen j‰rjestelm‰‰n\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija voi kirjautua j‰rjestelm‰‰n luomallaan tunnuksella.
+\end{description}
+
+\item Opiskelijan tietojen muokkaaminen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija voi muokata koko nime‰‰n, salasanaansa, opiskelijatyyppi‰‰n ja s‰hkˆpostiosoitettaan.
+\end{description}
+
+
+\subsubsection{Teht‰v‰tyypit}
+
+
+\item Ohjelmointiteht‰v‰\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Ohjelmointiteht‰v‰ss‰ opiskelija kirjoittaa TTK-91 -kielisen koodin, jonka pit‰isi ratkaista
+annettu teht‰v‰.
+\end{description}
+
+
+\item T‰ydennysteht‰v‰\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: T‰ydennysteht‰v‰ss‰ on annettu valmiiksi osa vastauksesta, mutta se sis‰lt‰‰ puuttuvan kohdan, johon opiskelijan tulee kirjoittaa oma vastauksensa. T‰m‰ puuttuva kohta voi edelt‰‰ teht‰v‰n annettua osuutta, olla sen keskell‰ tai sen j‰lkeen.
+\end{description}
+
+
+\item Dynaaminen teht‰v‰\label{}
+\begin{description}
+\item[Prioriteetti]: 4
+\item[Kuvaus]: Dynaaminen teht‰v‰ on teht‰v‰, jonka sis‰ltˆ m‰‰r‰ytyy vasta kun teht‰v‰ avataan. T‰t‰ teht‰v‰tyyppi‰ ei toteuteta projektissa, mutta mahdollisuuksien mukaan huomioidaan, ett‰ sen myˆhempi lis‰‰minen olisi helppoa esimerkiksi uuden ohjelmistotuotantoryhm‰n toimesta.
+\end{description}
+
+
+\subsubsection{Uuden teht‰v‰n luonti}
+
+\item Uuden teht‰v‰n lis‰ys\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja lis‰‰ uuden teht‰v‰n ja m‰‰rittelee sille tarkistuskriteerit, sek‰ palautteet, jotka opiskelija saa eri tilanteissa. Lis‰ksi teht‰v‰lle pit‰‰
+m‰‰ritell‰ aihepiiri. Teht‰v‰n m‰‰rittelyn pit‰‰ mahtua yhdelle sivulle. M‰‰rittelyn ei tarvitse mahtua ruutuun kerralla, eli m‰‰rittelysivua voi joutua skrollaamaan, mutta teht‰v‰n m‰‰rittely ei saa sis‰lt‰‰ sivusiirtymi‰. 
+\end{description}
+
+\item Uuden teht‰v‰n luonti vanhan teht‰v‰n pohjalta\label{}
+\begin{description}
+\item[Prioriteetti]: 3
+\item[Kuvaus]: Opettaja voi luoda uuden teht‰v‰n, siten ett‰ uuden teht‰v‰n alkuarvot ovat asetettu vanhan teht‰v‰n mukaisesti.
+\end{description}
+
+\subsubsection{Teht‰v‰n m‰‰rittely}
+
+
+\item Kriteerien m‰‰rittely teht‰v‰lle\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja saa valita montako kriteeri‰ m‰‰rittelee uudelle teht‰v‰lle, ja mit‰ n‰m‰ kriteerit ovat.
+\end{description}
+
+
+\item Palautteen m‰‰rittely teht‰v‰lle\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi m‰‰ritell‰ teht‰v‰lle eri tilanteissa annettavan palautteen. Palautekentiss‰ on valmiina oletuspalaute, jota opettaja voi k‰ytt‰‰ jos ei halua
+m‰‰ritell‰ tarkempaa palautetta.
+\end{description}
+
+
+\item Teht‰v‰n aihepiiri\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettajan pit‰‰ m‰‰ritell‰ teht‰v‰lle aihepiirin johon teht‰v‰ kuuluu. Esimerkki: Teht‰v‰ll‰ on aihepiiri Aliohjelmateht‰v‰t.
+\end{description}
+
+
+\item Tarkistusmallin valinta\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja valitsee tarkistetaanko teht‰v‰ annettujen arvojen perusteella vai malliratkaisun perusteella. Oletuksena on annettujen arvojen perusteella. Jos
+opettaja valitsee malliratkaisun, web-sivulle ilmestyy kohta johon malliratkaisun voi kirjoittaa.
+\end{description}
+
+
+\item Opettajan teht‰v‰listaus\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettajan teht‰v‰listauksessa esitet‰‰n teht‰vien nimi, tyyppi, aihepiiri ja kieli.
+\end{description}
+
+
+\item Opiskelijan teht‰v‰listaus\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelijan teht‰v‰listauksessa esitet‰‰n teht‰vien nimi, tyyppi, aihepiiri ja yrityskerrat, sek‰ tieto siit‰ onko hyv‰ksytty, kesken tai ei viel‰ kertaakaan
+yritetty.
+\end{description}
+
+\item Vanhan teht‰v‰n muokkaus\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi muokata vanhaa teht‰v‰‰. Kaikki teht‰v‰t ovat kaikkien opettajien muokattavissa.
+\end{description}
+
+\item Teht‰v‰n poisto\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi poistaa teht‰vi‰. N‰m‰ teht‰v‰t voivat olla opettajan itsens‰ tekemi‰, tai jonkun toisen opettajan tekemi‰. 
+\end{description}
+
+
+
+\subsubsection{Raportit}
+
+\item Raportti opiskelijan suorituksista\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi tulostaa raportin opiskelijan suorituksista. 
+\end{description}
+
+\item Raportti kurssikohtaisista suorituksista\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi tulostaa raportin tietyll‰ kurssilla olevien opiskelijoiden suorituksista.
+\end{description}
+
+\item Raportti kurssikohtaisista suorituksista\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi tulostaa raportin tietyll‰ kurssilla olevien opiskelijoiden suorituksista. 
+\end{description}
+
+\item Raportti opiskelijalle h‰nen suorittamistaan teht‰vist‰\label{}
+\begin{description}
+\item[Prioriteetti]: 4
+\item[Kuvaus]: T‰llaista raporttia ei tehd‰, vaan opiskelija voi printata vastaavat tiedot teht‰v‰listauksesta 
+\end{description}
+
+
+\subsubsection{Teht‰v‰‰n vastaaminen}
+
+\item Teht‰v‰n valitseminen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija selaa tarjolla olevia teht‰vi‰ ja valitsee haluamansa. Teht‰v‰t on luokiteltu aihepiirien mukaan. T‰ss‰ listassa erotellaan opiskelijan jo ratkaisemat teht‰v‰t.
+\end{description}
+
+
+\item Teht‰v‰‰n vastaaminen\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelija kirjoittaa valmiiksi ratkaisunsa teht‰v‰‰n ja painaa "suorita" -nappia. J‰rjestelm‰ antaa palautetta ratkaisun toimivuudesta, ja tallentaa vastauksen.
+\end{description}
+
+
+\item K‰‰nnˆksen palaute Titokoneesta\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Jos k‰‰nnˆs onnistuu, Titokone ei anna erillist‰ palautetta. Jos k‰‰nnˆs ep‰onnistuu annetaan ensimm‰inen k‰‰nnˆksess‰ lˆytynyt virheilmoitus. Mahdollisiin
+seuraaviin virheisiin ei reagoida.
+\end{description}
+
+
+\item Suoritusstatistiikka\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: K‰ytt‰j‰lle n‰ytet‰‰n tilastotietoja ohjelman suorituksesta. T‰ss‰ tilastossa on suoritettujen k‰skyjen m‰‰r‰, muistiviitteiden m‰‰r‰, dataviitteiden m‰‰r‰
+ja koodin koko.
+\end{description}
+
+
+\item Opiskelijan teht‰v‰tilanteen yhteenveto\label{}
+\begin{description}
+\item[Priotiteetti]: 2
+\item[Kuvaus]: Opiskelijan hyv‰ksytysti ratkaistujen ja keskener‰isten teht‰vien lukum‰‰r‰t esitet‰‰n opiskelijan k‰yttˆliittym‰n alareunassa.
+\end{description}
+
+
+\subsection{Kriteerien j‰rjestelm‰vaatimukset}
+
+
+\item Teht‰vien tarkastuskriteerit\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Kriteerit m‰‰rittelev‰t miten vastauksien oikeellisuus tarkastetaan. Kriteerien mukaisesti p‰‰tet‰‰n onko vastaus hyv‰ksytt‰v‰, ja valitaan mink‰lainen palaute opiskelijalle annetaan. Kutakin kriteerityyppi‰ voi olla useita, ja niille voi jokaiselle antaa omat palautteensa. Esimerkki: Rekisterin R2 arvo ei ollut 4 tai rekisterin R3 arvo ei ollut 1.
+\end{description}
+
+
+\subsubsection{Hyv‰ksymiskriteerit}
+
+
+\item Hyv‰ksymiskriteerit\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Hyv‰ksymiskriteerit m‰‰rittelev‰t mill‰ ehdoin teht‰v‰n ratkaisu hyv‰ksyt‰‰n tai hyl‰t‰‰n.
+\end{description}
+
+
+\item Opiskelijan ohjelman maksimikoko (32:n bitin sanoina)\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Vastauskoodille voidaan m‰‰ritell‰ maksimikoko, jota pidempi vastaus ei saa olla.
+\end{description}
+
+\item Stop-kriteeri\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Ohjelmalle m‰‰ritell‰‰n stop-kriteeri, eli suoritettujen k‰skyjen ehdoton maksimim‰‰r‰. Jos t‰m‰ m‰‰r‰ ylitet‰‰n, ohjelman suoritus lopetetaan ja n‰in estet‰‰n ikuiseen silmukkaan joutuminen. Stop-kriteerin‰ on oletusarvona suuri luku, joten opettajan stop-kriteerin m‰‰rittelemisen unohtuminenkaan ei voi johtaa ikuiseen silmukkaan. 
+\end{description}
+
+\item Rekisterin arvo\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Kriteerin‰ voidaan k‰ytt‰‰ valittujen rekistereiden arvoja ohjelman suorituksen p‰‰tytty‰. Esim. Onko rekisterin R3 arvo ohjelman suorituksen p‰‰tytty‰ 4?
+\end{description}
+
+
+\item Suoritettujen muistiviittausten lukum‰‰r‰\label{}
+\begin{description}
+\item[Prioriteetti]: 2
+\item[Kuvaus]: Kriteerin‰ voidaan k‰ytt‰‰ suoritettujen muistiviittausten lukum‰‰r‰. Muistiviittauksilla tarkoitetaan koodi- ja dataviitteiden summaa.
+\end{description}
+
+
+\item Suoritettujen dataviittausten m‰‰r‰\label{}
+\begin{description}
+\item[Prioriteetti]: 3
+\item[Kuvaus]: Kriteerin‰ voidaan k‰ytt‰‰ suoritettujen dataviittausten m‰‰r‰‰.
+\end{description}
+
+
+\item Suoritettujen k‰skyjen lukum‰‰r‰\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Kriteerin‰ voi k‰ytt‰‰ suoritettujen k‰skyjen lukum‰‰r‰‰. 
+\end{description}
+
+
+\item Data-alueen koko\label{}
+\begin{description}
+\item[Prioriteetti]: 2
+\item[Kuvaus]: Data-alue tarkoittaa globaalisti m‰‰riteltyj‰ tietorakenteita, ja kriteerill‰ voidaan rajoittaa sen kokoa.  
+\end{description}
+
+
+\item Pinon koko\label{}
+\begin{description}
+\item[Prioriteetti]: 2
+\item[Kuvaus]: Kriteerin‰ voidaan k‰ytt‰‰ pinon maksimikokoa
+\end{description}
+
+
+\item Joidenkin tiettyjen muuttujien (esim. X) arvot\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Kriteerin‰ voi olla joidenkin tiettyjen muuttujien arvo ohjelman suorituksen j‰lkeen. Muuttujien nimiss‰ ei huomioida isoja ja pieni‰ kirjaimia. Esimerkki: K‰sitell‰‰n samalla tavalla muuttujia x ja X. 
+\end{description}
+
+
+\item Tulostettujen lukujen arvo\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Kriteerein‰ voidaan k‰ytt‰‰ sit‰ mit‰ opiskelijan ohjelma on tulostanut Titokoneen n‰ytˆlle (CRT),
+esimerkiksi luku 4.
+\end{description}
+
+
+\item Pakolliset k‰skyt\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Ohjelmalle voidaan m‰‰ritell‰ pakollisia k‰skyj‰, joiden k‰yttˆ‰ vaaditaan hyv‰ksyttyyn suoritukseen.
+\end{description}
+
+
+\item Kielletyt k‰skyt\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Ohjelmalle voidaan m‰‰ritell‰ k‰skyj‰ joita ei saa k‰ytt‰‰. N‰iden k‰skyjen k‰yttˆ johtaa vastauksen hylk‰‰miseen. Esimerkki: MUL.
+\end{description}
+
+
+\item Tiedostoon tulostettujen lukujen arvot\label{}
+\begin{description}
+\item[Prioriteetti]: 4
+\item[Kuvaus]: Ei toteuteta
+\end{description}
+
+
+
+\subsubsection{Laadulliset kriteerit}
+
+\item Laadulliset kriteerit\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Laadullisten kriteerien perusteella voidaan antaa negatiivista tai positiivista palautetta, mutta ne eiv‰t vaikuta teht‰v‰n hyv‰ksymiseen. Jos laadullinen kriteeri t‰yttyy, annetaan sille m‰‰ritelty positiivinen palaute.
+\end{description}
+
+\item Opiskelijan ohjelman ihannekoko (32:n bitin sanoina)\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Ohjelmakoodille voidaan m‰‰ritell‰ ihannekoko. Jos opiskelijan ohjelma on kooltaan pienempi tai yht‰ suuri kuin ihannekoko, annetaan opiskelijalle kiitokset lyhyest‰ ratkaisusta.
+\end{description}
+
+\item Data-alueen ihannekoko\label{}
+\begin{description}
+\item[Prioriteetti]: 2
+\item[Kuvaus]: Data-alue tarkoittaa globaalisti m‰‰riteltyj‰ tietorakenteita, ja data-alueen kokoa voidaan k‰ytt‰‰ laadullisena kriteerin‰.
+\end{description}
+
+
+\item Pinon ihannekoko\label{}
+\begin{description}
+\item[Prioriteetti]: 2
+\item[Kuvaus]: Pinon ihannemaksimikokoa voidaan k‰ytt‰‰ laadullisena kriteerin‰.
+\end{description}
+
+
+\item Suoritettujen k‰skyjen ihannelukum‰‰r‰‰\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Suoritettujen k‰skyjen lukum‰‰r‰‰ voidaan k‰ytt‰‰ laadullisena kriteerin‰.
+\end{description}
+
+
+\item Suoritettujen muistiviitteiden ihannelukum‰‰r‰\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Suoritettujen muistiviitteiden m‰‰r‰‰ voidaan k‰ytt‰‰ laadullisena kriteerin‰.
+\end{description}
+
+
+\subsubsection{Kriteerien k‰ytt‰minen}
+
+
+\item Kriteerin ja vastauksen vertailu\label{}
+\begin{description}
+\item[Prioriteetti]: 2
+\item[Kuvaus]: Opiskelijan vastausta voidaan vertailla kriteeriin n‰hden operaatioilla =, !=, <, >, <= ja >=. Joidenkin kriteerien kohdalla on k‰ytett‰viss‰ ainoastaan operaatio <=. Opettaja m‰‰rittelee vertailuoperaatiot teht‰v‰‰ luodessaan.
+\end{description}
+
+
+\item Kriteerien yhdist‰minen teht‰v‰n oikeellisuuden m‰‰ritt‰misess‰\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Kriteerit yhdistet‰‰n aina AND-tyyppisesti, eli kaikkien hyv‰ksymiskriteerien pit‰‰ t‰ytty‰, jotta vastaus hyv‰ksyt‰‰n.
+\end{description}
+
+
+\subsubsection{Muita j‰rjestelm‰vaatimuksia}
+
+\item Teht‰vien aihepiirien luokittelu\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Teht‰v‰t voi luokitella pieniksi kokonaisuuksi. Esimerkki: Opettaja m‰‰rittelee aihepiirin "alkeisteht‰v‰t", joka sis‰lt‰‰ helppoja teht‰vi‰.
+\end{description}
+
+\item Teht‰v‰aihepiirin lis‰ys\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi lis‰t‰ uuden teht‰v‰aihepiirin. 
+\end{description}
+
+
+\item Aihepiirin muokkaus\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi muokata aihepiirien nimi‰. 
+\end{description}
+
+\item Aihepiirin poisto\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettaja voi poistaa aihepiirin. Aihepiiri‰ ei voi poistaa jos on m‰‰ritelty teht‰vi‰, jotka kuuluvat aihepiiriin. T‰llˆin annetaan kehotus poistaa kyseiset
+teht‰v‰t ensin, tai siirt‰‰ kuuluvaksi toiseen aihepiiriin. 
+\end{description}
+
+
+\item Opiskelijan k‰yttˆliittym‰n kieli\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opiskelijan k‰yttˆliittym‰ on sek‰ suomeksi ett‰ englanniksi. Ensimm‰isess‰ iteraatiossa k‰yttˆliittym‰ toteutetaan englanniksi.
+\end{description}
+
+
+\item Opettajan k‰yttˆliittym‰ englanniksi\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+\item[Kuvaus]: Opettajan k‰yttˆliittym‰ tehd‰‰n englannin kielell‰
+\end{description}
+
+
+\item Opettajan k‰yttˆliittym‰ suomeksi\label{}
+\begin{description}
+\item[Prioriteetti]: 3
+\item[Kuvaus]: Opettajan k‰yttˆliittym‰ tehd‰‰n jos ehdit‰‰n myˆs suomenkielisen‰
+\end{description}
+
+
+\subsection{Titokoneen mahdollinen muokkaus}
+
+
+\item Symbolitaulu Titokoneesta\label{}
+\begin{description}
+\item[Prioriteetti]: 1
+
+\item[Kuvaus]: Titokoneen muokkaus siten ett‰ symbolitaulu saadaan tulostettua
+\end{description}
+
+
+\item Makefile Titokoneelle\label{}
+\begin{description}
+\item[Prioriteetti]: 2
+\item[Kuvaus]: Luodaan Titokoneelle makefile. Makefile k‰‰nt‰‰ Titokoneen, luo Titokoneesta jar- ja zip-muotoiset levityspaketit sek‰ luo javadocin.
+\end{description}
+
+\item Titokoneen p‰ivitysohje
+\begin{description}
+\item[Prioriteetti]: 3
+\item[Kuvaus]: P‰ivitet‰‰n olemassaolevaa Titokoneen-p‰ivitysohjetta.
+\end{description}
+
+\subsection{Ei-toiminnalliset j‰rjestelm‰vaatimukset}
+
+
+\item Kuormitus\label{}
+\begin{description}
+\item[Kuvaus]: Se kuinka monta k‰ytt‰j‰‰ j‰rjestelm‰ pystyy k‰sittelem‰‰n kerralla, ja montako k‰ytt‰j‰‰ vuositasolla periytyy eAssarista ja Titokoneesta. Tarkat tiedot asiasta eiv‰t ole t‰m‰n projektin ulottuvissa.
+\end{description}
+
+
+\item Opettajan k‰yttˆliittym‰n selkeys\label{}
+\begin{description}
+\item[Kuvaus]: K‰yttˆliittym‰n tulee olla mahdollisimman selke‰ ja helppok‰yttˆinen. 
+\end{description}
+
+
+\item Opiskelijan k‰yttˆliittym‰n selkeys\label{}
+\begin{description}
+\item[Kuvaus]: K‰yttˆliittym‰n tulee olla mahdollisimman selke‰ ja helppok‰yttˆinen. Hyv‰ k‰yttˆliittym‰ on sellainen joka on niin havainnollinen, ett‰ sen k‰yttˆohjeisiin tarvitsee tutustua tuskin ollenkaan. Opiskelijan k‰yttˆliittym‰st‰ tehd‰‰n sellainen, ett‰ sen k‰ytt‰minen ei vaadi ollenkaan erillist‰ k‰yttˆohjetta.
+\end{description}
+
+
+\item Teht‰v‰n pisteytys\label{}
+\begin{description}
+\item[Kuvaus]: Teht‰v‰st‰ voi saada pisteit‰ joko 0 tai 100. 0 tarkoittaa ett‰ teht‰v‰ ei ole onnistunut ja 100 ett‰ teht‰v‰ on ratkaistu.
+\end{description}
+
+\item Selke‰ k‰yttˆohje opettajalle\label{}
+\begin{description}
+\item[Kuvaus]: K‰yttˆohjeen tulee olla kattava ja selke‰.
+\end{description}
+
+\item K‰yttˆohje opiskelijalle\label{}
+\begin{description}
+\item[Kuvaus]: Opiskelijalle ei luoda erillist‰ k‰yttˆohjetta, mutta luodaan lyhyt WWW-sivu, jossa kerrotaan kuinka j‰rjestelm‰‰ k‰ytet‰‰n. T‰lle
+sivulle luodaan linkki j‰rjestelm‰‰n.
+\end{description}
+
+\item Opettaja vastaa kriteerien mielekkyydest‰\label{}
+\begin{description}
+\item[Kuvaus]: Opettaja on vastuussa siit‰, ett‰ teht‰v‰nanto ja kriteerit vastaavat toisiaan ja ovat muutenkin j‰rkevi‰. J‰rjestelm‰ ei tee tarkistuksia teht‰vien mielekkyydest‰.
+\end{description}
+
+
+
+\subsection{Toimintaymp‰ristˆvaatimukset}
+
+
+\item eAssari-yhteensopivuus\label{}
+\begin{description}
+\item[Kuvaus]: J‰rjestelm‰n tulee toimia yhteistyˆss‰ eAssari-kehyksen kanssa
+\end{description}
+
+
+\item Titokone-yhteensopivuus\label{}
+\begin{description}
+\item[Kuvaus]: J‰rjestelm‰n tulee toimia yhteistyˆss‰ Titokoneen kanssa
+\end{description}
+
+
+\item Sijainti\label{}
+\begin{description}
+\item[Kuvaus]: J‰rjestelm‰ sijaitsee Helsingin Yliopiston palvelimella, ja se toimii Tomcat-alustalla.  
+\end{description}
+
+
+\item Tuetut selaimet\label{}
+\begin{description}
+\item[Kuvaus]: Kohahduksen taataan toimivan uudemmilla Firefox (1.5.x) ja Internet Explorer (6 ja 7) -selaimilla ja j‰rjestelm‰n k‰yttˆ ei vaadi erillisten laajennustan asentamista. 
+Hyvin todenn‰kˆisesti j‰rjestelm‰ toimii myˆs ko. selainten vanhemmilla versioilla ja muilla selaimilla, mutta ainoastaan uusimmat Firefox ja Internet Explorer taataan toimivaksi.
+\end{description}
+
+
+\item JavaScript\label{}
+\begin{description}
+\item[Kuvaus]: J‰rjestelm‰ vaatii JavaScripti‰ toimiakseen. Jos JavaScript-tuki on selaimesta pois p‰‰lt‰, t‰st‰ huomautetaan kirjautumissivulle tultaessa. 
+Itse kirjautuminen ei onnistu ilman JavaScripti‰, vaan kirjautumisyrityksest‰ ilman JavaScripti‰ annetaan kehoitus laittaa JavaScript p‰‰lle.
+\end{description}
+
+
+\end{list}
+
+
+
+\subsection{K‰ytt‰ytyminen virhetilanteissa}
+
+J‰rjestelm‰n k‰yttˆ vaatii sis‰‰nkirjautumista.
+Sek‰ opettajan ett‰ opiskelijan on kirjauduttava sis‰‰n j‰rjestelm‰‰n pysty‰kseen k‰ytt‰m‰‰n sit‰.
+
+
+Mahdolliset virhetilanteet ja niihin reagoiminen:
+
+
+\begin{list}{\textbf{E\arabic{laskuri}.}}{\usecounter{laskuri}}
+\setcounter{laskuri}{\value{ELaskuri}}
+
+\item{V‰‰r‰ tunnus kirjautumisen yhteydess‰}
+
+
+Annetaan virheilmoitus "V‰‰r‰ tunnus tai salasana, yrit‰ uudestaan"
+
+\item{V‰‰r‰ salasana kirjautumisen yhteydess‰}
+
+
+Annetaan virheilmoitus "V‰‰r‰ tunnus tai salasana, yrit‰ uudestaan"
+
+\item{V‰‰r‰n tyyppinen syˆte teht‰v‰n luonnissa}
+
+
+Jos opettaja antaa v‰‰r‰ntyyppisen syˆtteen teht‰v‰n luonnissa, t‰st‰ annetaan virheilmoitus. Esimerkki: Opettaja yritt‰‰ antaa rekisterille R1 arvon "k".
+
+\item{V‰‰r‰n tyyppinen syˆte opiskelijan vastauksessa}
+
+
+Jos opiskelija antaa v‰‰r‰ntyyppisen syˆtteen kentt‰‰n, t‰st‰ annetaan virheilmoitus. Esimerkki: opiskelija kirjoittaa syˆte-kentt‰‰n kirjaimia, vaikka kyseinen kentt‰ saa sis‰lt‰‰ vain kokonaislukuja (kaikkien Titokoneen syˆtteiden tulee olla kokonaislukuja).
+
+\item{Verkkoyhteys ei toimi}
+
+
+Annetaavan virheilmoitus "Verkkoyhteys ei toimi"
+
+\item{Tietokantavirhe}
+
+
+Jos tietokantayhteys p‰tkii annetaan virheilmoitus "Ongelma tietokantayhteydess‰".
+
+\end{list}
+
