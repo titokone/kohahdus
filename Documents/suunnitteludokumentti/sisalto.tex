@@ -20,15 +20,15 @@ Järjestelmä toteutetaan Java-kielellä ja järjestelmän käyttö vaatii, että selain
 
 \subsection{Rekisteröityminen}
 
-Rekiströintisivulla opiskelija rekisteröityy järjestelmän käyttäjäksi. Rekisteröinti vaatii seuraavat tiedot:
-etunimi, sukunimi, sähköposti, opiskelijanumero tai henkilötunnus, sekä vapaavalintainen tunnus ja salasana
+Rekiströintisivulla opiskelija rekisteröityy järjestelmän käyttäjäksi. Rekisteröinti vaatii seuraavat tiedot: etunimi, sukunimi, sähköposti, opiskelijanumero tai henkilötunnus, sekä vapaavalintainen tunnus ja salasana
 
 \subsection{Kirjautuminen}
-Kirjautumissivulla opiskelija tai opettaja syöttää tunnuksensa ja salasanansa.
+
+Kirjautumissivulla käyttäjä syöttää tunnuksensa ja salasanansa. Jos kirjautuminen onnistuu, näytetään kurssinvalintasivu.
 
 \subsection{Käyttäjätietojen muokkaaminen}
 
-Käyttäjätietosivulla käyttäjä voi muokata rekisteröintitietojaan, poislukien tunnus joka on valittu
+Käyttäjätietosivulla sisäänkirjautunut käyttäjä voi muokata rekisteröintitietojaan, poislukien tunnus joka on valittu
 rekiströidyttäessä. 
 
 
@@ -97,6 +97,8 @@ public class Module {
 public class Assignment (eli tehtävä) {
 	Assignment(taskID, courseID, moduleID);
 
+	% Tai ehkä ei näitä kahta, ovat kuitenkin täysin kohahdus-spesifisiä joten 
+	% voisivat olla kohahduksen DBHandler luokassa?
 	Criterion[] getCriteria();
 	void setCriteria(Criterion[]);
 	
@@ -106,7 +108,7 @@ public class Assignment (eli tehtävä) {
 	String getAuthor();
 	void setAuthor();
 
-	Date getModificationDate();
+	Date getCreationDate();
 
 
 
