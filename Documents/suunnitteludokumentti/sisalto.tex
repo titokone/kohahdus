@@ -1,12 +1,25 @@
 \section{Johdanto}
 
-Kohahdus on järjestelmä automaattisesti tarkastettavien TTK-91-konekielen harjoitustehtävien luomiseen ja ratkaisemiseen. Järjestelmä on tarkoitettu käytettäväksi opetuksen tukena, opetettaessa Tietokoneen toiminta -kurssia. Tietojenkäsittelytieteen opettajat voivat tehdä järjestelmään uusia tehtäviä ja määritellä kuinka ne tarkastetaan automaattisesti. Tietokoneen toiminta -kurssin opiskelijat ja kurssin tehtävistä kiinnostuneet itseopiskelijat voivat ratkaista tehtäviä ja saada palautetta niiden onnistumisesta.
+Kohahdus on järjestelmä automaattisesti tarkastettavien TTK-91-konekielen harjoitustehtävien 
+luomiseen ja ratkaisemiseen. Järjestelmä on tarkoitettu käytettäväksi opetuksen tukena, 
+opetettaessa Tietokoneen toiminta -kurssia. Tietojenkäsittelytieteen opettajat voivat tehdä 
+järjestelmään uusia tehtäviä ja määritellä kuinka ne tarkastetaan automaattisesti. 
+Tietokoneen toiminta -kurssin opiskelijat ja kurssin tehtävistä kiinnostuneet itseopiskelijat 
+voivat ratkaista tehtäviä ja saada palautetta niiden onnistumisesta.
 
-Painopiste projektissa on opettajan ja opiskelijan käyttöliittymillä. Käyttöliittymistä tehdään mahdollisimman selkeät ja helppokäyttöiset. Opettajan käyttöliittymän avulla määritellään tehtävät parametreineen ja kuinka opiskelijan ratkaisun oikeellisuus tarkistetaan, sekä nähdään statistiikkatietoja opiskelijoiden suorituksista. Opiskelijan käyttöliittymän avulla opiskelija valitsee tehtäviä, syöttää niiden ratkaisut ja saa palautetta vastauksensa oikeellisuudesta.
+Painopiste projektissa on opettajan ja opiskelijan käyttöliittymillä. Käyttöliittymistä tehdään 
+mahdollisimman selkeät ja helppokäyttöiset. Opettajan käyttöliittymän avulla määritellään tehtävät 
+parametreineen ja kuinka opiskelijan ratkaisun oikeellisuus tarkistetaan, sekä nähdään statistiikkatietoja 
+opiskelijoiden suorituksista. Opiskelijan käyttöliittymän avulla opiskelija valitsee tehtäviä, 
+syöttää niiden ratkaisut ja saa palautetta vastauksensa oikeellisuudesta.
 
-Projekti käyttää valmiina olevaa Titokone-simulaattoria harjoitustehtävien ratkaisemiseen. Projekti rakennetaan valmiina olevaan eAssari-kehykseen, joka sopii geneeriseen automaattisesti tarkistettavien tehtävien määrittelyyn ja toteutukseen.
+Projekti käyttää valmiina olevaa Titokone-simulaattoria harjoitustehtävien ratkaisemiseen. Projekti 
+rakennetaan valmiina olevaan eAssari-kehykseen, joka sopii geneeriseen automaattisesti 
+tarkistettavien tehtävien määrittelyyn ja toteutukseen.
 
-Järjestelmä toteutetaan Java-kielellä ja järjestelmän käyttö vaatii, että selain tukee JavaScript-kieltä ja CSS-tyylitiedostoja. Järjestelmä toimii uusimmilla Firefox ja Internet Explorer-selaimilla.
+Järjestelmä toteutetaan Java-kielellä ja järjestelmän käyttö vaatii, että selain tukee 
+JavaScript-kieltä ja CSS-tyylitiedostoja. Järjestelmä toimii uusimmilla Firefox ja Internet 
+Explorer-selaimilla.
 
 \section{Sanasto}
 
@@ -20,16 +33,20 @@ Tämä lukuu kuvaa järjestelmän HTML-sivut ja sen, mitä toimintoja ne tarjoavät kä
 
 \subsection{Rekisteröityminen}
 
-Rekiströintisivulla opiskelija rekisteröityy järjestelmän käyttäjäksi. Rekisteröinti vaatii seuraavat tiedot: etunimi, sukunimi, sähköposti, opiskelijanumero tai henkilötunnus, sekä vapaavalintainen tunnus ja salasana
+Rekiströintisivulla opiskelija rekisteröityy järjestelmän käyttäjäksi. Rekisteröinti vaatii seuraavat 
+tiedot: etunimi, sukunimi, sähköposti, opiskelijanumero tai henkilötunnus, sekä vapaavalintainen 
+tunnus ja salasana
 
 \subsection{Kirjautuminen}
 
-Kirjautumissivulla käyttäjä syöttää tunnuksensa ja salasanansa. Jos kirjautuminen onnistuu, näytetään kurssinvalintasivu.
+Kirjautumissivulla käyttäjä syöttää tunnuksensa, salasanansa ja pudotusvalikosta kurssin nimi.
+Kurssivalinta määrittää, että minkä kurssin suorituksiin opiskelijan tekemät vastaukset tallennetaan.
+Jos kirjautuminen onnistuu, näytetään tehtävälistaus.
 
 \subsection{Käyttäjätietojen muokkaaminen}
 
-Käyttäjätietosivulla sisäänkirjautunut käyttäjä voi muokata rekisteröintitietojaan, poislukien tunnus joka on valittu
-rekisteröidyttäessä. 
+Käyttäjätietosivulla sisäänkirjautunut käyttäjä voi muokata rekisteröintitietojaan, poislukien 
+tunnus joka on valittu rekisteröidyttäessä. 
 
 \subsection{Kurssin valinta}
 
@@ -50,16 +67,21 @@ Opettajalle näytetään tehtävälistaus
 
 \section{Tietokanta}
 
-Tietotokannan rakenteen määrää eAssari kehys. Rakenne on kuvattu liitteessä 1.
+Tietotokannan rakenteen määrää eAssari kehys. Rakenne on kuvattu liitteessä 1. Ajanpuutteesta johtuen
+module-tietokantataulua ei tulla käyttämään sen mahdollistamassa laajuudessa. Kyseisestä taulusta
+luodaan vain yksi rivi kantaan, johon sitten viitataan muista tauluista. Lisäksi jokainen tehtävä
+sisältyy jokaiseen kurssiin. Eli kun tehtävä luodaan, niin se liitetään jokaiseen kurssiin. Lisäksi 
+kun kurssi luodaan, niin jokainen tehtävä lisätään kyseiseen uuteen kurssiin. Tämä linkitys tapahtuu
+"taskinmodule"-tietokantataulussa. 
 
-Tietokantaa käytetään DBHandler luokan kautta, joka piilottaa rakenteen yksityiskohdat.
+Tietokantaa käytetään aina DBHandler-luokan kautta, joka piilottaa tietokanta rakenteen yksityiskohdat.
+Eli SQL-lauseita tulee vain ks. luokkaan eikä muualle koodiin. DBHandler-luokasta voidaan luoda instanssi
+staattisen DBHandler.getInstance() -metodin avulla. Tämä tarkoittaa sitä, että ko. luokkaa voidaan 
+käyttää virtuaalikoneen sisällä mistä vaan.
 
 \section{Osajärjestelmät}
 
 \section{Komponentit}
-
-
-
 
 
 
@@ -81,35 +103,36 @@ Composer
 +jsp:t eri toiminnoille
 
 
+public class DBHandler {
+
+	Task[] getTasks(Course course)
+	Task getTask(String taskId)
+	void updateTask(Task task) // Update or insert
+	void removeTask(Task task)
+	
+	User[] getUsers(Course course)
+	User getUser(String userId)
+	void updateUser(User user) // Update or insert
+	void removeUser(User user)
+}
 
 public class Course {
 	Course(courseID)
-	void addModule()
-	void removeModule(Module m)
-	Module[] getModules()
-	String getName()
-	User[] getUsers()
-}
-
-public class Module {
-	Module(moduleID)
-	void addAssignment(Assignment a)
-	void removeAssignment(Assignment a)
-	Assignment[] getAssignments()
-}
-
-
-
-
-% Tai ehkä kuitenkin laajennetaan olemassa olevaa Task luokkaa..?
-public class Assignment(eli tehtävä) {
-	Assignment(taskID, courseID, moduleID);
-
-	% Tai ehkä ei näitä kahta, ovat kuitenkin täysin kohahdus-spesifisiä joten 
-	% voisivat olla kohahduksen DBHandler luokassa?
-	Criterion[] getCriteria();
-	void setCriteria(Criterion[]);
 	
+	// Implement if needed
+	//void addTask(Task task)
+	//void removeTask(Task task)
+	//String getId()
+
+	String getName()
+	String setName(String name)
+}
+
+
+
+% Laajennetaan olemassa olevaa Task luokkaa
+public class Task() {
+
 	String getName();
 	void setName(String name);
 	
@@ -118,6 +141,8 @@ public class Assignment(eli tehtävä) {
 
 	Date getCreationDate();
 
+	Criterion[] getCriteria(Task task);
+	void setCriteria(Task task, Criterion[]);
 
 
 	
