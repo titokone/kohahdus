@@ -131,168 +131,22 @@ Feedback
 Composer
 +jsp:t eri toiminnoille
 
-
-public class DBHandler {
-	Task[] getTasks(Course course)
-	Task getTask(String taskId)
-	void updateTask(Task task) // Update or insert
-	void removeTask(Task task)
-	
-	User[] getUsers(Course course)
-	User getUser(String userId)
-	void updateUser(User user) // Update or insert
-	void removeUser(User user)
-}
-
-public class Course {
-	Course(courseID)
-	
-	// Implement if needed
-	//void addTask(Task task)
-	//void removeTask(Task task)
-	//String getId()
-
-	String getName()
-	String setName(String name)
-}
-
-
-
-% Laajennetaan olemassa olevaa Task luokkaa
-public class Task() {
-
-	String getName();
-	void setName(String name);
-	
-	String getAuthor();
-	void setAuthor();
-
-	Date getCreationDate();
-
-	Criterion[] getCriteria(Task task);
-	void setCriteria(Task task, Criterion[]);
-
-
-	
-	%%%%% Task-luokka %%%%%
-	public DisplayerInterface getDisplayer(String language) 
-	public AnalyserInterface getAnalyser(String language) 
-	public boolean shouldAllowRetry(int triesSoFar) 
-	public boolean shouldRegisterTry() 
-	public boolean shouldStoreAnswer() 
-	public boolean shouldBeAnalysed() 
-	public boolean shouldKnowStudent()
-	public String getTasktypeID () 
-	public Tasktype getTasktype() 
-	public String getTaskID() 
-	public int getCutoffvalue() 
-	public String getStyle() 
-	public boolean wasSuccess(int points) 
-	public boolean isInTime(Timestamp when) 
-	
-    String taskID;
-    String courseID;
-    String moduleID;
-    String tasktypeID;
-    Tasktype tasktype;
-    int seqNo;
-    Timestamp deadLine;
-    boolean shouldStore;
-    boolean shouldRegister;
-    boolean shouldKnow;
-    boolean shouldEvaluate;
-    int cutoffvalue;
-    int noOfTries;
-    String style;
-	
-	%%%%% Task-taulu %%%%%
-	taskid varchar(20) not null primary key,   /* each task has a unique id */
-	taskname varchar(40),                      /* name of task in English - not used currently */
-	tasktype varchar(40),                      /* the type of the task - this connects the displayer and analyser to the task */
-	taskmetadata varchar(2000),                /* other task specific metadata - xml-format, not used currently  */
-	numberoftries_def integer,                 /* how many tries are allowed - default value */
-	shouldstoreanswer_def char,                /* should the system store the answer (Y/N) - default value */
-	shouldregistertry_def char,                /* should the system register the try (Y/N) - default value */
-	shouldknowstudent_def char,                /* must the student be known (Y/N) -default value */
-	shouldevaluate_def char,                   /* should the task be evaluated on-line (Y/N) - default value */
-	cutoffvalue integer,                       /* the value to be exceeded to pass the task */
-	foreign key (tasktype) references tasktype
-
-
-	%%%%% Taskinmodule-taulu %%%%%
-	courseid            varchar(20) not null,  /* the course where used  */
-	moduleid            varchar(20) not null,  /* the module where used */
-	seqno               integer not null,      /* sequence number of the task within the module */
-	taskid              varchar(20) not null,  /* which task is used */
-	numberoftries       integer not null,      /* how many tries are allowed in this context */
-	shouldstoreanswer   char,                  /* should the system store the answer (Y/N) in this context */
-	shouldregistertry   char,                  /* should the system register the try (Y/N) in this context */
-	shouldknowstudent   char,                  /* must the student be known (Y/N)in this context */
-	shouldevaluate      char,                  /* should the task be evaluated immediately (Y/N) */
-	cutoffvalue         integer,               /* the value to be exceeded to pass the task */
-	primary key (courseid, moduleid, seqno),
-	foreign key (taskid) references task,
-	foreign key (courseid, moduleid) references module
-   
-  
-
-}
-
-
-
-
-
-
-
-% Nämä kesken
-public abstract class Criterion {
+% Nämä kesken (eikä pitänyt edes vielä suunnitella)
+public abstract class Criterion 
 	abstract boolean isValidAnswer(String answer)
 	String getFailureFeedback()
 	String getSuccessFeedback()
 	boolean isQualityCriterion()
-}
-public abstract class SingleValueCriterion extends Criterion {
+public abstract class SingleValueCriterion extends Criterion 
 	boolean isValidAnswer(String answer)
-	void setTestValue(int value);
-	void setTestOperator(int optype);
-}
+	void setTestValue(int value)
+	void setTestOperator(int optype)
 
 
 
 
 
 
-
-
-
-public class User {
-	User(userID)
-
-	String getLastName();
-	void setLastName(String name);
-
-	String getFirstName();
-	void setFirstName(String name);
-
-	String getEmail();
-	void setEmail(String addr);
-
-	int getStatus() --   ST_ADMIN, ST_PRIVLEDGED, ST_TEACHER, ST_STUDENT
-
-	String getStudentNumber() -- extid
-	void setStudentNumber(String) -- extid
-
-	String getSocialSecurityNumber() -- extid2
-	void setSocialSecurityNumber(String) -- extid2
-
-	String getPassword()
-	void setPassword(String)
-
-	String getLanguage()
-	void setLanguage(String) -- 'EN' 'FI'
-	
-	boolean isTeacher()
-}
 
 
 
