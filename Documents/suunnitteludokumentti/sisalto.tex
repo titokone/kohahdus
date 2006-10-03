@@ -12,7 +12,31 @@ Järjestelmä toteutetaan Java-kielellä ja järjestelmän käyttö vaatii, että selain
 
 \input{termit}
 
+
+
 \section{Toiminnot}
+
+... 
+
+\subsection{Rekisteröityminen}
+
+Rekiströintisivulla opiskelija rekisteröityy järjestelmän käyttäjäksi. Rekisteröinti vaatii seuraavat tiedot:
+etunimi, sukunimi, sähköposti, opiskelijanumero tai henkilötunnus, sekä vapaavalintainen tunnus ja salasana
+
+\subsection{Kirjautuminen}
+Kirjautumissivulla opiskelija tai opettaja syöttää tunnuksensa ja salasanansa.
+
+\subsection{Käyttäjätietojen muokkaaminen}
+
+Käyttäjätietosivulla käyttäjä voi muokata rekisteröintitietojaan, poislukien tunnus joka on valittu
+rekiströidyttäessä. 
+
+
+
+
+
+
+
 
 \section{Arkkitehtuurisuunnitelma}
 
@@ -20,17 +44,23 @@ Järjestelmä toteutetaan Java-kielellä ja järjestelmän käyttö vaatii, että selain
 
 Tietotokannan rakenteen määrää eAssari kehys. Rakenne on kuvattu liitteessä 1.
 
+Tietokantaa käytetään DBHandler luokan kautta, joka piilottaa rakenteen yksityiskohdat.
+
 \section{Osajärjestelmät}
 
 \section{Komponentit}
 
+
+
+
+
+
+
+
+
+
 \section{Luokat}
 
-User
-Course
-Module
-Assignment (tehtävä)
-Criteria (abstrakti)
 
 DBHandler
 DBConnectionPool
@@ -39,5 +69,144 @@ Analyzer
 Displayer
 Feedback
 Composer
+
++jsp:t eri toiminnoille
+
+
+
+public class Course {
+	Course(courseID)
+	void addModule()
+	void removeModule(Module m)
+	Module[] getModules()
+	String getName()
+	User[] getUsers()
+}
+
+public class Module {
+	Module(moduleID)
+	void addAssignment(Assignment a)
+	void removeAssignment(Assignment a)
+	Assignment[] getAssignments()
+}
+
+
+% Tai ehkä kuitenkin laajennetaan olemassa olevaa Task luokkaa..
+public class Assignment (eli tehtävä) {
+	Assignment(taskID, courseID, moduleID);
+
+	Criterion[] getCriteria();
+	void setCriteria(Criterion[]);
+	
+	String getName();
+	void setName(String name);
+	
+	String getAuthor();
+	void setAuthor();
+	Module
+Assignment (tehtävä)
+	Date getModificationDate();
+	
+	% Task -luokka
+    String taskID;
+    String courseID;
+    String moduleID;
+    String tasktypeID;
+    Tasktype tasktype;
+    int seqNo;
+    Timestamp deadLine;
+    boolean shouldStore;
+    boolean shouldRegister;
+    boolean shouldKnow;
+    boolean shouldEvaluate;
+    int cutoffvalue;
+    int noOfTries;
+    String style;
+	
+  %Task-taulu	
+  taskid varchar(20) not null primary key,   /* each task has a unique id */
+  taskname varchar(40),                      /* name of task in English - not used currently */
+  tasktype varchar(40),                      /* the type of the task - this connects the displayer and analyser to the task */
+  taskmetadata varchar(2000),                /* other task specific metadata - xml-format, not used currently  */
+  numberoftries_def integer,                 /* how many tries are allowed - default value */
+  shouldstoreanswer_def char,                /* should the system store the answer (Y/N) - default value */
+  shouldregistertry_def char,                /* should the system register the try (Y/N) - default value */
+  shouldknowstudent_def char,                /* must the student be known (Y/N) -default value */
+  shouldevaluate_def char,                   /* should the task be evaluated on-line (Y/N) - default value */
+  cutoffvalue integer,                       /* the value to be exceeded to pass the task */
+  foreign key (tasktype) references tasktype
+
+
+  %Taskinmodule-taulu
+  courseid            varchar(20) not null,  /* the course where used  */
+  moduleid            varchar(20) not null,  /* the module where used */
+  seqno               integer not null,      /* sequence number of the task within the module */
+  taskid              varchar(20) not null,  /* which task is used */
+  numberoftries       integer not null,      /* how many tries are allowed in this context */
+  shouldstoreanswer   char,                  /* should the system store the answer (Y/N) in this context */
+  shouldregistertry   char,                  /* should the system register the try (Y/N) in this context */
+  shouldknowstudent   char,                  /* must the student be known (Y/N)in this context */
+  shouldevaluate      char,                  /* should the task be evaluated immediately (Y/N) */
+  cutoffvalue         integer,               /* the value to be exceeded to pass the task */
+  primary key (courseid, moduleid, seqno),
+  foreign key (taskid) references task,
+  foreign key (courseid, moduleid) references module
+
+}
+
+
+public abstract class Criterion {
+	abstract boolean isValidAnswer(String answer)
+	String getFailureFeedback()
+	String getSuccessFeedback()
+	boolean isQualityCriterion()
+}
+
+public abstract class SingleValueCriterion extends Criterion {
+	boolean isValidAnswer(String answer)
+	void setTestValue(int value);
+	void setTestOperator(int optype);
+}
+
+
+
+
+
+
+
+
+
+public class User {
+	User(userID)
+
+	String getLastName();
+	void setLastName(String name);
+
+	String getFirstName();
+	void setFirstName(String name);
+
+	String getEmail();
+	void setEmail(String addr);
+
+	int getStatus() --   ST_ADMIN, ST_PRIVLEDGED, ST_TEACHER, ST_STUDENT
+
+	String getStudentNumber() -- extid
+	void setStudentNumber(String) -- extid
+
+	String getSocialSecurityNumber() -- extid2
+	void setSocialSecurityNumber(String) -- extid2
+
+	String getPassword()
+	void setPassword(String)
+
+	String getLanguage()
+	void setLanguage(String) -- 'EN' 'FI'
+	
+	boolean isTeacher()
+}
+
+
+
+
 
 
