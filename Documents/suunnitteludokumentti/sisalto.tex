@@ -170,20 +170,14 @@ public class Assignment (eli tehtävä) {
 	primary key (courseid, moduleid, seqno),
 	foreign key (taskid) references task,
 	foreign key (courseid, moduleid) references module
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
+   
   
 
 }
+
+
+
+
 
 
 % Nämä kesken
@@ -193,7 +187,6 @@ public abstract class Criterion {
 	String getSuccessFeedback()
 	boolean isQualityCriterion()
 }
-
 public abstract class SingleValueCriterion extends Criterion {
 	boolean isValidAnswer(String answer)
 	void setTestValue(int value);
