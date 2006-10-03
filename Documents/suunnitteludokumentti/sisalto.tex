@@ -21,6 +21,8 @@ Järjestelmä toteutetaan Java-kielellä ja järjestelmän käyttö vaatii, että selain
 JavaScript-kieltä ja CSS-tyylitiedostoja. Järjestelmä toimii uusimmilla Firefox ja Internet 
 Explorer-selaimilla.
 
+
+
 \section{Sanasto}
 
 \input{termit}
@@ -37,33 +39,66 @@ Rekiströintisivulla opiskelija rekisteröityy järjestelmän käyttäjäksi. Rekisterö
 tiedot: etunimi, sukunimi, sähköposti, opiskelijanumero tai henkilötunnus, sekä vapaavalintainen 
 tunnus ja salasana
 
-\subsection{Kirjautuminen}
-
-Kirjautumissivulla käyttäjä syöttää tunnuksensa, salasanansa ja pudotusvalikosta kurssin nimi.
-Kurssivalinta määrittää, että minkä kurssin suorituksiin opiskelijan tekemät vastaukset tallennetaan.
-Jos kirjautuminen onnistuu, näytetään tehtävälistaus.
-
 \subsection{Käyttäjätietojen muokkaaminen}
 
 Käyttäjätietosivulla sisäänkirjautunut käyttäjä voi muokata rekisteröintitietojaan, poislukien 
 tunnus joka on valittu rekisteröidyttäessä. 
 
-\subsection{Kurssin valinta}
+\subsection{Kirjautuminen}
 
-Kurssinvalintasivulla käyttäjä voi valita minkä kurssin tehtäviä haluaa tarkastella.
-Jos käyttäjällä on opettajan käyttöoikeudet, tällä sivullä voi myös perustaa uuden kurssin.
+Kirjautumissivulla käyttäjä syöttää tunnuksensa, salasanansa ja pudotusvalikosta kurssin nimi.
+Kurssivalinta määrittää, että minkä kurssin suorituksiin opiskelijan tekemät vastaukset tallennetaan.
+Opettajan ollessa kyseessä kurssivalinnalla ei ole merkitystä. Jos kirjautuminen onnistuu, näytetään
+tehtävälistaus. Jos kirjautuminen epäonnistuu, käyttäjä palautetaan kirjautumissivulle.
 
-\subsection{Tehtävien valinta (opettaja) }
+\subsection{Kurssien ja tehtävien valinta (opettaja)}
 
-Opettajalle näytetään tehtävälistaus
+Kirjautumisen jälkeen opettajalle näytetään kurssilistaus josta opettaja voi siirtyä
+kurssin statistiikka-sivulle. Kurssilistauksesen alla on myös lomake uuden kurssin
+luomista varten.
 
+Samalla sivulla näytetään myös tehtävälista. Listassa näytetään tehtävän kieli, aihepiiri
+ja nimi, sekä viimeinen muokkauspäivä ja muokkaaja. Listattuja tehtäviä voi muokata ja
+poistaa, sekä käynnistää uuden tehtävän luomisen.
 
+\subsection{Tehtävän määrittely (opettaja)}
 
+Tehtävänmäärittelysivulla opettaja voi luoda uuden tehtävän tai muokata olemassa olevaa
+tehtävää. Tehtävälle määritellään nimi, tehtävänanto, tarkastustyyppi (malliratkaisu/kiinteät arvot),
+tehtävätyyppi (täyttötehtävä/ohjelmointitehtävä), sekä tarkastuskriteerit ja kriteerien palautteet.
 
+\subsection{Kurssin statistiikka (opettaja)}
+Kurssin statistiikkasivulla opettajalle näytetään lista kaikkien kurssin tehtäviän suorittaneiden
+opiskelijoiden suorituksista. Listassa näytetään opiskelijan nimi, opiskelijanumero tai henkilötunnus,
+sekä onnistuneesti ratkaistujen tehtävien määrä. Lista on helposti tulostettavassa muodossa.
+
+Listassa opiskelijan nimi toimii linkkinä ko. opiskelijan käyttäjätietosivulle.
+
+\subsection{Käyttäjän tiedot (opettaja)}
+Käyttäjän statistiikkasivulla opettajalle näytetään opiskelijan tarkemmat tiedot.
+Listassa näkyy salasanaa lukuunottamatta kaikki rekisteröintitiedot.
+
+\subsection{Tehtävien valinta (opiskelija)}
+
+Kirjautumisen jälkeen opiskelijalle näytetään tehtävälista, josta opiskelija voi valita
+tehtävän ratkaistavaksi. Listassa näytetään tehtävän kieli, aihepiiri ja nimi, sekä tieto
+onko opiskelija yrittänyt jo tehtävän suoritusta ja onko yritys onnistunut.
+
+\subsection{Tehtävään vastaaminen (opiskelija)}
+
+Opiskelijan ratkaistavaksi valitsemasta tehtävästä näytetään nimi ja tehtävänanto,
+mahdollinen valmis koodi mikäli kyseessä on täyttötehtävä, sekä tekstialue johon
+opiskelija kirjoittaa vastauksensa. Lisäksi on linkki jolla pääsee takaisin tehtävälistaukseen.
+
+Kun opiskelija on kirjoittanut vastauksensa, hän painaa "Suorita" nappia joka vie
+takaisin tehtävävastaussivulle. Sivulla näytetään samat tiedot kuin alussa, mutta
+lisäksi näytetään palautetta tehtävän ratkaisun onnistumisesta/epäonnistumisesta.
 
 
 
 \section{Arkkitehtuurisuunnitelma}
+
+
 
 \section{Tietokanta}
 
@@ -81,30 +116,23 @@ käyttää virtuaalikoneen sisällä mistä vaan.
 
 \section{Osajärjestelmät}
 
+
+
 \section{Komponentit}
-
-
-
-
 
 
 
 \section{Luokat}
 
-
-DBHandler
 DBConnectionPool
-
 Analyzer
 Displayer
 Feedback
 Composer
-
 +jsp:t eri toiminnoille
 
 
 public class DBHandler {
-
 	Task[] getTasks(Course course)
 	Task getTask(String taskId)
 	void updateTask(Task task) // Update or insert
@@ -147,20 +175,20 @@ public class Task() {
 
 	
 	%%%%% Task-luokka %%%%%
-	public DisplayerInterface getDisplayer(String language) {
-	public AnalyserInterface getAnalyser(String language) {
-	public boolean shouldAllowRetry(int triesSoFar) {
-	public boolean shouldRegisterTry() {
-	public boolean shouldStoreAnswer() {
-	public boolean shouldBeAnalysed() {
-	public boolean shouldKnowStudent() {
-	public String getTasktypeID () {
-	public Tasktype getTasktype() {
-	public String getTaskID() {
-	public int getCutoffvalue() {
-	public String getStyle() {
-	public boolean wasSuccess(int points) {
-	public boolean isInTime(Timestamp when) {
+	public DisplayerInterface getDisplayer(String language) 
+	public AnalyserInterface getAnalyser(String language) 
+	public boolean shouldAllowRetry(int triesSoFar) 
+	public boolean shouldRegisterTry() 
+	public boolean shouldStoreAnswer() 
+	public boolean shouldBeAnalysed() 
+	public boolean shouldKnowStudent()
+	public String getTasktypeID () 
+	public Tasktype getTasktype() 
+	public String getTaskID() 
+	public int getCutoffvalue() 
+	public String getStyle() 
+	public boolean wasSuccess(int points) 
+	public boolean isInTime(Timestamp when) 
 	
     String taskID;
     String courseID;
@@ -209,6 +237,7 @@ public class Task() {
   
 
 }
+
 
 
 
