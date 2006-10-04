@@ -11,6 +11,9 @@ public class User {
 	public static final int STATUS_ADMIN = 3;
 	
 	
+	/** Return true if userID exists in the user database */
+	public static boolean isUser(userID) {}
+	
 	/** Retrieve user identified by userID from the user database */
 	public User(String userID) {}
 	

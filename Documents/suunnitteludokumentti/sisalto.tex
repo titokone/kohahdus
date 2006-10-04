@@ -94,9 +94,17 @@ Kun opiskelija on kirjoittanut vastauksensa, h‰n painaa "Suorita" nappia joka vi
 takaisin teht‰v‰vastaussivulle. Sivulla n‰ytet‰‰n samat tiedot kuin alussa, mutta
 lis‰ksi n‰ytet‰‰n palautetta teht‰v‰n ratkaisun onnistumisesta/ep‰onnistumisesta.
 
-
-
 \section{Arkkitehtuurisuunnitelma}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -135,15 +143,15 @@ Composer
 +jsp:t eri toiminnoille
 
 % N‰m‰ kesken (eik‰ pit‰nyt edes viel‰ suunnitella)
-public abstract class Criterion 
-	abstract boolean isValidAnswer(String answer)
-	String getFailureFeedback()
-	String getSuccessFeedback()
-	boolean isQualityCriterion()
-public abstract class SingleValueCriterion extends Criterion 
-	boolean isValidAnswer(String answer)
-	void setTestValue(int value)
-	void setTestOperator(int optype)
+%public abstract class Criterion 
+%	abstract boolean isValidAnswer(String answer)
+%	String getFailureFeedback()
+%	String getSuccessFeedback()
+%	boolean isQualityCriterion()
+%public abstract class SingleValueCriterion extends Criterion 
+%	boolean isValidAnswer(String answer)
+%	void setTestValue(int value)
+%	void setTestOperator(int optype)
 
 
 
