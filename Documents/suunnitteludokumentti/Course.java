@@ -11,6 +11,8 @@ public class Course {
     /** Set name of this course */
     public String setName(String name) {}
 
+    /** Return all users who have solved or have tried to solve tasks from this course */
+    public User[] getUsers() {} // Delegate to DBHandler
 
     // Implement if needed
     //void addTask(Task task)

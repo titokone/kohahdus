@@ -5,6 +5,7 @@
 
 
 public class User {
+	//TODO: Tarkista että nämä ovat sama kuin eAssarin eauser.statuskenttä
 	public static final int STATUS_STUDENT = 0;
 	public static final int STATUS_PRIVLEDGED = 1;
 	public static final int STATUS_TEACHER = 2;

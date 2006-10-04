@@ -17,9 +17,10 @@ public class Task {
 	public Date getModificationDate() {}
 	
 	
-
-	public Criterion[] getCriteria(Task task) {}
-	public void setCriteria(Task task, Criterion[] criteria) {}
+	public Criterion[] getCriteria(Task task) {} // Delegate to DBHandler
+	
+	
+	public void setCriteria(Task task, Criterion[] criteria) {} // Delegate to DBHandler
 /*	
 	
 	
