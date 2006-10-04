@@ -10,8 +10,9 @@ BIB_SRC = ../pohjat/lahteet.bib
 
 DOCNAME = dokumentti
 
-$(DOCNAME).ps: $(DOCNAME).dvi
+$(DOCNAME).ps: $(DOCNAME).dvi docs.tex
 	$(DVIPS) -t a4 $(DOCNAME).dvi
+
 
 $(DOCNAME).dvi: $(TEX_SRC) $(patsubst %.dia,%.dia.eps,$(DIA_SRC)) $(BIB_SRC)
 	@../pohjat/compile_doc.sh "$(TEXSEARCHPATH)" $(DOCNAME)
@@ -45,6 +46,9 @@ $(DOCNAME)-2.ps: $(DOCNAME).dvi
 
 backup: clean
 	tar fcz ~/ohtu-backup.tar.gz `find -maxdepth 1 -type f`
+	
+docs.tex: *.java
+	javadoc -docletpath ./TeXDoclet.jar -doclet sm.texdoclet.TeXDoclet *.java -include	
 
 all: $(DOCNAME).ps $(DOCNAME)-2.ps
 
