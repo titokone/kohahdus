@@ -39,7 +39,7 @@ public class User {
 	public String getStudentNumber() {}
 	
 	/** Set student number of of this user */
-	public void setStudentNumber(String) {}
+	public void setStudentNumber(String studentnum) {}
 	
 	/** Return social security number of this user. This identifier maps to <code>aeuser.extid2</code> in the database */
 	public String getSocialSecurityNumber() {}
