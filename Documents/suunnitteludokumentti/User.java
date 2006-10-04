@@ -13,7 +13,7 @@ public class User {
 	
 	
 	/** Return true if userID exists in the user database */
-	public static boolean isUser(userID) {}
+	//public static boolean isUser(String userID) {}
 	
 	/** Retrieve user identified by userID from the user database */
 	public User(String userID) {}

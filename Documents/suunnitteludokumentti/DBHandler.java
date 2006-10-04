@@ -46,5 +46,5 @@ public class DBHandler {
 	
 	
 	/** Add task to Course */
-	private void addTask(Course c, Task task)
+	private void addTask(Course c, Task task) {}
 }
