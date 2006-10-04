@@ -2,15 +2,21 @@
 public class Task() {
 	
 	/** Return the name of this task */
-	String getName();
+	public String getName();
 	
 	/** Set the name of this task */
-	void setName(String name);
+	public void setName(String name);
 	
-	String getAuthor();
-	void setAuthor();
+	/** Return name of the last person who has modified this task */
+	public String getAuthor();
+
+	/** Set "last task modification by" attribute to Name */
+	public void setAuthor(String name);
 	
-	Date getCreationDate();
+	/** Return the date and time this task was last modified */
+	public Date getModificationDate();
+	
+	
 	
 	Criterion[] getCriteria(Task task);
 	void setCriteria(Task task, Criterion[]);
