@@ -1,5 +1,11 @@
 package fi.helsinki.cs.kohahdus;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import trainer.DatabaseException;
+
 /** 
  * Singleton class used for database interactions. Each public method of DBHandler class
  * encapsulates one database transaction, and thus may cause multiple inserts/updates/removes
@@ -11,7 +17,12 @@ package fi.helsinki.cs.kohahdus;
 public class DBHandler {
 	
 	private static DBHandler instance = null;
-
+	private String dbDriver =null;
+	private String dbServer = null;
+	private String dbLogin = null;
+	private String dbPassword = null;
+    
+   
 	private DBHandler(){
 		init();
 	}
@@ -24,12 +35,35 @@ public class DBHandler {
 	}
 	
 	private boolean init(){
-		// TODO: initialize db connection pool
+        dbDriver = db_Driver;
+        dbServer = db_Server;
+        dbLogin  = db_Login;
+        dbPassword = db_Password; 
 		
+		// TODO: initialize db connection pool
 		return true;
 	}
-	
-	
+
+	// TODO: DBConnectionPool
+	///      !!!!!!!!!!!!!!!!!! Tosi likainen ratkaisu ennen DBConnectionPool luokkaa
+	protected Connection getConnection () throws DatabaseException {
+	    // load database driver if not already loaded
+		Connection conn= null;
+		try { 
+		  Class.forName(dbDriver);               // load driver if not loaded
+		  //  Class.forName("oracle.jdbc.OracleDriver");
+		} catch (ClassNotFoundException e) { 
+		     throw new DatabaseException ("Couldn't find the database driver "+dbDriver);
+		}
+		try {
+		   conn= DriverManager.getConnection(dbServer, dbLogin, dbPassword);
+		} catch (SQLException sex) {
+		   throw new DatabaseException("Couldn't establish a repository connection. ");
+        }
+        return conn;
+	}	
+
+		
 	/** Return all tasks of Course c */
 	public Task[] getTasks(Course c) {
 		return null;
