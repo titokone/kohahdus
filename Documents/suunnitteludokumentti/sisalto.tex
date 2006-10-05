@@ -96,11 +96,24 @@ lisäksi näytetään palautetta tehtävän ratkaisun onnistumisesta/epäonnistumisesta
 
 \section{Arkkitehtuurisuunnitelma}
 
+Järjestelmä on jaettu kahteen osajärjestelmään, Titokone ja eAssari/kohahdus. Ideaalitapaus
+olisi ollut kolme osajärjestelmää, jossa eAssari on kohahdusta käyttävä sovelluskehys. Tämä
+malli ei kuitenkaan ole mahdollinen johtuen eAssarin keskeneräisyydestä. Lopputuotteelle 
+asettujen vaatimusten täyttäminen vaatii huomattavia lisäyksiä eAssariin, mm. puuttuvat
+kurssien ja käyttäjien hallinta täytyy tehdä. Kireän aikataulun vuoksi eAssaria ei yritetä
+säilyttää geneerisenä kehyksenä, vaan muokkauset tehdään vain Kohahdus projektin tarpeita
+ajatellen. Käytännössä eAssarista tehdään siis ns. code fork, eli synnytetään täysin
+Kohahdus-spesifinen eAssari-versio joka ei ole yhteensopiva geneerisen eAssarin kanssa.
 
+Ainoa osuus eAssarista jota pyritään käyttämään sen alkuperäisen arkkitehtuurin mukaan,
+on tehtävien tarkistus eli Answer-servlet ja Analyzer sekä Feedback rajapinnat. Tietokannan
+rakennetta ei myöskään muuteta, mutta kaikkia tauluja ei käytetä (kts. tämän dokumentin
+luku Tietokanta).
 
-
-
-
+Titokonetta käytetään sen TTK91-rajapintojen kautta, joita muokataan tarpeen mukaan jotta
+vaatimuksissa esitetyt tehtävien tarkistukset ja suorituksenaikaiset tilastot saadaan 
+toteutettua. Titokoneen käytön ja muokkauksen yksityiskohdat jätetään toisen iteraation
+asioiksi.
 
 
 
