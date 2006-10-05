@@ -1,6 +1,6 @@
 \section{Johdanto}
 
-Kohahdus on j‰rjestelm‰ automaattisesti tarkastettavien TTK-91-konekielen harjoitusteht‰vien 
+TitoTrainer on j‰rjestelm‰ automaattisesti tarkastettavien TTK-91-konekielen harjoitusteht‰vien 
 luomiseen ja ratkaisemiseen. J‰rjestelm‰ on tarkoitettu k‰ytett‰v‰ksi opetuksen tukena, 
 opetettaessa Tietokoneen toiminta -kurssia. Tietojenk‰sittelytieteen opettajat voivat tehd‰ 
 j‰rjestelm‰‰n uusia teht‰vi‰ ja m‰‰ritell‰ kuinka ne tarkastetaan automaattisesti. 
@@ -102,14 +102,14 @@ Teht‰v‰‰n vastaaminen toteutetaan toisessa kehitysiteraatiossa.
 
 \section{Arkkitehtuurisuunnitelma}
 
-J‰rjestelm‰ on jaettu kahteen osaj‰rjestelm‰‰n, Titokone ja eAssari/kohahdus. Ideaalitapaus
-olisi ollut kolme osaj‰rjestelm‰‰, jossa eAssari on kohahdusta k‰ytt‰v‰ sovelluskehys. T‰m‰
+J‰rjestelm‰ on jaettu kahteen osaj‰rjestelm‰‰n, Titokone ja eAssari/TitoTrainer. Ideaalitapaus
+olisi ollut kolme osaj‰rjestelm‰‰, jossa eAssari on TitoTraineria k‰ytt‰v‰ sovelluskehys. T‰m‰
 malli ei kuitenkaan ole mahdollinen johtuen eAssarin keskener‰isyydest‰. Lopputuotteelle 
 asettujen vaatimusten t‰ytt‰minen vaatii huomattavia lis‰yksi‰ eAssariin, mm. puuttuvat
 kurssien ja k‰ytt‰jien hallinta t‰ytyy tehd‰. Kire‰n aikataulun vuoksi eAssaria ei yritet‰
 s‰ilytt‰‰ geneerisen‰ kehyksen‰, vaan muokkauset tehd‰‰n vain Kohahdus projektin tarpeita
 ajatellen. K‰yt‰nnˆss‰ eAssarista tehd‰‰n siis ns. code fork, eli synnytet‰‰n t‰ysin
-Kohahdus-spesifinen eAssari-versio joka ei ole yhteensopiva geneerisen eAssarin kanssa.
+TitoTrainer-spesifinen eAssari-versio joka ei ole yhteensopiva geneerisen eAssarin kanssa.
 
 Ainoa osuus eAssarista jota pyrit‰‰n k‰ytt‰m‰‰n sen alkuper‰isen arkkitehtuurin mukaan,
 on teht‰vien tarkistus eli Answer-servlet ja Analyzer sek‰ Feedback rajapinnat. Tietokannan
