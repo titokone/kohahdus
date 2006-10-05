@@ -6,11 +6,6 @@
  *
  * @author 
  */
-
-
-
-
-
 public class DBHandler {
 	
 	/** Return all tasks of Course c */
