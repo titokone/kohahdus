@@ -47,8 +47,8 @@ $(DOCNAME)-2.ps: $(DOCNAME).dvi
 backup: clean
 	tar fcz ~/ohtu-backup.tar.gz `find -maxdepth 1 -type f`
 	
-docs.tex: *.java
-	javadoc -docletpath ./TeXDoclet.jar -doclet sm.texdoclet.TeXDoclet *.java -include	
+docs.tex: ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/*.java
+	javadoc -docletpath ./TeXDoclet.jar -doclet sm.texdoclet.TeXDoclet ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/*.java -include	
 
 all: $(DOCNAME).ps $(DOCNAME)-2.ps
 
