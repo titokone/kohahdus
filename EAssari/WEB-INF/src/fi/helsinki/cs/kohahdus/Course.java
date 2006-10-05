@@ -1,4 +1,4 @@
-
+package fi.helsinki.cs.kohahdus;
 
 
 public class Course {
@@ -6,13 +6,19 @@ public class Course {
     Course(String courseID) {}
     
     /** Return name of this course */
-    public String getName() {}
+    public String getName() {
+    	return null;
+    }
 
     /** Set name of this course */
-    public String setName(String name) {}
+    public String setName(String name) {
+    	return null;
+    }
 
     /** Return all users who have solved or have tried to solve tasks from this course */
-    public User[] getUsers() {} // Delegate to DBHandler
+    public User[] getUsersDB() {
+    	return null;
+    } // Delegate to DBHandler
 
     // Implement if needed
     //void addTask(Task task)

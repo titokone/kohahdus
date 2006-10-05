@@ -1,3 +1,5 @@
+package fi.helsinki.cs.kohahdus;
+
 /** 
  * Singleton class used for database interactions. Each public method of DBHandler class
  * encapsulates one database transaction, and thus may cause multiple inserts/updates/removes
@@ -8,11 +10,35 @@
  */
 public class DBHandler {
 	
+	private static DBHandler instance = null;
+
+	private DBHandler(){
+		init();
+	}
+	
+	public static synchronized DBHandler getInstance(){
+		if (instance == null) {
+			instance = new DBHandler();
+		}
+		return instance;		
+	}
+	
+	private boolean init(){
+		// TODO: initialize db connection pool
+		
+		return true;
+	}
+	
+	
 	/** Return all tasks of Course c */
-	public Task[] getTasks(Course c) {}
+	public Task[] getTasks(Course c) {
+		return null;
+	}
 	
 	/** Return task identified by taskID */
-	public Task getTask(String taskID) {}
+	public Task getTask(String taskID) {
+		return null;
+	}
 	
 	/** Add new task to task database. The insert will affect all courses. This operation
 	 * will also create the criteria for the task */ 
@@ -28,10 +54,14 @@ public class DBHandler {
 	
 
 	/** Return all users who have attempted to solve at least one task of Course c */
-	public User[] getUsers(Course c) {}
+	public User[] getUsers(Course c) {
+		return null;
+	}
 	
 	/** Return user identified by userID */
-	public User getUser(String userID) {}
+	public User getUser(String userID) {
+		return null;
+	}
 
 	/** Add new user to user database */
 	public void createUser(User user) {} 

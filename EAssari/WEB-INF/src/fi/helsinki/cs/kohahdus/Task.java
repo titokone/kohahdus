@@ -1,26 +1,39 @@
+package fi.helsinki.cs.kohahdus;
+
+import java.util.*;
+
 // Laajennetaan olemassa olevaa Task luokkaa
 public class Task {
 	
 	/** Return the name of this task */
-	public String getName() {}
+	public String getName() {
+		return null;
+	}
 	
 	/** Set the name of this task */
 	public void setName(String name) {}
 	
 	/** Return name of the last person who has modified this task */
-	public String getAuthor() {}
+	public String getAuthor() {
+		return null;
+	}
 
 	/** Set "last task modification by" attribute to Name */
 	public void setAuthor(String name) {}
 	
 	/** Return the date and time this task was last modified */
-	public Date getModificationDate() {}
+	public Date getModificationDate() {
+		return null;
+	}
 	
 	
-	public Criterion[] getCriteria(Task task) {} // Delegate to DBHandler
+	public Criterion[] getCriteriaDB(Task task) {
+		return null;
+	} // Delegate to DBHandler
 	
 	
-	public void setCriteria(Task task, Criterion[] criteria) {} // Delegate to DBHandler
+	public void setCriteriaDB(Task task, Criterion[] criteria) {
+	} // Delegate to DBHandler
 /*	
 	
 	

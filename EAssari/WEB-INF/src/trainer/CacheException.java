@@ -1,6 +1,6 @@
 package trainer;
 
-public class CacheException extends Exception {
+public class CacheException extends RuntimeException {
 // Exception for reporting such cache errors that prevent
 // the program to proceed
 
