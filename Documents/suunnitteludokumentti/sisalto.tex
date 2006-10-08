@@ -150,12 +150,13 @@ k‰ytt‰‰ virtuaalikoneen sis‰ll‰ mist‰ vaan.
 
 \subsection{tasktype}
 Tasktype on eAssari-kehyksen tarvitsema taulu, joka m‰‰rittelee teht‰v‰tyypin k‰ytt‰m‰t
-Analyzer ja Displayer luokat. Tauluun on mahdollista tallentaa myˆs muuta teht‰v‰tyyppikohtaista
-tietoa, mutta todenn‰kˆist‰ on ett‰ n‰it‰ ei tulla k‰ytt‰m‰‰n.
+Analyzer ja Displayer luokat. Tauluun olisi mahdollista tallentaa myˆs muuta
+teht‰v‰tyyppikohtaista tietoa, mutta ainakaan ensimm‰isen iteraation kohdalla t‰lle ole
+n‰kyviss‰ tarvetta.
 
 \subsection{task}
-Task m‰‰rittelee teht‰v‰n. Itse task-taluun tallentaan l‰hinn‰ teht‰v‰n nimi ja luojan nimi,
-teht‰v‰n kriteerit, kuvaus, palautteet yms lis‰t‰‰n yleisk‰yttˆiseen attributevalues-tauluun.
+Task m‰‰rittelee teht‰v‰n. Itse task-tauluun tallentaan l‰hinn‰ teht‰v‰n nimi ja luojan nimi.
+Teht‰v‰n kriteerit, kuvaus, palautteet yms lis‰t‰‰n yleisk‰yttˆiseen attributevalues-tauluun.
 
 \subsection{course}
 M‰‰rittelee kurssin nimen ja tunnisteen. T‰h‰n tauluun viitataan useista muista taluista,
@@ -173,7 +174,7 @@ Yhdist‰‰ teht‰v‰n kursiin ja moduuliin. Normaalitapauksessa siis teht‰v‰ lis‰tt‰
 jonkin kurssin johonkin moduulin luomalla rivi taskinmodule-tauluun. 
 
 TitoTrainerin tapauksessa on m‰‰ritelty, ett‰ kaikki teht‰v‰t kuuluvat kaikkiin kursseihin,
-joten kun opettaja luo teht‰v‰n, TitoTrainer luo automaattisesti yht‰ monta taskinmodule-rivi‰
+joten kun opettaja luo teht‰v‰n, TitoTrainer luo automaattisesti yht‰ monta taskinmodule rivi‰
 kuin on kursseja. Samoin kun luodaan uusi kurssi, sille luodaan automaattisesti moduuli ja
 kaikki olemassa olevat teht‰v‰t lis‰t‰‰n ko. moduuliin. N‰in ollen aina pit‰‰ paikkansa,
 ett‰ Taskinmodule rivien m‰‰r‰ = Task rivien m‰‰r‰ * Course rivien m‰‰r‰.
@@ -186,10 +187,11 @@ lis‰tietoja kursseista jos tarvetta ilmenee.
 
 \subsection{eauser}
 Taulu kaikkien k‰ytt‰j‰tietojen tallentamiseen. Sek‰ oppilaat ja opettajat tallennetaan
-t‰nne, erona on vain status-sarakkeen arvo.
+t‰nne, erona n‰ill‰ on vain status-sarakkeen arvo.
 
 \subsection{storedanswer}
-Kun opiskelija vastaa teht‰v‰‰n, vastaus sek‰ tiedot sen oikeellisuudesta tallennetaan.
+Kun opiskelija vastaa teht‰v‰‰n, vastaus sek‰ tiedot sen oikeellisuudesta tallennetaan
+t‰h‰n tauluun.
 
 \subsection{studentmodel}
 Jokaista teht‰v‰n vastausyrityst‰ kohden luodaan storedanswer-tauluun yksi rivi.
@@ -266,6 +268,15 @@ k‰yttˆliittym‰suunnitelmassa (Liite 1).
 
 
 \subsection{Register.jsp}
+\begin{figure}[h]
+	\includegraphics[width=14cm] {sekvenssikaaviot/K‰ytt‰j‰n_luominen.eps}
+	\caption{K‰ytt‰j‰n rekisterˆityminen}
+\end{figure}
+\begin{figure}[h]
+	\includegraphics[width=14cm] {sekvenssikaaviot/K‰ytt‰j‰tietojen muokkaaminen.eps}
+	\caption{K‰ytt‰j‰tietojen muokkaaminen}
+\end{figure}
+
 
 \subsection{Login.jsp}
 \begin{figure}[h]
@@ -279,6 +290,7 @@ k‰yttˆliittym‰suunnitelmassa (Liite 1).
 	\includegraphics[width=14cm] {sekvenssikaaviot/Kurssinluonti.eps}
 	\caption{Kurssin luominen}
 \end{figure}
+
 
 
 \subsection{TaskList.jsp}
