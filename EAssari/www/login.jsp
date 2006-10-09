@@ -1,8 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
-
-<%
-	String role = (String)request.getParameter("role");
-%>
 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -30,7 +27,7 @@
 			<td>&nbsp;</td>
 			<td><input type="password" name="password"></td>
 		</tr>
-		<% if (role == null){ %>
+		<c:if test="${empty param.role}">
 			<tr>
 				<td><b>Course</b></td>
 				<td>&nbsp;</td>
@@ -51,16 +48,16 @@
 					</select>
 				</td>
 			</tr>
-		<% } %>
+		</c:if>
 		<tr>
 			<td colspan="3" align="right"><br><input type="submit" value="Sign in"></td>
 		</tr>
 	</table>
 </div>
 
-<% if (role == null){ %>
+<c:if test="${empty param.role}">
 	<p><small>New user? <a href="signup.html">Sign up</a></small></p>
-<% } %>
+</c:if>
 
 </form>
 
