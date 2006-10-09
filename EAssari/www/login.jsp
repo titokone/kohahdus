@@ -17,7 +17,7 @@
 
 <c:if test="${param.action=='login'}">
 	<%
-		User user = DBHandler.getInstance().getUser(request.getParameter("username"), request.getParameter("password"));
+		User user = DBHandler.getUser(request.getParameter("username"), request.getParameter("password"));
 		if (user == null){
 	%>
 			Username or password not correct.
