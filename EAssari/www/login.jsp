@@ -17,7 +17,7 @@
 
 <c:if test="${param.action=='login'}">
 	<%
-		User user = DBHandler.getUser(request.getParameter("username"), request.getParameter("password"));
+		User user = DBHandler.getInstance().getUser(request.getParameter("username"), request.getParameter("password"));
 		if (user == null){
 	%>
 			Username or password not correct.
@@ -26,7 +26,8 @@
 	<%  } %>
 </c:if>
 
-<form action="">
+<form action="login.jsp" method="POST">
+<input type="hidden" name="action" value="login">
 
 <div>
 	<table border="0">

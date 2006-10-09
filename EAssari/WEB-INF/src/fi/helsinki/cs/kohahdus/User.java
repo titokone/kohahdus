@@ -6,6 +6,7 @@ import java.util.Hashtable;
 
 public class User {
 	//TODO: Tarkista että nämä ovat sama kuin eAssarin eauser.statuskenttä
+	// Taro: Nämä statukset itseasiassa näyttävät olevan stringejä kannassa..
 	public static final int STATUS_STUDENT = 0;
 	public static final int STATUS_PRIVLEDGED = 1;
 	public static final int STATUS_TEACHER = 2;
@@ -119,6 +120,10 @@ public class User {
 	/** Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics */
 	public boolean isTeacher() {
 		return false;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
 

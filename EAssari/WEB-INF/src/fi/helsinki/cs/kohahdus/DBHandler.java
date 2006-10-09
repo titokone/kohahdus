@@ -1,9 +1,6 @@
 package fi.helsinki.cs.kohahdus;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+import java.sql.*;
 import trainer.DatabaseException;
 
 /** 
@@ -35,30 +32,33 @@ public class DBHandler {
 	}
 	
 	private boolean init(){
-        dbDriver = db_Driver;
-        dbServer = db_Server;
-        dbLogin  = db_Login;
-        dbPassword = db_Password; 
+        dbDriver = "oracle.jdbc.OracleDriver";
+        dbServer = "jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test";
+        dbLogin  = "kohahdus";
+        dbPassword = "b1tt1"; 
 		
 		// TODO: initialize db connection pool
 		return true;
 	}
+	
+	protected void release(Connection conn) throws SQLException{
+		if (conn != null) conn.close();
+	}
 
 	// TODO: DBConnectionPool
 	///      !!!!!!!!!!!!!!!!!! Tosi likainen ratkaisu ennen DBConnectionPool luokkaa
-	protected Connection getConnection () throws DatabaseException {
+	protected Connection getConnection () throws SQLException {
 	    // load database driver if not already loaded
-		Connection conn= null;
+		Connection conn = null;
 		try { 
 		  Class.forName(dbDriver);               // load driver if not loaded
-		  //  Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException e) { 
-		     throw new DatabaseException ("Couldn't find the database driver "+dbDriver);
+			throw new SQLException ("Couldn't find the database driver "+dbDriver);
 		}
 		try {
-		   conn= DriverManager.getConnection(dbServer, dbLogin, dbPassword);
+		   conn = DriverManager.getConnection(dbServer, dbLogin, dbPassword);
 		} catch (SQLException sex) {
-		   throw new DatabaseException("Couldn't establish a repository connection. ");
+			throw new SQLException("Couldn't establish a repository connection. ");
         }
         return conn;
 	}	
@@ -88,14 +88,43 @@ public class DBHandler {
 	
 
 	/** Return all users who have attempted to solve at least one task of Course c */
-	public User[] getUsers(Course c) {
+	public User[] getUsers(Course c) throws SQLException {
 		return null;
 	}
 	
 	/** Return user identified by userID */
-	public User getUser(String userID) {
-		return null;
+	public User getUser(String userID, String password) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		User user = null;
+		try {
+			st = conn.prepareStatement("select * from eauser where userid=? and password=?");
+			st.setString(1, userID);
+			st.setString(2, password);
+			ResultSet rs = st.getResultSet();
+			if (rs.next()){
+				user = new User(userID);
+				user.setEmail(rs.getString("email"));
+				user.setFirstName(rs.getString("firstname"));
+				user.setLastName(rs.getString("lastname"));
+				user.setLanguage(rs.getString("lpref"));
+				user.setPassword(rs.getString("password"));
+				user.setStudentNumber(rs.getString("extid2"));
+				user.setSocialSecurityNumber(rs.getString("extid"));
+				user.setStatus(rs.getString("status"));
+			} else {
+				Log.write("DBHandler: user not found with " +userID+ "/" +password);
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to get users. " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return user;
 	}
+
 
 	/** Add new user to user database */
 	public void createUser(User user) {} 
