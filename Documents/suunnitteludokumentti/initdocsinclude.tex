@@ -1,0 +1,43 @@
+%\documentclass[12pt,a4paper,titlepage,smallheadings,headinclude,headsepline,DIV13,BCOR12.5mm,twoside]{scrreprt}
+\usepackage{color}
+\usepackage{ifthen}
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+\pdffalse
+\else
+\pdfoutput=1
+\pdftrue
+\fi
+\ifpdf \usepackage[pdftex, pdfpagemode={UseOutlines},bookmarks, colorlinks,linkcolor={blue},plainpages=false,pdfpagelabels,citecolor={red},]{hyperref}
+\usepackage[pdftex]{graphicx}
+\pdfcompresslevel=9
+\DeclareGraphicsRule{*}{mps}{*}{}
+\else
+\usepackage[dvips]{graphicx}
+\fi
+\newcommand{\entityintro}[3]{%
+  \hbox to \hsize{%
+    \vbox{%
+      \hbox to .2in{}%
+    }%
+    {\bf #1}%
+    \dotfill\pageref{#2}%
+  }
+  \makebox[\hsize]{%
+    \parbox{.4in}{}%
+    \parbox[l]{5in}{%
+      #3%
+      \vspace{1mm}%
+    }%
+  }%
+}
+\newcommand{\refdefined}[1]{
+\expandafter\ifx\csname r@#1\endcsname\relax
+\relax\else
+{$($in \ref{#1}, page \pageref{#1}$)$}\fi}
+\date{\today}
+\pagestyle{headings}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\addtocontents{toc}{\protect\def\protect\packagename{}}
+\addtocontents{toc}{\protect\def\protect\classname{}}
+\chardef\textbackslash=`\\
