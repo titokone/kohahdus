@@ -17,15 +17,16 @@ drop table tasktype;
 *  displayer and the analyser and their initialization parameters
 */
 create table tasktype (
-  typename            varchar(40) not null primary key,  /* task type identifier */
-  author              varchar(40),                       /* author's name - currently not used */
-  datecreated         date,                              /* date the tasktype was defined - currently not used */
-  description         varchar(1000),                     /* other metadata about the tasktype - xml format, not used */
-  displayer           varchar(40),                       /* name of the displayer class */
-  analyser            varchar(40),                       /* name of the analyser class */
-  tasktypestyle       varchar(80),                       /* name of the tasktype specific stylesheet */ 
-  displayerinit       varchar(1000),                     /* tasktype specific initialization parameters for the displayer, xml format */
-  analyserinit        varchar(1000)                      /* tasktype specific initialization parameters for the analyser, xml format */
+  typename            varchar(40) not null,  /* task type identifier */
+  author              varchar(40),           /* author's name - currently not used */
+  datecreated         date,                  /* date the tasktype was defined - currently not used */
+  description         varchar(1000),         /* other metadata about the tasktype - xml format, not used */
+  displayer           varchar(40),           /* name of the displayer class */
+  analyser            varchar(40),           /* name of the analyser class */
+  tasktypestyle       varchar(80),           /* name of the tasktype specific stylesheet */ 
+  displayerinit       varchar(1000),         /* tasktype specific initialization parameters for the displayer, xml format */
+  analyserinit        varchar(1000),         /* tasktype specific initialization parameters for the analyser, xml format */
+  primary key (typename)
 );
 
 
@@ -34,11 +35,12 @@ create table tasktype (
 * Course is a collection of modules
 */
 create table course (
-  courseid            varchar(20) not null primary key,  /* course identifier */
-  coursename          varchar(40),                       /* course name - not used currently */
-  coursemetadata      varchar(2000),                     /* course metadata in xml format - not used */
-  courselogo          varchar(80),                       /* url to the image file that contains course logo */
-  coursestyle         varchar(80)                        /* name of the course specific css style sheet */                            
+  courseid            varchar(20) not null,  /* course identifier */
+  coursename          varchar(40),           /* course name - not used currently */
+  coursemetadata      varchar(2000),         /* course metadata in xml format - not used */
+  courselogo          varchar(80),           /* url to the image file that contains course logo */
+  coursestyle         varchar(80)            /* name of the course specific css style sheet */                            
+  primary key (courseid)
 );
 
 
@@ -130,14 +132,14 @@ create table taskattributes(
 * Schemas for the plugin initialization parameters ( EI KÄYTETÄ? )
 */
 create table pluginparameters(
- classname varchar(40) not null,            /* the name of the plugin class */
- elementname varchar(40) not null,          /* the name of the element */
- sequenceno integer,                        /* the sequence number of the element in the parameter set */
- typeofvalue varchar(12) not null,          /* type of value
+ classname varchar(40) not null,             /* the name of the plugin class */
+ elementname varchar(40) not null,           /* the name of the element */
+ sequenceno integer,                         /* the sequence number of the element in the parameter set */
+ typeofvalue varchar(12) not null,           /* type of value
                                                 NONE= no value
                                                 TEXT= text value
                                                 NUM= numeric value */
- repeat integer,                            /* how many times this element may occur at most */
+ repeat integer,                             /* how many times this element may occur at most */
  primary key (classname, elementname)
 );
 
@@ -147,14 +149,14 @@ create table pluginparameters(
 * structure of plugin initialization parameters ( EI KÄYTETÄ? )
 */
 create table pluginparamattributes (
- classname varchar(40) not null,           /* the name of the plugin class */
- elementname varchar(40) not null,         /* the name of the element */
- attributename varchar(40) not null,       /* name of the attribute */
- sequenceno integer,                       /* the sequence number of the element in the parameter set */
- typeofvalue varchar(12) not null,         /* type of value
-                                              NONE= no value
-                                              TEXT= text value
-                                              NUM= numeric value  */
+ classname varchar(40) not null,             /* the name of the plugin class */
+ elementname varchar(40) not null,           /* the name of the element */
+ attributename varchar(40) not null,         /* name of the attribute */
+ sequenceno integer,                         /* the sequence number of the element in the parameter set */
+ typeofvalue varchar(12) not null,           /* type of value
+                                                NONE= no value
+                                                TEXT= text value
+                                                NUM= numeric value  */
  primary key (classname, elementname, attributename),
  foreign key (classname, elementname) references pluginparameters
 );
@@ -168,21 +170,21 @@ create table pluginparamattributes (
 * apply for all languages
 */ 
 create table attributevalues (
-  objecttype char,                        /* the type of object the attribute is attached to
-                                             A= analyser
-                                             C= course  
-                                             D= displayer
-                                             E= general error message
-                                             T= task  */
-  objectid   varchar(40),                /* Identifier of the object 
-                                             A,D: class name
-                                             C: course identifier
-                                             T: taskid
-                                             E: errorname */
-  attributename varchar(40),              /* Name of the attribute */
-  language varchar(3),                    /* language of the attribute value,  currently FI,EN,ALL */
-  valuetype char,                         /* type of the value C=character, N=number */
-  attributevalue varchar(2000),           /* the value as a string, most are short */
+  objecttype char,                           /* the type of object the attribute is attached to
+                                                A= analyser
+                                                C= course  
+                                                D= displayer
+                                                E= general error message
+                                                T= task  */
+  objectid   varchar(40),                    /* Identifier of the object 
+                                                A,D: class name
+                                                C: course identifier
+                                                T: taskid
+                                                E: errorname */
+  attributename varchar(40),                 /* Name of the attribute */
+  language varchar(3),                       /* language of the attribute value,  currently FI,EN,ALL */
+  valuetype char,                            /* type of the value C=character, N=number */
+  attributevalue varchar(2000),              /* the value as a string, most are short */
   primary key (objecttype, objectid, attributename, language)
 );
 
@@ -212,16 +214,16 @@ create table eauser (
 * Stored answers
 */
 create table storedanswer (
-  sid varchar(20) not null,          /* Student identifier */
-  courseid varchar(20) not null,     /* course identifier */
-  moduleid varchar(20) not null,     /* module identifier */
-  seqno integer not null,            /* task sequence number within the module */
-  trynumber integer not null,        /* the number of try for this task */
-  correctness integer not null,      /* correctnes indicator 0-100 (100 =correct) */
-  whenanswered timestamp,            /* time the answer was registered */
-  answer varchar(2000),              /* the given answer */
-  feedbacklanguage varchar(3),       /* language used for feedback */
-  feedback varchar(1000),            /* feedback specific information as packed string*/
+  sid varchar(20) not null,                  /* Student identifier */
+  courseid varchar(20) not null,             /* course identifier */
+  moduleid varchar(20) not null,             /* module identifier */
+  seqno integer not null,                    /* task sequence number within the module */
+  trynumber integer not null,                /* the number of try for this task */
+  correctness integer not null,              /* correctnes indicator 0-100 (100 =correct) */
+  whenanswered timestamp,                    /* time the answer was registered */
+  answer varchar(2000),                      /* the given answer */
+  feedbacklanguage varchar(3),               /* language used for feedback */
+  feedback varchar(1000),                    /* feedback specific information as packed string*/
   primary key (sid,courseid,moduleid, seqno, trynumber),
   foreign key (sid) references eauser,
   foreign key (courseid, moduleid, seqno) references taskinmodule
@@ -233,15 +235,15 @@ create table storedanswer (
 * Students status and history
 */
 create table studentmodel (
-  sid varchar(20) not null,                /* Student identifier */
-  courseid varchar(20) not null,           /* course identifier */
-  moduleid varchar(20) not null,           /* module identifier */
-  seqno integer not null,                  /* task sequence number within the module */
-  query_parameters varchar(1000),          /* generated parameters for the query */
-  lasttrynumber integer not null,          /* the biggest try number for this task */
-  currentresult integer not null,          /* the highest correctness value for this task */
-  hassucceeded char,                       /* result in above cutoffvalue */
-  wascreditedintime char,                  /* did the correctness value exceed the cutoff value before deadline (Y/N) */
+  sid varchar(20) not null,                  /* Student identifier */
+  courseid varchar(20) not null,             /* course identifier */
+  moduleid varchar(20) not null,             /* module identifier */
+  seqno integer not null,                    /* task sequence number within the module */
+  query_parameters varchar(1000),            /* generated parameters for the query */
+  lasttrynumber integer not null,            /* the biggest try number for this task */
+  currentresult integer not null,            /* the highest correctness value for this task */
+  hassucceeded char,                         /* result in above cutoffvalue */
+  wascreditedintime char,                    /* did the correctness value exceed the cutoff value before deadline (Y/N) */
   primary key (sid,courseid,moduleid,seqno),
   foreign key (sid) references eauser,
   foreign key (courseid, moduleid, seqno) references taskinmodule
