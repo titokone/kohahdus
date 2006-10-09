@@ -1,7 +1,7 @@
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 
 <%
-	String role = request.getAttribute("role");
+	String role = (String)request.getParameter("role");
 %>
 
 
@@ -30,39 +30,37 @@
 			<td>&nbsp;</td>
 			<td><input type="password" name="password"></td>
 		</tr>
-		<% 
-			if (role != null && role.equals("teacher")){
-		%>
-		<tr>
-			<td><b>Course</b></td>
-			<td>&nbsp;</td>
-			<td>
-				<select name="course">
-					<option value="course 1">Course 1</option>
-					<option value="course 2">Course 2</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td><b>Language</b></td>
-			<td>&nbsp;</td>
-			<td>
-				<select name="language">
-					<option value="english">English</option>
-					<option value="finnish">Finnish</option>
-				</select>
-			</td>
-		</tr>
-		<% 
-			}
-		%>
+		<% if (role == null){ %>
+			<tr>
+				<td><b>Course</b></td>
+				<td>&nbsp;</td>
+				<td>
+					<select name="course">
+						<option value="course 1">Course 1</option>
+						<option value="course 2">Course 2</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><b>Language</b></td>
+				<td>&nbsp;</td>
+				<td>
+					<select name="language">
+						<option value="english">English</option>
+						<option value="finnish">Finnish</option>
+					</select>
+				</td>
+			</tr>
+		<% } %>
 		<tr>
 			<td colspan="3" align="right"><br><input type="submit" value="Sign in"></td>
 		</tr>
 	</table>
 </div>
 
-<p><small>New user? <a href="signup.html">Sign up</a></small></p>
+<% if (role == null){ %>
+	<p><small>New user? <a href="signup.html">Sign up</a></small></p>
+<% } %>
 
 </form>
 
