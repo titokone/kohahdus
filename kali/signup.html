@@ -15,6 +15,7 @@
 		document.getElementById("last_name_error_msg_space").innerHTML = '';
 		document.getElementById("student_number_error_msg_space").innerHTML = '';
 		document.getElementById("ssn_error_msg_space").innerHTML = '';
+		document.getElementById("email_error_msg_space").innerHTML = '';
 		document.getElementById("user_name_error_msg_space").innerHTML = '';
 		document.getElementById("password_error_msg_space").innerHTML = '';
 		document.getElementById("repeat_password_error_msg_space").innerHTML = '';
@@ -35,6 +36,12 @@
 		if(form.student_number.value == '' && form.social_security_number.value == '') {
 			var elem = document.getElementById("student_number_error_msg_space");
 			elem.innerHTML = '<font color="#FF0000"><b>Please fill in either your student number or social security number.</b></font>';
+			returnvalue = false;
+		}
+
+		if(form.email.value == '') {
+			var elem = document.getElementById("email_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your e-mail address.</b></font>';
 			returnvalue = false;
 		}
 
@@ -95,17 +102,17 @@
 
 <form name="sign_up_form" action="" onsubmit="return checkForm()">
 
-<p>All fields marked with * are obligatory.</p>
+<p>Please fill in all the fields.</p>
 
 <div>
 	<table border="0" cellpadding="5">
 		<tr>
-			<td><b>First name* </b></td>
+			<td><b>First name </b></td>
 			<td><input type="text" name="first_name"></td>
 			<td id="first_name_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
-			<td><b>Last name* </b></td>
+			<td><b>Last name </b></td>
 			<td><input type="text" name="last_name"></td>
 			<td id="last_name_error_msg_space">&nbsp;</td>
 		</tr>
@@ -130,24 +137,24 @@
 		<tr>
 			<td><b>E-mail: </b></td>
 			<td><input type="text" name="email"></td>
-			<td>&nbsp;</td>
+			<td id="email_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td colspan="2"><hr></td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td><b>User name* </b></td>
+			<td><b>User name </b></td>
 			<td><input type="text" name="user_name"></td>
 			<td id="user_name_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
-			<td><b>Password* </b></td>
+			<td><b>Password </b></td>
 			<td><input type="password" name="password"></td>
 			<td id="password_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
-			<td><b>Password again* </b></td>
+			<td><b>Password again </b></td>
 			<td><input type="password" name="repeat_password"></td>
 			<td id="repeat_password_error_msg_space">&nbsp;</td>
 		</tr>
