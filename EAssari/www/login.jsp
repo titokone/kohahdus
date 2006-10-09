@@ -27,7 +27,7 @@
 			<td>&nbsp;</td>
 			<td><input type="password" name="password"></td>
 		</tr>
-		<c:if test="${empty param.role}">
+		<c:if test="{empty param.role}">
 			<tr>
 				<td><b>Course</b></td>
 				<td>&nbsp;</td>
@@ -55,7 +55,7 @@
 	</table>
 </div>
 
-<c:if test="${empty param.role}">
+<c:if test="{empty param.role}">
 	<p><small>New user? <a href="signup.html">Sign up</a></small></p>
 </c:if>
 
