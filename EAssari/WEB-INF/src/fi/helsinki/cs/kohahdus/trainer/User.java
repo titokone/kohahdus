@@ -10,57 +10,25 @@ public class User {
 	public static final String STATUS_TEACHER = "teacher";
 //	public static final String STATUS_ADMIN = "adm";
 	
-
-
-	
+	/** Construct unitialized User object */
 	public User() {
 		this(null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	public User(String uid, String lname, String fname, String email, String status, String extid, 
-			String extid2, String psw, String lpref, java.sql.Timestamp lastvisit) {
-		this.userid = uid;
-		this.lastname = lname;
-		this.firstname = fname;
-		this.email = email;
-		this.status = status;
-		this.externalid = extid;
-		this.externalid2 = extid2;
-		this.passwd = psw;
-		this.lpref = lpref;
-		this.lastvisit = lastvisit;
-		this.activeTasks = new Hashtable(30);    
-	}	
-    
-	/** Return true if userID exists in the user database */
-	//public static boolean isUser(String userID) {}
-	
-	/** Retrieve user identified by userID from the user database */
-	//TODO - what if userID isn't found from db?
-	//		 Do we create a new object with null fields or throw an execption?
-	public User(String userID) {
-		this.userid = userID;	
-	}
-	
-	
 	/** Set last name of this user */
 	public void setLastName(String name) {
 		lastname = name;
-	}
-	
+	}	
 	
 	/** Set first name of this user */
 	public void setFirstName(String name) {
 		firstname = name;
 	}
 	
-
-	
 	/** Set email address of this user */
 	public void setEmail(String addr) {
 		email = addr;
-	}
-	
+	}	
 
 	/** Return student number of this user. This identifier maps to <code>aeuser.extid</code> in the database */
 	public String getStudentNumber() {
@@ -80,14 +48,12 @@ public class User {
 	/** Set social security number of this user */
 	public void setSocialSecurityNumber(String ssn) {
 		externalid2 = ssn;
-	}
-	
+	}	
 	
 	/** Set password of this user to Pass */
 	public void setPassword(String pass) {
 		passwd = pass;
-	}
-	
+	}	
 	
 	/** Set the preferred language of this user. The language is either "EN" or "FI
 	 * @param lang either "FI" or "EN"
@@ -101,17 +67,27 @@ public class User {
 		
 	}
 
-	public void setStatus(String status) {
+	/** Set user status (teacher / student) 
+	 * @throws IllegalArgumentException if Status is not a valid Status string
+	 * @param status
+	 */
+	public void setStatus(String status)  {
+		
 	}
 	
-		
-	
-	
+	/** Test the validity of this user object  
+	 * @return true if all fields are initialized with non-empty values, false otherwise
+	 */
 	public boolean isValid(){
-		if (userid == null) return false;
+		if (!isNonEmptyString(userid)) return false;
+		// check ALL fields
 		return true;
 	}
 	
+	/** Return false if str is null or empty "" string */
+	private boolean isNonEmptyString(String str) {
+				
+	}
 
 	
 	
@@ -134,6 +110,22 @@ public class User {
 	private String lpref;
 	private java.sql.Timestamp lastvisit;
 	private Hashtable activeTasks;	
+
+	public User(String uid, String lname, String fname, String email, String status, String extid, 
+			String extid2, String psw, String lpref, java.sql.Timestamp lastvisit) {
+		this.userid = uid;
+		this.lastname = lname;
+		this.firstname = fname;
+		this.email = email;
+		this.status = status;
+		this.externalid = extid;
+		this.externalid2 = extid2;
+		this.passwd = psw;
+		this.lpref = lpref;
+		this.lastvisit = lastvisit;
+		this.activeTasks = new Hashtable(30);    
+	}		
+	
 	
 	/** Return email address of this user */
 	public String getEmail() {

@@ -1,5 +1,7 @@
 package fi.helsinki.cs.kohahdus;
 
+import fi.helsinki.cs.kohahdus.trainer.AnalyserInterface;
+
 /** Base class for all criterion types.
  * 
  * @author mkinnune
@@ -40,6 +42,25 @@ public abstract class Criterion {
 	/** Initialize fields of this criterion using the serialized representation returned
 	 * by <code>serializeToString()</code> */
 	public abstract void init(String serialized);
+	
+	/** Instantiate new Criterion object using the serialized form Xml 
+	 * @param xml
+	 * @return
+	 */
+	public static Criterion createFromXML(String xml)  {
+		try {
+			Class concreteClass = Class.forName(criterionClass);
+			if (concreteClass != null) {
+				Criterion c = (Criterion) concreteClass.newInstance();
+				c.init(xml);
+				return c;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	
 	
 }

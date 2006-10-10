@@ -32,17 +32,12 @@ public class Task {
 	}
 	
 	
-	public Criterion[] getCriteriaDB(Task task) {
+	public Criterion[] getCriteriaDB() {
 		return null;
 	} // Delegate to DBHandler
 	
 	
-	public void setCriteriaDB(Criterion[] criteria) {
-	} // Delegate to DBHandler
 
-	
-	
-	
 	
 	
 

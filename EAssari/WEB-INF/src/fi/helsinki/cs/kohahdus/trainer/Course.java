@@ -2,9 +2,6 @@ package fi.helsinki.cs.kohahdus.trainer;
 
 
 public class Course {
-    /** Retrieve course identified by courseID from the course database */
-    Course(String courseID) {}
-    
     /** Return name of this course */
     public String getName() {
     	return null;
