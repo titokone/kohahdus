@@ -15,7 +15,6 @@ import fi.helsinki.cs.kohahdus.trainer.User;
 
 import java.util.*;
 import java.sql.*;
-import trainer.*;
 
 
 // Author Harri Laine

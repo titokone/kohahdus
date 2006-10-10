@@ -1,5 +1,6 @@
 package fi.helsinki.cs.kohahdus.trainer;
 
+/** Never used */
 public class CourseOld {
         
     int modules=0;                     // number of modules
