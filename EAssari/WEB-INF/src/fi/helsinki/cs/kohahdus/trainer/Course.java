@@ -1,23 +1,27 @@
 package fi.helsinki.cs.kohahdus.trainer;
 
-public class Course {
-        
-    int modules=0;                     // number of modules
-    String courseID= null;                 //  unique course identifier
-    String  courseType=null;            // type of course
-    String courseStyle=null;            // are credits counted
-  
-public Course (int modules, String courseID,
-        String  coursetype,  String courseStyle) {
-    this.modules=modules;
-    this.courseID=courseID;
-    this.courseType=coursetype;
-    this.courseStyle=courseStyle;
-}
- 
-public int getModules() {return modules;}
-public String getCourseID() {return courseID;}
-public String getCourseType() {return courseType;}
-public String getCourseStyle() {return courseStyle;}
 
+public class Course {
+    /** Retrieve course identified by courseID from the course database */
+    Course(String courseID) {}
+    
+    /** Return name of this course */
+    public String getName() {
+    	return null;
+    }
+
+    /** Set name of this course */
+    public String setName(String name) {
+    	return null;
+    }
+
+    /** Return all users who have solved or have tried to solve tasks from this course */
+    public User[] getUsersDB() {
+    	return null;
+    } // Delegate to DBHandler
+
+    // Implement if needed
+    //void addTask(Task task)
+    //void removeTask(Task task)
+    //String getId()
 }

@@ -1,132 +1,102 @@
 package fi.helsinki.cs.kohahdus.trainer;
 
-import java.util.Date;
-import java.sql.*;
+import java.util.*;
 
-//---------------------------------------------
-// Course specific use of a learning object
-//
+import fi.helsinki.cs.kohahdus.Criterion;
+
+// Laajennetaan olemassa olevaa Task luokkaa
 public class Task {
+	
+	/** Return the name of this task */
+	public String getName() {
+		return null;
+	}
+	
+	/** Set the name of this task */
+	public void setName(String name) {}
+	
+	/** Return name of the last person who has modified this task */
+	public String getAuthor() {
+		return null;
+	}
 
-    String taskID;
-    String courseID;
-    String moduleID;
-    String tasktypeID;
-    Tasktype tasktype;
-    int seqNo;
-    Timestamp deadLine;
-    boolean shouldStore;
-    boolean shouldRegister;
-    boolean shouldKnow;
-    boolean shouldEvaluate;
-    int cutoffvalue;
-    int noOfTries;
-    String style;
-    
-    
+	/** Set "last task modification by" attribute to Name */
+	public void setAuthor(String name) {}
+	
+	/** Return the date and time this task was last modified */
+	public Date getModificationDate() {
+		return null;
+	}
+	
+	
+	public Criterion[] getCriteriaDB(Task task) {
+		return null;
+	} // Delegate to DBHandler
+	
+	
+	public void setCriteriaDB(Task task, Criterion[] criteria) {
+	} // Delegate to DBHandler
+/*	
+	
+	
+	%%%%% Task-luokka %%%%%
+	public DisplayerInterface getDisplayer(String language) 
+	public AnalyserInterface getAnalyser(String language) 
+	public boolean shouldAllowRetry(int triesSoFar) 
+	public boolean shouldRegisterTry() 
+	public boolean shouldStoreAnswer() 
+	public boolean shouldBeAnalysed() 
+	public boolean shouldKnowStudent()
+	public String getTasktypeID () 
+	public Tasktype getTasktype() 
+	public String getTaskID() 
+	public int getCutoffvalue() 
+	public String getStyle() 
+	public boolean wasSuccess(int points) 
+	public boolean isInTime(Timestamp when) 
+	
+	String taskID;
+	String courseID;
+	String moduleID;
+	String tasktypeID;
+	Tasktype tasktype;
+	int seqNo;
+	Timestamp deadLine;
+	boolean shouldStore;
+	boolean shouldRegister;
+	boolean shouldKnow;
+	boolean shouldEvaluate;
+	int cutoffvalue;
+	int noOfTries;
+	String style;
+	
+	%%%%% Task-taulu %%%%%
+	taskid varchar(20) not null primary key,   /* each task has a unique id */
+//	taskname varchar(40),                      /* name of task in English - not used currently */
+//	tasktype varchar(40),                      /* the type of the task - this connects the displayer and analyser to the task */
+//	taskmetadata varchar(2000),                /* other task specific metadata - xml-format, not used currently  */
+//	numberoftries_def integer,                 /* how many tries are allowed - default value */
+//	shouldstoreanswer_def char,                /* should the system store the answer (Y/N) - default value */
+//	shouldregistertry_def char,                /* should the system register the try (Y/N) - default value */
+//	shouldknowstudent_def char,                /* must the student be known (Y/N) -default value */
+//	shouldevaluate_def char,                   /* should the task be evaluated on-line (Y/N) - default value */
+//	cutoffvalue integer,                       /* the value to be exceeded to pass the task */
+//	foreign key (tasktype) references tasktype
+	
+	
+//	%%%%% Taskinmodule-taulu %%%%%
+//	courseid            varchar(20) not null,  /* the course where used  */
+//	moduleid            varchar(20) not null,  /* the module where used */
+//	seqno               integer not null,      /* sequence number of the task within the module */
+//	taskid              varchar(20) not null,  /* which task is used */
+//	numberoftries       integer not null,      /* how many tries are allowed in this context */
+//	shouldstoreanswer   char,                  /* should the system store the answer (Y/N) in this context */
+//	shouldregistertry   char,                  /* should the system register the try (Y/N) in this context */
+//	shouldknowstudent   char,                  /* must the student be known (Y/N)in this context */
+//	shouldevaluate      char,                  /* should the task be evaluated immediately (Y/N) */
+//	cutoffvalue         integer,               /* the value to be exceeded to pass the task */
+//	primary key (courseid, moduleid, seqno),
+//	foreign key (taskid) references task,
+//	foreign key (courseid, moduleid) references module
 
-  // analysis of the answer if necessary 
-     
-  public Task (String taskid, String courseid, String moduleid, 
-               String tasktypeid, int seqno, Timestamp deadline,
-               boolean shouldstore, boolean shouldregister, boolean shouldknowstudent, 
-               boolean shouldevaluate, int cvalue, int nooftries, Tasktype tType) {
-       
-    taskID= taskid;
-    courseID= courseid;
-    moduleID= moduleid;
-    tasktypeID= tasktypeid;
-    seqNo =seqno;
-    deadLine= deadline;
-    shouldStore = shouldstore;
-    shouldRegister= shouldregister;
-    shouldKnow= shouldknowstudent;
-    shouldEvaluate = shouldevaluate;
-    noOfTries= nooftries;
-    cutoffvalue=cvalue;
-    tasktype= tType;
-  }  
-  
-  //public Feedback analyse(String [] answers, String language) {   
-  //   if (shouldevaluate.equals("Y")) {  
-  //      feedback= ilo.analyse(answers,language);   
-  //   }
-  
-
-   //returns the scripts attached to the taskpage
-   /*public String getScript(language) {
-        String taskscript = null;
-        taskscript= ilo.getScript(language);
-        return taskscript;
-   }
-   */
-  
-   //returns the tasksetting 
-  /*
-   public String getSetting(language) {
-        String setting = null;
-        setting= ilo.getSetting(language);
-        return setting;
-   }
-  */
-
-  public DisplayerInterface getDisplayer(String language) {
-      DisplayerInterface disp = tasktype.getDisplayer(language,taskID);
-      return disp;
-  }    
-  public AnalyserInterface getAnalyser(String language) {
-      AnalyserInterface an = tasktype.getAnalyser(language,taskID);
-      return an;
-  }    
-
-  //returns true if further tries are allowed
-   public boolean shouldAllowRetry(int triesSoFar) {
-      return noOfTries>triesSoFar;
-   }
-
-   // returns true if the try should be registered otherwise false
-   public boolean shouldRegisterTry() {
-       return shouldRegister;
-    }
-
-    // returns true if the answer should be registered otherwise false
-    public boolean shouldStoreAnswer() {
-        return shouldStore;
-    }
-  
-    public boolean shouldBeAnalysed() {
-        return shouldEvaluate;
-    }    
-
-    public boolean shouldKnowStudent() {
-        return shouldKnow;
-    }    
-        
-    public String getTasktypeID () {
-        return tasktypeID;
-    }   
-    
-    public Tasktype getTasktype() {
-        return tasktype;
-    }    
-    
-    public String getTaskID() {
-        return taskID;
-    }  
-    
-    public int getCutoffvalue() {
-        return cutoffvalue;
-    }    
-    
-    public String getStyle() {
-        return tasktype.getStyle();
-    }    
-    
-    public boolean wasSuccess(int points) {
-        return points>=cutoffvalue;
-    }
-    public boolean isInTime(Timestamp when) {
-        return deadLine.after(when);
-    }
-    // 
 }

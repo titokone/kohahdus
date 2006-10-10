@@ -2,7 +2,10 @@ package fi.helsinki.cs.kohahdus;
 
 import java.sql.*;
 
+import fi.helsinki.cs.kohahdus.trainer.Course;
 import fi.helsinki.cs.kohahdus.trainer.DatabaseException;
+import fi.helsinki.cs.kohahdus.trainer.Task;
+import fi.helsinki.cs.kohahdus.trainer.User;
 
 /** 
  * Singleton class used for database interactions. Each public method of DBHandler class

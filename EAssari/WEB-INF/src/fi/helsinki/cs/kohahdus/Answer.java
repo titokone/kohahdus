@@ -7,9 +7,11 @@ import fi.helsinki.cs.kohahdus.trainer.AnalyserInterface;
 import fi.helsinki.cs.kohahdus.trainer.CacheException;
 import fi.helsinki.cs.kohahdus.trainer.DisplayerInterface;
 import fi.helsinki.cs.kohahdus.trainer.Feedback;
+import fi.helsinki.cs.kohahdus.trainer.Task;
 import fi.helsinki.cs.kohahdus.trainer.Tasktype;
 import fi.helsinki.cs.kohahdus.trainer.TrainerParameters;
 import fi.helsinki.cs.kohahdus.trainer.TrainerServlet;
+import fi.helsinki.cs.kohahdus.trainer.User;
 
 import java.util.*;
 import java.sql.*;
