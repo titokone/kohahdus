@@ -1,3 +1,7 @@
+import fi.helsinki.cs.kohahdus.trainer.AttributeCache;
+import fi.helsinki.cs.kohahdus.trainer.CacheException;
+import fi.helsinki.cs.kohahdus.trainer.DisplayerInterface;
+import fi.helsinki.cs.kohahdus.trainer.ParameterString;
 import trainer.*;
 
 public class MChoiseDisplayer implements DisplayerInterface {

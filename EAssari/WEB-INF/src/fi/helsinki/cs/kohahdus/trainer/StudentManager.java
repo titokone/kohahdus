@@ -6,7 +6,7 @@
  * Manages students answers.
  */
 
-package trainer;
+package fi.helsinki.cs.kohahdus.trainer;
 
 /**
  *

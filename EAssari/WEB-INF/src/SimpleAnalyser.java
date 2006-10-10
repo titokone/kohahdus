@@ -1,3 +1,8 @@
+import fi.helsinki.cs.kohahdus.trainer.AnalyserInterface;
+import fi.helsinki.cs.kohahdus.trainer.AttributeCache;
+import fi.helsinki.cs.kohahdus.trainer.CacheException;
+import fi.helsinki.cs.kohahdus.trainer.Feedback;
+import fi.helsinki.cs.kohahdus.trainer.ParameterString;
 import trainer.*;
 
 public class SimpleAnalyser implements AnalyserInterface {

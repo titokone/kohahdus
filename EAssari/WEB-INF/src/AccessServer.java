@@ -11,6 +11,10 @@
 import trainer.*;
 import java.sql.*;
 
+import fi.helsinki.cs.kohahdus.trainer.DatabaseException;
+import fi.helsinki.cs.kohahdus.trainer.DbModule;
+import fi.helsinki.cs.kohahdus.trainer.User;
+
 
 public class AccessServer extends DbModule {
     

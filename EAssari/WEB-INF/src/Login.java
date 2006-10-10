@@ -3,6 +3,11 @@ import java.sql.*;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import fi.helsinki.cs.kohahdus.trainer.CacheException;
+import fi.helsinki.cs.kohahdus.trainer.DatabaseException;
+import fi.helsinki.cs.kohahdus.trainer.TrainerServlet;
+import fi.helsinki.cs.kohahdus.trainer.User;
 import trainer.*;
 
 /*

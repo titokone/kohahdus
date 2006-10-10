@@ -5,7 +5,7 @@
  * Created on 30. tammikuuta 2004, 8:38
  */
 
-package trainer;
+package fi.helsinki.cs.kohahdus.trainer;
 /**
  *
  * @author  laine

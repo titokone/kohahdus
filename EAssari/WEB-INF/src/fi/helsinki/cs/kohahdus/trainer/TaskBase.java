@@ -1,4 +1,4 @@
-package trainer;
+package fi.helsinki.cs.kohahdus.trainer;
 
 import java.lang.reflect.*;
 import java.util.*;

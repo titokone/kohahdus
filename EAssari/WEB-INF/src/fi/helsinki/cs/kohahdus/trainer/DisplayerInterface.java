@@ -1,4 +1,4 @@
-package trainer;
+package fi.helsinki.cs.kohahdus.trainer;
 
 /****
  * Interface for generating the taks display

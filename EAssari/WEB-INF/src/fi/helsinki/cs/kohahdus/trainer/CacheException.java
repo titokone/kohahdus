@@ -1,4 +1,4 @@
-package trainer;
+package fi.helsinki.cs.kohahdus.trainer;
 
 public class CacheException extends RuntimeException {
 // Exception for reporting such cache errors that prevent

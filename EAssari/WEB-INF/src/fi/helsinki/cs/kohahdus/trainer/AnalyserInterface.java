@@ -4,7 +4,7 @@
  * Created on 26. marraskuuta 2003, 17:31
  */
 
-package trainer;
+package fi.helsinki.cs.kohahdus.trainer;
 
 /**
  *

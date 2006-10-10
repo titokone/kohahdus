@@ -4,7 +4,7 @@
  * Created on 8. lokakuuta 2003, 10:04
  */
 
-package trainer;
+package fi.helsinki.cs.kohahdus.trainer;
 
 /**
  * This interface defines the methods for getting attribute values from the cache

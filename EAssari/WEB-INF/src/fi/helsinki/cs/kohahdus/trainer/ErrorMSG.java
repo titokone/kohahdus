@@ -1,4 +1,4 @@
-package trainer;
+package fi.helsinki.cs.kohahdus.trainer;
 
 /****
  * ErrorMSG.java specifies the errormessages used in HLTrainer

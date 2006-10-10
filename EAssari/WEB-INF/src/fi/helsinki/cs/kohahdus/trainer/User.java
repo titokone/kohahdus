@@ -4,7 +4,7 @@
  * Created on 21. lokakuuta 2004, 15:37
  */
 
-package trainer;
+package fi.helsinki.cs.kohahdus.trainer;
 
 import java.util.*;
 /**
