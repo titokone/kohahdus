@@ -48,35 +48,41 @@ public class User {
 	//public static boolean isUser(String userID) {}
 	
 	/** Retrieve user identified by userID from the user database */
+	//TODO - what if userID isn't found from db?
+	//		 Do we create a new object with null fields or throw an execption?
 	public User(String userID) {
-		
+		this.userid = userID;	
 	}
 	
 	/** Return last name of this user */
 	public String getLastName() {
-		return null;
+		return lastname;
 	}
 	
 	/** Set last name of this user */
 	public void setLastName(String name) {
-	
+		lastname = name;
 	}
 	
 	/** Return first name of this user */
 	public String getFirstName() {
-		return null;
+		return firstname;
 	}
 	
 	/** Set first name of this user */
-	public void setFirstName(String name) {}
+	public void setFirstName(String name) {
+		firstname = name;
+	}
 	
 	/** Return email address of this user */
 	public String getEmail() {
-		return null;
+		return email;
 	}
 	
 	/** Set email address of this user */
-	public void setEmail(String addr) {}
+	public void setEmail(String addr) {
+		email = addr;
+	}
 	
 	/** Return access level of this user - see static STATUS_* constants */ 
 	public int getStatus() {
@@ -85,27 +91,33 @@ public class User {
 	
 	/** Return student number of this user. This identifier maps to <code>aeuser.extid</code> in the database */
 	public String getStudentNumber() {
-		return null;
+		return externalid;
 	}
 	
 	/** Set student number of of this user */
-	public void setStudentNumber(String studentnum) {}
+	public void setStudentNumber(String studentnum) {
+		externalid = studentnum;
+	}
 	
 	/** Return social security number of this user. This identifier maps to <code>aeuser.extid2</code> in the database */
 	public String getSocialSecurityNumber() {
-		return null;
+		return externalid2;
 	}
 	
 	/** Set social security number of this user */
-	public void setSocialSecurityNumber(String ssn) {}
+	public void setSocialSecurityNumber(String ssn) {
+		externalid2 = ssn;
+	}
 	
 	/** Return plaintext password of this user */
 	public String getPassword() {
-		return null;
+		return passwd;
 	}
 	
 	/** Set password of this user to Pass */
-	public void setPassword(String pass) {}
+	public void setPassword(String pass) {
+		passwd = pass;
+	}
 	
 	/** Return the preferred language of this user as String. The language is either "EN" or "FI" */
 	public String getLanguage() {
@@ -124,6 +136,12 @@ public class User {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public boolean isValid(){
+		if (userid == null) return false;
+		
+		return true;
 	}
 }
 

@@ -127,8 +127,43 @@ public class DBHandler {
 	}
 
 
+	/** Return user identified by userID */
+	public User getUser(String userID) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		User user = null;
+		try {
+			st = conn.prepareStatement("select * from eauser where userid=?");
+			st.setString(1, userID);
+			ResultSet rs = st.getResultSet();
+			if (rs.next()){
+				user = new User(userID);
+				user.setEmail(rs.getString("email"));
+				user.setFirstName(rs.getString("firstname"));
+				user.setLastName(rs.getString("lastname"));
+				user.setLanguage(rs.getString("lpref"));
+				user.setPassword(rs.getString("password"));
+				user.setStudentNumber(rs.getString("extid2"));
+				user.setSocialSecurityNumber(rs.getString("extid"));
+				user.setStatus(rs.getString("status"));
+			} else {
+				Log.write("DBHandler: user not found with " +userID);
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to get users. " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return user;
+	}
+
+
 	/** Add new user to user database */
-	public void createUser(User user) {} 
+	public void createUser(User user) {
+		
+	} 
 	
 	/** Update existing user */
 	public void updateUser(User user) {} 
