@@ -14,7 +14,7 @@ public abstract class Criterion {
 	/** Return the positive feedback string of this Criterion. Criterion types that also
 	 * evaluate quality of the answer should overide this method so they can return a 
 	 * different string depending on the quality of the student's answer. */
-	public String getPositiveFeedback(/* TitoState studentAnswer */) {
+	public String getPositiveFeedback(TitoState studentAnswer) {
 		return positiveFeedback;
 	}
 
@@ -32,7 +32,7 @@ public abstract class Criterion {
 	/** Return true if students answer meets the condition(s) of this criterion. Criterion
 	 * types that also evaluate quality of the answer return <code>true</code> if the 
 	 * answer fullfills the passing requirement, even if answer was deemed low quality. */
-	public abstract boolean meetsCriterion(/*TitoState studentAnswer, TitoState modelAnswer*/);
+	public abstract boolean meetsCriterion(TitoState studentAnswer, TitoState modelAnswer);
 
 	/** Serialize and return a string representation of this criterion */
 	public abstract String serializeToString();

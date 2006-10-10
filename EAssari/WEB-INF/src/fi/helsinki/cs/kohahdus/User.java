@@ -22,7 +22,7 @@ public class User {
 	private String passwd;
 	private String lpref;
 	private java.sql.Timestamp lastvisit;
-	private Hashtable activeTasks;
+	private Hashtable activeTasks; // WTF?
 
 	
 	public User() {
