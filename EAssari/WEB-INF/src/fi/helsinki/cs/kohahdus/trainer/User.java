@@ -64,7 +64,7 @@ public class User {
 	
 	/** Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics */
 	public boolean isTeacher() {
-		
+		return false;
 	}
 
 	/** Set user status (teacher / student) 
@@ -86,7 +86,7 @@ public class User {
 	
 	/** Return false if str is null or empty "" string */
 	private boolean isNonEmptyString(String str) {
-				
+		return false;		
 	}
 
 	
@@ -136,7 +136,7 @@ public class User {
 		return passwd;
 	}
 	/** Return last name of this user */
-	public String getLastname() {
+	public String getLastName() {
 		return lastname;
 	}
 	/** Return the preferred language of this user as String. The language is either "EN" or "FI" */
