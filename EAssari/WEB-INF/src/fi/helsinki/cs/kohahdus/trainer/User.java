@@ -15,19 +15,29 @@ public class User {
 		this(null, null, null, null, null, null, null, null, null, null);
 	}
 	
+	/** Construct unitialized User object with userid */
+	public User(String userID) {
+		this(userID, null, null, null, null, null, null, null, null, null);
+	}
+	
 	/** Set last name of this user */
-	public void setLastName(String name) {
-		lastname = name;
+	public void setLastName(String lastname) {
+		this.lastname = lastname;
 	}	
 	
 	/** Set first name of this user */
-	public void setFirstName(String name) {
-		firstname = name;
+	public void setFirstName(String firstname) {
+		this.firstname = firstname;
 	}
 	
 	/** Set email address of this user */
-	public void setEmail(String addr) {
-		email = addr;
+	public void setEmail(String email) {
+		this.email = email;
+	}	
+
+	/** Set userID of this user */
+	public void setUserID(String userID) {
+		this.userid = userID;
 	}	
 
 	/** Return student number of this user. This identifier maps to <code>aeuser.extid</code> in the database */
