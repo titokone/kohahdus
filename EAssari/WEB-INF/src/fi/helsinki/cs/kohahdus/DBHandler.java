@@ -170,14 +170,14 @@ public class DBHandler {
 			if (st != null) st.close();			
 		}	
 		return user;
-	}
+	} 
 	
 	/** Add new user to user database. Does not check weather the user already exists in the DB. */
 	public boolean createUser(User user) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("insert into eauser (userid, lastname, firstname, email, status, extid, extid2, password, lpref, lastvisited) " +
+			st = conn.prepareStatement("insert into eauser (userid, lastname, firstname, email, status, extid, extid2, password, lpref, lastvisit) " +
 									   "values (?,?,?,?,?,?,?,?,?,sysdate)"); 
 			st.setString(1, user.getUserID());
 			st.setString(2, user.getLastName());
@@ -210,7 +210,7 @@ public class DBHandler {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("update eauser set lastname=?, firstname=?, email=?, status=?, extid=?, extid2=?, password=?, lpref=?, lastvisited=sysdate) " +
+			st = conn.prepareStatement("update eauser set lastname=?, firstname=?, email=?, status=?, extid=?, extid2=?, password=?, lpref=?, lastvisit=sysdate) " +
 									   "where userid=?"); 
 			st.setString(1, user.getLastName());
 			st.setString(2, user.getFirstName());

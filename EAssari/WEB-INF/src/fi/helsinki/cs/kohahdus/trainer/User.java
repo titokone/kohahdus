@@ -74,7 +74,10 @@ public class User {
 	 * @param lang either "FI" or "EN"
 	 */
 	public void setLanguage(String lang) {
-		
+		if (lang == null || !(lang.equals("EN") || lang.equals("FI"))) {
+			throw new IllegalArgumentException("Language param "+lang);
+		}
+		lpref = lang;
 	} 
 	
 	/** Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics */
@@ -87,7 +90,10 @@ public class User {
 	 * @param status
 	 */
 	public void setStatus(String status)  {
-		
+		if (status == null || !(status.equals(STATUS_STUDENT) || status.equals(STATUS_TEACHER))) {
+			throw new IllegalArgumentException("Given status "+status+" not valid");
+		}
+		this.status = status;
 	}
 	
 	/** Test validity of this user object. The object is considered valid if all data members are
@@ -95,13 +101,22 @@ public class User {
 	 * @return true if all fields are initialized with non-empty values, false otherwise
 	 */
 	public boolean isValid(){
-		if (!isNonEmptyString(userid)) return false;
-		// check ALL fields
+		if (isEmptyString(userid)) return false;
+		if (isEmptyString(lastname)) return false;
+		if (isEmptyString(firstname)) return false;
+		if (isEmptyString(passwd)) return false;
+		if (isEmptyString(email)) return false;
+		if (isEmptyString(externalid)) return false;
+		if (isEmptyString(externalid2)) return false;
+		
 		return true;
 	}
 	
 	/** Return false if str is null or empty "" string */
-	private boolean isNonEmptyString(String str) {
+	private boolean isEmptyString(String str) {
+		if (str == null || str.equals("")) {
+			return true;
+		}
 		return false;		
 	}
 
