@@ -133,7 +133,7 @@ asioiksi.
 
 \section{Tietokanta}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\includegraphics[width=14cm] {database_diagram.eps}
 	\caption{Tietokantakaavio}
 \end{figure}
@@ -150,29 +150,29 @@ Eli SQL-lauseita tulee vain ks. luokkaan eik‰ muualle koodiin. DBHandler-luokast
 staattisen DBHandler.getInstance() -metodin avulla. T‰m‰ tarkoittaa sit‰, ett‰ ko. luokkaa voidaan 
 k‰ytt‰‰ virtuaalikoneen sis‰ll‰ mist‰ vaan.
 
-\subsection{tasktype}
+\subsection{Tasktype}
 Tasktype on eAssari-kehyksen tarvitsema taulu, joka m‰‰rittelee teht‰v‰tyypin k‰ytt‰m‰t
 Analyzer ja Displayer luokat. Tauluun olisi mahdollista tallentaa myˆs muuta
-teht‰v‰tyyppikohtaista tietoa, mutta ainakaan ensimm‰isen iteraation kohdalla t‰lle ole
+teht‰v‰tyyppikohtaista tietoa, mutta ainakaan ensimm‰isen iteraation kohdalla t‰lle ei ole
 n‰kyviss‰ tarvetta.
 
-\subsection{task}
-Task m‰‰rittelee teht‰v‰n. Itse task-tauluun tallentaan l‰hinn‰ teht‰v‰n nimi ja luojan nimi.
+\subsection{Task}
+Task m‰‰rittelee teht‰v‰n. Itse task-tauluun tallennetaan l‰hinn‰ teht‰v‰n nimi ja luojan nimi.
 Teht‰v‰n kriteerit, kuvaus, palautteet yms lis‰t‰‰n yleisk‰yttˆiseen attributevalues-tauluun.
 
-\subsection{course}
+\subsection{Course}
 M‰‰rittelee kurssin nimen ja tunnisteen. T‰h‰n tauluun viitataan useista muista tauluista,
 jotta esimerkikisi opiskelijoiden suoritukset voidaan kirjata tietylle kurssille.
 
-\subsection{module}
+\subsection{Module}
 Luotuja teht‰vi‰ ei liitet‰ suoraan kursseihin, vaan moduuleihin ja moduulit liitet‰‰n
 kursseihin. Kurssiin voi liitt‰‰ useita moduuleja, mutta yht‰ moduulia ei voi lis‰t‰
 useaan kurssiin. TitoTrainer ei k‰yt‰ moduuleja siin‰ laajuudessa kuin tietokannan
 rakenne mahdollistaisi, vaan toteutuksen ja k‰yttˆliittymien yksinkertaistamiseksi
 jokaiselle kurssille luodaan tarkalleen yksi moduuli johon lis‰t‰‰n kaikki teht‰v‰t.
 
-\subsection{taskinmodule}
-Yhdist‰‰ teht‰v‰n kursiin ja moduuliin. Normaalitapauksessa siis teht‰v‰ lis‰tt‰isiin
+\subsection{Taskinmodule}
+Yhdist‰‰ teht‰v‰n kurssiin ja moduuliin. Normaalitapauksessa siis teht‰v‰ lis‰tt‰isiin
 jonkin kurssin johonkin moduulin luomalla rivi taskinmodule-tauluun. 
 
 TitoTrainerin tapauksessa on m‰‰ritelty, ett‰ kaikki teht‰v‰t kuuluvat kaikkiin kursseihin,
@@ -181,21 +181,21 @@ kuin on kursseja. Samoin kun luodaan uusi kurssi, sille luodaan automaattisesti 
 kaikki olemassa olevat teht‰v‰t lis‰t‰‰n ko. moduuliin. N‰in ollen aina pit‰‰ paikkansa,
 ett‰ Taskinmodule rivien m‰‰r‰ = Task rivien m‰‰r‰ * Course rivien m‰‰r‰.
 
-\subsection{attributevalues}
+\subsection{Attributevalues}
 Yleisk‰yttˆinen varasto jonne voi tallentaa mit‰ tahansa lis‰tietoa koskien mit‰ tahansa
 muuta taulua. T‰nne tallennetaan teht‰vien kriteerit, palautteet, aihepiiri, esimerkkiratkaisu,
 ja l‰hes kaikki muu tieto teht‰v‰st‰ nime‰ lukuunottamatta. Lis‰ksi voidaan tallentaa esimerkiksi
 lis‰tietoja kursseista jos tarvetta ilmenee.
 
-\subsection{eauser}
+\subsection{EAuser}
 Taulu kaikkien k‰ytt‰j‰tietojen tallentamiseen. Sek‰ oppilaat ja opettajat tallennetaan
 t‰nne, erona n‰ill‰ on vain status-sarakkeen arvo.
 
-\subsection{storedanswer}
+\subsection{Storedanswer}
 Kun opiskelija vastaa teht‰v‰‰n, vastaus sek‰ tiedot sen oikeellisuudesta tallennetaan
 t‰h‰n tauluun.
 
-\subsection{studentmodel}
+\subsection{Studentmodel}
 Jokaista teht‰v‰n vastausyrityst‰ kohden luodaan storedanswer-tauluun yksi rivi.
 Studentmodel-taluun tallennetaan yksi rivi per teht‰v‰, vaikka vastausyrityksi‰ olisi
 useampia. Rivillle tallennetaan tieto siit‰, onko teht‰v‰ suoritettu onnistuneesti
@@ -203,17 +203,17 @@ ja kuinka monta yrityst‰ teht‰v‰‰n on k‰ytetty. N‰m‰ tiedot olisi mahdollista p‰
 koostefunktioden avulla storedanswer-taulusta, mutta ilmeisesti tehokkuuden parantamisksi
 on luotu erillinen koostetaulu.
 
-\subsection{taskattributes}
+\subsection{Taskattributes}
 Task-attributes on eAssarissa tarkoitettu kuvaamaan teht‰vien attribuuttien rakennetta.
 eAssari ei kuitenkaan miss‰‰n vaiheessa itse hyˆdynn‰ t‰t‰ taulua, eik‰ TitoTrainerk‰‰n
 sit‰ tarvitse, joten taulu j‰‰ t‰ysin k‰ytt‰m‰tt‰.
 
-\subsection{pluginparameters}
+\subsection{Pluginparameters}
 T‰m‰n taulun tarkoitus on j‰‰nyt t‰ysin h‰m‰r‰n peittoon, eAssari ei miss‰‰n kohtaa
 koodissaan viittaa mihink‰‰n plugineihin. TitoTrainerill‰ ei myˆsk‰‰n ole t‰lle 
 taululle mit‰‰n k‰yttˆ‰, joten se j‰‰ t‰ysin k‰ytt‰m‰tt‰.
 
-\subsection{pluginparamattributes}
+\subsection{Pluginparamattributes}
 Kuten pluginparameters, j‰‰ k‰ytt‰m‰tt‰.
 
 

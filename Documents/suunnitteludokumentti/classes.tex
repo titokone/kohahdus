@@ -72,19 +72,11 @@ with one call. The atomicity of the operations is quaranteed by using the transa
 provided by the SQL standard.} \\
     
 {\tt 		private DBHandler()} \\
+Prevent youside instatiation by giving constructor private scope
 
 {\tt 		public static synchronized DBHandler getInstance()} \\
 Return DBHandler instance\\
 	
-{\tt 		private boolean init()} \\
-	
-{\tt 		protected void release(Connection conn) throws SQLException} \\
-
-	// TODO: DBConnectionPool
-	///      !!!!!!!!!!!!!!!!!! Tosi likainen ratkaisu ennen DBConnectionPool luokkaa
-{\tt 		protected Connection getConnection () throws SQLException} \\
-
-		
 {\tt 		public Task[] getTasks()} \\
 Return all tasks\\
 	
@@ -121,14 +113,14 @@ Add new user to user database\\
 {\tt 		public void updateUser(User user)} \\
 Update existing user\\
 	
-{\tt 		private void addCriterion(Task t, Criterion c)} \\
-Add criterion c to task\\
+%{\tt 		private void addCriterion(Task t, Criterion c)} \\
+%Add criterion c to task. Helper for addTask(..) and updateTask(..)\\
 	
-{\tt 		private void removeCriteria(Task t)} \\
-Remove criteria form task\\
+%{\tt 		private void removeCriteria(Task t)} \\
+%Remove criteria form task. Helper for removeTask(..) and updateTask(..)\\
 	
-{\tt 		private void addTask(Course c, Task task)} \\
-Add task to Course\\
+%{\tt 		private void addTask(Course c, Task task)} \\
+%Add task to Course. Helper for addTask(..) and addCourse(..) \\
 
 
 
@@ -201,6 +193,9 @@ Set password of this user to Pass\\
 	
 {\tt		public void setLanguage(String lang)} \\ 
 Set the preferred language of this user. The language is either "EN" or "FI\\
+
+{\tt		public String getStatus()} \\
+Return status of this user\\
 	
 {\tt		public boolean isTeacher()} \\ 
 Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics\\

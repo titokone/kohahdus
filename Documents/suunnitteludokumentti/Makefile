@@ -10,7 +10,7 @@ BIB_SRC = ../pohjat/lahteet.bib
 
 DOCNAME = dokumentti
 
-$(DOCNAME).ps: $(DOCNAME).dvi docs.tex
+$(DOCNAME).ps: $(DOCNAME).dvi 
 	$(DVIPS) -t a4 $(DOCNAME).dvi
 
 
