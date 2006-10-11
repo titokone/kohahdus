@@ -1,14 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
-<%/*
-	Signup-sivun alku. Vielä pahasti kesken.
-	
-	Tällä hetkellä osataan kerätä käyttäjän tiedot, jotka näytetään submitin jälkeen.
-	
-	JSP-jutut voitaisiin toki tehdä kauniimminkin
-  */
-%>  	
+
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
@@ -112,79 +106,44 @@
 
 <h2>TitoTrainer - Sign up</h2>
 
+
 <c:if test="${param.action=='signup'}">
-	<%
-		//TODO: Integrate with DBHandler
-		User user = null; //DBHandler.getInstance().getUser(request.getParameter("user_name"));
-		
-		//For testing purposes inserting "fail" as first name will always fail
-		boolean fail = request.getParameter("first_name").equals("fail");
-				
-		//Username not in use - create new user	
-		if (user == null && !fail){
 	
-			//TODO: this might be a nice spot to use beans
-			user = new User(request.getParameter("user_name"));
-						
-			user.setFirstName(request.getParameter("first_name"));
-			/*
-			user.setLastName(param.last_name);
-			user.setStudentNumber(param.student_number);
-			user.setSocialSecurityNumber(param.social_security_number);
-			user.setEmail(param.email);			
-			user.setPassword(param.password);
-			*/
-			if (!user.isValid()){
-				//forwardointi erroriin
-			}			
-			
-			//TODO: DBHandler might throw exceptions... 
-			DBHandler.getInstance().createUser(user);
-			
-			//TODO: User created - forward to tasklisting
-			forwarding
-			
-			//print user info for debug purposes...
-			//HUOM: ei toimi
+	SIGNING UP WITH FOLLOWING INFO
+
+	<p>User name: <c:out value="${param.user_name}"/>
+	<p>First name: <c:out value="${param.first_name}"/>
+	<p>Last name: <c:out value="${param.last_name}"/>
+	<p>Student num: <c:out value="${param.student_number}"/>
+	<p>Soc Sec num: <c:out value="${param.social_security_number}"/>
+	<p>Email: <c:out value="${param.email}"/>
+	<p>Password: <c:out value="${param.password}"/>
+	
+	<% User user = DBHandler.getInstance().getUser(request.getParameter("user_name"));
+	   if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
+	   
+	   if (user != null) {
+	   		out.print("OLD USER HAS A SAME ID");
+	   }		 		   	   
 	%>
-			<p>Creating a new user with following info...
 	
-			<table border="0" cellpadding="5">
-				<tr>
-					<td>User name</td>
-					<td><c:out value="${param.user_name}"></td>
-				</tr>
-				<tr>
-					<td>First name</td>
-					<td><c:out value="${param.first_name}"></td>
-				</tr>			
-				<tr>
-					<td>Last name</td>
-					<td><c:out value="${param.last_name}"></td>
-				</tr>				
-				<tr>
-					<td>Social security number</td>
-					<td><c:out value="${param.social_security_number}"></td>
-				</tr>
-				<tr>
-					<td>Student number</td>
-					<td><c:out value="${param.student_number}"></td>
-				</tr>
-				<tr>
-					<td>Email</td>
-					<td><c:out value="${param.email}"></td>
-				</tr>
-				<tr>
-					<td>Password</td>
-					<td><c:out value="${param.password}"></td>
-				</tr>
-			</table>	
-				
-	<%	//Failed because of duplicate username...
-	    } else { %>
-			<p>Ask the user to insert new username....
-	<%  } %>
+	<c:choose>
+		<c:when test="${not empty user}">
+			CAN NOT CREATE A NEW USER
+		</c:when>
+		<c:otherwise>
+			
+		
+			ADDING TO DATABASE
+		</c:otherwise>
+	</c:choose>			   
 </c:if>
+
+
+
+
+
+
 
 
 <form name="sign_up_form" action="signup.jsp" onsubmit="return checkForm()" method="POST">
