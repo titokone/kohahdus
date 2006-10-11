@@ -32,7 +32,80 @@ public class Task {
 		return null;
 	}
 	
+	
+	/** Return code of the model answer provided by teacher */
+	public String getModelAnswer() {
+		return null;
+	}
+	
+	/** Set model answer code */
+	public void setModelAnswer(String code) {
+		
+	}
+	
+	/** Return true if this task is to be validated by comparing results of the student's answer
+	 * to results of teacher's answer */
+	public boolean isValidateByModel() {
+		return false;
+	}
+	
+	/** Set the validation method of this task */
+	public void setValidateByModel(boolean useModel){
+		
+	}
 
+	/** Return the task category of this task */
+	public String getCategory() {
+		return null;
+	}
+	
+	/** Set task category of this task */
+	public void setCategory(String category) {
+		
+	}
+	
+	/** Return true if this is a fill-in task */
+	public boolean isFillInTask() {
+		return false;
+	}
+	
+	/** Set this task as fill-in or create-full-program  */
+	public void setFillInTask(boolean fillIn) {
+		
+	}
+
+	/** Return the code that is prepended before student's code in a fill-in task */
+	public String getFillInPreCode() {
+		return null;
+	}
+	
+	/** Set the code that is prepended before student's code in a fill-in task */
+	public void SetFillInPreCode(String code) {
+		
+	}
+	
+	/** Return the code that is appended to student's code in a fill-in task */
+	public String getFillInPostCode() {
+		return null;
+	}
+	
+	/** Set the code that is appended to student's code in a fill-in task */
+	public void SetFillInPostCode(String code) {
+		
+	}
+
+	/** Return the description (tehtävänanto) of this task */
+	public String getDescription() {
+		return null;
+	}
+
+	/** Set description (tehtävänanto) of this task */
+	public void setDescription() {
+		
+	}
+	
+	
+	
 	
 	
 

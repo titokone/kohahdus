@@ -143,8 +143,52 @@ Return name of the last person who has modified this task\\
 {\tt 		public void setAuthor(String name)} \\
 Set "last task modification by" attribute to Name, set last-modification-timestamp to current data and time\\
 
-{\tt 		public Date getModificationDate()} \\
+{\tt		public Date getModificationDate()} \\
 Return the date and time this task was last modified\\
+
+{\tt		public String getModelAnswer()} \\
+Return code of the model answer provided by teacher\\
+	
+{\tt		public void setModelAnswer(String code)} \\
+Set model answer code\\
+
+{\tt		public boolean isValidateByModel()} \\
+Return true if this task is to be validated by comparing results
+of the student's answer to results of teacher's answer\\
+	
+{\tt		public void setValidateByModel(boolean useModel)} \\
+Set the validation method of this task\\
+
+{\tt		public String getCategory()} \\
+Return the task category of this task\\
+	
+{\tt		public void setCategory(String category)} \\
+Set task category of this task\\
+	
+{\tt		public boolean isFillInTask()} \\
+Return true if this is a fill-in task\\
+	
+{\tt		public void setFillInTask(boolean fillIn)} \\
+Set this task as fill-in or create-full-program \\
+
+{\tt		public String getFillInPreCode()} \\
+Return the code that is prepended before student's code in a fill-in task\\
+	
+{\tt		public void SetFillInPreCode(String code)} \\
+Set the code that is prepended before student's code in a fill-in task\\
+	
+{\tt		public String getFillInPostCode()} \\
+Return the code that is appended to student's code in a fill-in task\\
+	
+{\tt		public void SetFillInPostCode(String code)} \\
+Set the code that is appended to student's code in a fill-in task\\
+
+{\tt		public String getDescription()} \\
+Return the description (tehtävänanto) of this task\\
+
+{\tt		public void setDescription()} \\
+Set description (tehtävänanto) of this task\\
+
 
 
 
