@@ -1,9 +1,8 @@
 package fi.helsinki.cs.kohahdus;
 
 
-
 /** Base class for all criterion types. The many different types of criteria in TitoTrainer
- * are all used via the interfase defined here. The analyzer component does not know the
+ * are all used via the interface defined here. The analyzer component does not know the
  * details of different Criterion sub-classes. Only the composer used for creating and
  * modiying Tasks is even aware that differnt types of criteria exist. * 
  */
@@ -35,7 +34,7 @@ public abstract class Criterion {
 		return "<class>" + this.getClass().getName() + "</class>" + // TODO: vaiko getCanonicalName() ? 
 			   "<posfb>" + positiveFeedback + "</posfb>" +			// TODO: convert <> to &lt; &gt;
 			   "<negfb>" + negativeFeedback + "</negfb>" +
-			   "<issecret>" + secretInputCriterion + "</issecret>" + 
+			   "<secret>" + secretInputCriterion + "</secret>" + 
 			   serializeSubClass();
 	}
 	
@@ -47,7 +46,10 @@ public abstract class Criterion {
 
 	/** Serialize non-static data-members of Criterion sub-class to XML format. The subclass
 	 * can freely decide the names of the XML tags. The abstract Criterion class will handle
-	 * the serialization of its data-members. */
+	 * the serialization of its data-members.
+	 * 
+	 * The serialized string is stored in the eAssari database in a 2000-char field so
+	 * subclasses should try to keep the tags and data short (without being cryptic). */
 	protected abstract String serializeSubClass();
 	
 	/** Initialize non-static data-members of this Criterion subclass instance using the 

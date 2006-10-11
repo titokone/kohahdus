@@ -1,6 +1,8 @@
 package fi.helsinki.cs.kohahdus;
 
-/** Capsulates the end-state of single run of TitoKone */
+/** Capsulates the end-state of single run of TitoKone.
+ *  
+ * Tämä luokka toteutetaan toisessa iteraatiossa */
 public class TitoState {
 	
 	/** Return the contents of register Num (0 for "R0", etc). */
@@ -46,8 +48,5 @@ public class TitoState {
 	
 	String[] getUsedOpcodes() {
 		return null;
-	}
-	
-	
-	
+	}	
 }

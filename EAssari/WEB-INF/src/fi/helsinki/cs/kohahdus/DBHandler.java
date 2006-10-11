@@ -68,8 +68,8 @@ public class DBHandler {
 	}	
 
 		
-	/** Return all tasks of Course c */
-	public Task[] getTasks(Course c) {
+	/** Return all tasks */
+	public Task[] getTasks() {
 		return null;
 	}
 	
