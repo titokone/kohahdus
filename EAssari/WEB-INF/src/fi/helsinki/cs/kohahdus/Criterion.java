@@ -31,10 +31,10 @@ public abstract class Criterion {
 
 	/** Return a serialized copy of this Criterion in XML-format */
 	public String serializeToXML() {
-		return "<class>" + this.getClass().getName() + "</class>" + // TODO: vaiko getCanonicalName() ? 
-			   "<posfb>" + positiveFeedback + "</posfb>" +			// TODO: convert <> to &lt; &gt;
-			   "<negfb>" + negativeFeedback + "</negfb>" +
-			   "<secret>" + secretInputCriterion + "</secret>" + 
+		return toXML("class", this.getClass().getName()) + // TODO: vaiko getCanonicalName() ? 
+			   toXML("posfb", positiveFeedback) +
+			   toXML("negfb", negativeFeedback) +
+			   toXML("secret", secretInputCriterion) + 
 			   serializeSubClass();
 	}
 	
@@ -67,9 +67,9 @@ public abstract class Criterion {
 			Class concreteClass = Class.forName(criterionClass);
 			if (concreteClass != null) {
 				Criterion c = (Criterion) concreteClass.newInstance();
-				c.positiveFeedback = "Alustetaan xml-muuttujan tiedoilla";
-				c.negativeFeedback = "Alustetaan xml-muuttujan tiedoilla";
-				c.secretInputCriterion = false; //Alustetaan xml-muuttujan tiedoilla
+				c.positiveFeedback = parseXMLString(xml, "posfb");
+				c.negativeFeedback = parseXMLString(xml, "negfb");
+				c.secretInputCriterion = parseXMLBoolean(xml, "secret");
 				c.initSubClass(xml);
 				return c;
 			} else {
@@ -78,5 +78,43 @@ public abstract class Criterion {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	
+	
+	
+	/** Serialize boolean value to XML string.
+	 *  Helper function for serializeSubClass() */
+	protected static String toXML(String tagname, boolean value) {
+		return null;
+	}
+	
+	/** Serialize String value to XML string.
+	 *  Helper function for serializeSubClass() */
+	protected static String toXML(String tagname, String value) {
+		return null;
+	}
+	
+	/** Serialize integer value to XML string.
+	 *  Helper function for serializeSubClass() */
+	protected static String toXML(String tagname, int value) {
+		return null;
+	}
+
+	/** Deserialize boolean value from XML string.
+	 *  Helper function for initSubClass() */
+	protected static boolean parseXMLBoolean(String XML, String tagname) {
+		return false;
+	}
+
+	/** Deserialize String value from XML string.
+	 *  Helper function for initSubClass() */
+	protected static String parseXMLString(String XML, String tagname) {
+		return null;
+	}
+	
+	/** Deserialize integer value from XML string.
+	 *  Helper function for initSubClass() */
+	protected static int parseXMLInt(String XML, String tagname) {
+		return 0;
 	}	
 }
