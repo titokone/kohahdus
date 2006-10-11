@@ -55,6 +55,11 @@ public class User {
 		return externalid2;
 	}
 	
+	/** Returns status of the user */
+	public String getStatus() {
+		return status;
+	}
+	
 	/** Set social security number of this user */
 	public void setSocialSecurityNumber(String ssn) {
 		externalid2 = ssn;
@@ -162,7 +167,7 @@ public class User {
 	
 	
 	
-    public String getUserid() {
+    public String getUserID() {
     	return userid;
     }
     
