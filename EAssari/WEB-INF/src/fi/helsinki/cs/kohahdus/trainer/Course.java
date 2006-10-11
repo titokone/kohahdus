@@ -24,9 +24,5 @@ public class Course {
     /** Return all users who have solved or have tried to solve tasks from this course */
     public User[] getUsersDB() {
     	return null;
-    } // Delegate to DBHandler
-
-    
-    
-    
+    } // Delegate to DBHandler    
 }

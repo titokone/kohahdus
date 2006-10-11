@@ -76,6 +76,11 @@ public class DBHandler {
 	public Task getTask(String taskID) {
 		return null;
 	}
+
+	/** Return the criteria of Task task */
+	public Criterion[] getCriteria(Task task) {
+		return null;
+	}	
 	
 	/** Add new task to task database. The insert will affect all courses. This operation
 	 * will also create the criteria for the task */ 

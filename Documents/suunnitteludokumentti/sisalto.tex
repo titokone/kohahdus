@@ -13,9 +13,10 @@ parametreineen ja kuinka opiskelijan ratkaisun oikeellisuus tarkistetaan, sekä n
 opiskelijoiden suorituksista. Opiskelijan käyttöliittymän avulla opiskelija valitsee tehtäviä, 
 syöttää niiden ratkaisut ja saa palautetta vastauksensa oikeellisuudesta.
 
-Projekti käyttää valmiina olevaa Titokone-simulaattoria harjoitustehtävien ratkaisemiseen. Projekti 
-rakennetaan valmiina olevaan eAssari-kehykseen, joka sopii geneeriseen automaattisesti 
-tarkistettavien tehtävien määrittelyyn ja toteutukseen.
+Projekti käyttää valmiina olevaa Titokone-simulaattoria harjoitustehtävien ratkaisemiseen. Projektin 
+rakennetaan olemassa olevaan eAssari-kehykseen, joka sopii geneeriseen automaattisesti tarkistettavien
+tehtävien määrittelyyn ja toteutukseen. eAssarin keskeneräisyydestä johtuen kehystä tullaan muokkaamaan
+tuotteella asetettujen vaatimusten täyttämiseksi.
 
 Järjestelmä toteutetaan Java-kielellä ja järjestelmän käyttö vaatii, että selain tukee 
 JavaScript-kieltä ja CSS-tyylitiedostoja. Järjestelmä toimii uusimmilla Firefox ja Internet 
@@ -38,14 +39,15 @@ Explorer-selaimilla.
 Tämä luku kuvaa järjestelmän HTML-sivut ja sen, mitä toimintoja ne tarjoavät käyttäjälle.
 
 \subsection{Rekisteröityminen}
-Rekiströintisivulla opiskelija rekisteröityy järjestelmän käyttäjäksi. Rekisteröinti vaatii seuraavat 
+Rekisteröintisivulla opiskelija rekisteröityy järjestelmän käyttäjäksi. Rekisteröinti vaatii seuraavat 
 tiedot: etunimi, sukunimi, käyttökieli, sähköposti, opiskelijanumero tai henkilötunnus, sekä
-vapaavalintainen tunnus ja salasana
+haluttu käyttäjätunnus ja salasana
 
 \subsection{Käyttäjätietojen muokkaaminen}
 Käyttäjätietosivulla sisäänkirjautunut käyttäjä voi muokata rekisteröintitietojaan, poislukien 
-tunnus joka on valittu rekisteröidyttäessä. Tämäm toiminnon ei tarvitse toimia opettajien tunnusten
-kanssa, mutta odotettavissa on, että opettajatunnusten tukeminen ei aiheuta minkäänlaista lisätyötä.
+tunnus joka on valittu rekisteröidyttäessä. Käyttäjätietojen muokkaamisen ei tarvitse toimia
+opettajien tunnusten kanssa, mutta odotettavissa on, että opettajatunnusten tukeminen ei aiheuta
+minkäänlaista lisätyötä.
 
 \subsection{Kirjautuminen}
 Kirjautumissivulla käyttäjä syöttää tunnuksensa, salasanansa ja pudotusvalikosta kurssin nimi.
@@ -68,7 +70,7 @@ tehtävää. Tehtävälle määritellään nimi, tehtävänanto, tarkastustyyppi (malliratk
 tehtävätyyppi (täyttötehtävä/ohjelmointitehtävä), sekä tarkastuskriteerit ja kriteerien palautteet.
 
 \subsection{Kurssin statistiikka (opettaja)}
-Kurssin statistiikkasivulla opettajalle näytetään lista kaikkien kurssin tehtäviän suorittaneiden
+Kurssin statistiikkasivulla opettajalle näytetään lista kaikkien kurssin tehtäviä suorittaneiden
 opiskelijoiden suorituksista. Listassa näytetään opiskelijan nimi, opiskelijanumero tai henkilötunnus,
 sekä onnistuneesti ratkaistujen tehtävien määrä. Lista on helposti tulostettavassa muodossa.
 
@@ -92,7 +94,7 @@ Opiskelijan ratkaistavaksi valitsemasta tehtävästä näytetään nimi ja tehtävänant
 mahdollinen valmis koodi mikäli kyseessä on täyttötehtävä, sekä tekstialue johon
 opiskelija kirjoittaa vastauksensa. Lisäksi on linkki jolla pääsee takaisin tehtävälistaukseen.
 
-Kun opiskelija on kirjoittanut vastauksensa, hän painaa "Suorita" nappia joka vie
+Kun opiskelija on kirjoittanut vastauksensa, hän painaa "Suorita"-nappia joka vie
 takaisin tehtävävastaussivulle. Sivulla näytetään samat tiedot kuin alussa, mutta
 lisäksi näytetään palautetta tehtävän ratkaisun onnistumisesta/epäonnistumisesta.
 
@@ -159,7 +161,7 @@ Task määrittelee tehtävän. Itse task-tauluun tallentaan lähinnä tehtävän nimi ja
 Tehtävän kriteerit, kuvaus, palautteet yms lisätään yleiskäyttöiseen attributevalues-tauluun.
 
 \subsection{course}
-Määrittelee kurssin nimen ja tunnisteen. Tähän tauluun viitataan useista muista taluista,
+Määrittelee kurssin nimen ja tunnisteen. Tähän tauluun viitataan useista muista tauluista,
 jotta esimerkikisi opiskelijoiden suoritukset voidaan kirjata tietylle kurssille.
 
 \subsection{module}
@@ -226,9 +228,11 @@ Kuten pluginparameters.
 %\section{Komponentit}
 
 
+\section{Luokat2}
+\input{classes}
+
 
 \section{Luokat}
- 
 \input{docs}
 
 
@@ -263,8 +267,7 @@ Sekvenssikaavioit esittävät miten TitoTrainer/eAssari käsittelee tapahtuman, jos
 käyttäjä on täyttänyt lomakkeen ja lähettänyt sen palvelimen käsiteltäväksi. Vain
 onnistuneet tapahtumat on kuvattu, esimerkiksi väärän salasanan syöttäminen 
 kirjautumislomakkeeseen katkaisee kuvatun sekvenssin ja palauttaa käyttäjälle
-virheilmoituksen. Käyttäytyminen poikkeustilanteissa kuvataan tarkemmin
-käyttöliittymäsuunnitelmassa (Liite 1).
+virheilmoituksen. 
 
 
 \subsection{Register.jsp}

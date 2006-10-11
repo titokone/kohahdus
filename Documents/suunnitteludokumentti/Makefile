@@ -47,8 +47,8 @@ $(DOCNAME)-2.ps: $(DOCNAME).dvi
 backup: clean
 	tar fcz ~/ohtu-backup.tar.gz `find -maxdepth 1 -type f`
 	
-docs.tex: ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/*.java
-	javadoc -docletpath ./TeXDoclet.jar -doclet sm.texdoclet.TeXDoclet ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/*.java -include	
+docs.tex: ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/*.java ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/trainer/User.java ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/trainer/Task.java ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/trainer/Course.java
+	javadoc -docletpath ./TeXDoclet.jar -doclet sm.texdoclet.TeXDoclet ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/*.java ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/trainer/User.java ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/trainer/Task.java ../../EAssari/WEB-INF/src/fi/helsinki/cs/kohahdus/trainer/Course.java -include 
 
 all: $(DOCNAME).ps $(DOCNAME)-2.ps
 
