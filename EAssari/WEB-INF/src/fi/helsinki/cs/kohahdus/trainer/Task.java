@@ -32,12 +32,6 @@ public class Task {
 		return null;
 	}
 	
-	/** Return the criteria of this task */
-	public Criterion[] getCriteriaDB() {
-		return null;
-	} // Delegate to DBHandler
-	
-	
 
 	
 	
