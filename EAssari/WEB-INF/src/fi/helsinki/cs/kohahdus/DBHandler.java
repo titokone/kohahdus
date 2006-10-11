@@ -3,7 +3,6 @@ package fi.helsinki.cs.kohahdus;
 import java.sql.*;
 
 import fi.helsinki.cs.kohahdus.trainer.Course;
-import fi.helsinki.cs.kohahdus.trainer.DatabaseException;
 import fi.helsinki.cs.kohahdus.trainer.Task;
 import fi.helsinki.cs.kohahdus.trainer.User;
 
@@ -158,7 +157,7 @@ public class DBHandler {
 			}
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to get users. " +e);
+			Log.write("DBHandler: Failed to get user "+userID+". " +e);
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -166,16 +165,71 @@ public class DBHandler {
 		return user;
 	}
 
-
-	/** Add new user to user database */
-	public void createUser(User user) {
-		
+	/** Add new user to user database. Does not check weather the user already exists in the DB. */
+	public boolean createUser(User user) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("insert into eauser (userid, lastname, firstname, email, status, extid, extid2, password, lpref, lastvisited) " +
+									   "values (?,?,?,?,?,?,?,?,?,sysdate)"); 
+			st.setString(1, user.getUserID());
+			st.setString(2, user.getLastName());
+			st.setString(3, user.getFirstName());
+			st.setString(4, user.getEmail());
+			st.setString(5, user.getStatus());
+			st.setString(6, user.getStudentNumber());
+			st.setString(7, user.getSocialSecurityNumber());
+			st.setString(8, user.getPassword());
+			st.setString(9, user.getLpref());
+			int c = st.executeUpdate();
+			if (c > 0){
+				Log.write("DBHandler: User " +user.getUserID()+ " added to DB ");
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to add user " +user.getUserID());
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to create user "+user.getUserID()+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return false;
 	} 
 	
-	/** Update existing user */
-	public void updateUser(User user) {} 
-
-	
+	/** Update existing user to DB with userID. Does not check weather the user exists or not. */
+	public boolean updateUser(User user) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("update eauser set lastname=?, firstname=?, email=?, status=?, extid=?, extid2=?, password=?, lpref=?, lastvisited=sysdate) " +
+									   "where userid=?"); 
+			st.setString(1, user.getLastName());
+			st.setString(2, user.getFirstName());
+			st.setString(3, user.getEmail());
+			st.setString(4, user.getStatus());
+			st.setString(5, user.getStudentNumber());
+			st.setString(6, user.getSocialSecurityNumber());
+			st.setString(7, user.getPassword());
+			st.setString(8, user.getLpref());
+			st.setString(9, user.getUserID());
+			int c = st.executeUpdate();
+			if (c > 0){
+				Log.write("DBHandler: User " +user.getUserID()+ " updated to DB ");
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to update user " +user.getUserID()+ ". User probably does not exists in the DB.");
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to update user "+user.getUserID()+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return false;
+	} 	
 		
 	/** Add criterion c to task */
 	private void addCriterion(Task t, Criterion c) {}
@@ -188,3 +242,6 @@ public class DBHandler {
 	/** Add task to Course */
 	private void addTask(Course c, Task task) {}
 }
+
+
+
