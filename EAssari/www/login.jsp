@@ -17,7 +17,7 @@
 <c:if test="${param.action=='login'}">
 		<%
 		User user = DBHandler.getInstance().getUser(request.getParameter("username"), request.getParameter("password"));
-		if (user != null) pageContext.setAttribute("user", user);
+		if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
 		%>
 		<c:if test="${empty user}">
 			Username or password not correct.
@@ -26,6 +26,16 @@
 			Login ok and then redirect (TODO) here....
 			<c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/>
 		</c:if>
+</c:if>
+<c:if test="${param.action=='logout'}">
+	<c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> logged out.<br>
+	<br>
+	<c:remove var="user" scope="session"/>
+</c:if>
+
+<c:if test="${not empty user}">
+	Logged in: <c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/><br>
+	<br>
 </c:if>
 
 <form action="login.jsp" method="POST">
