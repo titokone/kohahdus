@@ -83,23 +83,28 @@ public class DBHandler {
 	
 	/** Add new task to task database. The insert will affect all courses. This operation
 	 * will also create the criteria for the task */ 
-	public void createTask(Task task, Criterion[] criteria) {}
+	public void createTask(Task task, Criterion[] criteria) {
+		
+	}
 	
 	/** Update existing task. The update will affect all courses This operation
 	 * will also update the criteria for the task */  
-	public void updateTask(Task task, Criterion[] criteria) {}
+	public void updateTask(Task task, Criterion[] criteria) {
+		
+	}
 
 	/** Remove task from task database (and thus all courses). This will also remove all stored
 	 * answers of the task. */
-	public void removeTask(Task task) {}
-	
+	public void removeTask(Task task) {
+		
+	}
 
 	/** Return all users who have attempted to solve at least one task of Course c */
 	public User[] getUsers(Course c) throws SQLException {
 		return null;
 	}
 	
-	/** Return user identified by userID */
+	/** Return user identified by userID and password (login) */
 	public User getUser(String userID, String password) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
@@ -108,9 +113,10 @@ public class DBHandler {
 			st = conn.prepareStatement("select * from eauser where userid=? and password=?");
 			st.setString(1, userID);
 			st.setString(2, password);
+			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			if (rs.next()){
-				user = new User(userID);
+ 				user = new User(userID);
 				user.setEmail(rs.getString("email"));
 				user.setFirstName(rs.getString("firstname"));
 				user.setLastName(rs.getString("lastname"));
@@ -124,7 +130,7 @@ public class DBHandler {
 			}
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to get users. " +e);
+			Log.write("DBHandler: Failed to add user " +userID+ ". " +e);
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -141,6 +147,7 @@ public class DBHandler {
 		try {
 			st = conn.prepareStatement("select * from eauser where userid=?");
 			st.setString(1, userID);
+			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			if (rs.next()){
 				user = new User(userID);
@@ -164,7 +171,7 @@ public class DBHandler {
 		}	
 		return user;
 	}
-
+	
 	/** Add new user to user database. Does not check weather the user already exists in the DB. */
 	public boolean createUser(User user) throws SQLException {
 		Connection conn = getConnection();
@@ -236,9 +243,7 @@ public class DBHandler {
 	
 	/** Remove criteria form task */
 	private void removeCriteria(Task t) {}
-	
-	
-	
+		
 	/** Add task to Course */
 	private void addTask(Course c, Task task) {}
 }

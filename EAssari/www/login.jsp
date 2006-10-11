@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -13,17 +14,18 @@
 
 <h2>TitoTrainer - Sign in</h2>
 
-
-
 <c:if test="${param.action=='login'}">
-	<%
-		User user = DBHandler.getUser(request.getParameter("username"), request.getParameter("password"));
-		if (user == null){
-	%>
+		<%
+		User user = DBHandler.getInstance().getUser(request.getParameter("username"), request.getParameter("password"));
+		if (user != null) pageContext.setAttribute("user", user);
+		%>
+		<c:if test="${empty user}">
 			Username or password not correct.
-	<%	} else { %>
+		</c:if>
+		<c:if test="${not empty user}">
 			Login ok and then redirect (TODO) here....
-	<%  } %>
+			<c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/>
+		</c:if>
 </c:if>
 
 <form action="login.jsp" method="POST">
