@@ -4,8 +4,7 @@ package fi.helsinki.cs.kohahdus.trainer;
 public class Course {
 	
 	/** Create new Course instance using the specified name and ID */
-	public Course(String name, String id) {
-	
+	public Course(String name, String id) {	
 	}
 	
     /** Return name of this course */

@@ -4,7 +4,7 @@ package fi.helsinki.cs.kohahdus;
 /** Base class for all criterion types. The many different types of criteria in TitoTrainer
  * are all used via the interface defined here. The analyzer component does not know the
  * details of different Criterion sub-classes. Only the composer used for creating and
- * modiying Tasks is even aware that differnt types of criteria exist. * 
+ * modiying Tasks is even aware that differnt types of criteria exist.
  */
 public abstract class Criterion {
 	protected String positiveFeedback;

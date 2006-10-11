@@ -22,7 +22,8 @@ public class Task {
 		return null;
 	}
 
-	/** Set "last task modification by" attribute to Name */
+	/** Set "last task modification by" attribute to Name,
+	 *  set last-modification-timestamp to current data and time */
 	public void setAuthor(String name) {
 	}
 	
@@ -31,7 +32,7 @@ public class Task {
 		return null;
 	}
 	
-	
+	/** Return the criteria of this task */
 	public Criterion[] getCriteriaDB() {
 		return null;
 	} // Delegate to DBHandler

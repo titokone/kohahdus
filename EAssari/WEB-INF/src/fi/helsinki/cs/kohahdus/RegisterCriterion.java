@@ -1,7 +1,7 @@
 package fi.helsinki.cs.kohahdus;
 
 /* Vain mallliksi kriteerien toimintalogiikan esittelyyn. Oikeasti rekisterikriteeriä 
- * ei edes peritä suoraan Criterion-luokasta vaan väliin tulee toinen abstracti luokka. */
+ * ei edes peritä suoraan Criterion-luokasta vaan väliin tulee toinen abstrakti luokka. */
 public class RegisterCriterion extends Criterion {
 	private static final int OP_EQUALS = 0;
 	private static final int OP_EQUALS_OR_GREATER = 1;
