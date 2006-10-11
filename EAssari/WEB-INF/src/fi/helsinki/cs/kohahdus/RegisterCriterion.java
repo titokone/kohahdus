@@ -10,11 +10,11 @@ public class RegisterCriterion extends Criterion {
 	private int comparisonValue;
 	private int comparisonOperator;
 
+	
 	public boolean meetsCriterion(TitoState studentAnswer, TitoState modelAnswer) {
 		int teacherValue = comparisonValue;
 		if (modelAnswer != null)
 			teacherValue = modelAnswer.getRegister(registerNum);
-
 		int studentValue = studentAnswer.getRegister(registerNum);		
 		
 		switch (comparisonOperator) {
@@ -27,21 +27,19 @@ public class RegisterCriterion extends Criterion {
 		return false; // dead code
 	}
 
-	public String serializeToString() {
-		return "<class>" + this.getClass().getName() + "</class>" + // tai getCanonicalName() 
-		       "<regnum>" + registerNum + "</regnum>" +
+	
+	public String serializeSubClass() {
+		return "<regnum>" + registerNum + "</regnum>" +
 		       "<value>" + comparisonValue + "</value>" + 
-		       "<operator>" + comparisonOperator + "</value>" +
-		       "<posfb>" + positiveFeedback + "</posfb>" +
-		       "<negfb>" + negativeFeedback + "</negfb>" +
-		       "<issecret>" + secretInputCriterion + "</issecret>";
+		       "<operator>" + comparisonOperator + "</value>";
 	}
+	
 
-	public void init(String serialized) {
-		
-		
-		// TODO Auto-generated method stub
-
+	public void initSubClass(String serializedXML) {		
+		// Nämä arvot siis katsotaan tuosta XML-stringistä
+		registerNum = 0; 
+		comparisonValue = 0;
+		comparisonOperator = 0;
 	}
 
 }
