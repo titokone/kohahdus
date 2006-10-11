@@ -107,13 +107,13 @@ Teht‰v‰‰n vastaaminen toteutetaan toisessa kehitysiteraatiossa.
 \section{Arkkitehtuurisuunnitelma}
 
 J‰rjestelm‰ on jaettu kahteen osaj‰rjestelm‰‰n, Titokone ja eAssari/TitoTrainer. Ideaalitapaus
-olisi ollut kolme osaj‰rjestelm‰‰, jossa eAssari on TitoTraineria k‰ytt‰v‰ sovelluskehys. T‰m‰
-malli ei kuitenkaan ole mahdollinen johtuen eAssarin keskener‰isyydest‰. Lopputuotteelle 
+olisi ollut kolme osaj‰rjestelm‰‰, jossa eAssari on TitoTraineria kutsuva sovelluskehys. T‰m‰
+malli ei kuitenkaan ole mahdollinen, johtuen eAssarin keskener‰isyydest‰. Lopputuotteelle 
 asettujen vaatimusten t‰ytt‰minen vaatii huomattavia lis‰yksi‰ eAssariin, mm. puuttuvat
 kurssien ja k‰ytt‰jien hallinta t‰ytyy tehd‰. Kire‰n aikataulun vuoksi eAssaria ei yritet‰
 s‰ilytt‰‰ geneerisen‰ kehyksen‰, vaan muokkauset tehd‰‰n vain Kohahdus projektin tarpeita
 ajatellen. K‰yt‰nnˆss‰ eAssarista tehd‰‰n siis ns. code fork, eli synnytet‰‰n t‰ysin
-TitoTrainer-spesifinen eAssari-versio joka ei ole yhteensopiva geneerisen eAssarin kanssa.
+TitoTrainer-spesifinen eAssari-versio, jonka ei taata olevan yhteensopiva geneerisen eAssarin kanssa.
 
 Ainoa osuus eAssarista jota pyrit‰‰n k‰ytt‰m‰‰n sen alkuper‰isen arkkitehtuurin mukaan,
 on teht‰vien tarkistus eli Answer-servlet ja Analyzer sek‰ Feedback rajapinnat. Tietokannan
@@ -228,12 +228,12 @@ Kuten pluginparameters.
 %\section{Komponentit}
 
 
-\section{Luokat2}
+\section{Luokat}
 \input{classes}
 
 
-\section{Luokat}
-\input{docs}
+%\section{Luokat}
+%\input{docs}
 
 
 DBConnectionPool

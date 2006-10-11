@@ -85,7 +85,8 @@ public class User {
 		
 	}
 	
-	/** Test the validity of this user object  
+	/** Test validity of this user object. The object is considered valid if all data members are
+	 * set with non-empty values.  
 	 * @return true if all fields are initialized with non-empty values, false otherwise
 	 */
 	public boolean isValid(){
