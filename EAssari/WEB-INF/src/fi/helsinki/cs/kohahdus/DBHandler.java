@@ -302,7 +302,7 @@ public class DBHandler {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("update eauser set lastname=?, firstname=?, email=?, status=?, extid=?, extid2=?, password=?, lpref=?, lastvisit=sysdate) " +
+			st = conn.prepareStatement("update eauser set lastname=?, firstname=?, email=?, status=?, extid=?, extid2=?, password=?, lpref=?, lastvisit=sysdate " +
 									   "where userid=?"); 
 			st.setString(1, user.getLastName());
 			st.setString(2, user.getFirstName());
