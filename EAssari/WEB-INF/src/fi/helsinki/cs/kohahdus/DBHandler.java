@@ -65,7 +65,12 @@ public class DBHandler {
         return conn;
 	}	
 
-		
+	/** Return all courses */
+	public Course[] getCourses() {
+		return null;
+	}
+	
+	
 	/** Return all tasks */
 	public Task[] getTasks() {
 		return null;
