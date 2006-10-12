@@ -128,8 +128,39 @@ public class DBHandler {
 	
 	
 	/** Return all tasks */
-	public Task[] getTasks() {
-		return null;
+	public LinkedList<Task> getTasks() throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		LinkedList<Task> tasks = new LinkedList<Task>();
+		try {
+			st = conn.prepareStatement("select * from task");
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			while (rs.next()){
+				Task task = new Task();
+				task.setTaskID(rs.getString("taskid"));
+				task.setName(rs.getString("taskname"));
+				task.setAuthor(rs.getString("author"));
+				//task(rs.getDate("datecreate"));
+				//task.setTasktype(rs.getString("tasktype"));
+				task.setMetadata(rs.getString("taskmetadata"));
+				task.setNoOfTries(rs.getInt("numberoftries_def"));
+				task.setShouldStore("N".equals(rs.getString("shouldstoreanswer_def")) ? false : true);
+				task.setShouldRegister("N".equals(rs.getString("shouldregistertry_def")) ? false : true);
+				task.setShouldKnow("N".equals(rs.getString("shouldknowstudent_def")) ? false : true);
+				task.setShouldEvaluate("N".equals(rs.getString("shouldevaluate_def")) ? false : true);
+				task.setCutoffvalue(rs.getInt("cutoffvalue"));
+				tasks.add(task);
+			} 
+			Log.write("DBHandler: Fetched " +tasks.size() + " tasks from DB.");
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to fetch tasks from DB. " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return tasks;
 	}
 	
 	/** Return task identified by taskID */
