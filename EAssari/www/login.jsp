@@ -43,7 +43,7 @@
 </c:if>
 
 <c:if test="${not empty user}">
-	Logged in: <c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/><br>
+	Logged in: <c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> (<c:out value="${user.status}"/>)<br>
 	<br>
 </c:if>
 
