@@ -109,6 +109,7 @@
 
 <c:if test="${param.action=='signup'}">
 	
+	----- DEBUG:
 	SIGNING UP WITH FOLLOWING INFO
 
 	<p>User name: <c:out value="${param.user_name}"/>
@@ -120,12 +121,7 @@
 	<p>Password: <c:out value="${param.password}"/>
 	
 	<% User user = DBHandler.getInstance().getUser(request.getParameter("user_name"));
-	   if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
-	   
-	   //For debugging purposes only
-	   if (user != null) {
-	   		out.print("OLD USER HAS A SAME ID");
-	   }		 		   	   
+	   if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE); 		   	   
 	%>
 	
 	<c:choose>
@@ -139,16 +135,15 @@
 			   	user.setStatus(User.STATUS_STUDENT);
 			   	user.setLanguage("EN");
 			   	pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
-			   	
-			   	  	
-			   	//TODO: sama JSTL:llä
-			   	user.setFirstName(request.getParameter("firstName"));
-			   	user.setLastName(request.getParameter("last_name"));
-			   	user.setSocialSecurityNumber(request.getParameter("social_security_number"));
-			   	user.setStudentNumber(request.getParameter("student_number"));
-			   	user.setEmail(request.getParameter("email"));
-			   	user.setPassword(request.getParameter("password"));
 			%>
+			
+			<c:set target="${user}" property="firstName" value="${param.firstName}"/>
+			<c:set target="${user}" property="lastName" value="${param.last_name}"/>
+			<c:set target="${user}" property="socialSecurityNumber" value="${param.social_security_number}"/>
+			<c:set target="${user}" property="studentNumber" value="${param.student_number}"/>
+			<c:set target="${user}" property="email" value="${param.email}"/>
+			<c:set target="${user}" property="password" value="${param.password}"/>
+			
 			<p>ID <c:out value="${user.userID}"/>
 			<p>FN <c:out value="${user.firstName}"/>
 			<p>LN <c:out value="${user.lastName}"/>
@@ -162,22 +157,16 @@
 					//TODO: ohjaus erroriin
 					out.print("Grave ERROR");
 				} else {
-					DBHandler.getInstance().createUser(user);
+					//TODO: integrate with DBHandler
+					//DBHandler.getInstance().createUser(user);
 					out.print("USER CREATED -- FORWARDING TO LOGIN");
 					//TODO: forwardointi
 				}
 			%>	
-			
+			<p>END DEBUG -------
 		</c:otherwise>
 	</c:choose>			   
 </c:if>
-
-
-
-
-
-
-
 
 <form name="sign_up_form" action="signup.jsp" onsubmit="return checkForm()" method="POST">
 <input type="hidden" name="action" value="signup">
