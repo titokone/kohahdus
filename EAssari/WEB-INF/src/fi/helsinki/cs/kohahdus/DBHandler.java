@@ -214,8 +214,8 @@ public class DBHandler {
 				user.setLastName(rs.getString("lastname"));
 				user.setLanguage(rs.getString("lpref"));
 				user.setPassword(rs.getString("password"));
-				user.setStudentNumber(rs.getString("extid2"));
-				user.setSocialSecurityNumber(rs.getString("extid"));
+				user.setStudentNumber(rs.getString("extid"));
+				user.setSocialSecurityNumber(rs.getString("extid2"));
 				user.setStatus(rs.getString("status"));
 			} else {
 				Log.write("DBHandler: user not found with " +userID+ "/" +password);
@@ -248,8 +248,8 @@ public class DBHandler {
 				user.setLastName(rs.getString("lastname"));
 				user.setLanguage(rs.getString("lpref"));
 				user.setPassword(rs.getString("password"));
-				user.setStudentNumber(rs.getString("extid2"));
-				user.setSocialSecurityNumber(rs.getString("extid"));
+				user.setStudentNumber(rs.getString("extid"));
+				user.setSocialSecurityNumber(rs.getString("extid2"));
 				user.setStatus(rs.getString("status"));
 			} else {
 				Log.write("DBHandler: user not found with " +userID);

@@ -48,7 +48,7 @@
 	 	out.print("Nyt yritettiin kirjoittaa kantaa ");
 	 	out.print(testi);
 	 } else {
-	 	out.print("virhe");
+	 	out.print("Error in updating database");
 	 }		
 %>	
 	
@@ -61,6 +61,7 @@
 
 <h2>Edit Your Profile</h2>
 
+Tähän tsekkaus
 Logged in: <c:out value="${user.firstName} ${user.lastName}"/>
 
 
