@@ -15,26 +15,26 @@
 <h2>TitoTrainer - Sign in</h2>
 
 <c:if test="${param.action=='login'}">
-		<%
-		User user = DBHandler.getInstance().getUser(request.getParameter("username"), request.getParameter("password"));
-		if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
-		%>
-		<c:if test="${empty user}">
-			Username or password not correct.
+	<%
+	User user = DBHandler.getInstance().getUser(request.getParameter("username"), request.getParameter("password"));
+	if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
+	%>
+	<c:if test="${empty user}">
+		Username or password not correct..
+	</c:if>
+	<c:if test="${not empty user}">
+		Login ok and then redirect here....
+		<c:if test="${user.admin}">		
+			<c:redirect url="teacher/teacherTaskList.jsp"/>
+			You are an admin so not redirecting to anywhere...
 		</c:if>
-		<c:if test="${not empty user}">
-			Login ok and then redirect here....
-			<c:if test="${user.admin}">		
-				You are an admin so not redirecting to anywhere...
-				<c:redirect url="teacher/teacherTaskList.jsp"/>
-			</c:if>
-			<c:if test="${user.teacher}">		
-				<c:redirect url="teacher/teacherTaskList.jsp"/>
-			</c:if>
-			<c:if test="${user.student}">		
-				<c:redirect url="student/studentTaskList.jsp"/>
-			</c:if>
+		<c:if test="${user.teacher}">		
+			<c:redirect url="teacher/teacherTaskList.jsp"/>
 		</c:if>
+		<c:if test="${user.student}">		
+			<c:redirect url="student/studentTaskList.jsp"/>
+		</c:if>
+	</c:if>
 </c:if>
 <c:if test="${param.action=='logout'}">
 	<c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> logged out.<br>

@@ -7,6 +7,7 @@ import fi.helsinki.cs.kohahdus.trainer.Course;
 import fi.helsinki.cs.kohahdus.trainer.Task;
 import fi.helsinki.cs.kohahdus.trainer.User;
 
+
 /** Singleton class used for database interactions. Each public method of DBHandler class
  * encapsulates one database transaction, and thus may cause multiple inserts/updates/removes
  * with one call. The atomicity of the operations is quaranteed by using the transaction model
@@ -17,10 +18,10 @@ import fi.helsinki.cs.kohahdus.trainer.User;
 public class DBHandler {
 	
 	private static DBHandler instance = null;
-	private String dbDriver =null;
-	private String dbServer = null;
-	private String dbLogin = null;
-	private String dbPassword = null;
+	private String dbDriver = "oracle.jdbc.OracleDriver";
+	private String dbServer = "jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test";
+	private String dbLogin  = "kohahdus";
+	private String dbPassword = "b1tt1"; 
     
    
 	private DBHandler(){
@@ -35,11 +36,11 @@ public class DBHandler {
 	}
 	
 	private boolean init(){
-        dbDriver = "oracle.jdbc.OracleDriver";
-        dbServer = "jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test";
-        dbLogin  = "kohahdus";
-        dbPassword = "b1tt1"; 
-		
+		dbDriver = "oracle.jdbc.OracleDriver";
+		dbServer = "jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test";
+		dbLogin  = "kohahdus";
+		dbPassword = "b1tt1"; 
+        
 		// TODO: initialize db connection pool
 		return true;
 	}
@@ -67,7 +68,7 @@ public class DBHandler {
 	}	
 
 	/** Return all courses */
-	public Course[] getCourses() throws SQLException{
+	public LinkedList<Course> getCourses() throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		LinkedList<Course> courses = new LinkedList<Course>();
@@ -92,7 +93,8 @@ public class DBHandler {
 			release(conn);
 			if (st != null) st.close();			
 		}	
-		return (Course[])courses.toArray();
+		//return (Course[])courses.toArray();
+		return courses;
 	}
 	
 	/** Add new course to database. Does not check weather the course already exists in the DB. */
