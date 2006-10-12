@@ -151,11 +151,11 @@ public class MockTask extends Task {
 	private static List<MockTask> tasks = null;
 	private static Random rng = new Random();
 	
-	public static Task[] getTasks() {
+	public static List<MockTask> getTasks() {
 		if (tasks == null) {
 			initTasks();
 		}
-		return tasks.toArray(new MockTask[0]);
+		return tasks;
 	}
 	
 	private static void initTasks() {

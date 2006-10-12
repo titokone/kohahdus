@@ -31,7 +31,7 @@ public class MockCourse extends Course {
     }
 
     /** Return course ID of this course */
-    public String getID() {
+    public String getCourseID() {
     	return id;
     }
     
@@ -42,18 +42,25 @@ public class MockCourse extends Course {
      */
     private static List<MockCourse> courses = null;
     
-    public static Course[] getCourses() {
+    public static List<MockCourse> getCourses() {
     	if (courses == null) {
     		initCourses();
     	}
-    	return courses.toArray(new MockCourse[0]);
+    	return courses;
+    }
+    
+    public static void createCourse(MockCourse c) {
+    	if (courses == null) {
+    		initCourses();
+    	}
+    	courses.add(c);
     }
     
     private static void initCourses() {
     	courses = new ArrayList<MockCourse>();
-    	for (int i=0; i<10; i++) {   		
-    		courses.add(new MockCourse("Spring "+(2006+i), ""));
-    		courses.add(new MockCourse("Fall "+(2006+i), ""));
+    	for (int i=0; i<5; i++) {   		
+    		courses.add(new MockCourse("Spring "+(2006+i), "ID"+i));
+    		courses.add(new MockCourse("Fall "+(2006+i), "ID"+(i+5)));
     	}
     }   
 }

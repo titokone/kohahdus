@@ -14,12 +14,52 @@
 <% 	//TODO: session oikeellisuuden tarkistus - muut kuin opet ohjataan muualle
 
 
-	//TODO: kurssin luonnin käsittely....
-
-
 %>
-
-
+<c:if test="${empty user}">
+	Not logged in - redirecting to login
+	<c:redirect url="../login.jsp"/>	
+</c:if>
+<c:if test="${user.status=='student'}">
+	Student tried to load a restricted page
+	<c:redirect url="../student/studentTaskList.jsp"/>
+</c:if>
+		
+<c:if test="${param.action=='create_course'}">
+	<p>CREATING COURSE <c:out value="${param.new_course}"/>
+	
+	<% 	//TODO: luodaan kurssiolio ja annetaan dbHandlerille
+		//Course newCourse = new Course();
+		//FIXME: ID == name ??
+		String s = request.getParameter("new_course");
+						
+		//Check whether the given course already exists
+		List<MockCourse> courses = MockCourse.getCourses();
+		//List<Course> courses = DBHandler.getInstance().getCourses();
+		
+		boolean ok = true;
+		for (Course c : courses) {
+			if (c.getName().equals(s) || c.getCourseID().equals(s)) {
+				ok = false;
+				break;
+			}
+		}
+		
+		
+		//FIXME: vaihdettava DBHandler töihin
+		if (ok) {		
+			MockCourse newCourse = new MockCourse(s,s);
+			MockCourse.createCourse(newCourse);
+			//Log.write("Kurssi luotu");
+			
+			//Course() params: int modules, String courseID, String  coursetype, String courseStyle
+			//Course newCourse = new Course(0, s, "titotrainer", "");
+			//DBHandler.getInstance().createCourse(newCourse);
+					
+		} else {
+			out.print("Duplicate course");
+		}		
+	%>
+</c:if>
 
 <p>
 <table border="0">
@@ -40,9 +80,9 @@
 		<td bgcolor="#CECECE"><b>Name</b></td>
 		<td bgcolor="#CECECE" colspan="2"><b></b></td>
 	</tr>
-	<% 
-		//Course[] courses = MockCourse.getCourses(); //DBHandler().getInstance().getCourses();	
-		LinkedList<Course> courses = DBHandler.getInstance().getCourses();	
+	<%  //FIXME: uncomment DBHandler to integrate with system (also from tasks)
+		List<MockCourse> courses = MockCourse.getCourses(); 
+		//LinkedList<Course> courses = DBHandler.getInstance().getCourses();	
 		if (courses != null) pageContext.setAttribute("courses", courses);
 	%>
 	<c:if test="${empty courses}">
@@ -105,10 +145,9 @@
 	</tr>
 	
 	<%	//Get tasks from DB
-		//FIXME: DBHandler provides getTasks method for a speccific course.
-		//In this case one would need a generic version just to get all courses
-		//Task[] tasks = MockTask.getTasks(); //DBHandler.getTasks();
-		LinkedList<Task> tasks = DBHandler.getInstance().getTasks();	
+		//FIXME: uncomment DBHandler to integrate with other system (also from courses)
+		List<MockTask> tasks = MockTask.getTasks(); 
+		//LinkedList<Task> tasks = DBHandler.getInstance().getTasks();	
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 	%>
 	<c:if test="${empty tasks}">
@@ -127,7 +166,7 @@
 				<td bgcolor="#FFFFFF"><c:out value="${task.author}"/></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Modify"></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Modify as new"></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Poista" onclick="window.confirm('Do you really want to delete task?');"></td>
+				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="window.confirm('Do you really want to delete task?');"></td>
 			</tr>
 		</c:forEach>
 	</c:if>		
