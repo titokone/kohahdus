@@ -1,14 +1,46 @@
 package fi.helsinki.cs.kohahdus.trainer;
 
 import java.util.Hashtable;
-
-
+/**
+*
+* @author  jari
+*/
 
 public class User {
 	public static final String STATUS_STUDENT = "student";
 //	public static final String STATUS_PRIVLEDGED = "privileged";
 	public static final String STATUS_TEACHER = "teacher";
 	public static final String STATUS_ADMIN = "adm";
+	
+	private String userid;
+	private String lastname;
+	private String firstname;
+	private String email;
+	private String status;
+	private String studentnumber;
+	private String socialsecuritynumber;
+	private String passwd;
+	private String language;
+	
+	private java.sql.Timestamp lastvisit;
+	private Hashtable activeTasks;	
+
+	//CONSTRUCTORS
+	/** Creates a new instance of User */
+	public User(String uid, String lname, String fname, String email, String status, String extid, 
+			String extid2, String psw, String lpref, java.sql.Timestamp lastvisit) {
+		this.userid = uid;
+		this.lastname = lname;
+		this.firstname = fname;
+		this.email = email;
+		this.status = status;
+		this.studentnumber = extid;
+		this.socialsecuritynumber = extid2;
+		this.passwd = psw;
+		this.language = lpref;
+		this.lastvisit = lastvisit;
+		this.activeTasks = new Hashtable(30);    
+	}		
 	
 	/** Construct unitialized User object */
 	public User() {
@@ -19,6 +51,13 @@ public class User {
 	public User(String userID) {
 		this(userID, null, null, null, null, null, null, null, null, null);
 	}
+	
+	
+	//SET-METHODS
+	/** Set userID of this user */
+	public void setUserID(String userID) {
+		this.userid = userID;
+	}	
 	
 	/** Set last name of this user */
 	public void setLastName(String lastname) {
@@ -33,41 +72,32 @@ public class User {
 	/** Set email address of this user */
 	public void setEmail(String email) {
 		this.email = email;
-	}	
-
-	/** Set userID of this user */
-	public void setUserID(String userID) {
-		this.userid = userID;
-	}	
-
-	/** Return student number of this user. This identifier maps to <code>aeuser.extid</code> in the database */
-	public String getStudentNumber() {
-		return externalid;
+	}
+	
+	/** Set user status (teacher / student) 
+	 * @throws IllegalArgumentException if Status is not a valid Status string
+	 * @param status
+	 */
+	public void setStatus(String status)  {
+		if (status == null || !(status.equalsIgnoreCase(STATUS_STUDENT) || status.equalsIgnoreCase(STATUS_TEACHER) || status.equalsIgnoreCase(STATUS_ADMIN))) {
+			throw new IllegalArgumentException("Given status "+status+" not valid");
+		}
+		this.status = status;
 	}
 	
 	/** Set student number of of this user */
 	public void setStudentNumber(String studentnum) {
-		externalid = studentnum;
-	}
-	
-	/** Return social security number of this user. This identifier maps to <code>aeuser.extid2</code> in the database */
-	public String getSocialSecurityNumber() {
-		return externalid2;
-	}
-	
-	/** Returns status of the user */
-	public String getStatus() {
-		return status;
+		this.studentnumber = studentnum;
 	}
 	
 	/** Set social security number of this user */
 	public void setSocialSecurityNumber(String ssn) {
-		externalid2 = ssn;
-	}	
+		this.socialsecuritynumber = ssn;
+	}
 	
 	/** Set password of this user to Pass */
 	public void setPassword(String pass) {
-		passwd = pass;
+		this.passwd = pass;
 	}	
 	
 	/** Set the preferred language of this user. The language is either "EN" or "FI
@@ -77,9 +107,58 @@ public class User {
 		if (lang == null || !(lang.equals("EN") || lang.equals("FI"))) {
 			throw new IllegalArgumentException("Language param "+lang);
 		}
-		lpref = lang;
-	} 
+		this.language = lang;
+	}
 	
+	
+	//GET-METHODS
+	 /** Return userID of this user*/
+    public String getUserID() {
+    	return userid;
+    }
+    
+    /** Return last name of this user */
+	public String getLastName() {
+		return lastname;
+	}
+	
+	/** Return first name of this user */
+    public String getFirstName() {
+    	return firstname;
+    }
+    
+    /** Return email address of this user */
+	public String getEmail() {
+		return email;
+	}
+	
+	/** Returns status of the user */
+	public String getStatus() {
+		return status;
+	}
+	
+	/** Return student number of this user. This identifier maps to <code>aeuser.extid</code> in the database */
+	public String getStudentNumber() {
+		return studentnumber;
+	}
+	
+	/** Return social security number of this user. This identifier maps to <code>aeuser.extid2</code> in the database */
+	public String getSocialSecurityNumber() {
+		return socialsecuritynumber;
+	}
+	
+	/** Return plaintext password of this user */
+	public String getPassword() {
+		return passwd;
+	}
+	
+	/** Return the preferred language of this user as String. The language is either "EN" or "FI" */
+	public String getLpref() {
+		return language;
+	}
+	
+	
+	//OTHER METHODS
 	/** Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics */
 	public boolean isTeacher() {
 		return (status != null && status.equalsIgnoreCase(STATUS_TEACHER)) ?  true : false;
@@ -95,17 +174,6 @@ public class User {
 		return (status != null && status.equalsIgnoreCase(STATUS_ADMIN)) ?  true : false;
 	}
 
-	/** Set user status (teacher / student) 
-	 * @throws IllegalArgumentException if Status is not a valid Status string
-	 * @param status
-	 */
-	public void setStatus(String status)  {
-		if (status == null || !(status.equalsIgnoreCase(STATUS_STUDENT) || status.equalsIgnoreCase(STATUS_TEACHER) || status.equalsIgnoreCase(STATUS_ADMIN))) {
-			throw new IllegalArgumentException("Given status "+status+" not valid");
-		}
-		this.status = status;
-	}
-	
 	/** Test validity of this user object. The object is considered valid if all data members are
 	 * set with non-empty values.  
 	 * @return true if all fields are initialized with non-empty values, false otherwise
@@ -116,12 +184,11 @@ public class User {
 		if (isEmptyString(firstname)) return false;
 		if (isEmptyString(passwd)) return false;
 		if (isEmptyString(email)) return false;
-		if (isEmptyString(externalid)) return false;
-		if (isEmptyString(externalid2)) return false;
+		if (isEmptyString(studentnumber)) return false;
+		if (isEmptyString(socialsecuritynumber)) return false;
 		
 		return true;
 	}
-	
 	/** Return false if str is null or empty "" string */
 	private boolean isEmptyString(String str) {
 		if (str == null || str.equals("")) {
@@ -130,72 +197,10 @@ public class User {
 		return false;		
 	}
 
-	
-	
-	
-	
-	
-	
-	
+
 	
 // **** NÄMÄ AINAKIN OVAT VANHASTA EASSARISTA *****	
 
-	private String userid;
-	private String lastname;
-	private String firstname;
-	private String email;
-	private String externalid;
-	private String externalid2;
-	private String status;
-	private String passwd;
-	private String lpref;
-	private java.sql.Timestamp lastvisit;
-	private Hashtable activeTasks;	
-
-	public User(String uid, String lname, String fname, String email, String status, String extid, 
-			String extid2, String psw, String lpref, java.sql.Timestamp lastvisit) {
-		this.userid = uid;
-		this.lastname = lname;
-		this.firstname = fname;
-		this.email = email;
-		this.status = status;
-		this.externalid = extid;
-		this.externalid2 = extid2;
-		this.passwd = psw;
-		this.lpref = lpref;
-		this.lastvisit = lastvisit;
-		this.activeTasks = new Hashtable(30);    
-	}		
-	
-	
-	/** Return email address of this user */
-	public String getEmail() {
-		return email;
-	}
-	/** Return plaintext password of this user */
-	public String getPassword() {
-		return passwd;
-	}
-	/** Return last name of this user */
-	public String getLastName() {
-		return lastname;
-	}
-	/** Return the preferred language of this user as String. The language is either "EN" or "FI" */
-	public String getLpref() {
-		return lpref;
-	}
-	/** Return first name of this user */
-    public String getFirstName() {
-    	return firstname;
-    }
-	
-	
-	
-	
-    public String getUserID() {
-    	return userid;
-    }
-    
     public int registerTry(String target, boolean wassuccess, boolean wasintime, int currentcredit) {
 		String state = (String) activeTasks.get(target);
 		String newState = null;
