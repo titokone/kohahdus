@@ -23,8 +23,17 @@
 			Username or password not correct.
 		</c:if>
 		<c:if test="${not empty user}">
-			Login ok and then redirect (TODO) here....
-			<c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/>
+			Login ok and then redirect here....
+			<c:if test="${user.admin}">		
+				You are an admin so not redirecting to anywhere...
+				<c:redirect url="teacher/teacherTaskList.jsp"/>
+			</c:if>
+			<c:if test="${user.teacher}">		
+				<c:redirect url="teacher/teacherTaskList.jsp"/>
+			</c:if>
+			<c:if test="${user.student}">		
+				<c:redirect url="student/studentTaskList.jsp"/>
+			</c:if>
 		</c:if>
 </c:if>
 <c:if test="${param.action=='logout'}">
