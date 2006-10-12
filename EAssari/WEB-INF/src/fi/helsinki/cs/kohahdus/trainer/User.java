@@ -8,7 +8,7 @@ public class User {
 	public static final String STATUS_STUDENT = "student";
 //	public static final String STATUS_PRIVLEDGED = "privileged";
 	public static final String STATUS_TEACHER = "teacher";
-//	public static final String STATUS_ADMIN = "adm";
+	public static final String STATUS_ADMIN = "adm";
 	
 	/** Construct unitialized User object */
 	public User() {
@@ -82,7 +82,17 @@ public class User {
 	
 	/** Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics */
 	public boolean isTeacher() {
-		return false;
+		return (status != null && status.equalsIgnoreCase(STATUS_TEACHER)) ?  true : false;
+	}
+
+	/** Return true of this user has student privelidges  */
+	public boolean isStudent() {
+		return (status != null && status.equalsIgnoreCase(STATUS_STUDENT)) ?  true : false;
+	}
+
+	/** Return true of this user has admin privelidges  */
+	public boolean isAdmin() {
+		return (status != null && status.equalsIgnoreCase(STATUS_ADMIN)) ?  true : false;
 	}
 
 	/** Set user status (teacher / student) 
@@ -90,7 +100,7 @@ public class User {
 	 * @param status
 	 */
 	public void setStatus(String status)  {
-		if (status == null || !(status.equals(STATUS_STUDENT) || status.equals(STATUS_TEACHER))) {
+		if (status == null || !(status.equalsIgnoreCase(STATUS_STUDENT) || status.equalsIgnoreCase(STATUS_TEACHER) || status.equalsIgnoreCase(STATUS_ADMIN))) {
 			throw new IllegalArgumentException("Given status "+status+" not valid");
 		}
 		this.status = status;
