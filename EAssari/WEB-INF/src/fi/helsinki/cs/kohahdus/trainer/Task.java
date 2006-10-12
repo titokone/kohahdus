@@ -8,6 +8,26 @@ import fi.helsinki.cs.kohahdus.Criterion;
 // Laajennetaan olemassa olevaa Task luokkaa
 public class Task {
 	
+    private String taskID;
+    private String courseID;
+    private String moduleID;
+    private String tasktypeID;
+    private String metadata;
+    private Tasktype tasktype;
+    private int seqNo;
+    private Timestamp deadLine;
+    private boolean shouldStore;
+    private boolean shouldRegister;
+    private boolean shouldKnow;
+    private boolean shouldEvaluate;
+    private int cutoffvalue;
+    private int noOfTries;
+    private String style;	
+
+	public Task(){
+		
+	}
+	
 	/** Return the name of this task */
 	public String getName() {
 		return null;
@@ -121,20 +141,6 @@ public class Task {
 // ***** Old code begins here *****	
 
 	
-    String taskID;
-    String courseID;
-    String moduleID;
-    String tasktypeID;
-    Tasktype tasktype;
-    int seqNo;
-    Timestamp deadLine;
-    boolean shouldStore;
-    boolean shouldRegister;
-    boolean shouldKnow;
-    boolean shouldEvaluate;
-    int cutoffvalue;
-    int noOfTries;
-	String style;	
 	
 	public Task(String taskid, String courseid, String moduleid, String tasktypeid, int seqno, Timestamp deadline,
 				   boolean shouldstore, boolean shouldregister, boolean shouldknowstudent, boolean shouldevaluate, int cvalue,
@@ -189,7 +195,79 @@ public class Task {
     }    
     public String getStyle() {
         return tasktype.getStyle();
-    }    
+    }
+
+	public String getCourseID() {
+		return courseID;
+	}
+
+	public void setCourseID(String courseID) {
+		this.courseID = courseID;
+	}
+
+	public boolean isShouldEvaluate() {
+		return shouldEvaluate;
+	}
+
+	public void setShouldEvaluate(boolean shouldEvaluate) {
+		this.shouldEvaluate = shouldEvaluate;
+	}
+
+	public boolean isShouldKnow() {
+		return shouldKnow;
+	}
+
+	public void setShouldKnow(boolean shouldKnow) {
+		this.shouldKnow = shouldKnow;
+	}
+
+	public boolean isShouldRegister() {
+		return shouldRegister;
+	}
+
+	public void setShouldRegister(boolean shouldRegister) {
+		this.shouldRegister = shouldRegister;
+	}
+
+	public boolean isShouldStore() {
+		return shouldStore;
+	}
+
+	public void setShouldStore(boolean shouldStore) {
+		this.shouldStore = shouldStore;
+	}
+
+	public String getTaskID() {
+		return taskID;
+	}
+
+	public void setTaskID(String taskID) {
+		this.taskID = taskID;
+	}
+
+	public void setCutoffvalue(int cutoffvalue) {
+		this.cutoffvalue = cutoffvalue;
+	}
+
+	public void setTasktype(Tasktype tasktype) {
+		this.tasktype = tasktype;
+	}
+
+	public String getMetadata() {
+		return metadata;
+	}
+
+	public void setMetadata(String metadata) {
+		this.metadata = metadata;
+	}
+
+	public int getNoOfTries() {
+		return noOfTries;
+	}
+
+	public void setNoOfTries(int noOfTries) {
+		this.noOfTries = noOfTries;
+	}    
     
 	
 	
