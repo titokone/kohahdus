@@ -1,6 +1,7 @@
 package fi.helsinki.cs.kohahdus;
 
 import java.sql.*;
+import java.util.LinkedList;
 
 import fi.helsinki.cs.kohahdus.trainer.Course;
 import fi.helsinki.cs.kohahdus.trainer.Task;
@@ -66,9 +67,62 @@ public class DBHandler {
 	}	
 
 	/** Return all courses */
-	public Course[] getCourses() {
-		return null;
+	public Course[] getCourses() throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		LinkedList<Course> courses = new LinkedList<Course>();
+		try {
+			st = conn.prepareStatement("select * from course");
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			while (rs.next()){
+				Course course = new Course();
+				course.setCourseID(rs.getString("courseid"));
+				course.setCourseName(rs.getString("coursename"));
+				course.setCourseMetadata(rs.getString("coursemetadata"));
+				course.setCourseLogo(rs.getString("courselogo"));
+				course.setCourseStyle(rs.getString("coursestyle"));
+				courses.add(course);
+			} 
+			Log.write("DBHandler: Fetched " +courses.size() + " courses from DB.");
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to fetch courses from DB. " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return (Course[])courses.toArray();
 	}
+	
+	/** Add new course to database. Does not check weather the course already exists in the DB. */
+	public boolean createCourse(Course course) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("insert into course (courseid, coursename, coursemetadata, courselogo, coursestyle) " +
+									   "values (?,?,?,?,?)"); 
+			st.setString(1, course.getCourseID());
+			st.setString(2, course.getCourseName());
+			st.setString(3, course.getCourseMetadata());
+			st.setString(4, course.getCourseLogo());
+			st.setString(5, course.getCourseLogo());
+			int c = st.executeUpdate();
+			if (c > 0){
+				Log.write("DBHandler: course " +course+ " added to DB ");
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to add course " +course);
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to create course "+course+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return false;
+	} 
 	
 	
 	/** Return all tasks */
