@@ -1,25 +1,71 @@
 package fi.helsinki.cs.kohahdus.trainer;
 
+/**
+*
+* @author  jari
+*/
 
 public class Course {
-	
-    private int modules = 0;                     // number of modules
     private String courseID = null;              //  unique course identifier
     private String courseName = null;            // 
+   
+    
+    //CONSTRUCTORS
+    /** Construct unitialized Course object */
+	public Course() {		
+	}
+	
+	/** Create new Course instance using the specified name and ID */
+	public Course(String name, String id) {
+		this.courseName=name;
+		this.courseID=id;
+	}
+	
+	
+	//GET-METHODS
+	/** Return course ID of this course */
+	public String getID() {
+		return courseID;
+	}
+	
+	/** Return name of this course */
+	public String getName() {
+		return courseName;
+	}
+	    
+    //SET-METHODS
+    /** Set name of this course */
+    public void setName(String name) {
+    	this.courseName=name;
+    }
+    
+    
+    //OTHER METHODS
+    /** Return name and id of this course as one String */
+    public String toString(){
+    	return courseName + "(" + courseID + ")"; 	
+    }
+	
+
+    
+    
+    
+    
+//  **** NÄMÄ AINAKIN OVAT VANHASTA EASSARISTA *****
+    private int modules = 0;                     // number of modules
     private String courseMetadata = null;        // 
     private String courseLogo = null;            // 
     private String courseStyle = null;           // are credits counted
     private String courseType = null;            // type of course
-
-	public Course() {		
-	}
+    
+    /** Creates a new instance of Course */
 	public Course(int modules, String courseID, String  coursetype, String courseStyle) {
 	    this.modules = modules;
 	    this.courseID = courseID;
 	    this.courseType = coursetype;
 	    this.courseStyle = courseStyle;
 	}
- 
+	
 	public String getCourseLogo() {
 		return courseLogo;
 	}
@@ -57,26 +103,4 @@ public class Course {
 		return courseStyle;
 	}
 	
-	/** Create new Course instance using the specified name and ID */
-	public Course(String name, String id) {	
-	}
-	
-    /** Return name of this course */
-    public String getName() {
-    	return null;
-    }
-
-    /** Set name of this course */
-    public void setName(String name) {
-    }
-
-    /** Return course ID of this course */
-    public String getID() {
-    	return null;
-    }
-    
-    public String toString(){
-    	return courseName + "(" + courseID +")";    	
-    }
-    
 }

@@ -8,7 +8,6 @@ import java.util.Hashtable;
 
 public class User {
 	public static final String STATUS_STUDENT = "student";
-//	public static final String STATUS_PRIVLEDGED = "privileged";
 	public static final String STATUS_TEACHER = "teacher";
 	public static final String STATUS_ADMIN = "adm";
 	
@@ -22,13 +21,12 @@ public class User {
 	private String passwd;
 	private String language;
 	
-	private java.sql.Timestamp lastvisit;
-	private Hashtable activeTasks;	
+	
 
 	//CONSTRUCTORS
 	/** Creates a new instance of User */
 	public User(String uid, String lname, String fname, String email, String status, String extid, 
-			String extid2, String psw, String lpref, java.sql.Timestamp lastvisit) {
+			String extid2, String psw, String lpref) {
 		this.userid = uid;
 		this.lastname = lname;
 		this.firstname = fname;
@@ -37,19 +35,16 @@ public class User {
 		this.studentnumber = extid;
 		this.socialsecuritynumber = extid2;
 		this.passwd = psw;
-		this.language = lpref;
-		this.lastvisit = lastvisit;
-		this.activeTasks = new Hashtable(30);    
+		this.language = lpref;   
 	}		
 	
 	/** Construct unitialized User object */
 	public User() {
-		this(null, null, null, null, null, null, null, null, null, null);
 	}
 	
 	/** Construct unitialized User object with userid */
 	public User(String userID) {
-		this(userID, null, null, null, null, null, null, null, null, null);
+		this.userid=userID;
 	}
 	
 	
@@ -200,6 +195,25 @@ public class User {
 
 	
 // **** NÄMÄ AINAKIN OVAT VANHASTA EASSARISTA *****	
+	public static final String STATUS_PRIVLEDGED = "privileged";
+	private java.sql.Timestamp lastvisit;
+	private Hashtable activeTasks;
+	
+	/** Creates a new instance of User */
+	public User(String uid, String lname, String fname, String email, String status, String extid, 
+			String extid2, String psw, String lpref, java.sql.Timestamp lastvisit) {
+		this.userid = uid;
+		this.lastname = lname;
+		this.firstname = fname;
+		this.email = email;
+		this.status = status;
+		this.studentnumber = extid;
+		this.socialsecuritynumber = extid2;
+		this.passwd = psw;
+		this.language = lpref;
+		this.lastvisit = lastvisit;
+		this.activeTasks = new Hashtable(30);    
+	}
 
     public int registerTry(String target, boolean wassuccess, boolean wasintime, int currentcredit) {
 		String state = (String) activeTasks.get(target);
