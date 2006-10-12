@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ page import="java.util.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
@@ -35,22 +36,24 @@
 
 <table border="0" bgcolor="#000000" cellpadding="4">
 	<tr>
+		<td bgcolor="#CECECE"><b>ID</b></td>
 		<td bgcolor="#CECECE"><b>Name</b></td>
-		<td bgcolor="#CECECE" colspan="4"><b></b></td>
+		<td bgcolor="#CECECE" colspan="2"><b></b></td>
 	</tr>
-	
-	<% //FIXME: Get courses from DBHandler. getCourses not yet implemented. 
-		Course[] courses = MockCourse.getCourses(); //DBHandler().getInstance().getCourses();	
-		if (courses == null) {
-			out.println("ERROR -- ei kursseja");
-		} else {		
-			pageContext.setAttribute("courses", courses, pageContext.PAGE_SCOPE);
-		}	
+	<% 
+		//Course[] courses = MockCourse.getCourses(); //DBHandler().getInstance().getCourses();	
+		LinkedList<Course> courses = DBHandler.getInstance().getCourses();	
+		if (courses != null) pageContext.setAttribute("courses", courses);
 	%>
-	
+	<c:if test="${empty courses}">
+		<tr>
+			<td bgcolor="#FFFFFF" colspan="4">Ei kursseja.</td>
+		</tr>
+	</c:if>
 	<c:if test="${not empty courses}">
 		<c:forEach var="course" items="${pageScope.courses}">	
 			<tr>
+				<td bgcolor="#FFFFFF"><c:out value="${course.courseID}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${course.name}"/></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Statistics"></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="window.confirm('Do you really want to delete course?');"></td>
@@ -92,30 +95,31 @@
 
 <table border="0" bgcolor="#000000" cellpadding="4">
 	<tr>
+		<td bgcolor="#CECECE"><b>ID</b></td>
 		<td bgcolor="#CECECE"><b>Name</b></td>
 		<td bgcolor="#CECECE"><b>Type</b></td>
 		<td bgcolor="#CECECE"><b>Category</b></td>
 		<td bgcolor="#CECECE"><b>Language</b></td>
 		<td bgcolor="#CECECE"><b>Author</b></td>
-		<td bgcolor="#CECECE" colspan="4"><b></b></td>
+		<td bgcolor="#CECECE" colspan="3"><b></b></td>
 	</tr>
 	
 	<%	//Get tasks from DB
-		
 		//FIXME: DBHandler provides getTasks method for a speccific course.
 		//In this case one would need a generic version just to get all courses
-		Task[] tasks = MockTask.getTasks(); //DBHandler.getTasks();
-		
-		//FIXME: for debugging purposes only
-		if (tasks == null) {
-			out.print("ERROR - ei taskeja kannassa");
-		} else {			
-			pageContext.setAttribute("tasks", tasks, PageContext.PAGE_SCOPE);
-		}				
+		//Task[] tasks = MockTask.getTasks(); //DBHandler.getTasks();
+		LinkedList<Task> tasks = DBHandler.getInstance().getTasks();	
+		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 	%>
+	<c:if test="${empty tasks}">
+		<tr>
+			<td bgcolor="#FFFFFF" colspan="9">Ei tehtäviä.</td>
+		</tr>
+	</c:if>
 	<c:if test="${not empty tasks}">
 		<c:forEach var="task" items="${pageScope.tasks}"> 
 			<tr>
+				<td bgcolor="#FFFFFF"><c:out value="${task.taskID}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.name}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.taskTypeString}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.category}"/></td>
