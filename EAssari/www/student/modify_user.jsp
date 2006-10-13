@@ -25,11 +25,11 @@
 		document.getElementById("repeat_password_error_msg_space").innerHTML = '';
 
 		// missing inputs
-		if(form.first_name.value == '') {
+		//if(form.first_name.value == '') {
 			var elem = document.getElementById("first_name_error_msg_space");
 			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your first name.</b></font>';
 			returnvalue = false;
-		}
+		//}
 
 		if(form.last_name.value == '') {
 			var elem = document.getElementById("last_name_error_msg_space");
@@ -161,7 +161,7 @@
 
 <br>
 
-<form action="modify_user.jsp" onsubmit="return checkForm()" method="POST">
+<form name="modify_user_form" action="modify_user.jsp" onsubmit="return checkForm()" method="POST">
 <input type="hidden" name="action" value="modify">
 
 
