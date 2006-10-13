@@ -3,6 +3,16 @@
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
 
+<%
+
+	//ONGELMA: javascript ei suorita tarkistuksiaan jostakin syystä
+	
+%>
+
+
+
+
+
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
@@ -109,61 +119,59 @@
 
 <c:if test="${param.action=='signup'}">
 	
-	----- DEBUG:
-	SIGNING UP WITH FOLLOWING INFO
-
-	<p>User name: <c:out value="${param.user_name}"/>
-	<p>First name: <c:out value="${param.firstName}"/>
-	<p>Last name: <c:out value="${param.last_name}"/>
-	<p>Student num: <c:out value="${param.student_number}"/>
-	<p>Soc Sec num: <c:out value="${param.social_security_number}"/>
-	<p>Email: <c:out value="${param.email}"/>
-	<p>Password: <c:out value="${param.password}"/>
-	
-	<% User user = DBHandler.getInstance().getUser(request.getParameter("user_name"));
-	   if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE); 		   	   
+	<% //Create a new user and store it in pagecontext
+	   	User newUser = new User(request.getParameter("user_name"));
+	   	newUser.setStatus(User.STATUS_STUDENT);
+	   	newUser.setLanguage("EN");
+	   	pageContext.setAttribute("newUser", newUser);
+		Log.write("Signup: creating a new user");
+	%>
+				
+		<c:set target="${newUser}" property="firstName" value="${param.firstName}"/>
+		<c:set target="${newUser}" property="lastName" value="${param.last_name}"/>
+		<c:set target="${newUser}" property="socialSecurityNumber" value="${param.social_security_number}"/>
+		<c:set target="${newUser}" property="studentNumber" value="${param.student_number}"/>
+		<c:set target="${newUser}" property="email" value="${param.email}"/>
+		<c:set target="${newUser}" property="password" value="${param.password}"/>
+				
+		<p>ID <c:out value="${newUser.userID}"/>
+		<p>FN <c:out value="${newUser.firstName}"/>
+		<p>LN <c:out value="${newUser.lastName}"/>
+		<p>SSN <c:out value="${newUser.socialSecurityNumber}"/>
+		<p>STN <c:out value="${newUser.studentNumber}"/>
+		<p>EM <c:out value="${newUser.email}"/>
+		<p>PW <c:out value="${newUser.password}"/>   
+				
+	<% 	//Check DB for existing users with same id
+		//FIXME: is there a possibility that username would be null
+	   	User oldUser = DBHandler.getInstance().getUser(request.getParameter("user_name"));
+	   	if (oldUser != null) pageContext.setAttribute("oldUser", oldUser); 		   	   
 	%>
 	
 	<c:choose>
-		<c:when test="${not empty user}">
-			<p>Current user name already in use. Please pick another.
+		<c:when test="${not empty oldUser}">
+			<p>User name invalid or already in use. Please pick another.
 		</c:when>
 		<c:otherwise>		
-			<p>ADDING TO DATABASE
-			<% //Create a new user
-			   	user = new User(request.getParameter("user_name"));
-			   	user.setStatus(User.STATUS_STUDENT);
-			   	user.setLanguage("EN");
-			   	pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
-			%>
-			
-			<c:set target="${user}" property="firstName" value="${param.firstName}"/>
-			<c:set target="${user}" property="lastName" value="${param.last_name}"/>
-			<c:set target="${user}" property="socialSecurityNumber" value="${param.social_security_number}"/>
-			<c:set target="${user}" property="studentNumber" value="${param.student_number}"/>
-			<c:set target="${user}" property="email" value="${param.email}"/>
-			<c:set target="${user}" property="password" value="${param.password}"/>
-			
-			<p>ID <c:out value="${user.userID}"/>
-			<p>FN <c:out value="${user.firstName}"/>
-			<p>LN <c:out value="${user.lastName}"/>
-			<p>SSN <c:out value="${user.socialSecurityNumber}"/>
-			<p>STN <c:out value="${user.studentNumber}"/>
-			<p>EM <c:out value="${user.email}"/>
-			<p>PW <c:out value="${user.password}"/>   	
-			
+			<p>ADDING TO DATABASE...
+					
 			<%
-				if (!user.isValid()) {
+				if (!newUser.isValid()) {
 					//TODO: ohjaus erroriin
 					out.print("Grave ERROR");
+					Log.write("Signup: error in new users data");
 				} else {
-					//TODO: integrate with DBHandler
-					//DBHandler.getInstance().createUser(user);
+					//Add new user to db and set up session
+					DBHandler.getInstance().createUser(newUser);
 					out.print("USER CREATED -- FORWARDING TO LOGIN");
+					pageContext.setAttribute("user", newUser, PageContext.SESSION_SCOPE);
+					Log.write("Signup: new user created");
 					//TODO: forwardointi
+			%>
+					<c:redirect url="student/studentTaskList.jsp"/>
+			<%		
 				}
 			%>	
-			<p>END DEBUG -------
 		</c:otherwise>
 	</c:choose>			   
 </c:if>
@@ -177,22 +185,22 @@
 	<table border="0" cellpadding="5">
 		<tr>
 			<td><b>First name </b></td>
-			<td><input type="text" name="firstName"></td>
+			<td><input type="text" name="firstName" value="<c:out value="${newUser.firstName}"/>"></td>
 			<td id="first_name_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td><b>Last name </b></td>
-			<td><input type="text" name="last_name"></td>
+			<td><input type="text" name="last_name" value="<c:out value="${newUser.lastName}"/>"></td>
 			<td id="last_name_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td><b>Student number<sup>1</sup> </b></td>
-			<td><input type="text" name="student_number"></td>
+			<td><input type="text" name="student_number" value="<c:out value="${newUser.studentNumber}"/>"></td>
 			<td id="student_number_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td><b>Social security number<sup>1</sup> </b></td>
-			<td><input type="text" name="social_security_number"></td>
+			<td><input type="text" name="social_security_number" value="<c:out value="${newUser.socialSecurityNumber}"/>"></td>
 			<td id="ssn_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
@@ -205,7 +213,7 @@
 		</tr>
 		<tr>
 			<td><b>E-mail: </b></td>
-			<td><input type="text" name="email"></td>
+			<td><input type="text" name="email" value="<c:out value="${newUser.email}"/>"></td>
 			<td id="email_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
@@ -214,7 +222,7 @@
 		</tr>
 		<tr>
 			<td><b>User name </b></td>
-			<td><input type="text" name="user_name"></td>
+			<td><input type="text" name="user_name" value="<c:out value="${newUser.userID}"/>"></td>
 			<td id="user_name_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
@@ -235,6 +243,9 @@
 </div>
 
 </form>
+
+<c:remove var="newUser" scope="page"/>
+<c:remove var="oldUser" scope="page"/>
 
 </body>
 </html>
