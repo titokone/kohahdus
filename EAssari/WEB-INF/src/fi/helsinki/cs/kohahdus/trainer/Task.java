@@ -4,11 +4,141 @@ import java.sql.Timestamp;
 import java.util.*;
 
 import fi.helsinki.cs.kohahdus.Criterion;
+/**
+*
+* @author  jari
+*/
 
+
+//ÄÄH, EI JAKSA NYT, JATKAN HUOMENNA, TAI TÄNÄÄN,
+//KELLO JO 3:45.- Jari
 // Laajennetaan olemassa olevaa Task luokkaa
 public class Task {
+	private String taskName;
+	private String author;
+	private String description;
+	private String modelAnswer;
+	private String category;
+	private String fillInPreCode;
+	private String fillInPostCode;
+	private Timestamp lastModified;
+	private Date modificationdate;
 	
-    private String taskID;
+    
+
+    
+    
+    //CONSTRUCTORS
+	/** Creates a new instance of User */
+	public Task(){
+		
+	}
+	
+	
+	
+	//GET-METHODS
+	/** Return the name of this task */
+	public String getName() {
+		return null;
+	}
+	/** Return name of the last person who has modified this task */
+	public String getAuthor() {
+		return null;
+	}
+	/** Return the date and time this task was last modified */
+	public Date getModificationDate() {
+		return null;
+	}
+	/** Return code of the model answer provided by teacher */
+	public String getModelAnswer() {
+		return null;
+	}
+	/** Return true if this task is to be validated by comparing results of the student's answer
+	 * to results of teacher's answer */
+	public boolean isValidateByModel() {
+		return false;
+	}
+	/** Return the task category of this task */
+	public String getCategory() {
+		return null;
+	}
+	/** Return tasktype as a String (fill-in or programming) */
+	public String getTaskTypeString() {
+		return null;
+	}
+	
+	/** Return true if this is a fill-in task */
+	public boolean isFillInTask() {
+		return false;
+	}
+	
+	/** Return the code that is prepended before student's code in a fill-in task */
+	public String getFillInPreCode() {
+		return null;
+	}
+	/** Return the code that is appended to student's code in a fill-in task */
+	public String getFillInPostCode() {
+		return null;
+	}
+	/** Return the description (tehtävänanto) of this task */
+	public String getDescription() {
+		return null;
+	}
+	/** Return tasks language ("FI" or "EN") */
+	public String getLanguage() {
+		return null;
+	}
+	
+	
+	//SET-METHODS
+	/** Set the name of this task */
+	public void setName(String name) {
+	}
+	/** Set "last task modification by" attribute to Name,
+	 *  set last-modification-timestamp to current data and time */
+	public void setAuthor(String name) {
+	}
+	/** Set model answer code */
+	public void setModelAnswer(String code) {
+		
+	}
+	/** Set the validation method of this task */
+	public void setValidateByModel(boolean useModel){
+		
+	}
+	/** Set task category of this task */
+	public void setCategory(String category) {
+		
+	}
+	/** Set the code that is prepended before student's code in a fill-in task */
+	public void SetFillInPreCode(String code) {
+		
+	}
+	/** Set this task as fill-in or create-full-program  */
+	public void setFillInTask(boolean fillIn) {
+		
+	}
+	/** Set the code that is appended to student's code in a fill-in task */
+	public void SetFillInPostCode(String code) {
+	}
+	/** Set description (tehtävänanto) of this task */
+	public void setDescription() {
+		
+	}
+	
+	
+	
+	//OTHER METHODS
+	
+	
+	
+	
+	
+	
+
+	
+//	 **** NÄMÄ AINAKIN OVAT VANHASTA EASSARISTA *****	
+	private String taskID;
     private String courseID;
     private String moduleID;
     private String tasktypeID;
@@ -23,123 +153,6 @@ public class Task {
     private int cutoffvalue;
     private int noOfTries;
     private String style;	
-
-	public Task(){
-		
-	}
-	
-	/** Return the name of this task */
-	public String getName() {
-		return null;
-	}
-	
-	/** Set the name of this task */
-	public void setName(String name) {
-	}
-	
-	/** Return name of the last person who has modified this task */
-	public String getAuthor() {
-		return null;
-	}
-
-	/** Set "last task modification by" attribute to Name,
-	 *  set last-modification-timestamp to current data and time */
-	public void setAuthor(String name) {
-	}
-	
-	/** Return the date and time this task was last modified */
-	public Date getModificationDate() {
-		return null;
-	}
-	
-	
-	/** Return code of the model answer provided by teacher */
-	public String getModelAnswer() {
-		return null;
-	}
-	
-	/** Set model answer code */
-	public void setModelAnswer(String code) {
-		
-	}
-	
-	/** Return true if this task is to be validated by comparing results of the student's answer
-	 * to results of teacher's answer */
-	public boolean isValidateByModel() {
-		return false;
-	}
-	
-	/** Set the validation method of this task */
-	public void setValidateByModel(boolean useModel){
-		
-	}
-
-	/** Return the task category of this task */
-	public String getCategory() {
-		return null;
-	}
-	
-	/** Set task category of this task */
-	public void setCategory(String category) {
-		
-	}
-	
-	/** Return tasktype as a String (fill-in or programming) */
-	public String getTaskTypeString() {
-		return null;
-	}
-	
-	/** Return true if this is a fill-in task */
-	public boolean isFillInTask() {
-		return false;
-	}
-	
-	/** Set this task as fill-in or create-full-program  */
-	public void setFillInTask(boolean fillIn) {
-		
-	}
-
-	/** Return the code that is prepended before student's code in a fill-in task */
-	public String getFillInPreCode() {
-		return null;
-	}
-	
-	/** Set the code that is prepended before student's code in a fill-in task */
-	public void SetFillInPreCode(String code) {
-		
-	}
-	
-	/** Return the code that is appended to student's code in a fill-in task */
-	public String getFillInPostCode() {
-		return null;
-	}
-	
-	/** Set the code that is appended to student's code in a fill-in task */
-	public void SetFillInPostCode(String code) {
-		
-	}
-
-	/** Return the description (tehtävänanto) of this task */
-	public String getDescription() {
-		return null;
-	}
-
-	/** Set description (tehtävänanto) of this task */
-	public void setDescription() {
-		
-	}
-	
-	/** Return tasks language ("FI" or "EN") */
-	public String getLanguage() {
-		return null;
-	}
-	
-	
-	
-
-	
-// ***** Old code begins here *****	
-
 	
 	
 	public Task(String taskid, String courseid, String moduleid, String tasktypeid, int seqno, Timestamp deadline,
