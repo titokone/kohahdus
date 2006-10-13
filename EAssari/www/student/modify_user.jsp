@@ -7,9 +7,106 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Edit Your Profile</title>
+<script language="Javascript">
+
+/* Function to check the validity of form inputs that can be checked client-side - called on submit event. */
+	function checkForm() {
+		var form = document.modify_user_form;
+		var returnvalue = true;
+
+		// remove old error messages
+		document.getElementById("first_name_error_msg_space").innerHTML = '';
+		document.getElementById("last_name_error_msg_space").innerHTML = '';
+		document.getElementById("student_number_error_msg_space").innerHTML = '';
+		document.getElementById("ssn_error_msg_space").innerHTML = '';
+		document.getElementById("email_error_msg_space").innerHTML = '';
+		document.getElementById("old_password_error_msg_space").innerHTML = '';
+		document.getElementById("password_error_msg_space").innerHTML = '';
+		document.getElementById("repeat_password_error_msg_space").innerHTML = '';
+
+		// missing inputs
+		if(form.first_name.value == '') {
+			var elem = document.getElementById("first_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your first name.</b></font>';
+			returnvalue = false;
+		}
+
+		if(form.last_name.value == '') {
+			var elem = document.getElementById("last_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your last name.</b></font>';
+			returnvalue = false;
+		}
+
+		if(form.student_number.value == '' && form.social_security_number.value == '') {
+			var elem = document.getElementById("student_number_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Please fill in either your student number or social security number.</b></font>';
+			returnvalue = false;
+		}
+
+		if(form.email.value == '') {
+			var elem = document.getElementById("email_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your e-mail address.</b></font>';
+			returnvalue = false;
+		}
+
+		if(form.user_name.value == '') {
+			var elem = document.getElementById("user_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Please choose a user name.</b></font>';
+			returnvalue = false;
+		}
+
+		if(form.password.value == '') {
+			var elem = document.getElementById("password_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Please choose a password.</b></font>';
+			returnvalue = false;
+		}
+
+		if(form.repeat_password.value == '') {
+			var elem = document.getElementById("repeat_password_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Please repeat your chosen password.</b></font>';
+			returnvalue = false;
+		}
+
+		// student number of wrong format
+		if((form.student_number.value != '') && (form.student_number.value.length != 9 || !stringContainsOnlyNumbers(form.student_number.value))) {
+			var elem = document.getElementById("student_number_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Your student number is either of wrong length or contains non-numeric characters.</b></font>';
+			returnvalue = false;
+		}
+
+
+		// "password" and "repeat password" don't match and neither is empty
+		if((form.password.value != '') && (form.repeat_password.value != '') && (form.password.value != form.repeat_password.value)) {
+			var elem = document.getElementById("password_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Different values in password fields. Please check your typing.</b></font>';			
+			returnvalue = false;
+		}
+
+		return returnvalue;
+	}
+
+	/* Function to check if the string given as a parameter contains only numeric characters. */
+	function stringContainsOnlyNumbers(aString) {
+
+		for (var charCounter = 0; charCounter < aString.length; charCounter++) {
+			if(isNaN(aString.charAt(charCounter)) || aString.charAt(charCounter) == ' '.charAt(0)) {	// JS interprets white space as numeric
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+</script>
+
 </head>
 
 <body>
+
+<c:if test="${not empty user}">
+	Logged in: <c:out value="${user.firstName} ${user.lastName}"/>
+</c:if>
+
 
 <c:if test="${param.action=='modify'}">
 
@@ -41,7 +138,6 @@
 	<c:out value="social_security_number: ${param.social_security_number}"/>
 
 <%
-	 //User user = DBHandler.getInstance().getUser(request.getParameter("username"), request.getParameter("password"));
 	 User user = (User) session.getAttribute("user");
 	 if (user.isValid()) {
 	 	boolean testi = DBHandler.getInstance().updateUser(user);
@@ -61,14 +157,11 @@
 
 <h2>Edit Your Profile</h2>
 
-Tähän tsekkaus
-Logged in: <c:out value="${user.firstName} ${user.lastName}"/>
-
 
 
 <br>
 
-<form action="modify_user.jsp" method="POST">
+<form action="modify_user.jsp" onsubmit="return checkForm()" method="POST">
 <input type="hidden" name="action" value="modify">
 
 
@@ -78,36 +171,44 @@ Logged in: <c:out value="${user.firstName} ${user.lastName}"/>
         <table border="0" cellpadding="5">
                 <tr>
                         <td><b>User name </b></td>
-                        <td>[user name]</td>
+                        <td><c:out value="${user.userID}"/></td>
                 </tr>
                 <tr>
                         <td><b>First name </b></td>
                         <td><input type="text" name="first_name" value="<c:out value="${user.firstName}"/>"></td>
+                        <td id="first_name_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>Last name </b></td>
                         <td><input type="text" name="last_name" value="<c:out value="${user.lastName}"/>"></td>
+                        <td id="last_name_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>Student number* </b></td>
                         <td><input type="text" name="student_number" value="<c:out value="${user.studentNumber}"/>"> </td>
+                        <td id="student_number_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>Social security number* </b></td>
                         <td><input type="text" name="social_security_number" value="<c:out value="${user.socialSecurityNumber}"/>"> </td>
+                        <td id="ssn_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td colspan="2"><small>* either student number or social security number is required</small></td>
+                        <td>&nbsp;</td>
                 </tr>
                 <tr>
                         <td colspan="2"><hr></td>
+                        <td>&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>E-mail: </b></td>
                         <td><input type="text" name="email" value="<c:out value="${user.email}"/>"></td>
+                        <td id="email_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td colspan="2"><hr></td>
+                        <td>&nbsp;</td>
                 </tr>
                 <tr>
                         <td colspan="2"><b><i>Change password</i></b></td>
@@ -115,14 +216,17 @@ Logged in: <c:out value="${user.firstName} ${user.lastName}"/>
                 <tr>
                         <td><b>Old password </b></td>
                         <td><input type="password" name="old_password"></td>
+                        <td id="old_password_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>New password </b></td>
                         <td><input type="password" name="new_password"></td>
+                         <td id="password_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>New password again </b></td>
                         <td><input type="password" name="repeat_new_password"></td>
+                        <td id="password_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td colspan="2" align="right"><input type="submit" name="save_button" value="Save"></td>
