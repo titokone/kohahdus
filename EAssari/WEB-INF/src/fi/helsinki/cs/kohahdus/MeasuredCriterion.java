@@ -7,48 +7,73 @@ package fi.helsinki.cs.kohahdus;
  */
 
 public abstract class MeasuredCriterion extends Criterion {
-	protected long limit = UNDEFINED;
+	protected long passingLimit = UNDEFINED;
+	protected long qualityLimit = UNDEFINED;
 	
 	/** Empty constructor for deserialization */
-	protected MeasuredCriterion() {
-		super();
-	}
+	protected MeasuredCriterion() {	}
+	
 	
 	/** Initialize fields common to all MeasuredCriterion types */
-	public MeasuredCriterion(String id, boolean usesSecretInput, boolean mustPass,
-			 				 String passingFeedback, String negativeFeedback, String limit) {
-		super(id, usesSecretInput, mustPass, passingFeedback, negativeFeedback);
+	public MeasuredCriterion(String id, boolean usesSecretInput, String highQualityFeedback,
+			 				 String passingFeedback, String negativeFeedback,
+			 				 String qualityLimit, String passingLimit) {
+		super(id, usesSecretInput, highQualityFeedback, passingFeedback, negativeFeedback);
 
-		// Attempt parsing the limit (failure leaves limit UNDEFINED)
-		if (limit != null) {
+		// Attempt parsing passing the limit (failure leaves limit UNDEFINED)
+		if (passingLimit != null) {
 			try {
-				this.limit = Integer.parseInt(limit);
+				this.passingLimit = Integer.parseInt(passingLimit);
 			} catch (NumberFormatException e) {}
 		}
-	}	
-	
-	/** Return true if the limit is met. */
-	public boolean meetsCriterion(TitoState studentAnswer, TitoState modelAnswer) {
-		return getCriterionValue(studentAnswer) <= limit;
+
+		// Attempt parsing passing the limit (failure leaves limit UNDEFINED)
+		if (qualityLimit != null) {
+			try {
+				this.qualityLimit = Integer.parseInt(qualityLimit);
+			} catch (NumberFormatException e) {}
+		}
 	}
+
 	
-	/** Serialize non-static MeasuredCriterion data-members. If any subclass overrides
-	 * this method it must append the result of <code>super.serializeSubClass();<code>
-	 * to the String it returns. */
+	
+
+	@Override
+	public boolean hasAcceptanceTest() {
+		return passingLimit != UNDEFINED;
+	}
+
+
+	@Override
+	public boolean hasQualityTest() {
+		return qualityLimit != UNDEFINED;
+	}
+
+	@Override
+	public boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer) {
+		return getCriterionValue(studentAnswer) <= passingLimit;
+	}
+
+	@Override
+	public boolean passesQualityTest(TitoState studentAnswer, TitoState modelAnswer) {
+		return getCriterionValue(studentAnswer) <= qualityLimit;
+	}
+
+	@Override
 	protected String serializeSubClass() {
-		return toXML("lim", limit);
+		return toXML("plim", passingLimit) +
+			   toXML("qlim", qualityLimit);
 	}	
-	
-	/** Initialize non-static MeasuredCriterion data-members. If any subclass overrides
-	 * this method it must call <code>super.initSubClass(serializedXML);<code>. */
+
+	@Override
 	protected void initSubClass(String serializedXML) {
-		limit = parseXMLLong(serializedXML, "lim");		
+		passingLimit = parseXMLLong(serializedXML, "plim");		
+		qualityLimit = parseXMLLong(serializedXML, "qlim");		
 	}
-	
-	public boolean isActive() {
-		return limit != UNDEFINED;
-	}	
 	
 	/** Return the value of the property this MeasuredCriterion subclass is intrested in. */
 	protected abstract int getCriterionValue(TitoState studentAnswer);
+
+
+
 }

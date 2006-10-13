@@ -22,30 +22,32 @@ public abstract class Criterion {
 
 	
 	private String id;
-	private String positiveFeedback = "";
-	private String negativeFeedback = "";
+	private String highQualityFeedback = "";
+	private String acceptanceFeedback = "";
+	private String failureFeedback = "";
 	private boolean secretInputCriterion;
 	private boolean passingCriterion;
 	
 	/** Empty constructor for deserialization */
-	protected Criterion() {		
-	}
+	protected Criterion() { }
 	
 	
 	/** Initialize fields common to all Criterion types */
-	public Criterion(String id, boolean usesScretInput, boolean mustPass, String positiveFeedback, String negativeFeedback) {
+	public Criterion(String id, boolean usesScretInput, String highQualityFeedback, String acceptanceFeedback, String failureFeedback) {
 		if (id == null) {
 			throw new NullPointerException("Criterion ID cannot be null");
 		}		
-		if (positiveFeedback != null) {
-			this.positiveFeedback = positiveFeedback;
+		if (highQualityFeedback != null) {
+			this.highQualityFeedback = highQualityFeedback;
 		}
-		if (negativeFeedback != null) {
-			this.negativeFeedback = negativeFeedback;
+		if (acceptanceFeedback != null) {
+			this.acceptanceFeedback = acceptanceFeedback;
 		}
-		
+		if (failureFeedback != null) {
+			this.failureFeedback = failureFeedback;
+		}
+	
 		this.secretInputCriterion = usesScretInput;
-		this.passingCriterion = mustPass;
 		this.id = id;
 	}
 
@@ -54,34 +56,23 @@ public abstract class Criterion {
 	public boolean isSecretInputCriterion() {
 		return secretInputCriterion;		
 	}
-	
-	
-	/** Return true if meeting this criterion mandatory for passing the task. Return of false
-	 *  means this criterion does not affect the passing of the task, but may still be tested
-	 *  with <code>meetsCriterion(..)</code> to evaluate the quality of the answer. */
-	public boolean isPassingCriterion() {
-		return passingCriterion;		
-	}	
 
+	/** Return the feedback string used for acceptable solution attempts */
+	public String getAcceptanceFeedback() {
+		return acceptanceFeedback;
+	}
 	
-	/** Return the positive feedback string of this Criterion. If the positive feedback of an
-	 * active task is an empty string, the student trying to solve a task will not given any
-	 * positive feedback from this particular Criterion. */
-	public String getPositiveFeedback() {
-		return positiveFeedback;
+	/** Return the feedback string used for failed solution attempts */
+	public String getFailureFeedback() {
+		return failureFeedback;
+	}
+	
+	/** Return the feedback string used for high quality solution attempts */
+	public String getHighQualityFeedback() {
+		return highQualityFeedback;
 	}
 
-	
-	/** Return the negative feedback string of this Criterion. Even if the negative feedback of
-	 * an active task is an empty string, the student trying to solve a task should be given
-	 * <i>some</i> indication of what part of the solution attempt failed. For example a canned
-	 * error message: <code>crit.getClass().getName() + " failed (feedback: not defined)"</code> */
-	public String getNegativeFeedback() {
-		return negativeFeedback;
-	
-	}
-
-	/** Return the identifier of this String */
+	/** Return the identifier of this Criterion */
 	public String getID(){
 		return id;
 	}
@@ -89,39 +80,50 @@ public abstract class Criterion {
 	/** Return a serialized copy of this Criterion in XML-format */
 	public String serializeToXML() {
 		return toXML("class", this.getClass().getName()) + // TODO: vaiko getCanonicalName() ? 
-			   toXML("posfb", getPositiveFeedback()) +
-			   toXML("negfb", getNegativeFeedback()) +
+			   toXML("posfb", getAcceptanceFeedback()) +
+			   toXML("negfb", getFailureFeedback()) +
+			   toXML("hqfb", getHighQualityFeedback()) +
 			   toXML("secret", isSecretInputCriterion()) + 
-			   toXML("pass", isPassingCriterion()) + 
 			   toXML("id", getID()) +
 			   serializeSubClass();
 	}
 
 
-	/** Return true if this Criterion is active. If Criterion is active the student's
-	 * answer must be tested with the meetsCriterion(...) method. Conversly, if this
-	 * method returns false, meetsCriterion(...) must not be called (result of such
-	 * call is not defined. */
-	public abstract boolean isActive();	
+	/** Return true if this criterion has test for evaluating failure/success
+	 * of the student's answer. Return of false means this criterion should
+	 * NOT be used to test <code>passesAcceptanceTest(..)</code>. */
+	public abstract boolean hasAcceptanceTest();
 
 	
-	/** Return true if student's answer meets the condition(s) of this criterion. */
-	public abstract boolean meetsCriterion(TitoState studentAnswer, TitoState modelAnswer);
+	/** Return true if this criterion has test for evaluating the quality
+	 * of the student's answer. Return of false means this criterion should
+	 * NOT be used to test <code>passesQualityTest(..)</code>. */
+	public abstract boolean hasQualityTest();
+	
+	
+	/** Return true if student's solution meets the passing requirement of this Criterion */
+	public abstract boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer);
 
 	
-	/** Serialize non-static data-members of Criterion sub-class to XML format. The subclass
-	 * can freely decide the names of the XML tags. The abstract Criterion class will handle
-	 * the serialization of its data-members.
+	/** Return true if student's solution meets the high-quality requirement of this criterion. */
+	public abstract boolean passesQualityTest(TitoState studentAnswer, TitoState modelAnswer);
+	
+	
+	/** Serialize non-static data-members of Criterion sub-class to XML format. The
+	 * subclass can decide the names of its XML tags but they must not collide with
+	 * the tags used by this class: "class", "posfb", "negfb",* "hqfb", "secret" 
+	 * and "id". The abstract Criterion class will handle the serialization of its
+	 * data-members, subclasses need to deserialize only the fields they add.
 	 * 
-	 * The serialized string is stored in the eAssari database in a 2000-char field so
-	 * subclasses should try to keep the tags and data short (without being cryptic). */
-	protected abstract String serializeSubClass();
+	 * NOTE: aAssari DB imposes a 2000 char limit to stored strings so subclasses
+	 * should try to keep the tags and data short (without being cryptic). */
+	protected abstract String serializeSubClass();	
 	
 	
-	/** Initialize non-static data-members of this Criterion subclass instance using the 
-	 * serialized representation returned by <code>serializeToXML()</code>. The data-member
-	 * of the abstract Criterion class will have already been deserialized when this method
-	 * is called. */
+	/** Initialize non-static data-members of this Criterion subclass instance using
+	 * the serialized representation returned by <code>serializeToXML()</code>. The
+	 * data-member of the abstract Criterion class will have already been deserialized
+	 * when this method is called. */
 	protected abstract void initSubClass(String serializedXML);
 
 	
@@ -132,8 +134,9 @@ public abstract class Criterion {
 			Class concreteClass = Class.forName(criterionClass);
 			if (concreteClass != null) {
 				Criterion c = (Criterion) concreteClass.newInstance();
-				c.positiveFeedback = parseXMLString(xml, "posfb");
-				c.negativeFeedback = parseXMLString(xml, "negfb");
+				c.acceptanceFeedback = parseXMLString(xml, "posfb");
+				c.failureFeedback = parseXMLString(xml, "negfb");
+				c.highQualityFeedback = parseXMLString(xml, "hqfb");
 				c.secretInputCriterion = parseXMLBoolean(xml, "secret");
 				c.id = parseXMLString(xml, "id");
 				c.initSubClass(xml);
@@ -169,7 +172,6 @@ public abstract class Criterion {
 		return xml + "</" + tagname + ">";
 	}	
 	
-	
 	/** Deserialize String value from XML string. Helper function for initSubClass() */
 	protected static String parseXMLString(String XML, String tagname) {
 		int begin = XML.indexOf("<" + tagname + ">") + tagname.length() + 2;
@@ -180,14 +182,12 @@ public abstract class Criterion {
 		value = value.replaceAll("&amp;", "&");
 		return value;
 	}
-	
 
 	/** Deserialize boolean value from XML string. Helper function for initSubClass() */
 	protected static boolean parseXMLBoolean(String XML, String tagname) {
 		String value = parseXMLString(XML, tagname);
 		return value.indexOf(0) == 'T';
 	}
-
 	
 	/** Deserialize long value from XML string. Helper function for initSubClass() */
 	protected static long parseXMLLong(String XML, String tagname) {
