@@ -3,16 +3,6 @@
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
 
-<%
-
-	//ONGELMA: javascript ei suorita tarkistuksiaan jostakin syystä
-	
-%>
-
-
-
-
-
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
@@ -127,7 +117,7 @@
 		Log.write("Signup: creating a new user");
 	%>
 				
-		<c:set target="${newUser}" property="firstName" value="${param.firstName}"/>
+		<c:set target="${newUser}" property="firstName" value="${param.first_name}"/>
 		<c:set target="${newUser}" property="lastName" value="${param.last_name}"/>
 		<c:set target="${newUser}" property="socialSecurityNumber" value="${param.social_security_number}"/>
 		<c:set target="${newUser}" property="studentNumber" value="${param.student_number}"/>
@@ -181,11 +171,13 @@
 
 <p>Please fill in all the fields.</p>
 
+<p>DEBUG HUOM: kantaan tallennetaan vain jos sotu ja opnum ova täytetty
+
 <div>
 	<table border="0" cellpadding="5">
 		<tr>
 			<td><b>First name </b></td>
-			<td><input type="text" name="firstName" value="<c:out value="${newUser.firstName}"/>"></td>
+			<td><input type="text" name="first_name" value="<c:out value="${newUser.firstName}"/>"></td>
 			<td id="first_name_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
