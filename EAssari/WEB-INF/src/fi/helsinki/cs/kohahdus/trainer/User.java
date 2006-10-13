@@ -23,7 +23,7 @@ public class User {
 	
 	
 
-	//CONSTRUCTORS
+//CONSTRUCTORS
 	/** Creates a new instance of User */
 	public User(String uid, String lname, String fname, String email, String status, String extid, 
 			String extid2, String psw, String lpref) {
@@ -31,6 +31,9 @@ public class User {
 		this.lastname = lname;
 		this.firstname = fname;
 		this.email = email;
+		if (!(status.equalsIgnoreCase(STATUS_STUDENT) || status.equalsIgnoreCase(STATUS_TEACHER) || status.equalsIgnoreCase(STATUS_ADMIN))) {
+			throw new IllegalArgumentException("Given status "+status+" not valid");
+		}
 		this.status = status;
 		this.studentnumber = extid;
 		this.socialsecuritynumber = extid2;
@@ -48,7 +51,7 @@ public class User {
 	}
 	
 	
-	//SET-METHODS
+//SET-METHODS
 	/** Set userID of this user */
 	public void setUserID(String userID) {
 		this.userid = userID;
@@ -106,7 +109,7 @@ public class User {
 	}
 	
 	
-	//GET-METHODS
+//GET-METHODS
 	 /** Return userID of this user*/
     public String getUserID() {
     	return userid;
@@ -153,7 +156,7 @@ public class User {
 	}
 	
 	
-	//OTHER METHODS
+//OTHER METHODS
 	/** Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics */
 	public boolean isTeacher() {
 		return (status != null && status.equalsIgnoreCase(STATUS_TEACHER)) ?  true : false;

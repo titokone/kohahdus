@@ -10,7 +10,7 @@ public class Course {
     private String courseName = null;            // 
    
     
-    //CONSTRUCTORS
+//CONSTRUCTORS
     /** Construct unitialized Course object */
 	public Course() {		
 	}
@@ -22,7 +22,7 @@ public class Course {
 	}
 	
 	
-	//GET-METHODS
+//GET-METHODS
 	/** Return course ID of this course */
 	public String getID() {
 		return courseID;
@@ -33,14 +33,14 @@ public class Course {
 		return courseName;
 	}
 	    
-    //SET-METHODS
+//SET-METHODS
     /** Set name of this course */
     public void setName(String name) {
     	this.courseName=name;
     }
     
     
-    //OTHER METHODS
+//OTHER METHODS
     /** Return name and id of this course as one String */
     public String toString(){
     	return courseName + "(" + courseID + ")"; 	
