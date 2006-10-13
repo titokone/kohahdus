@@ -7,10 +7,13 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Edit Your Profile</title>
+
 <script language="Javascript">
 
 /* Function to check the validity of form inputs that can be checked client-side - called on submit event. */
+
 	function checkForm() {
+	
 		var form = document.modify_user_form;
 		var returnvalue = true;
 
@@ -21,15 +24,15 @@
 		document.getElementById("ssn_error_msg_space").innerHTML = '';
 		document.getElementById("email_error_msg_space").innerHTML = '';
 		document.getElementById("old_password_error_msg_space").innerHTML = '';
-		document.getElementById("password_error_msg_space").innerHTML = '';
-		document.getElementById("repeat_password_error_msg_space").innerHTML = '';
+		document.getElementById("new_password_error_msg_space").innerHTML = '';
+		document.getElementById("repeat_new_password_error_msg_space").innerHTML = '';
 
 		// missing inputs
-		//if(form.first_name.value == '') {
+		if(form.first_name.value == '') {
 			var elem = document.getElementById("first_name_error_msg_space");
 			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your first name.</b></font>';
 			returnvalue = false;
-		//}
+		}
 
 		if(form.last_name.value == '') {
 			var elem = document.getElementById("last_name_error_msg_space");
@@ -49,20 +52,20 @@
 			returnvalue = false;
 		}
 
-		if(form.user_name.value == '') {
-			var elem = document.getElementById("user_name_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please choose a user name.</b></font>';
+		if(form.old_password.value == '') {
+			var elem = document.getElementById("old_password_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Enter old password</b></font>';
 			returnvalue = false;
 		}
 
-		if(form.password.value == '') {
-			var elem = document.getElementById("password_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please choose a password.</b></font>';
+		if(form.new_password.value == '') {
+			var elem = document.getElementById("new_password_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Give new password</b></font>';
 			returnvalue = false;
 		}
 
-		if(form.repeat_password.value == '') {
-			var elem = document.getElementById("repeat_password_error_msg_space");
+		if(form.repeat_new_password.value == '') {
+			var elem = document.getElementById("repeat_new_password_error_msg_space");
 			elem.innerHTML = '<font color="#FF0000"><b>Please repeat your chosen password.</b></font>';
 			returnvalue = false;
 		}
@@ -76,7 +79,7 @@
 
 
 		// "password" and "repeat password" don't match and neither is empty
-		if((form.password.value != '') && (form.repeat_password.value != '') && (form.password.value != form.repeat_password.value)) {
+		if((form.new_password.value != '') && (form.repeat_new_password.value != '') && (form.new_password.value != form.repeat_new_password.value)) {
 			var elem = document.getElementById("password_error_msg_space");
 			elem.innerHTML = '<font color="#FF0000"><b>Different values in password fields. Please check your typing.</b></font>';			
 			returnvalue = false;
@@ -86,7 +89,7 @@
 	}
 
 	/* Function to check if the string given as a parameter contains only numeric characters. */
-	function stringContainsOnlyNumbers(aString) {
+  function stringContainsOnlyNumbers(aString) {
 
 		for (var charCounter = 0; charCounter < aString.length; charCounter++) {
 			if(isNaN(aString.charAt(charCounter)) || aString.charAt(charCounter) == ' '.charAt(0)) {	// JS interprets white space as numeric
@@ -98,8 +101,9 @@
 	}
 
 </script>
-
 </head>
+
+
 
 <body>
 
@@ -109,6 +113,7 @@
 
 
 <c:if test="${param.action=='modify'}">
+
 
 	<c:set target="${user}" property="firstName" value="${param.first_name}"/>
 	<c:set target="${user}" property="lastName" value="${param.last_name}"/>
@@ -175,8 +180,8 @@
                 </tr>
                 <tr>
                         <td><b>First name </b></td>
-                        <td><input type="text" name="first_name" value="<c:out value="${user.firstName}"/>"></td>
-                        <td id="first_name_error_msg_space">&nbsp;</td>
+                        <td><input type="text" name="first_name" value="<c:out value="${user.firstName}"/>">    </td>
+                        <td id="first_name_error_msg_space">&nbsp;</td>                        
                 </tr>
                 <tr>
                         <td><b>Last name </b></td>
@@ -221,12 +226,12 @@
                 <tr>
                         <td><b>New password </b></td>
                         <td><input type="password" name="new_password"></td>
-                         <td id="password_error_msg_space">&nbsp;</td>
+                         <td id="new_password_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>New password again </b></td>
                         <td><input type="password" name="repeat_new_password"></td>
-                        <td id="password_error_msg_space">&nbsp;</td>
+                        <td id="repeat_new_password_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td colspan="2" align="right"><input type="submit" name="save_button" value="Save"></td>
