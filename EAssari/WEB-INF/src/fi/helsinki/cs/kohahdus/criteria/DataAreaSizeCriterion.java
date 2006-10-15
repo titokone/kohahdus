@@ -1,12 +1,12 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
 /** Concrete criterion class for program code size */
-public class DataSizeCriterion extends MeasuredCriterion {
+public class DataAreaSizeCriterion extends MeasuredCriterion {
 	
 	/** Empty constructor for deserialization */
-	protected DataSizeCriterion() { }
+	protected DataAreaSizeCriterion() { }
 
-	public DataSizeCriterion(String id, boolean usesSecretInput) {
+	public DataAreaSizeCriterion(String id, boolean usesSecretInput) {
 		super(id, usesSecretInput);
 	}
 

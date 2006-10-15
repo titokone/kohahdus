@@ -3,12 +3,12 @@ package fi.helsinki.cs.kohahdus.criteria;
 /** Concrete criterion class for program date references. This measures the
  * memory references of data reads and writes. To measure total number of
  * memory references, use MemReferencesCriterion */
-public class DataReferenceCriterion extends MeasuredCriterion {
+public class DataReferencesCriterion extends MeasuredCriterion {
 
 	/** Empty constructor for deserialization */
-	protected DataReferenceCriterion() { }
+	protected DataReferencesCriterion() { }
 
-	public DataReferenceCriterion(String id, boolean usesSecretInput) {
+	public DataReferencesCriterion(String id, boolean usesSecretInput) {
 		super(id, usesSecretInput);
 	}
 
