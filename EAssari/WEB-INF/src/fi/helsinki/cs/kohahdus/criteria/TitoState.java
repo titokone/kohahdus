@@ -1,10 +1,10 @@
-package fi.helsinki.cs.kohahdus;
+package fi.helsinki.cs.kohahdus.criteria;
 
 /** Capsulates the end-state of single run of TitoKone.
  *  
  * Tämä luokka toteutetaan toisessa iteraatiossa */
 public class TitoState {
-	
+
 	/** Return the contents of register Num (0 for "R0", etc). */
 	int getRegister(int num) {
 		return 0;
@@ -18,7 +18,9 @@ public class TitoState {
 		return 0;
 	}
 	
-	int[] getOutput() {
+	/** Return TitoKone output as String in format "1234, 1234, 1234". The returned string
+	 * may be empty, but it is never null. */
+	String getOutput() {
 		return null;
 	}
 	

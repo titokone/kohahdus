@@ -1,4 +1,4 @@
-package fi.helsinki.cs.kohahdus;
+package fi.helsinki.cs.kohahdus.criteria;
 
 
 /** Base class for all criterion types. The many different types of criteria in TitoTrainer
@@ -7,17 +7,22 @@ package fi.helsinki.cs.kohahdus;
  * modiying Tasks is even aware that differnt types of criteria exist.
  * 
  * This class and all sub-classes provides following quarantees
- * - getters always return Strings, even if the field the getter is for is value type 
+ * - getters always return Strings, regarless of the field type 
  * - getters never return null, but they may return empty strings
- * - constructors take string input, the constructor takes care of parsing value types
- * - constructors accept null values, treating them same as empty stings
- * - TODO: ID and secretInputCriterion are different
+ * - setters always take Strings, regarless of the field type.
+ *   Invalid strings, (eg. non-numeric string for numeric field),
+ *   empty strings, and null values are acceptable and will clear
+ *   the field (set strings to "", numeric types to UNDEFIED).
+ * - Criterion objects are never in an invalid state. This is done
+ *   by setting and validating mandatory fields in the constructor.
+ * - However, Criterion object deserialized from the database are
+ *   not subject to validation, they are assumed to be always valid.   
  */
 public abstract class Criterion {
 	/** Special case for signaling undefined numeric value. Criteria that deal with numeric
 	 *  types (such as RegisterCriterium) need all 32-bits of int, but we also need a way
-	 *  to represent undefined (ie. null) values. Best-but-still-ugly solution is to use
-	 *  longs for all numeric types and give use special signal value for undef. */
+	 *  to represent undefined (IOW null) values. Best-but-still-ugly solution is to use
+	 *  longs for all numeric types and use a special signal value for undef. */
 	protected static final long UNDEFINED = Long.MIN_VALUE; 
 
 	
@@ -26,29 +31,30 @@ public abstract class Criterion {
 	private String acceptanceFeedback = "";
 	private String failureFeedback = "";
 	private boolean secretInputCriterion;
-	private boolean passingCriterion;
+	
 	
 	/** Empty constructor for deserialization */
 	protected Criterion() { }
 	
 	
-	/** Initialize fields common to all Criterion types */
-	public Criterion(String id, boolean usesScretInput, String highQualityFeedback, String acceptanceFeedback, String failureFeedback) {
+	/** Initialize mandatory data members of Criterion 
+	 * @param id Identifier that can used to distinguish the different criteria of one task
+	 * @param usesSecretInput true if criterion is to be use in conjunktion to secret input */
+	protected Criterion(String id, boolean usesSecretInput) {
 		if (id == null) {
 			throw new NullPointerException("Criterion ID cannot be null");
 		}		
-		if (highQualityFeedback != null) {
-			this.highQualityFeedback = highQualityFeedback;
-		}
-		if (acceptanceFeedback != null) {
-			this.acceptanceFeedback = acceptanceFeedback;
-		}
-		if (failureFeedback != null) {
-			this.failureFeedback = failureFeedback;
-		}
-	
-		this.secretInputCriterion = usesScretInput;
+		if (id.equals("")) {
+			throw new IllegalArgumentException("Criterion ID cannot be empty string");
+		}		
+		this.secretInputCriterion = usesSecretInput;
 		this.id = id;
+	}
+
+	
+	/** Return the identifier of this Criterion */
+	public String getID(){
+		return id;
 	}
 
 	
@@ -57,25 +63,39 @@ public abstract class Criterion {
 		return secretInputCriterion;		
 	}
 
+	
+	/** Return the feedback string used for high quality solution attempts */
+	public String getHighQualityFeedback() {
+		return highQualityFeedback;
+	}
+	
+	/** Set the feedback string used for high quality solution attempts */
+	public void setHighQualityFeedback(String feedback) {
+		highQualityFeedback = (feedback != null) ? feedback : "";
+	}
+	
+	
 	/** Return the feedback string used for acceptable solution attempts */
 	public String getAcceptanceFeedback() {
 		return acceptanceFeedback;
 	}
+	
+	/** Set the feedback string used for acceptable solution attempts */
+	public void setAcceptanceFeedback(String feedback) {
+		acceptanceFeedback = (feedback != null) ? feedback : "";
+	}
+
 	
 	/** Return the feedback string used for failed solution attempts */
 	public String getFailureFeedback() {
 		return failureFeedback;
 	}
 	
-	/** Return the feedback string used for high quality solution attempts */
-	public String getHighQualityFeedback() {
-		return highQualityFeedback;
-	}
+	/** Set the feedback string used for failed solution attempts */
+	public void setFailureFeedback(String feedback) {
+		failureFeedback = (feedback != null) ? feedback : "";
+	}	
 
-	/** Return the identifier of this Criterion */
-	public String getID(){
-		return id;
-	}
 	
 	/** Return a serialized copy of this Criterion in XML-format */
 	public String serializeToXML() {
@@ -88,25 +108,71 @@ public abstract class Criterion {
 			   serializeSubClass();
 	}
 
-
+	
+	/** Instantiate new Criterion object using the serialized form XML.
+	 * @throws RuntimeException exceptions in the deserialization are
+	 * caught and rethrown as uncheckced exception. */
+	public static Criterion deserializeFromXML(String xml)  {
+		try {
+			String criterionClass = parseXMLString(xml, "class");
+			Class concreteClass = Class.forName(criterionClass);
+			Criterion c = (Criterion) concreteClass.newInstance();
+			c.acceptanceFeedback = parseXMLString(xml, "posfb");
+			c.failureFeedback = parseXMLString(xml, "negfb");
+			c.highQualityFeedback = parseXMLString(xml, "hqfb");
+			c.secretInputCriterion = parseXMLBoolean(xml, "secret");
+			c.id = parseXMLString(xml, "id");
+			c.initSubClass(xml);
+			return c;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
 	/** Return true if this criterion has test for evaluating failure/success
 	 * of the student's answer. Return of false means this criterion should
 	 * NOT be used to test <code>passesAcceptanceTest(..)</code>. */
-	public abstract boolean hasAcceptanceTest();
+	public abstract boolean hasAcceptanceTest(boolean usingModelAnswer);
+	
+	/** Return true if student's solution meets the passing requirement of this Criterion */
+	public abstract boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer);
+	
+	/** Return the value the student's answer will be compared to */
+	public abstract String getAcceptanceTest();
+	
+	/** Set the value the student's answer will be compared to. */
+	public abstract void setAcceptanceTest(String test);
 
 	
 	/** Return true if this criterion has test for evaluating the quality
 	 * of the student's answer. Return of false means this criterion should
-	 * NOT be used to test <code>passesQualityTest(..)</code>. */
-	public abstract boolean hasQualityTest();
+	 * NOT be used to test <code>passesQualityTest(..)</code>.
+	 * 
+	 * Criterion class provides a default implementation that always returns false. */
+	public boolean hasQualityTest(boolean usingModelAnswer) {
+		return false;
+	}
 	
+	/** Return true if student's solution meets the high-quality requirement of this criterion.
+	 * 
+	 * Criterion class provides a default implementation that always returns false. */
+	public boolean passesQualityTest(TitoState studentAnswer, TitoState modelAnswer) {
+		return false;
+	}
 	
-	/** Return true if student's solution meets the passing requirement of this Criterion */
-	public abstract boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer);
+	/** Return the value the student's answer will be compared to.
+	 *  
+	 * Criterion class provides a default implementation that always returns an empty string. */
+	public String getQualityTest() {
+		return "";
+	}
 
-	
-	/** Return true if student's solution meets the high-quality requirement of this criterion. */
-	public abstract boolean passesQualityTest(TitoState studentAnswer, TitoState modelAnswer);
+	/** Set the value the student's answer will be compared to. 
+	 * 
+	 * Criterion class provides a default implementation that is a no-op. */
+	public void setQualityTest(String test) {
+	}
 	
 	
 	/** Serialize non-static data-members of Criterion sub-class to XML format. The
@@ -126,29 +192,6 @@ public abstract class Criterion {
 	 * when this method is called. */
 	protected abstract void initSubClass(String serializedXML);
 
-	
-	/** Instantiate new Criterion object using the serialized form Xml */
-	public static Criterion deserializeFromXML(String xml)  {
-		try {
-			String criterionClass = parseXMLString(xml, "class");
-			Class concreteClass = Class.forName(criterionClass);
-			if (concreteClass != null) {
-				Criterion c = (Criterion) concreteClass.newInstance();
-				c.acceptanceFeedback = parseXMLString(xml, "posfb");
-				c.failureFeedback = parseXMLString(xml, "negfb");
-				c.highQualityFeedback = parseXMLString(xml, "hqfb");
-				c.secretInputCriterion = parseXMLBoolean(xml, "secret");
-				c.id = parseXMLString(xml, "id");
-				c.initSubClass(xml);
-				return c;
-			} else {
-				return null;
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
 	
 	/** Serialize String value to XML string. Helper function for serializeSubClass() */
 	protected static String toXML(String tagname, String value) {
@@ -197,9 +240,5 @@ public abstract class Criterion {
 		} catch (NumberFormatException e) {
 			return UNDEFINED;
 		}
-	}	
-
-
-
-
+	}
 }
