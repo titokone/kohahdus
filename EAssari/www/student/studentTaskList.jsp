@@ -5,6 +5,15 @@
 
 <body>
 
+<%-- check that user is logged in --%>
+<c:if test="${empty user}">
+	Not logged in - redirecting to login
+	<c:redirect url="../login.jsp"/>	
+</c:if>
+
+<%-- DEBUG --%>
+Logged in as <c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/>
+
 <h1 align="center">Tasks</h1>
 
 <p>
@@ -28,41 +37,39 @@
 		<td><b>Category</b></td>
 		<td><b>Tries</b></td>
 	</tr>
-	<tr>
-		<td><img src="positiivinen.gif"></td>
-		<td><a href="#">Tehtävä 1</a></td>
-		<td>Täydennystehtävä</td>
-		<td>Tehtävä 1. Tehtävä 1. Tehtävä 1. Tehtävä 1. Tehtävä 1. Tehtävä 1.</td>
-		<td align="center">5</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td><a href="tehtavavastaus.html">Tehtävä 2</a></td>
-		
-		<td>Staattinen tehtävä</td>
-		<td>Tehtävä 2. Tehtävä 2. Tehtävä 2. Tehtävä 2. Tehtävä 2. Tehtävä 2. Tehtävä 2.</td>
-		<td align="center">0</td>
-	</tr>
-	<tr>
-		<td><img src="positiivinen.gif"></td>
-		<td><a href="#">Tehtävä 3</a></td>
-		<td>Staattinen tehtävä</td>
-		<td>Tehtävä 3. Tehtävä 3. Tehtävä 3. Tehtävä 3.</td>
-		<td align="center">1</td>
-		
-	</tr>
-	<tr>
-		<td><img src="negatiivinen.gif"></td>
-		<td><a href="#">Tehtävä 4</a></td>
-		<td>Täydennystehtävä</td>
-		<td>Tehtävä 4. Tehtävä 4. Tehtävä 4. Tehtävä 4. Tehtävä 4. Tehtävä 4.</td>
-		<td align="center">2</td>
-	</tr>
+	
+	<%-- get all tasks from db and store them in page context --%>
+	<%
+		List<Task> tasks = MockTask.getTasks();
+		//List<Task> tasks = DBHandler.getInstance().getTasks();
+		if (tasks != null) pageContext.setAttribute("tasks", tasks);
+	%>
+	
+	<%-- TODO: get student status information from somewhere --%>
+	
+	<c:if test="${empty tasks}">
+		<tr>
+			<td bgcolor="#FFFFFF" colspan="4">No available tasks.</td>
+		</tr>
+	</c:if>
+	<c:if test="${not empty tasks}">
+		<c:forEach var="task" items="${pageScope.tasks}">	
+	
+			<tr>
+				<td><img src="positiivinen.gif"></td>
+				<td><a href="#"><c:out value="${task.name}"/></a></td>
+				<td><c:out value="${task.titoTaskType}"/></td>
+				<td><c:out value="${task.description}"/></td>
+				<td align="center">5</td>
+			</tr>
+		</c:forEach>
+	</c:if>		
 </table>
 </p>
 
 <p><b>Total completed tasks:</b><br>
 
+<%-- TODO: get status info --%>
 2 accepted<br>
 1 unfinished</p>
 

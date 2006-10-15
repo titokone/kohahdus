@@ -12,6 +12,11 @@ import fi.helsinki.cs.kohahdus.Criterion;
 //Muutoksien jälkeen pitäisi kutsua metodeja setAuthor(author)
 //ja setModificationDate().
 
+//markus huom: tarvitaan vielä kenttä ja getteri/setteri tehtävän kielelle.
+//Arvoina voitaneen käyttää yksinkertaisesti Stringejä "EN" ja "FI"
+//Lisäksi alempana on hieman selvitystä sun getTaskType(String) metodin kommentointiin.
+
+
 // Laajennetaan olemassa olevaa Task luokkaa
 public class Task {
 	public static final String TYPE_FULL = "programming";
@@ -84,9 +89,9 @@ public class Task {
 	}
 	
 	/** Set task type of this task */
-	public void setTaskType(String type) {
+	public void setTitoTaskType(String type) {
 		if (type == null || !(type.equalsIgnoreCase(TYPE_FULL) || type.equalsIgnoreCase(TYPE_FILL))) {
-			throw new IllegalArgumentException("Given category "+type+" not valid");
+			throw new IllegalArgumentException("Given task type "+type+" not valid");
 		}
 		this.taskType=type;
 	}
@@ -145,16 +150,24 @@ public class Task {
 	}
 	
 	/** Return the task type of this task */
-	public String getTaskType() {
+	public String getTitoTaskType() {
 		return taskType;
 	}
 	//sama metodi periaatteessa, mitä halutaan?
+	//markus huom: nyt löytyy metodit getTaskType() ja getTasktype(), joista jälkimmäinen
+	//periytyy eAssarista (löytyy tuolta alempaa). EAssarin metodi palauttaa tyypin, jolla
+	//yhdistetään Displayer ja Analyzer komponentit Taskiin. Ehkä olisi parasta nimetä oma
+	//metodi uudelleen s.e. sitä ei voida sekoittaa eAssarin vastaavaan. 
+	//Vaihdoin oman metodin nimeksi get/setTitoTaskType.
+	//Allaoleva metodi on turha ja voidaan poistaa nyt kun tyyppi löytyy y.o. metodilla.
 	/** Return tasktype as a String (fill-in or programming) */
+	/* deleted permanently ?
 	public String getTaskTypeString() {
 		if (taskType==TYPE_FULL) return "programming";
 		if (taskType==TYPE_FILL) return "fill-in";
 		return "not specified";
 	}
+	*/
 	
 	/** Return the code that is prepended before student's code in a fill-in task */
 	public String getFillInPreCode() {

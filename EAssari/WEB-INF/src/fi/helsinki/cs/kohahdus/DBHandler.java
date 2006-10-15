@@ -15,6 +15,15 @@ import fi.helsinki.cs.kohahdus.trainer.User;
  *
  * @author 
  */
+
+/* Lis‰sin pari huomautusta t‰h‰n luokkaan ja ne saa poistaa kun olet lukaissut ne.
+   Opiskelijan teht‰v‰listausta s‰‰dett‰ess‰ haluttiin merkata ne teht‰v‰t, jotka on jo
+   tehty/yritetty. T‰ll‰ hetkell‰ ei ole mink‰‰nlaista keinoa kaivaa suoritustietoja
+   kannasta. Task/User olioihin t‰t‰ tietoa ei kannattane lis‰t‰, joten onnistuisikohan
+   esim. metodi joka ottaa parametrikseen kurssin ja opiskelijan ja palauttaa jonkinlaisen 
+   listan tai Map:in suorituksista.  
+*/
+
 public class DBHandler {
 	
 	private static DBHandler instance = null;
@@ -27,6 +36,24 @@ public class DBHandler {
 	private DBHandler(){
 		init();
 	}
+	
+	/* 	Pari huomiota synkronoinnista (markus huom):
+	 	Eli allaoleva getInstance metodi kyll‰ toimii juuri niin kuin pit‰‰kin eik‰
+	 	useat samanaikaiset s‰ikeet voi rikkoa toteutusta. Ongelmaksi muodostuu tosin
+	 	ylim‰‰r‰inen synkronointi, sill‰ sit‰h‰n ei tarvita kuin silloin kun instance
+	 	on null. Nyt jokaisella alustuksen j‰lkeisell‰ metodin kutsukerralla joudutaan maksamaan 
+	 	turhasta synkronoinnista.
+	
+		Parempi ratkaisu olisi mielest‰ni siirt‰‰ alustus esittelyn yhteyteen, jolloin metodi
+		voisi suoraan palauttaa valmiin instanssin ilman synkronointia. T‰ss‰kin tapauksessa
+		DBHandler instanssi luodaan vasta kun getInstance metodia kutsutaan, koska luokkaa
+		ei ole sit‰ ennen tarvinnut ladata muistiin.
+	
+		Voidaan toki jatkaa nykyisell‰kin toteutuksella, koska siin‰ ei sin‰ns‰ ole vikaa.
+		Enk‰ usko ett‰ TitoTrainerilla olisi niin paljon samanaikaisia k‰ytt‰ji‰ ett‰ t‰st‰
+		muodostuisi pullonkaula. Joka tapauksessa yll‰olevat vaihtoehdot ovat ainoat toimivat,
+		koska synkronoinnin lis‰‰minen metodin sis‰‰n ei tule toimimaan vastaavalla tavalla.	
+	*/
 	
 	public static synchronized DBHandler getInstance(){
 		if (instance == null) {
@@ -98,6 +125,10 @@ public class DBHandler {
 	}
 	
 	/** Add new course to database. Does not check weather the course already exists in the DB. */
+	/* T‰m‰ ei ole ihan n‰in simppeli tapaus vaan uusi kurssi olisi hyv‰ saattaa k‰yttˆvalmiiseen
+	   tilaan. Eli kaikki muillakin kursseilla esiintyv‰t teht‰v‰t tulisi linkitt‰‰ myˆs
+	   t‰h‰n uuteen kurssiin.	
+	*/
 	public boolean createCourse(Course course) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;

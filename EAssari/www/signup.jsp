@@ -109,21 +109,26 @@
 
 <c:if test="${param.action=='signup'}">
 	
-	<% //Create a new user and store it in pagecontext
+	<% //Create a new user and store it in pagecontext as a temp object
 	   	User newUser = new User(request.getParameter("user_name"));
+	   	
+	   	//TODO: language set to english and stored in DB as a default. Only place to change it
+	   	//is at the moment on login page, should we add one here also.
 	   	newUser.setStatus(User.STATUS_STUDENT);
 	   	newUser.setLanguage("EN");
 	   	pageContext.setAttribute("newUser", newUser);
 		Log.write("Signup: creating a new user");
 	%>
-				
+	
+		<%-- set new users properties as requested --%>		
 		<c:set target="${newUser}" property="firstName" value="${param.first_name}"/>
 		<c:set target="${newUser}" property="lastName" value="${param.last_name}"/>
 		<c:set target="${newUser}" property="socialSecurityNumber" value="${param.social_security_number}"/>
 		<c:set target="${newUser}" property="studentNumber" value="${param.student_number}"/>
 		<c:set target="${newUser}" property="email" value="${param.email}"/>
 		<c:set target="${newUser}" property="password" value="${param.password}"/>
-				
+		
+		<%-- DEBUG INFO prints collected data --%>		
 		<p>ID <c:out value="${newUser.userID}"/>
 		<p>FN <c:out value="${newUser.firstName}"/>
 		<p>LN <c:out value="${newUser.lastName}"/>
@@ -140,6 +145,7 @@
 	
 	<c:choose>
 		<c:when test="${not empty oldUser}">
+			<%-- TODO: display a proper error msg --%>
 			<p>User name invalid or already in use. Please pick another.
 		</c:when>
 		<c:otherwise>		
@@ -148,7 +154,7 @@
 			<%
 				if (!newUser.isValid()) {
 					//TODO: ohjaus erroriin
-					out.print("Grave ERROR");
+					out.print("Grave ERROR -- user data corrupt or incomplete");
 					Log.write("Signup: error in new users data");
 				} else {
 					//Add new user to db and set up session
@@ -157,21 +163,22 @@
 					pageContext.setAttribute("user", newUser, PageContext.SESSION_SCOPE);
 					Log.write("Signup: new user created");
 					//TODO: forwardointi
-			%>
-					<c:redirect url="student/studentTaskList.jsp"/>
-			<%		
+					<jsp:forward page="login.jsp">
+						<jsp:param name="action" value="login"/>
+					</jsp:forward>	
 				}
 			%>	
 		</c:otherwise>
 	</c:choose>			   
 </c:if>
 
+<%-- signup form - already inserted values are preserved in newUser variable --%>
 <form name="sign_up_form" action="signup.jsp" onsubmit="return checkForm()" method="POST">
 <input type="hidden" name="action" value="signup">
 
 <p>Please fill in all the fields.</p>
 
-<p>DEBUG HUOM: kantaan tallennetaan vain jos sotu ja opnum ova täytetty
+<p>DEBUG HUOM: kantaan tallennetaan vain jos sotu ja opnum ovat täytetty
 
 <div>
 	<table border="0" cellpadding="5">
@@ -236,6 +243,7 @@
 
 </form>
 
+<%-- Just to make sure that old data doesn't interfere with next request --%>
 <c:remove var="newUser" scope="page"/>
 <c:remove var="oldUser" scope="page"/>
 

@@ -3,6 +3,14 @@
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
+<%-- 
+	TeacherTaskList is able to list all courses and tasks that reside in DB.
+	Inserting a course in DB should work also.
+	Current implementation lacks delete functionality and links to task creation and
+	statistics. We are also missing the possibility of arranging listing by name, category, etc.
+--%>	
+
+
 
 <html>
 <head>
@@ -11,16 +19,12 @@
 
 <body>
 
-<% 	//TODO: session oikeellisuuden tarkistus - muut kuin opet ohjataan muualle
-
-
-%>
 <c:if test="${empty user}">
 	Not logged in - redirecting to login
 	<c:redirect url="../login.jsp"/>	
 </c:if>
-<c:if test="${user.status=='student'}">
-	Student tried to load a restricted page
+<c:if test="${user.student}">
+	Student tried to load a restricted page - redirecting to students tasklisting
 	<c:redirect url="../student/studentTaskList.jsp"/>
 </c:if>
 		
@@ -93,6 +97,7 @@
 	<c:if test="${not empty courses}">
 		<c:forEach var="course" items="${pageScope.courses}">	
 			<tr>
+				<%-- TODO: add implementation for statisics and delete buttons --%>
 				<td bgcolor="#FFFFFF"><c:out value="${course.courseID}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${course.name}"/></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Statistics"></td>
@@ -158,9 +163,12 @@
 	<c:if test="${not empty tasks}">
 		<c:forEach var="task" items="${pageScope.tasks}"> 
 			<tr>
+			
+				<%-- TODO: add implementation for modify, modify as new and delete --%>
+			
 				<td bgcolor="#FFFFFF"><c:out value="${task.taskID}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.name}"/></td>
-				<td bgcolor="#FFFFFF"><c:out value="${task.taskTypeString}"/></td>
+				<td bgcolor="#FFFFFF"><c:out value="${task.titoTaskType}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.category}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.language}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.author}"/></td>
