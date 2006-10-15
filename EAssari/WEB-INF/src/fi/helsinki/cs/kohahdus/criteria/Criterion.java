@@ -1,22 +1,24 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
 
-/** Base class for all criterion types. The many different types of criteria in TitoTrainer
- * are all used via the interface defined here. The analyzer component does not know the
- * details of different Criterion sub-classes. Only the composer used for creating and
- * modiying Tasks is even aware that differnt types of criteria exist.
- * 
- * This class and all sub-classes provides following quarantees
- * - getters always return Strings, regarless of the field type 
- * - getters never return null, but they may return empty strings
- * - setters always take Strings, regarless of the field type.
- *   Invalid strings, (eg. non-numeric string for numeric field),
- *   empty strings, and null values are acceptable and will clear
- *   the field (set strings to "", numeric types to UNDEFIED).
- * - Criterion objects are never in an invalid state. This is done
- *   by setting and validating mandatory fields in the constructor.
- * - However, Criterion object deserialized from the database are
- *   not subject to validation, they are assumed to be always valid.   
+/** Base class for all criterion types. The many different types of criteria in
+ * TitoTrainer are all used via the interface defined here. The analyzer component
+ * does not know the details of different Criterion sub-classes. Only the composer
+ * used for creating and modiying Tasks is aware that differnt types of criteria exist.
+ * <p>
+ * This class and all sub-classes shall provide following quarantees
+ * <ul>
+ * <li> getters always return Strings, regarless of the field type 
+ * <li> getters never return null, but they may return empty strings
+ * <li> setters always take Strings, regarless of the field type.
+ *      Invalid strings, (eg. non-numeric string for numeric field),
+ *      empty strings, and null values are acceptable and will clear
+ *      the field.
+ * <li> Criterion objects are never in an invalid state. This is done
+ *       by setting and validating mandatory fields in the constructor.
+ * <li> However, Criterion object deserialized from the database are
+ *      not subject to validation, they are assumed to be always valid.
+ * </ul>   
  */
 public abstract class Criterion {
 	/** Special case for signaling undefined numeric value. Criteria that deal with numeric

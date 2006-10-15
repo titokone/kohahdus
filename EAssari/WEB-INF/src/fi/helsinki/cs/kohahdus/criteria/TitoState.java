@@ -44,10 +44,6 @@ public class TitoState {
 		return 0;
 	}
 	
-	int getDataMemoryAccessCount() {
-		return 0;
-	}
-	
 	String[] getUsedOpcodes() {
 		return null;
 	}	

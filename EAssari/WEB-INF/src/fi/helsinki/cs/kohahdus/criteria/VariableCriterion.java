@@ -2,12 +2,12 @@ package fi.helsinki.cs.kohahdus.criteria;
 
 /** Base class for criteria that examine register or symbol variables */
 public abstract class VariableCriterion extends Criterion {
-	public static final int COMPARE_EQ = 0;
-	public static final int COMPARE_NE = 1;
-	public static final int COMPARE_LT = 2;
-	public static final int COMPARE_GT = 3;
-	public static final int COMPARE_LTEQ = 4;
-	public static final int COMPARE_GTEQ = 5;
+	private static final int COMPARE_EQ = 0;
+	private static final int COMPARE_NE = 1;
+	private static final int COMPARE_LT = 2;
+	private static final int COMPARE_GT = 3;
+	private static final int COMPARE_LTEQ = 4;
+	private static final int COMPARE_GTEQ = 5;
 	
 	private int comparisonOperator;
 	private long comparisonValue = UNDEFINED;
