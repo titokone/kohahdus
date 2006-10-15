@@ -20,7 +20,7 @@ public class TitoState {
 	
 	/** Return TitoKone output as String in format "1234, 1234, 1234". The returned string
 	 * may be empty, but it is never null. */
-	String getOutput() {
+	String getScreenOutput() {
 		return null;
 	}
 	

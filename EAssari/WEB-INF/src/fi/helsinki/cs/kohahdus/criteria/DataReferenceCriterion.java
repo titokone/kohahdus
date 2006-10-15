@@ -6,7 +6,7 @@ package fi.helsinki.cs.kohahdus.criteria;
 public class DataReferenceCriterion extends MeasuredCriterion {
 
 	/** Empty constructor for deserialization */
-	public DataReferenceCriterion() { }
+	protected DataReferenceCriterion() { }
 
 	public DataReferenceCriterion(String id, boolean usesSecretInput) {
 		super(id, usesSecretInput);

@@ -7,7 +7,7 @@ package fi.helsinki.cs.kohahdus.criteria;
 public class MemReferencesCriterion extends MeasuredCriterion {
 
 	/** Empty constructor for deserialization */
-	public MemReferencesCriterion() { }
+	protected MemReferencesCriterion() { }
 
 	
 	public MemReferencesCriterion(String id, boolean usesSecretInput) {

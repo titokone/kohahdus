@@ -101,7 +101,7 @@ public abstract class Criterion {
 	
 	/** Return a serialized copy of this Criterion in XML-format */
 	public String serializeToXML() {
-		return toXML("class", this.getClass().getName()) + // TODO: vaiko getCanonicalName() ? 
+		return toXML("class", this.getClass().getName()) + 
 			   toXML("posfb", getAcceptanceFeedback()) +
 			   toXML("negfb", getFailureFeedback()) +
 			   toXML("hqfb", getHighQualityFeedback()) +

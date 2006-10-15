@@ -1,7 +1,14 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
-public class OutputCriterion extends Criterion {
+public class ScreenOutputCriterion extends Criterion {
 	private String expectedOutput = "";
+
+	/** Empty constructor for deserialization */
+	protected ScreenOutputCriterion() { }
+
+	public ScreenOutputCriterion(String id, boolean usesSecretInput) {
+		super(id, usesSecretInput);
+	}
 
 
 	@Override public boolean hasAcceptanceTest(boolean usingModelAnswer) {
@@ -10,7 +17,7 @@ public class OutputCriterion extends Criterion {
  
 
 	@Override public boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer) {
-		return expectedOutput.equals(studentAnswer.getOutput());
+		return expectedOutput.equals(studentAnswer.getScreenOutput());
 	}
 
 	@Override public String getAcceptanceTest() {

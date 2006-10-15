@@ -6,7 +6,7 @@ package fi.helsinki.cs.kohahdus.criteria;
 public class ExecutetionStepsCriterion extends MeasuredCriterion {
 
 	/** Empty constructor for deserialization */
-	public ExecutetionStepsCriterion() { }
+	protected ExecutetionStepsCriterion() { }
 
 	public ExecutetionStepsCriterion(String id, boolean usesSecretInput) {
 		super(id, usesSecretInput);
