@@ -15,9 +15,9 @@ public class MockTask extends Task {
 	private String language;
 	
 	public MockTask(String name, String category, String author, boolean inEnglish, boolean fillin) {
-		super(name, author, "description", "modelAnswer", category, (fillin ? Task.TYPE_FILL : Task.TYPE_FULL), "", "", false );
+		super((inEnglish ? "EN" : "FI"), name, author, "description", "modelAnswer", category, (fillin ? Task.TYPE_FILL : Task.TYPE_FULL), "", "", false );
 
-		this.language = inEnglish ? "EN" : "FI";
+		
 	}
 	
 	
