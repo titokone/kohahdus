@@ -1,3 +1,12 @@
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ page import="java.util.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
+
+
+
+
+
 <html>
 <head>
 <title>Tasks</title>
@@ -12,7 +21,10 @@
 </c:if>
 
 <%-- DEBUG --%>
-Logged in as <c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/>
+<p>Logged in as <c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/>
+<p>Kurssi: <c:out value="${course}"/>
+<p>Kurssi: <c:out value="${language}"/>
+
 
 <h1 align="center">Tasks</h1>
 
@@ -40,7 +52,7 @@ Logged in as <c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/
 	
 	<%-- get all tasks from db and store them in page context --%>
 	<%
-		List<Task> tasks = MockTask.getTasks();
+		List<MockTask> tasks = MockTask.getTasks();
 		//List<Task> tasks = DBHandler.getInstance().getTasks();
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 	%>

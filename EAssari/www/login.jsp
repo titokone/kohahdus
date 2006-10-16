@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
+<%@ page import="java.util.*" %>
 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -22,7 +23,7 @@
 	<c:if test="${empty user}">
 		Username or password not correct..
 	</c:if>
-	<c:if test="${not empty user}">
+	<c:if test="${not empty user}">		
 		Login ok and then redirect here....
 		<c:if test="${user.admin}">		
 			<c:redirect url="teacher/teacherTaskList.jsp"/>
@@ -31,7 +32,11 @@
 		<c:if test="${user.teacher}">		
 			<c:redirect url="teacher/teacherTaskList.jsp"/>
 		</c:if>
-		<c:if test="${user.student}">		
+		<c:if test="${user.student}">	
+			
+			<c:set var="course" value="${param.course}" scope="session"/>
+			<c:set var="language" value="${param.language}" scope="session"/>
+			
 			<c:redirect url="student/studentTaskList.jsp"/>
 		</c:if>
 	</c:if>
@@ -66,24 +71,36 @@
 			<tr>
 				<td><b>Course</b></td>
 				<td>&nbsp;</td>
+				
+				<%	List<MockCourse> courses = MockCourse.getCourses();
+					//List<Course> courses = DBHandler().getInstance().getCourses();
+					pageContext.setAttribute("courses", courses);				
+				%>
+				
+				<%-- TODO: haluttiinko näihin default arvot cookien kautta --%>
+				
 				<td>
 					<select name="course">
-						<option value="course 1">Course 1</option>
-						<option value="course 2">Course 2</option>
+						<c:if test="${not empty courses}">
+							<c:forEach var="course" items="${pageScope.courses}">
+								<option value="<c:out value="${course.ID}"/>"><c:out value="${course.name}"/></option>							
+							</c:forEach>
+						</c:if>	
 					</select>
 				</td>
-			</tr>
-			<tr>
-				<td><b>Language</b></td>
-				<td>&nbsp;</td>
-				<td>
-					<select name="language">
-						<option value="english">English</option>
-						<option value="finnish">Finnish</option>
-					</select>
-				</td>
-			</tr>
+			</tr>		
 		</c:if>
+	
+		<tr>
+			<td><b>Language</b></td>
+			<td>&nbsp;</td>
+			<td>
+				<select name="language">
+					<option value="english">English</option>
+					<option value="finnish">Finnish</option>
+				</select>
+			</td>
+		</tr>
 		<tr>
 			<td colspan="3" align="right"><br><input type="submit" value="Sign in"></td>
 		</tr>
