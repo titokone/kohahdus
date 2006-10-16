@@ -138,7 +138,11 @@ public abstract class Criterion {
 	 * NOT be used to test <code>passesAcceptanceTest(..)</code>. */
 	public abstract boolean hasAcceptanceTest(boolean usingModelAnswer);
 	
-	/** Return true if student's solution meets the passing requirement of this Criterion */
+	/** Return true if student's solution meets the passing requirement of this Criterion. 
+	 * 
+	 * @param studentAnswer end state of TitoKone for student's answer
+	 * @param modelAnswer end state of TitoKone for teacher's answer. If the task is
+	 *        NOT validated against teacher's model answer, pass <code>null</code> param. */
 	public abstract boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer);
 	
 	/** Return the value the student's answer will be compared to */
@@ -158,7 +162,7 @@ public abstract class Criterion {
 	}
 	
 	/** Return true if student's solution meets the high-quality requirement of this criterion.
-	 * 
+	 * <p>
 	 * Criterion class provides a default implementation that always returns false. */
 	public boolean passesQualityTest(TitoState studentAnswer, TitoState modelAnswer) {
 		return false;

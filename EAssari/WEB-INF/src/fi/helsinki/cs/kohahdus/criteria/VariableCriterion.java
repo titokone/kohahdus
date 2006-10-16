@@ -93,7 +93,7 @@ public abstract class VariableCriterion extends Criterion {
 	
 	/** Set the comparison operator for this VariableCriterion. If an invalid
 	 * operator string is given, the default operator "==" is used.  
-	 * @param operator "==", "!=", "<=", ">=", ">", "<" */
+	 * @param operator any of <code>"==", "!=", "&lt;=", "&gt;=", "&gt;", "&lt;"</code> */
 	public void setComparisonOperator(String operator) {
 		if (operator == null) {
 			this.comparisonOperator = COMPARE_EQ;
