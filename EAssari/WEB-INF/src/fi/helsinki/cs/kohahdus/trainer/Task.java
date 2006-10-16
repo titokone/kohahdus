@@ -3,7 +3,7 @@ package fi.helsinki.cs.kohahdus.trainer;
 import java.sql.Timestamp;
 import java.util.*;
 
-import fi.helsinki.cs.kohahdus.Criterion;
+//import fi.helsinki.cs.kohahdus.Criterion;
 /**
 *
 * @author  jari
@@ -11,11 +11,6 @@ import fi.helsinki.cs.kohahdus.Criterion;
 //Pit‰isi olla kaikki mit‰ suunnitteludokumentissa pyydet‰‰n.
 //Muutoksien j‰lkeen pit‰isi kutsua metodeja setAuthor(author)
 //ja setModificationDate().
-
-//markus huom: tarvitaan viel‰ kentt‰ ja getteri/setteri teht‰v‰n kielelle.
-//Arvoina voitaneen k‰ytt‰‰ yksinkertaisesti Stringej‰ "EN" ja "FI"
-//Lis‰ksi alempana on hieman selvityst‰ sun getTaskType(String) metodin kommentointiin.
-
 
 // Laajennetaan olemassa olevaa Task luokkaa
 public class Task {
@@ -43,9 +38,10 @@ public class Task {
 	}
 	
 	/** Creates a new instance of Task */
-	public Task(String taskname, String auth, String desc,
+	public Task(String language, String taskname, String auth, String desc,
 			String modelanswer, String categ, String type,
 			String fillInPre, String fillInPost, boolean useModel) {
+		this.language=language;
 		this.taskName=taskname;
 		this.author=auth;
 		this.description=desc;
