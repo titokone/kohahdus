@@ -13,9 +13,10 @@ package fi.helsinki.cs.kohahdus.criteria;
  * <li> setters always take Strings, regarless of the field type.
  *      Invalid strings, (eg. non-numeric string for numeric field),
  *      empty strings, and null values are acceptable and will clear
- *      the field.
+ *      the field OR set the field to some default value.
+ * <li> setters do not throw exceptions
  * <li> Criterion objects are never in an invalid state. This is done
- *       by setting and validating mandatory fields in the constructor.
+ *      by setting and validating mandatory fields in the constructor.
  * <li> However, Criterion object deserialized from the database are
  *      not subject to validation, they are assumed to be always valid.
  * </ul>   

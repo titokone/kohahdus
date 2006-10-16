@@ -9,7 +9,7 @@ public abstract class VariableCriterion extends Criterion {
 	private static final int COMPARE_LTEQ = 4;
 	private static final int COMPARE_GTEQ = 5;
 	
-	private int comparisonOperator;
+	private int comparisonOperator = COMPARE_EQ;
 	private long comparisonValue = UNDEFINED;
 	private boolean compareToModel = false;
 
@@ -17,27 +17,8 @@ public abstract class VariableCriterion extends Criterion {
 	protected VariableCriterion() { }
 	
 	
-	public VariableCriterion(String id, boolean usesScretInput, String comparisonOperator) {
+	public VariableCriterion(String id, boolean usesScretInput) {
 		super(id, usesScretInput);
-
-		if (comparisonOperator == null) {
-			throw new IllegalArgumentException("Comparison operator cannot be null");
-		} else if (comparisonOperator.equals("==")) {
-			this.comparisonOperator = COMPARE_EQ;
-		} else if (comparisonOperator.equals("!=")) {
-			this.comparisonOperator = COMPARE_NE;
-		} else if (comparisonOperator.equals("<")) {
-			this.comparisonOperator = COMPARE_LT;
-		} else if (comparisonOperator.equals(">")) {
-			this.comparisonOperator = COMPARE_GT;
-		} else if (comparisonOperator.equals("<=")) {
-			this.comparisonOperator = COMPARE_LTEQ;
-		} else if (comparisonOperator.equals(">=")) {
-			this.comparisonOperator = COMPARE_GTEQ;
-		} else {
-			throw new IllegalArgumentException("Invalid comparison operator string: " + comparisonOperator);
-		}
-		
 	}
 
 	
@@ -93,6 +74,47 @@ public abstract class VariableCriterion extends Criterion {
 		}		
 	}
 
+	
+	
+	public String getComparisonOperator() {
+		String operator = "==";		
+		switch (comparisonOperator) {
+			case COMPARE_EQ:   operator = "=="; break;
+			case COMPARE_NE:   operator = "!="; break;
+			case COMPARE_LT:   operator = "<";  break;
+			case COMPARE_GT:   operator = ">";  break;
+			case COMPARE_LTEQ: operator = "<="; break;
+			case COMPARE_GTEQ: operator = ">="; break;
+		}
+		return operator;
+	}
+
+		
+	
+	/** Set the comparison operator for this VariableCriterion. If an invalid
+	 * operator string is given, the default operator "==" is used.  
+	 * @param operator "==", "!=", "<=", ">=", ">", "<" */
+	public void setComparisonOperator(String operator) {
+		if (operator == null) {
+			this.comparisonOperator = COMPARE_EQ;
+		} else if (operator.equals("=")) {
+			this.comparisonOperator = COMPARE_EQ;
+		} else if (operator.equals("==")) {
+			this.comparisonOperator = COMPARE_EQ;
+		} else if (operator.equals("!=")) {
+			this.comparisonOperator = COMPARE_NE;
+		} else if (operator.equals("<")) {
+			this.comparisonOperator = COMPARE_LT;
+		} else if (operator.equals(">")) {
+			this.comparisonOperator = COMPARE_GT;
+		} else if (operator.equals("<=")) {
+			this.comparisonOperator = COMPARE_LTEQ;
+		} else if (operator.equals(">=")) {
+			this.comparisonOperator = COMPARE_GTEQ;
+		} else {
+			this.comparisonOperator = COMPARE_EQ;
+		}	
+	}
 	
 
 	

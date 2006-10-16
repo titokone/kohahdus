@@ -7,8 +7,8 @@ public class RegisterCriterion extends VariableCriterion {
 	/** Empty constructor for deserialization */
 	protected RegisterCriterion() { }
 	
-	public RegisterCriterion(String id, boolean usesSecretInput, String comparisonOperator, int register) {
-		super(id, usesSecretInput, comparisonOperator);
+	public RegisterCriterion(String id, boolean usesSecretInput, int register) {
+		super(id, usesSecretInput);
 		if ((register < 0) || (register > 7)) {
 			throw new IllegalArgumentException("Invalid register number: " + register);
 		}		
