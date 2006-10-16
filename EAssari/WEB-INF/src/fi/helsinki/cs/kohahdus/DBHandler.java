@@ -3,9 +3,8 @@ package fi.helsinki.cs.kohahdus;
 import java.sql.*;
 import java.util.LinkedList;
 
-import fi.helsinki.cs.kohahdus.trainer.Course;
-import fi.helsinki.cs.kohahdus.trainer.Task;
-import fi.helsinki.cs.kohahdus.trainer.User;
+import fi.helsinki.cs.kohahdus.trainer.*;
+import fi.helsinki.cs.kohahdus.criteria.*;
 
 
 /** Singleton class used for database interactions. Each public method of DBHandler class
@@ -25,8 +24,10 @@ import fi.helsinki.cs.kohahdus.trainer.User;
 */
 
 public class DBHandler {
+	private static final String DEFAULT_MODULE_ID = "0"; 
+	private static final String DEFAULT_MODULE_TYPE = "training"; 
 	
-	private static DBHandler instance = null;
+	private static DBHandler instance = new DBHandler();
 	private String dbDriver = "oracle.jdbc.OracleDriver";
 	private String dbServer = "jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test";
 	private String dbLogin  = "kohahdus";
@@ -34,31 +35,13 @@ public class DBHandler {
     
    
 	private DBHandler(){
-		init();
-	}
-	
-	/* 	Pari huomiota synkronoinnista (markus huom):
-	 	Eli allaoleva getInstance metodi kyll‰ toimii juuri niin kuin pit‰‰kin eik‰
-	 	useat samanaikaiset s‰ikeet voi rikkoa toteutusta. Ongelmaksi muodostuu tosin
-	 	ylim‰‰r‰inen synkronointi, sill‰ sit‰h‰n ei tarvita kuin silloin kun instance
-	 	on null. Nyt jokaisella alustuksen j‰lkeisell‰ metodin kutsukerralla joudutaan maksamaan 
-	 	turhasta synkronoinnista.
-	
-		Parempi ratkaisu olisi mielest‰ni siirt‰‰ alustus esittelyn yhteyteen, jolloin metodi
-		voisi suoraan palauttaa valmiin instanssin ilman synkronointia. T‰ss‰kin tapauksessa
-		DBHandler instanssi luodaan vasta kun getInstance metodia kutsutaan, koska luokkaa
-		ei ole sit‰ ennen tarvinnut ladata muistiin.
-	
-		Voidaan toki jatkaa nykyisell‰kin toteutuksella, koska siin‰ ei sin‰ns‰ ole vikaa.
-		Enk‰ usko ett‰ TitoTrainerilla olisi niin paljon samanaikaisia k‰ytt‰ji‰ ett‰ t‰st‰
-		muodostuisi pullonkaula. Joka tapauksessa yll‰olevat vaihtoehdot ovat ainoat toimivat,
-		koska synkronoinnin lis‰‰minen metodin sis‰‰n ei tule toimimaan vastaavalla tavalla.	
-	*/
-	
-	public static synchronized DBHandler getInstance(){
+		init();		
 		if (instance == null) {
 			instance = new DBHandler();
-		}
+		}		
+	}
+	
+	public static DBHandler getInstance(){
 		return instance;		
 	}
 	
@@ -124,12 +107,25 @@ public class DBHandler {
 		return courses;
 	}
 	
-	/** Add new course to database. Does not check weather the course already exists in the DB. */
 	/* T‰m‰ ei ole ihan n‰in simppeli tapaus vaan uusi kurssi olisi hyv‰ saattaa k‰yttˆvalmiiseen
 	   tilaan. Eli kaikki muillakin kursseilla esiintyv‰t teht‰v‰t tulisi linkitt‰‰ myˆs
 	   t‰h‰n uuteen kurssiin.	
 	*/
-	public boolean createCourse(Course course) throws SQLException {
+	public synchronized boolean createCourse(Course course) throws SQLException {
+		if (!addCourse(course)) return false;
+		if (!addModule(course.getCourseID())) return false;
+		LinkedList<Task> tasks = getTasks();
+		for (Task task : tasks) {
+			if (!addTaskInModule(course.getCourseID(), task.getTaskID())) return false;
+		}
+		
+		// Todo: rollback in case of failing of one of the methods above.
+	
+		return true;
+	}
+
+	/** Add new course to database. Does not check weather the course already exists in the DB. */
+	private boolean addCourse(Course course) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
@@ -139,7 +135,7 @@ public class DBHandler {
 			st.setString(2, course.getCourseName());
 			st.setString(3, course.getCourseMetadata());
 			st.setString(4, course.getCourseLogo());
-			st.setString(5, course.getCourseLogo());
+			st.setString(5, course.getCourseStyle());
 			int c = st.executeUpdate();
 			if (c > 0){
 				Log.write("DBHandler: course " +course+ " added to DB ");
@@ -157,6 +153,58 @@ public class DBHandler {
 		return false;
 	} 
 	
+	/** Add a default module to course. */
+	private boolean addModule(String courseID) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("insert into module (courseid, moduleid, moduletype) values (?,?,?)"); 
+			st.setString(1, courseID);
+			st.setString(2, DBHandler.DEFAULT_MODULE_ID);
+			st.setString(3, DBHandler.DEFAULT_MODULE_TYPE);
+			int c = st.executeUpdate();
+			if (c > 0){
+				Log.write("DBHandler: default module added to course " +courseID);
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to add module to course " +courseID);
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to add module to course "+courseID+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return false;
+	} 
+
+	/** Add a taskinmodule entry so that all tasks are linked with all courses. */
+	private boolean addTaskInModule(String courseID, String taskID) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("insert into taskinmodule (courseid, moduleid, taskid, seqno, numberoftries) " +
+									   "values (?,?,?,common_seq.nextval,999999)"); 
+			st.setString(1, courseID);
+			st.setString(2, DBHandler.DEFAULT_MODULE_ID);
+			st.setString(3, taskID);
+			int c = st.executeUpdate();
+			if (c > 0){
+				Log.write("DBHandler: taskinmodule added: course=" +courseID+", task="+taskID);
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to add taskinmodule: course=" +courseID+", task="+taskID);
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to add taskinmodule: course=" +courseID+", task="+taskID+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return false;
+	} 
 	
 	/** Return all tasks */
 	public LinkedList<Task> getTasks() throws SQLException{
