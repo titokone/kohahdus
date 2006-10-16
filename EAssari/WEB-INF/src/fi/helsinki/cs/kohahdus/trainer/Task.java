@@ -22,6 +22,7 @@ public class Task {
 	public static final String TYPE_FULL = "programming";
 	public static final String TYPE_FILL = "fill-in";
 	
+	private String language;
 	private String taskName;
 	private String author;
 	private String description;
@@ -62,6 +63,16 @@ public class Task {
 	
 	
 //SET-METHODS
+	/** Set the preferred language of this user. The language is either "EN" or "FI
+	 * @param lang either "FI" or "EN"
+	 */
+	public void setLanguage(String lang) {
+		if (lang == null || !(lang.equals("EN") || lang.equals("FI"))) {
+			throw new IllegalArgumentException("Language param "+lang);
+		}
+		this.language = lang;
+	}
+	
 	/** Set the name of this task */
 	public void setName(String name) {
 		this.taskName=name;
@@ -124,6 +135,11 @@ public class Task {
 	
 	
 //GET-METHODS
+	/** Return the language of this task */
+	public String getLanguage() {
+		return language;
+	}
+	
 	/** Return the name of this task */
 	public String getName() {
 		return taskName;
