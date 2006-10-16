@@ -41,6 +41,9 @@ public class Task {
 	public Task(String language, String taskname, String auth, String desc,
 			String modelanswer, String categ, String type,
 			String fillInPre, String fillInPost, boolean useModel) {
+		if (language == null || !(language.equals("EN") || language.equals("FI"))) {
+			throw new IllegalArgumentException("Language param "+language);
+		}
 		this.language=language;
 		this.taskName=taskname;
 		this.author=auth;
