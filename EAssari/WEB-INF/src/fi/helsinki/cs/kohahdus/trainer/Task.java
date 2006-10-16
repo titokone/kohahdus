@@ -27,6 +27,9 @@ public class Task {
 	private String fillInPreCode;
 	private String fillInPostCode;
 	private boolean useModel;
+
+	private boolean hasSucceeded;		// If the student has completed the task successfully
+	private int noOfTries;			// How many times student has tried to complete the task
 	
 	private Date modificationdate;
     
@@ -235,7 +238,6 @@ public class Task {
     private boolean shouldKnow;
     private boolean shouldEvaluate;
     private int cutoffvalue;
-    private int noOfTries;
     private String style;	
 	
 	
@@ -364,6 +366,14 @@ public class Task {
 
 	public void setNoOfTries(int noOfTries) {
 		this.noOfTries = noOfTries;
+	}
+
+	public boolean isHasSucceeded() {
+		return hasSucceeded;
+	}
+
+	public void setHasSucceeded(boolean hasSucceeded) {
+		this.hasSucceeded = hasSucceeded;
 	}    
     
 	

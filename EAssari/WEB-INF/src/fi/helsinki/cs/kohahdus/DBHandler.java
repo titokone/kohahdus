@@ -220,7 +220,8 @@ public class DBHandler {
 				task.setTaskID(rs.getString("taskid"));
 				task.setName(rs.getString("taskname"));
 				task.setAuthor(rs.getString("author"));
-				//task(rs.getDate("datecreate"));
+				// Todo: implement these fields
+				//task(rs.getDate("datecreate"));			
 				//task.setTasktype(rs.getString("tasktype"));
 				task.setMetadata(rs.getString("taskmetadata"));
 				task.setNoOfTries(rs.getInt("numberoftries_def"));
@@ -248,7 +249,14 @@ public class DBHandler {
 		PreparedStatement st = null;
 		LinkedList<Task> tasks = new LinkedList<Task>();
 		try {
-			st = conn.prepareStatement("select * from task");
+			st = conn.prepareStatement("select t.*, sm.hassucceeded" +
+									   "from studentmodel sm, taskidmodule tim, task t " +
+									   "where sm.sid=? and sm.courseid=? and sm.courseid=tim.courseid " +
+									   "and sm.moduleid=tim.moduleid and sm.seqno=tim.seqno " +
+									   "and tim.taskid=t.taskid and tim.moduleid=?");
+			st.setString(1, userID);
+			st.setString(2, courseID);
+			st.setString(3, DBHandler.DEFAULT_MODULE_ID);
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			while (rs.next()){
@@ -256,6 +264,7 @@ public class DBHandler {
 				task.setTaskID(rs.getString("taskid"));
 				task.setName(rs.getString("taskname"));
 				task.setAuthor(rs.getString("author"));
+				// Todo: implement these fields
 				//task(rs.getDate("datecreate"));
 				//task.setTasktype(rs.getString("tasktype"));
 				task.setMetadata(rs.getString("taskmetadata"));
@@ -265,12 +274,13 @@ public class DBHandler {
 				task.setShouldKnow("N".equals(rs.getString("shouldknowstudent_def")) ? false : true);
 				task.setShouldEvaluate("N".equals(rs.getString("shouldevaluate_def")) ? false : true);
 				task.setCutoffvalue(rs.getInt("cutoffvalue"));
+				task.setHasSucceeded("N".equals(rs.getString("hassucceded")) ? false : true);
 				tasks.add(task);
 			} 
-			Log.write("DBHandler: Fetched " +tasks.size() + " tasks from DB.");
+			Log.write("DBHandler: Fetched " +tasks.size() + " tasks with course="+courseID+ ", user="+userID);
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to fetch tasks from DB. " +e);
+			Log.write("DBHandler: Failed to fetch tasks with course="+courseID+ ", user="+userID+". " +e);
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
