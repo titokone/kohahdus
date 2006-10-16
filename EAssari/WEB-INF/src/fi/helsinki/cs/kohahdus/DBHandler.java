@@ -35,10 +35,7 @@ public class DBHandler {
     
    
 	private DBHandler(){
-		init();		
-		if (instance == null) {
-			instance = new DBHandler();
-		}		
+		init();	
 	}
 	
 	public static DBHandler getInstance(){
