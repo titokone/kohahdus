@@ -21,6 +21,8 @@ public class Task {
 	private String taskName;
 	private String author;
 	private String description;
+	private String pinput;
+	private String sinput;
 	private String modelAnswer;
 	private String category;
 	private String taskType;
@@ -38,12 +40,16 @@ public class Task {
 	/** Creates a new instance of Task */
 	public Task(){
 		this.modificationdate=new Date();
+		this.hasSucceeded=false;
+		this.noOfTries=0;
 	}
 	
 	/** Creates a new instance of Task */
 	public Task(String language, String taskname, String auth, String desc,
+			String pinput, String sinput,
 			String modelanswer, String categ, String type,
-			String fillInPre, String fillInPost, boolean useModel) {
+			String fillInPre, String fillInPost, boolean useModel,
+			boolean succeed, int tries) {
 		if (language == null || !(language.equals("EN") || language.equals("FI"))) {
 			throw new IllegalArgumentException("Language param "+language);
 		}
@@ -51,6 +57,8 @@ public class Task {
 		this.taskName=taskname;
 		this.author=auth;
 		this.description=desc;
+		this.pinput=pinput;
+		this.sinput=sinput;
 		this.modelAnswer=modelanswer;
 		this.category=categ;
 		if (!(type.equalsIgnoreCase(TYPE_FULL) || type.equalsIgnoreCase(TYPE_FILL))) {
@@ -61,6 +69,8 @@ public class Task {
 		this.fillInPostCode=fillInPost;
 		this.useModel=useModel;
 		this.modificationdate=new Date();
+		this.hasSucceeded=succeed;
+		this.noOfTries=tries;
 	}
 	
 	
@@ -89,6 +99,16 @@ public class Task {
 	/** Set description (tehtävänanto) of this task */
 	public void setDescription(String desc) {
 		this.description=desc;
+	}
+	
+	/** Set the public input as String of this task */
+	public void setPublicInput(String input) {
+		this.pinput=input;
+	}
+	
+	/** Set the secret input as String of this task */
+	public void setSecretInput(String input) {
+		this.sinput=input;
 	}
 	
 	/** Set model answer code */
@@ -125,6 +145,11 @@ public class Task {
 			this.taskType=TYPE_FILL;
 	}
 	
+	/** Sets number of tries for student */
+	public void setNoOfTries(int noOfTries) {
+		this.noOfTries = noOfTries;
+	}
+	
 	/** Set the validation method of this task */
 	public void setValidateByModel(boolean useModel){
 		this.useModel=useModel;
@@ -134,6 +159,12 @@ public class Task {
 	public void setModificationDate() {
 		this.modificationdate=new Date();  //sets the current date and time
 	}
+	
+	/** Set the hasSucceeded true or false depending the student has passed the task */
+	public void setHasSucceeded(boolean hasSucceeded) {
+		this.hasSucceeded = hasSucceeded;
+	}    
+    
 	
 	
 //GET-METHODS
@@ -155,6 +186,16 @@ public class Task {
 	/** Return the description (tehtävänanto) of this task */
 	public String getDescription() {
 		return description;
+	}
+	
+	/** Return the public input as String of this task */
+	public String getPublicInput() {
+		return pinput;
+	}
+	
+	/** Return the secret input as String of this task */
+	public String getSecretInput() {
+		return sinput;
 	}
 	
 	/** Return code of the model answer provided by teacher */
@@ -197,9 +238,19 @@ public class Task {
 		return fillInPostCode;
 	}
 	
+	/** Return the number of tries student has tried to make this task */
+	public int getNoOfTries() {
+		return noOfTries;
+	}
+	
 	/** Return true if this is a fill-in task */
 	public boolean isFillInTask() {
 		return taskType==TYPE_FILL;
+	}
+	
+	/** Return true if this is a programming task */
+	public boolean isProgrammingTask() {
+		return taskType==TYPE_FULL;
 	}
 
 	/** Return true if this task is to be validated by comparing results of the student's answer
@@ -208,10 +259,18 @@ public class Task {
 		return useModel;
 	}
 	
+
+	
 	/** Return the date and time this task was last modified */
 	public Date getModificationDate() {
 		return modificationdate;
 	}
+	
+	/** Return true if student has made the task, false if she/he hasn't  */
+	public boolean isHasSucceeded() {
+		return hasSucceeded;
+	}
+	
 	
 //OTHER METHODS
 	/** Returns String of the date and time */
@@ -219,7 +278,8 @@ public class Task {
 		return modificationdate.toString();
 	}
 	
-	
+
+
 
 	
 	
@@ -360,22 +420,7 @@ public class Task {
 		this.metadata = metadata;
 	}
 
-	public int getNoOfTries() {
-		return noOfTries;
-	}
 
-	public void setNoOfTries(int noOfTries) {
-		this.noOfTries = noOfTries;
-	}
-
-	public boolean isHasSucceeded() {
-		return hasSucceeded;
-	}
-
-	public void setHasSucceeded(boolean hasSucceeded) {
-		this.hasSucceeded = hasSucceeded;
-	}    
-    
 	
 	
 

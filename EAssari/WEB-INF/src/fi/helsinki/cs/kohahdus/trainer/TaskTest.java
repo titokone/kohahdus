@@ -3,24 +3,19 @@ package fi.helsinki.cs.kohahdus.trainer;
 import junit.framework.TestCase;
 
 public class TaskTest extends TestCase {
-	private Task taski;
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		taski=new Task();
+	}
+
+	protected void tearDown() throws Exception {
+		super.tearDown();
 	}
 
 	/*
 	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.Task()'
 	 */
 	public void testTask() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.Task(String, String, String, String, String, String, String, String, boolean)'
-	 */
-	public void testTaskStringStringStringStringStringStringStringStringBoolean() {
 
 	}
 
@@ -95,6 +90,13 @@ public class TaskTest extends TestCase {
 	}
 
 	/*
+	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.setNoOfTries(int)'
+	 */
+	public void testSetNoOfTries() {
+
+	}
+
+	/*
 	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.setValidateByModel(boolean)'
 	 */
 	public void testSetValidateByModel() {
@@ -109,86 +111,9 @@ public class TaskTest extends TestCase {
 	}
 
 	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getLanguage()'
+	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.setHasSucceeded(boolean)'
 	 */
-	public void testGetLanguage() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getName()'
-	 */
-	public void testGetName() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getAuthor()'
-	 */
-	public void testGetAuthor() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getDescription()'
-	 */
-	public void testGetDescription() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getModelAnswer()'
-	 */
-	public void testGetModelAnswer() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getCategory()'
-	 */
-	public void testGetCategory() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getTitoTaskType()'
-	 */
-	public void testGetTitoTaskType() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getFillInPreCode()'
-	 */
-	public void testGetFillInPreCode() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getFillInPostCode()'
-	 */
-	public void testGetFillInPostCode() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.isFillInTask()'
-	 */
-	public void testIsFillInTask() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.isValidateByModel()'
-	 */
-	public void testIsValidateByModel() {
-
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getModificationDate()'
-	 */
-	public void testGetModificationDate() {
+	public void testSetHasSucceeded() {
 
 	}
 
@@ -196,7 +121,6 @@ public class TaskTest extends TestCase {
 	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getDateAsString()'
 	 */
 	public void testGetDateAsString() {
-		System.out.println(taski.getDateAsString());
 
 	}
 
