@@ -651,6 +651,35 @@ public class DBHandler {
 		return criterions;
 	}	
 	
+	/** Return the criteria of a task in a map */
+	public Map<String,Criterion> getCriteriaMap(Task task) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		HashMap<String,Criterion> criterions = new HashMap<String,Criterion>();
+		try {
+			st = conn.prepareStatement("select * from attributevalues " +
+									   "where objecttype=? and objectid=? and language=?");
+			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
+			st.setString(2, task.getTaskID());
+			st.setString(3, task.getLanguage());
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			while (rs.next()){
+				Criterion c = Criterion.deserializeFromXML(rs.getString("attributevalue"));
+				criterions.put(c.getID(), c);
+			} 
+			Log.write("DBHandler: Fetched " +criterions.size() + " criterions with task="+task.getName()+ ", taskid="+task.getTaskID());
+			rs.close();
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to fetch criterions with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return criterions;
+	}	
+	
 }
 
 
