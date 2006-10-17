@@ -94,8 +94,9 @@ public class DBHandler {
 				course.setCourseLogo(rs.getString("courselogo"));
 				course.setCourseStyle(rs.getString("coursestyle"));
 				courses.add(course);
-			} 
+			}
 			Log.write("DBHandler: Fetched " +courses.size() + " courses from DB.");
+			rs.close();
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to fetch courses from DB. " +e);
@@ -146,8 +147,10 @@ public class DBHandler {
 				if (rs.next()){
 					course.setCourseID(rs.getString("courseid"));
 					Log.write("DBHandler: course " +course+ " added to DB ");
+					rs.close();
 					return true;
 				}
+				rs.close();
 			}
 			Log.write("DBHandler: Failed to add course " +course);
 			
@@ -240,6 +243,7 @@ public class DBHandler {
 				tasks.add(task);
 			} 
 			Log.write("DBHandler: Fetched " +tasks.size() + " tasks from DB.");
+			rs.close();			
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to fetch tasks from DB. " +e);
@@ -285,6 +289,7 @@ public class DBHandler {
 				tasks.add(task);
 			} 
 			Log.write("DBHandler: Fetched " +tasks.size() + " tasks with course="+courseID+ ", user="+userID);
+			rs.close();
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to fetch tasks with course="+courseID+ ", user="+userID+". " +e);
@@ -296,8 +301,40 @@ public class DBHandler {
 	}
 	
 	/** Return task identified by taskID */
-	public Task getTask(String taskID) {
-		return null;
+	public Task getTask(String taskID) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		Task task = null;
+		try {
+			st = conn.prepareStatement("select * from task where taskid=?");
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			if (rs.next()){
+				task = new Task();
+				task.setTaskID(taskID);
+				task.setName(rs.getString("taskname"));
+				task.setAuthor(rs.getString("author"));
+				// Todo: implement these fields
+				//task(rs.getDate("datecreate"));			
+				//task.setTasktype(rs.getString("tasktype"));
+				task.setMetadata(rs.getString("taskmetadata"));
+				task.setNoOfTries(rs.getInt("numberoftries_def"));
+				task.setShouldStore("N".equals(rs.getString("shouldstoreanswer_def")) ? false : true);
+				task.setShouldRegister("N".equals(rs.getString("shouldregistertry_def")) ? false : true);
+				task.setShouldKnow("N".equals(rs.getString("shouldknowstudent_def")) ? false : true);
+				task.setShouldEvaluate("N".equals(rs.getString("shouldevaluate_def")) ? false : true);
+				task.setCutoffvalue(rs.getInt("cutoffvalue"));
+				Log.write("DBHandler: Fetched " +task.getName() + " from DB.");
+			} 
+			rs.close();
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to fetch tasks from DB. " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return task;
 	}
 
 	/** Adds a new task to task database. The insert will affect all courses. This operation
@@ -392,6 +429,7 @@ public class DBHandler {
 			} else {
 				Log.write("DBHandler: user not found with " +userID+ "/" +password);
 			}
+			rs.close();			
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to add user " +userID+ ". " +e);
@@ -426,6 +464,7 @@ public class DBHandler {
 			} else {
 				Log.write("DBHandler: user not found with " +userID);
 			}
+			rs.close();
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to get user "+userID+". " +e);
@@ -601,6 +640,7 @@ public class DBHandler {
 				criterions.add(Criterion.deserializeFromXML(rs.getString("attributevalue")));
 			} 
 			Log.write("DBHandler: Fetched " +criterions.size() + " criterions with task="+task.getName()+ ", taskid="+task.getTaskID());
+			rs.close();
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to fetch criterions with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
