@@ -20,7 +20,7 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Create Task</title>
-<script language="javascript" type="text/javascript" src="visibilityFunctions.js"></script>
+<script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
 <script language="Javascript">
 
 var variableCounter = 1;
