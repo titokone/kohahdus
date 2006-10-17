@@ -2,6 +2,8 @@ package fi.helsinki.cs.kohahdus.criteria;
 
 import java.util.*;
 
+import fi.helsinki.cs.kohahdus.trainer.Task;
+
 /** Copy-paste koodauksella aikaansaatu template-teht‰v‰n luonti h‰ss‰kk‰.
  * Kriteerit on tehty, task-ilmentym‰t pit‰isi viel‰ v‰‰nt‰‰. Palautteet 
  * pit‰‰ tietysti viel‰ hioa, n‰m‰ kelpaavat vain testaukseen. */
@@ -65,6 +67,27 @@ public class TaskMaker {
 		
 		
 		// Tehd‰‰n task-ilmentym‰t:
+		Task et = new Task("EN_TEMPLATE");
+		et.setFailFeedBack("You suck");
+		et.setPassFeedBack("You go girl!");
+		et.setTasktype(Task.TYPE_FULL); // oletuksena vaikka n‰in
+		et.setCourseID();				// Ja mit‰s ***tua t‰h‰n voi laittaa?
+		// Tarviiko n‰it‰? Jos tarvii niin samat suomi-versioon:
+		et.setCutoffvalue(100);
+		et.setShouldEvaluate();
+		et.setShouldKnow();
+		et.setShouldRegister();
+		et.setShouldStore();
+		
+
+		Task ft = new Task("FI_TEMPLATE");
+		ft.setFailFeedBack("EVO");
+		ft.setPassFeedBack("Teht‰v‰ ratkaistu hyv‰ksytysti");
+		ft.setCutoffvalue(100);
+		et.setTasktype(Task.TYPE_FULL); // oletuksena vaikka n‰in
+		et.setCourseID();				// Ja mit‰s ***tua t‰h‰n voi laittaa?
+
+		
 		
 		// Vied‰‰n tietokantaan:
 		
