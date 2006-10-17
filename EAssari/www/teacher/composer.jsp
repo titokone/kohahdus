@@ -362,6 +362,30 @@ function instructionRequirementsIntoText() {
 		<br><br>
 	</div>
 
+	<% 
+		Map<String, Criterion> criteria = DBHandler.getInstance().getCriteriaMap(task);	
+		if (!criteria.isEmpty()) pageContext.setAttribute("criteria", criteria);
+	%>
+	<c:set var="pubR0" value="${criteria["PUBREG0"]}"/>
+	<c:set var="pubR1" value="${criteria["PUBREG1"]}"/>
+	<c:set var="pubR2" value="${criteria["PUBREG2"]}"/>
+	<c:set var="pubR3" value="${criteria["PUBREG3"]}"/>
+	<c:set var="pubR4" value="${criteria["PUBREG4"]}"/>
+	<c:set var="pubR5" value="${criteria["PUBREG5"]}"/>
+	<c:set var="pubR6" value="${criteria["PUBREG6"]}"/>
+	<c:set var="pubR7" value="${criteria["PUBREG7"]}"/>
+	<c:set var="secR0" value="${criteria["PUBREG0"]}"/>
+	<c:set var="secR1" value="${criteria["PUBREG1"]}"/>
+	<c:set var="secR2" value="${criteria["PUBREG2"]}"/>
+	<c:set var="secR3" value="${criteria["PUBREG3"]}"/>
+	<c:set var="secR4" value="${criteria["PUBREG4"]}"/>
+	<c:set var="secR5" value="${criteria["PUBREG5"]}"/>
+	<c:set var="secR6" value="${criteria["PUBREG6"]}"/>
+	<c:set var="secR7" value="${criteria["PUBREG7"]}"/>
+
+
+
+
 	<table border="1" cellpadding="3" cellspacing="0">
 		<tr>
 			<td align="center" colspan="2"><h2>Criteria</h2></td>
@@ -383,7 +407,7 @@ function instructionRequirementsIntoText() {
 						<td><p>Value</p></td>
 						<td><p>Feedback if correct</p></td>
 						<td><p>Feedback if wrong</p></td>
-					</tr>
+					</tr>				
 					<tr>
 						<td><input type="checkbox" name="r0_checked"></td>
 						<td>R0</td>
@@ -396,7 +420,7 @@ function instructionRequirementsIntoText() {
 								<option>></option>
 							</select>
 						</td>
-						<td><input name="r0_value_public" type="text" size="4"></td>
+						<td><input name="r0_value_public" type="text" size="4" value="<c:out value="${pubReg0.acceptanceTestValue}"/>"></td>
 						<td><textarea name="r0_correct_feedback_public" cols="20" rows="4"></textarea></td>
 						<td><textarea name="r0_wrong_feedback_public" cols="20" rows="4"></textarea></td>
 						<td><input name="r0_value_secret" type="text" size="4"></td>
