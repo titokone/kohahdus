@@ -50,10 +50,10 @@ public class Task {
 			String modelanswer, String categ, String type,
 			String fillInPre, String fillInPost, boolean useModel,
 			boolean succeed, int tries) {
-		if (language == null || !(language.equals("EN") || language.equals("FI"))) {
+		if (language == null || !(language.equalsIgnoreCase("EN") || language.equalsIgnoreCase("FI"))) {
 			throw new IllegalArgumentException("Language param "+language);
 		}
-		this.language=language;
+		this.language=language.toUpperCase();
 		this.taskName=taskname;
 		this.author=auth;
 		this.description=desc;
@@ -79,10 +79,10 @@ public class Task {
 	 * @param lang either "FI" or "EN"
 	 */
 	public void setLanguage(String lang) {
-		if (lang == null || !(lang.equals("EN") || lang.equals("FI"))) {
+		if (lang == null || !(lang.equalsIgnoreCase("EN") || lang.equalsIgnoreCase("FI"))) {
 			throw new IllegalArgumentException("Language param "+lang);
 		}
-		this.language = lang;
+		this.language = lang.toUpperCase();
 	}
 	
 	/** Set the name of this task */
@@ -126,16 +126,16 @@ public class Task {
 		if (type == null || !(type.equalsIgnoreCase(TYPE_FULL) || type.equalsIgnoreCase(TYPE_FILL))) {
 			throw new IllegalArgumentException("Given task type "+type+" not valid");
 		}
-		this.taskType=type;
+		this.taskType=type.toLowerCase();
 	}
 	
 	/** Set the code that is prepended before student's code in a fill-in task */
-	public void SetFillInPreCode(String code) {
+	public void setFillInPreCode(String code) {
 		this.fillInPreCode=code;
 	}
 	
 	/** Set the code that is appended to student's code in a fill-in task */
-	public void SetFillInPostCode(String code) {
+	public void setFillInPostCode(String code) {
 		this.fillInPostCode=code;
 	}
 	
@@ -147,6 +147,9 @@ public class Task {
 	
 	/** Sets number of tries for student */
 	public void setNoOfTries(int noOfTries) {
+		if (noOfTries<0) {
+			throw new IllegalArgumentException("Given number of tries "+noOfTries+" not valid");
+		}
 		this.noOfTries = noOfTries;
 	}
 	

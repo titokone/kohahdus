@@ -2,6 +2,7 @@ package fi.helsinki.cs.kohahdus.trainer;
 
 import junit.framework.TestCase;
 
+//3 runs, 0 errors, 0 failures
 public class CourseTest extends TestCase {
 	private String expected;
 	private String result;

@@ -2,6 +2,7 @@ package fi.helsinki.cs.kohahdus.trainer;
 
 import junit.framework.TestCase;
 
+//Should run 14 tests, 3 intentional errors, 0 failures
 public class UserTest extends TestCase {
 	private User testuser;
 	private String expected;
