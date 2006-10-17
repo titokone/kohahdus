@@ -627,7 +627,7 @@ public class DBHandler {
 	public LinkedList<Criterion> getCriteria(Task task) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
-		LinkedList<Criterion> criterions = new LinkedList<Criterion>();
+		LinkedList<Criterion> criteria = new LinkedList<Criterion>();
 		try {
 			st = conn.prepareStatement("select * from attributevalues " +
 									   "where objecttype=? and objectid=? and language=?");
@@ -637,25 +637,25 @@ public class DBHandler {
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			while (rs.next()){
-				criterions.add(Criterion.deserializeFromXML(rs.getString("attributevalue")));
+				criteria.add(Criterion.deserializeFromXML(rs.getString("attributevalue")));
 			} 
-			Log.write("DBHandler: Fetched " +criterions.size() + " criterions with task="+task.getName()+ ", taskid="+task.getTaskID());
+			Log.write("DBHandler: Fetched " +criteria.size() + " criteria with task="+task.getName()+ ", taskid="+task.getTaskID());
 			rs.close();
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to fetch criterions with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
+			Log.write("DBHandler: Failed to fetch criteria with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
 		}	
-		return criterions;
+		return criteria;
 	}	
 	
 	/** Return the criteria of a task in a map */
 	public Map<String,Criterion> getCriteriaMap(Task task) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
-		HashMap<String,Criterion> criterions = new HashMap<String,Criterion>();
+		HashMap<String,Criterion> criteria = new HashMap<String,Criterion>();
 		try {
 			st = conn.prepareStatement("select * from attributevalues " +
 									   "where objecttype=? and objectid=? and language=?");
@@ -666,18 +666,18 @@ public class DBHandler {
 			ResultSet rs = st.getResultSet();
 			while (rs.next()){
 				Criterion c = Criterion.deserializeFromXML(rs.getString("attributevalue"));
-				criterions.put(c.getID(), c);
+				criteria.put(c.getID(), c);
 			} 
-			Log.write("DBHandler: Fetched " +criterions.size() + " criterions with task="+task.getName()+ ", taskid="+task.getTaskID());
+			Log.write("DBHandler: Fetched " +criteria.size() + " criteria with task="+task.getName()+ ", taskid="+task.getTaskID());
 			rs.close();
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to fetch criterions with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
+			Log.write("DBHandler: Failed to fetch criteria with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
-		}	
-		return criterions;
+		}
+		return criteria;
 	}	
 	
 }
