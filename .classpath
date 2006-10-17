@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/kxml2.jar"/>
 	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/kxml2-min.jar"/>
 	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/ojdbc14.jar"/>
+	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/junit-4.1-src.jar"/>
 	<classpathentry kind="output" path="EAssari/WEB-INF/classes"/>
 </classpath>
