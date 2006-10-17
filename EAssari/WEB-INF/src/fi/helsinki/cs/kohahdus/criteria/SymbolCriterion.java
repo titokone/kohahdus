@@ -2,7 +2,7 @@ package fi.helsinki.cs.kohahdus.criteria;
 
 /** Concrete criterion class for symbol values */  
 public class SymbolCriterion extends VariableCriterion {
-	private String symbolName;
+	private String symbolName = "";
 	
 	/** Empty constructor for deserialization */
 	protected SymbolCriterion() { }
