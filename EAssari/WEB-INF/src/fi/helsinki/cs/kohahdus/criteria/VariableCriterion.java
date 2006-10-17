@@ -56,7 +56,7 @@ public abstract class VariableCriterion extends Criterion {
 		return passes;
 	}	
 	
-	@Override public String getAcceptanceTest() {
+	@Override public String getAcceptanceTestValue() {
 		String value = "";
 		if (comparisonValue != UNDEFINED) {
 			value = Long.toString(comparisonValue);
@@ -66,7 +66,7 @@ public abstract class VariableCriterion extends Criterion {
 
 	/** Set the value the student's answer will be compared to when using
 	 * constant test (the value will be ignore when using model answer). */
-	@Override public void setAcceptanceTest(String test) {
+	@Override public void setAcceptanceTestValue(String test) {
 		try {
 			comparisonValue = Integer.parseInt(test);
 		} catch (Exception e) {} { // NumberFormatException, NullPointerException

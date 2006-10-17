@@ -26,7 +26,7 @@ public abstract class MeasuredCriterion extends Criterion {
 		return getCriterionValue(studentAnswer) <= passingLimit;
 	}
 	
-	@Override public String getAcceptanceTest() {
+	@Override public String getAcceptanceTestValue() {
 		String value = "";
 		if (passingLimit != UNDEFINED) {
 			value = Long.toString(passingLimit);
@@ -35,7 +35,7 @@ public abstract class MeasuredCriterion extends Criterion {
 	}
 
 	/** Attempt setting the passing limit (failure sets limit UNDEFINED) */
-	@Override public void setAcceptanceTest(String test) {
+	@Override public void setAcceptanceTestValue(String test) {
 		try {
 			passingLimit = Integer.parseInt(test);
 		} catch (Exception e) {} { // NumberFormatException, NullPointerException
@@ -53,7 +53,7 @@ public abstract class MeasuredCriterion extends Criterion {
 		return getCriterionValue(studentAnswer) <= qualityLimit;
 	}
 
-	@Override public String getQualityTest() {
+	@Override public String getQualityTestValue() {
 		String value = "";
 		if (qualityLimit != UNDEFINED) {
 			value = Long.toString(qualityLimit);
@@ -62,7 +62,7 @@ public abstract class MeasuredCriterion extends Criterion {
 	}	
 
 	/** Attempt setting the quality limit (failure sets limit UNDEFINED) */
-	@Override public void setQualityTest(String test) {
+	@Override public void setQualityTestValue(String test) {
 		try {
 			qualityLimit = Integer.parseInt(test);
 		} catch (Exception e) {} { // NumberFormatException, NullPointerException

@@ -18,11 +18,11 @@ public abstract class InstructionCriterion extends Criterion {
 		return !opcodes.equals("");
 	}
 
-	@Override public String getAcceptanceTest() {
+	@Override public String getAcceptanceTestValue() {
 		return opcodes;
 	}
 	
-	@Override public void setAcceptanceTest(String test) {
+	@Override public void setAcceptanceTestValue(String test) {
 	}
 
 

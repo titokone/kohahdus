@@ -132,6 +132,14 @@ public abstract class Criterion {
 		}
 	}
 	
+	public String getComparisonOperator() {
+		return "";
+	}
+	
+	public void setComparisonOperator(String operator) {
+		
+	}
+	
 	
 	/** Return true if this criterion has test for evaluating failure/success
 	 * of the student's answer. Return of false means this criterion should
@@ -146,10 +154,10 @@ public abstract class Criterion {
 	public abstract boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer);
 	
 	/** Return the value the student's answer will be compared to */
-	public abstract String getAcceptanceTest();
+	public abstract String getAcceptanceTestValue();
 	
 	/** Set the value the student's answer will be compared to. */
-	public abstract void setAcceptanceTest(String test);
+	public abstract void setAcceptanceTestValue(String test);
 
 	
 	/** Return true if this criterion has test for evaluating the quality
@@ -171,14 +179,14 @@ public abstract class Criterion {
 	/** Return the value the student's answer will be compared to.
 	 *  
 	 * Criterion class provides a default implementation that always returns an empty string. */
-	public String getQualityTest() {
+	public String getQualityTestValue() {
 		return "";
 	}
 
 	/** Set the value the student's answer will be compared to. 
 	 * 
 	 * Criterion class provides a default implementation that is a no-op. */
-	public void setQualityTest(String test) {
+	public void setQualityTestValue(String test) {
 	}
 	
 	

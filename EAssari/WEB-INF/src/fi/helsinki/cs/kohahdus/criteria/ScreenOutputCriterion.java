@@ -20,11 +20,11 @@ public class ScreenOutputCriterion extends Criterion {
 		return expectedOutput.equals(studentAnswer.getScreenOutput());
 	}
 
-	@Override public String getAcceptanceTest() {
+	@Override public String getAcceptanceTestValue() {
 		return expectedOutput;
 	}
 
-	@Override public void setAcceptanceTest(String test) {
+	@Override public void setAcceptanceTestValue(String test) {
 		if (test == null) {		
 			expectedOutput = "";
 		} else {
