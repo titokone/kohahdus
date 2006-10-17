@@ -1,0 +1,14 @@
+\select@language {finnish}
+\contentsline {section}{\numberline {1}Johdanto}{1}
+\contentsline {section}{\numberline {2}Projektiorganisaatio}{1}
+\contentsline {section}{\numberline {3}Riskianalyysi}{2}
+\contentsline {subsection}{\numberline {3.1}Projektin riskit}{3}
+\contentsline {subsection}{\numberline {3.2}Tuotteen riskit}{4}
+\contentsline {subsection}{\numberline {3.3}Riskien hallinta}{4}
+\contentsline {section}{\numberline {4}Laitteisto- ja ohjelmistoymp\"arist\"on vaatimukset}{5}
+\contentsline {section}{\numberline {5}Koko- ja kustannusarviot}{5}
+\contentsline {subsection}{\numberline {5.1}Toimintopisteanalyysi}{6}
+\contentsline {section}{\numberline {6}Ty\"on ositus}{7}
+\contentsline {subsection}{\numberline {6.1}Projektin ositus kahteen sykliin}{9}
+\contentsline {section}{\numberline {7}Aikataulu}{9}
+\contentsline {section}{\numberline {8}Seuranta- ja raportointimenetelm\"at}{9}

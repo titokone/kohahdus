@@ -1,0 +1,48 @@
+Taro Morimoto
+
+#PVM		LUOKKA	TUNNIT	TEHTÄVÄ
+4.9.2006	KOKO	2	Palaveri ja siihen valmistautuminen
+4.9.2006	SUUN	0.5	Suunnittelua
+6.9.2006	TUTU	1	Aiheeseen tutustumista
+7.9.2006	TUTU	1	Aiheeseen tutustumista..
+8.9.2006	KOKO	2	Palaveri ja siihen valmistautuminen
+8.9.2006	SUUN	1	Suunnittelua
+8.9.2006	TUTU	1	Aiheeseen tutustumista
+11.9.2006	KOKO	2	Palaveri
+11.9.2006	PROJ	2	Projektisuunnitelmaa
+11.9.2006	KOKO	0.5	Palaveriin valmistautuminen
+13.9.2006	KOKO	0.5	Palaveriin valmistautuminen
+13.9.2006	PROJ	0.5	Projektisuunnitelman tekeminen
+13.9.2006	TUTU	1	eAssariin tutustuminen
+14.9.2006	KOKO	1.5	Palaveri
+14.9.2006	TUTU	1	eAssariin tutustuminen
+15.9.2006	TUTU	2	Aiheeseen tutustumista
+15.9.2006	VAAT	2	Käyttöliittymä suunnittelu
+15.9.2006	VAAT	2	Vaatimusmäärittelyn tekeminen
+18.9.2006	PROJ	5	Projektisuunnitelman tekeminen
+18.9.2006	KOKO	2	Seuranta palaveri
+18.9.2006	PROJ	0.5	Projektisuunnitelman tekeminen
+19.9.2006	KÄLI	3	Käyttöliittymä suunnittelu
+20.9.2006	KÄLI	4	Käyttöliittymä suunnittelu
+23.9.2006	VAAT	1	Vaatimusmäärittelyn lukeminen
+25.9.2006	KOKO	2	Seuranta palaveri
+26.9.2006	SUUN	2	Suunnittelun työstöä
+27.9.2006	KOKO	1	Vaatimusmäärittelyn esittely asiakkaalle
+28.9.2006	KOKO	2	Palveri ja suunnittelua
+29.9.2006	SUUN	5	Suunnittelun työstöä
+2.10.2006	PROJ	3	Projektisuunnitelman tekemistä
+2.10.2006	SUUN	1.5	Suunnittelun työstöä
+2.10.2006	KOKO	2	Seuranta palveri
+3.10.2006	SUUN	2	Suunnittelun työstöä
+4.10.2006	SUUN	3	Suunnittelun työstöä
+5.10.2006	KOKO	1	Palaveri
+5.10.2006	SUUN	2	Suunnittelun työstöä
+9.10.2006	KOKO	1	Seurantapalaveri
+9.10.2006	TOTE	2	Koodaamista
+10.10.2006	TOTE	2	Koodaamista
+11.10.2006	TOTE	3	Koodaamista
+16.10.2006	KOKO	1	Palaveri
+16.10.2006	TOTE	2	Koodaamista
+17.10.2006	TOTE	3	Koodaamista
+
+
