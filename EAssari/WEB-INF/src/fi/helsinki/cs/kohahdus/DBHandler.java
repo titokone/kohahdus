@@ -141,11 +141,15 @@ public class DBHandler {
 			st.setString(4, course.getCourseStyle());
 			int c = st.executeUpdate();
 			if (c > 0){
-				Log.write("DBHandler: course " +course+ " added to DB ");
-				return true;
-			} else {
-				Log.write("DBHandler: Failed to add course " +course);
+				st = conn.prepareStatement("select common_seq.curval as courseid from dual");
+				ResultSet rs = st.executeQuery();
+				if (rs.next()){
+					course.setCourseID(rs.getString("courseid"));
+					Log.write("DBHandler: course " +course+ " added to DB ");
+					return true;
+				}
 			}
+			Log.write("DBHandler: Failed to add course " +course);
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to create course "+course+". " +e);
