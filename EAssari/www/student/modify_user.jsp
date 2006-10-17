@@ -7,6 +7,9 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Edit Your Profile</title>
+<!-- // TODO
+If new password field isn't empty, check that the old password matches.
+-->
 
 <script language="Javascript">
 
@@ -16,6 +19,7 @@
 	
 		var form = document.modify_user_form;
 		var returnvalue = true;
+		var emailExp = /([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;	// name followed by @ followed by domain
 
 		// remove old error messages
 		document.getElementById("first_name_error_msg_space").innerHTML = '';
@@ -51,22 +55,25 @@
 			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your e-mail address.</b></font>';
 			returnvalue = false;
 		}
-
-		if(form.old_password.value == '') {
-			var elem = document.getElementById("old_password_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Enter old password</b></font>';
-			returnvalue = false;
-		}
-
-		if(form.new_password.value == '') {
+		
+		// old password given, but no new one chosen
+		if((form.old_password.value != '') && (form.new_password.value == '')) {
 			var elem = document.getElementById("new_password_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Give new password</b></font>';
+			elem.innerHTML = '<font color="#FF0000"><b>Please choose a new password.</b></font>';
 			returnvalue = false;
 		}
 
-		if(form.repeat_new_password.value == '') {
+		// new password chosen, but not repeated
+		if((form.new_password.value != '') && (form.repeat_new_password.value == '')) {
 			var elem = document.getElementById("repeat_new_password_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please repeat your chosen password.</b></font>';
+			elem.innerHTML = '<font color="#FF0000"><b>Please repeat your new password.</b></font>';
+			returnvalue = false;
+		}
+
+		// new password chosen, but old one not given
+		if(((form.new_password.value != '') || (form.repeat_new_password.value != '')) && (form.old_password.value == '')) {
+			var elem = document.getElementById("old_password_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your old password.</b></font>';
 			returnvalue = false;
 		}
 
@@ -77,6 +84,12 @@
 			returnvalue = false;
 		}
 
+		// e-mail address of wrong format
+		if((form.email.value != '') && (!emailExp.test(form.email.value))) {
+			var elem = document.getElementById("email_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Your e-mail address isn\'t of a valid format. A valid format would be e.g. user@cs.helsinki.fi</b></font>';
+			returnvalue = false;
+		}
 
 		// "password" and "repeat password" don't match and neither is empty
 		if((form.new_password.value != '') && (form.repeat_new_password.value != '') && (form.new_password.value != form.repeat_new_password.value)) {
@@ -127,8 +140,14 @@
 		<c:set target="${user}" property="socialSecurityNumber" value="${param.social_security_number}"/>
 	</c:if>
 
+	<c:if test="${not empty param.new_password}">
+		<c:set target="${user}" property="password" value="${param.new_password}"/>
+	</c:if>
 
 
+
+	<c:out value="${user.password}"/>	
+	<c:out value="${param.old_password}"/>
 	
 	Viedään kantaan:
 	<br>
@@ -189,6 +208,12 @@
                         <td id="last_name_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
+                        <td><b>E-mail: </b></td>
+                        <td><input type="text" name="email" value="<c:out value="${user.email}"/>"></td>
+                        <td id="email_error_msg_space">&nbsp;</td>
+                </tr>
+    
+                <tr>
                         <td><b>Student number* </b></td>
                         <td><input type="text" name="student_number" value="<c:out value="${user.studentNumber}"/>"> </td>
                         <td id="student_number_error_msg_space">&nbsp;</td>
@@ -201,15 +226,6 @@
                 <tr>
                         <td colspan="2"><small>* either student number or social security number is required</small></td>
                         <td>&nbsp;</td>
-                </tr>
-                <tr>
-                        <td colspan="2"><hr></td>
-                        <td>&nbsp;</td>
-                </tr>
-                <tr>
-                        <td><b>E-mail: </b></td>
-                        <td><input type="text" name="email" value="<c:out value="${user.email}"/>"></td>
-                        <td id="email_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td colspan="2"><hr></td>
