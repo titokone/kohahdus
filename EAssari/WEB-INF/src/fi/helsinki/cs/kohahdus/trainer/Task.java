@@ -17,6 +17,7 @@ public class Task {
 	public static final String TYPE_FULL = "programming";
 	public static final String TYPE_FILL = "fill-in";
 	
+	private String taskID;
 	private String language;
 	private String taskName;
 	private String author;
@@ -29,16 +30,33 @@ public class Task {
 	private String fillInPreCode;
 	private String fillInPostCode;
 	private boolean useModel;
-
+	
+	private String passFeedBack;
+	private String failFeedBack;
+	
 	private boolean hasSucceeded;		// If the student has completed the task successfully
 	private int noOfTries;			// How many times student has tried to complete the task
 	
 	private Date modificationdate;
     
 	
+	
+	
+	
+
+	
+	
 //CONSTRUCTORS
 	/** Creates a new instance of Task */
 	public Task(){
+		this.modificationdate=new Date();
+		this.hasSucceeded=false;
+		this.noOfTries=0;
+	}
+	
+	/** Creates a new instance of Task*/
+	public Task(String taskID){
+		this.taskID=taskID;
 		this.modificationdate=new Date();
 		this.hasSucceeded=false;
 		this.noOfTries=0;
@@ -49,7 +67,7 @@ public class Task {
 			String pinput, String sinput,
 			String modelanswer, String categ, String type,
 			String fillInPre, String fillInPost, boolean useModel,
-			boolean succeed, int tries) {
+			boolean succeed, int tries, String passFeedBack, String failFeedBack) {
 		if (language == null || !(language.equalsIgnoreCase("EN") || language.equalsIgnoreCase("FI"))) {
 			throw new IllegalArgumentException("Language param "+language);
 		}
@@ -71,10 +89,17 @@ public class Task {
 		this.modificationdate=new Date();
 		this.hasSucceeded=succeed;
 		this.noOfTries=tries;
+		this.passFeedBack=passFeedBack;
+		this.failFeedBack=failFeedBack;
 	}
 	
 	
 //SET-METHODS
+	/** Set ID for this task */
+	public void setTaskID(String taskID) {
+		this.taskID = taskID;
+	}
+	
 	/** Set the preferred language of this user. The language is either "EN" or "FI
 	 * @param lang either "FI" or "EN"
 	 */
@@ -168,9 +193,23 @@ public class Task {
 		this.hasSucceeded = hasSucceeded;
 	}    
     
+	/** Return feedback if student passes the task */
+	public void setPassFeedBack(String pass) {
+		this.passFeedBack=pass;
+	}
+	
+	/** Return feedback if student fails the task */
+	public void setFailFeedBack(String fail) {
+		this.failFeedBack=fail;
+	}
 	
 	
 //GET-METHODS
+	/** Return id of this task */
+	public String getTaskID() {
+		return taskID;
+	}
+	
 	/** Return the language of this task */
 	public String getLanguage() {
 		return language;
@@ -274,6 +313,16 @@ public class Task {
 		return hasSucceeded;
 	}
 	
+	/** Return feedback if student passes the task */
+	public String getPassFeedBack() {
+		return passFeedBack;
+	}
+	
+	/** Return feedback if student fails the task */
+	public String getFailFeedBack() {
+		return failFeedBack;
+	}
+	
 	
 //OTHER METHODS
 	/** Returns String of the date and time */
@@ -288,7 +337,7 @@ public class Task {
 	
 	
 //	 **** NÄMÄ AINAKIN OVAT VANHASTA EASSARISTA *****	
-	private String taskID;
+	
     private String courseID;
     private String moduleID;
     private String tasktypeID;
@@ -399,13 +448,7 @@ public class Task {
 		this.shouldStore = shouldStore;
 	}
 
-	public String getTaskID() {
-		return taskID;
-	}
-
-	public void setTaskID(String taskID) {
-		this.taskID = taskID;
-	}
+	
 
 	public void setCutoffvalue(int cutoffvalue) {
 		this.cutoffvalue = cutoffvalue;

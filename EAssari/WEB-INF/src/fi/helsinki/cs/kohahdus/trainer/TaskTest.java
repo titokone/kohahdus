@@ -1,6 +1,7 @@
 package fi.helsinki.cs.kohahdus.trainer;
 
 import junit.framework.TestCase;
+import java.util.*;
 
 public class TaskTest extends TestCase {
 	private Task progtask;
@@ -14,12 +15,12 @@ public class TaskTest extends TestCase {
 				"1,4", "2,8",
 				"R1=5", "perustehtävät", "programming",
 				"", "", true,
-				false, 3);
+				false, 3, "Good, u made it", "Oh no!");
 		filltask=new Task("FI", "tehtävä2", "Hartsa", "Luo funktio",
 				"4,3,1", "2,7,4",
 				"", "täydennystehtävät", "fill-in",
 				"R3=R2", "ADD r1, =r2", false,
-				true, 4);
+				true, 4, "Hyvä, oikein meni!", "Ei näin.");
 	}
 
 	protected void tearDown() throws Exception {
@@ -36,12 +37,12 @@ public class TaskTest extends TestCase {
 				"1,4", "2,8",
 				"R1=5", "perustehtävät", "programming",
 				"", "", true,
-				false, 3);
+				false, 3, "Good, u made it", "Oh no!");
 		filltask=new Task("FI", "tehtävä2", "Hartsa", "Luo funktio",
 				"4,3,1", "2,7,4",
 				"", "täydennystehtävät", "fillaus",
 				"R3=R2", "ADD r1, =r2", false,
-				true, 4);
+				true, 4, "Hyvä, oikein meni!", "Ei näin.");
 	}
 
 	/*
@@ -310,28 +311,43 @@ public class TaskTest extends TestCase {
 	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.setValidateByModel(boolean)'
 	 */
 	public void testSetValidateByModel() {
+		progtask.setValidateByModel(true);
+		assert(progtask.isValidateByModel());
 		
+		progtask.setValidateByModel(false);
+		assert(!progtask.isValidateByModel());
 	}
 
 	/*
 	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.setModificationDate()'
 	 */
 	public void testSetModificationDate() {
-
+		Date old=progtask.getModificationDate();
+		progtask.setModificationDate();
+		Date new1=progtask.getModificationDate();
+		assert(old.compareTo(new1)<0);
+			
 	}
 
 	/*
 	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.setHasSucceeded(boolean)'
 	 */
 	public void testSetHasSucceeded() {
-
+		progtask.setHasSucceeded(true);
+		assert(progtask.isHasSucceeded());
+		
+		progtask.setHasSucceeded(false);
+		assert(!progtask.isHasSucceeded());
 	}
 
 	/*
 	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.Task.getDateAsString()'
 	 */
 	public void testGetDateAsString() {
-
+		Date exp=progtask.getModificationDate();
+		expected=exp.toString();
+		result=progtask.getDateAsString();
+		assertEquals(expected, result);
 	}
 
 }
