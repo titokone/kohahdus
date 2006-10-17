@@ -1,7 +1,7 @@
 package fi.helsinki.cs.kohahdus;
 
 import java.sql.*;
-import java.util.LinkedList;
+import java.util.*;
 
 import fi.helsinki.cs.kohahdus.trainer.*;
 import fi.helsinki.cs.kohahdus.criteria.*;
@@ -113,7 +113,11 @@ public class DBHandler {
 	*/
 	public synchronized boolean createCourse(Course course) throws SQLException {
 		if (!addCourse(course)) return false;
+		
+		// Add the default dummy module for the course
 		if (!addModule(course.getCourseID())) return false;
+		
+		// Links all tasks with the course
 		LinkedList<Task> tasks = getTasks();
 		for (Task task : tasks) {
 			if (!addTaskInModule(course.getCourseID(), task.getTaskID())) return false;
@@ -178,7 +182,7 @@ public class DBHandler {
 		return false;
 	} 
 
-	/** Add a taskinmodule entry so that all tasks are linked with all courses. */
+	/** Adds a taskinmodule entry so that the task is linked with the course. */
 	private boolean addTaskInModule(String courseID, String taskID) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
@@ -292,14 +296,56 @@ public class DBHandler {
 		return null;
 	}
 
-	/** Add new task to task database. The insert will affect all courses. This operation
-	 * will also create the criteria for the task */ 
-	public void createTask(Task task, Criterion[] criteria) {
+	/** Adds a new task to task database. The insert will affect all courses. This operation
+	 * also adds all the criteria for the task to database*/ 
+	public synchronized boolean createTask(Task task, List<Criterion> criteria) throws SQLException{
+		if (!addTask(task)) return false;
 		
+		// Link the new task with all existing courses 
+		LinkedList<Course> courses = getCourses();
+		for (Course c : courses){
+			if (!addTaskInModule(c.getCourseID(), task.getTaskID())) return false;
+		}
+		
+		// Add criterions to the db
+		for (Criterion c : criteria) {
+			if (!addCriterion(task, c)) return false;
+		}
+		
+		// Todo: rollback in case of failing of one of the methods above.
+	
+		return true;
 	}
 
 	/** Add task to Course */
-	private void addTask(Course c, Task task) {}
+	private boolean addTask(Task task) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("insert into task (taskid, taskname, author, datecreated, cutoffvalue) " +
+									   "values (?,?,?,sysdate,?)"); 
+			st.setString(1, task.getTaskID());
+			st.setString(2, task.getName());
+			st.setString(3, task.getAuthor());
+			st.setInt(4, task.getCutoffvalue());
+			// Todo: implement task type for the task
+			//st.setString(4, task.getTasktype());
+			int c = st.executeUpdate();
+			if (c > 0){
+				Log.write("DBHandler: Task added to DB: name=" +task.getName()+ ", id="+task.getTaskID());
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to add task to DB: name=" +task.getName()+ ", id="+task.getTaskID());
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to add task to DB: name=" +task.getName()+ ", id="+task.getTaskID()+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return true;
+	}
 	
 	/** Update existing task. The update will affect all courses This operation
 	 * will also update the criteria for the task */  
