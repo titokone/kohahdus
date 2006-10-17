@@ -76,7 +76,7 @@ public abstract class VariableCriterion extends Criterion {
 
 	
 	
-	public String getComparisonOperator() {
+	@Override public String getComparisonOperator() {
 		String operator = "==";		
 		switch (comparisonOperator) {
 			case COMPARE_EQ:   operator = "=="; break;
@@ -94,7 +94,7 @@ public abstract class VariableCriterion extends Criterion {
 	/** Set the comparison operator for this VariableCriterion. If an invalid
 	 * operator string is given, the default operator "==" is used.  
 	 * @param operator any of <code>"==", "!=", "&lt;=", "&gt;=", "&gt;", "&lt;"</code> */
-	public void setComparisonOperator(String operator) {
+	@Override public void setComparisonOperator(String operator) {
 		if (operator == null) {
 			this.comparisonOperator = COMPARE_EQ;
 		} else if (operator.equals("=")) {

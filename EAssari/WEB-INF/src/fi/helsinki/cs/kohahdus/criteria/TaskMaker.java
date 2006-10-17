@@ -87,7 +87,7 @@ public class TaskMaker {
 		
 	
 	
-	// <outputkriteerit>
+	// <käskykriteerit>
 	static Criterion createRequiredInstructionsCriterion_FI() {
 		RequiredInstructionsCriterion cr = new RequiredInstructionsCriterion("REQOPCODES", false);
 		cr.setFailureFeedback("Vastauksessa ei ole käytetty kaikkia vaadittuja käskyjä");
@@ -95,39 +95,128 @@ public class TaskMaker {
 	}	
 	static Criterion createRequiredInstructionsCriterion_EN() {
 		RequiredInstructionsCriterion cr = new RequiredInstructionsCriterion("REQOPCODES", false);
-		cr.setFailureFeedback("Your solution does not contain");
+		cr.setFailureFeedback("Your solution does not contain all required instructions");
 		return cr;		
 	}
 	static Criterion createForbiddenInstructionsCriterion_FI() {
 		ForbiddenInstructionsCriterion cr = new ForbiddenInstructionsCriterion("SECSYM1", false);
-		cr.setFailureFeedback("Symbolin [_] arvo oli väärin kun käytettiin vaihtoehtoista syötettä");
+		cr.setFailureFeedback("Vastauksessa on käytetty ainakin yhtä kiellettyä käskyä");
 		return cr;		
 	}	
 	static Criterion createForbiddenInstructionsCriterion_EN() {
 		ForbiddenInstructionsCriterion cr = new ForbiddenInstructionsCriterion("SECSYM1", false);
-		cr.setFailureFeedback("Symbol [_] value was incorrect when using alternate input");
+		cr.setFailureFeedback("Your solution contains forbidden instruction(s)");
 		return cr;		
 	}		
-	// </outputkriteerit>
-		
-	
-	
-	
-	
+	// </käskykriteerit>
 	
 		
-	// <kriteerit>
 	
-	// </kriteerit>
-	// <kriteerit>
+	// <tulostekriteerit>
+	static Criterion createScreenOutputCriterion_FI_pub() {
+		ScreenOutputCriterion cr = new ScreenOutputCriterion("PUBSCROUT", false);
+		cr.setAcceptanceFeedback("Ohjelman tuottama tuloste oli oikein");
+		cr.setFailureFeedback("Ohjelman tuottama tuloste poikkesi odotetusta");
+		return cr;		
+	}	
+	static Criterion createScreenOutputCriterion_EN_pub() {
+		ScreenOutputCriterion cr = new ScreenOutputCriterion("PUBSCROUT", false);
+		cr.setAcceptanceFeedback("Screen output produced by the program was correct");
+		cr.setFailureFeedback("Screen output produced by the program was incorrect");
+		return cr;		
+	}
+	static Criterion createScreenOutputCriterion_FI_sec() {
+		ScreenOutputCriterion cr = new ScreenOutputCriterion("SECSCROUT", true);
+		cr.setAcceptanceFeedback("Ohjelman tuottama tuloste oli oikein myös vaihtoehtoisella syötteellä");
+		cr.setFailureFeedback("Ohjelman tuottama tuloste poikkesi odotetusta kun käytettiin vaihtoehtoista syötettä");
+		return cr;		
+	}	
+	static Criterion createScreenOutputCriterion_EN_sec() {
+		ScreenOutputCriterion cr = new ScreenOutputCriterion("SECSCROUT", true);
+		cr.setAcceptanceFeedback("Screen output produced by the program was correct when using alternate input");
+		cr.setFailureFeedback("Screen output produced by the program was correct when using alternate input");
+		return cr;		
+	}
+	// </tulostekriteerit>
 	
-	// </kriteerit>
-	// <kriteerit>
+		
+	// <mittauskriteerit>
+	static Criterion createCodeSizeCriterion_FI() {
+		Criterion cr = new CodeSizeCriterion("CODESIZE", false);
+		cr.setHighQualityFeedback("Ohjelma on erittäin kompaktin kokoinen");
+		cr.setAcceptanceFeedback("Ohjelman koko täyttää vaatimukset [mutta voisi olla pienempikin]");
+		cr.setFailureFeedback("Ohjelma on liian suuri (sisältää liian monta käskyä)");
+		return cr;		
+	}	
+	static Criterion createCodeSizeCriterion_EN() {
+		Criterion cr = new CodeSizeCriterion("CODESIZE", false);
+		cr.setHighQualityFeedback("Vittu keksikää tekin jotain palautteita");
+		cr.setAcceptanceFeedback("...");
+		cr.setFailureFeedback("...");
+		return cr;		
+	}
 	
-	// </kriteerit>
-	// <kriteerit>
+	static Criterion createDataAreaSizeCriterion_FI() {
+		Criterion cr = new DataAreaSizeCriterion("DATASIZE", false);
+		cr.setHighQualityFeedback("...");
+		cr.setAcceptanceFeedback("...");
+		cr.setFailureFeedback("....");
+		return cr;		
+	}	
+	static Criterion createDataAreaSizeCriterion_EN() {
+		Criterion cr = new DataAreaSizeCriterion("DATASIZE", false);
+		cr.setHighQualityFeedback("...");
+		cr.setAcceptanceFeedback("...");
+		cr.setFailureFeedback("...");
+		return cr;		
+	}
 	
-	// </kriteerit>
+	static Criterion createStackSizeCriterion_FI() {
+		Criterion cr = new StackSizeCriterion("STACKSIZE", false);
+		cr.setHighQualityFeedback("...");
+		cr.setAcceptanceFeedback("...");
+		cr.setFailureFeedback("....");
+		return cr;		
+	}	
+	static Criterion createStackSizeCriterion_EN() {
+		Criterion cr = new StackSizeCriterion("STACKSIZE", false);
+		cr.setHighQualityFeedback("...");
+		cr.setAcceptanceFeedback("...");
+		cr.setFailureFeedback("...");
+		return cr;		
+	}	
+	
+	static Criterion createExecutetionStepsCriterion_FI() {
+		Criterion cr = new ExecutetionStepsCriterion("STEPS", false);
+		cr.setHighQualityFeedback("...");
+		cr.setAcceptanceFeedback("...");
+		cr.setFailureFeedback("....");
+		return cr;		
+	}	
+	static Criterion createExecutetionStepsCriterion_EN() {
+		Criterion cr = new ExecutetionStepsCriterion("STEPS", false);
+		cr.setHighQualityFeedback("...");
+		cr.setAcceptanceFeedback("...");
+		cr.setFailureFeedback("...");
+		return cr;		
+	}
+	
+	static Criterion createExecutetionStepsCriterion_FI() {
+		Criterion cr = new ExecutetionStepsCriterion("STEPS", false);
+		cr.setHighQualityFeedback("...");
+		cr.setAcceptanceFeedback("...");
+		cr.setFailureFeedback("....");
+		return cr;		
+	}	
+	static Criterion createExecutetionStepsCriterion_EN() {
+		Criterion cr = new ExecutetionStepsCriterion("STEPS", false);
+		cr.setHighQualityFeedback("...");
+		cr.setAcceptanceFeedback("...");
+		cr.setFailureFeedback("...");
+		return cr;		
+	}		
+	
+	// </mittauskriteerit>
 		
 		
 		
