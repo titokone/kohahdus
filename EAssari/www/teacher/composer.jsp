@@ -235,6 +235,13 @@ function instructionRequirementsIntoText() {
 </script>
 </head>
 
+
+<%	//Get task from DB
+	Task task = DBHandler.getInstance().getTask(request.getParameter("task_id"));	
+	if (tasks != null) pageContext.setAttribute("task", task);
+%>
+
+
 <body onLoad="initTaskCreation();">
 
 <h1 align="center">Create Task</h1>
@@ -253,15 +260,17 @@ function instructionRequirementsIntoText() {
 		<tr>
 			<td>Task language </td>
 			<td>
-				<input name="language" type="radio" value="fi" checked> Finnish
-				<input name="language" type="radio" value="en"> English
-				<input name="language" type="radio" value="swe"> Swedish
+				<input name="language" type="radio" value="FI" <c:if test="${task.language=='FI'}">checked</c:if>> Finnish
+				<input name="language" type="radio" value="EN" <c:if test="${task.language=='EN'}">checked</c:if>> English
 			</td>
 		</tr>
 		<tr>
 			<td>Task name </td>
-			<td><input name="task_name" type="text" size="66"></td>
+			<td><input name="task_name" type="text" size="66" value="<c:out value="${task.name}"/>"></td>
 		</tr>
+		
+		<%--  ??? Mistäs nämä saadaan ja miten lisätään ??? --%>
+		
 		<tr>
 			<td>Category </td>
 			<td>
@@ -280,15 +289,18 @@ function instructionRequirementsIntoText() {
 		</tr>
 		<tr>
 			<td valign="top">Instructions </td>
-			<td valign="top"><textarea name="instructions" cols="90" rows="20"> </textarea></td>
+			<td valign="top"><textarea name="instructions" cols="90" rows="20" value="<c:out value="${task.description}"/>"></textarea></td>
 		</tr>
+		
+		<%-- TODO: inputit taskista --%>
+		
 		<tr>
 			<td>Public input </td>
-			<td><input name="public_input" type="text" size="60"></td>
+			<td><input name="public_input" type="text" size="60" value="<c:out value="${task.publicInput}"/>"></td>
 		</tr>
 		<tr>
 			<td>Secret input </td>
-			<td><input name="secret_input" type="text" size="60"></td>
+			<td><input name="secret_input" type="text" size="60" value="<c:out value="${task.secretInput}"/>"></td>
 		</tr>
 	</table>
 
@@ -301,15 +313,15 @@ function instructionRequirementsIntoText() {
 		<tr>
 			<td>Task type </td>
 			<td>
-				<input name="task_type" type="radio" value="whole_program" onClick="switchToWholeProgramView();" checked> Whole program
-				<input name="task_type" type="radio" value="partial" onClick="switchToPartOfProgramView()";> Part of a program
+				<input name="task_type" type="radio" value="whole_program" onClick="switchToWholeProgramView();" <c:if test="${task.programmingTask}">checked</c:if>> Whole program
+				<input name="task_type" type="radio" value="partial" onClick="switchToPartOfProgramView();" <c:if test="${task.fillInTask}">checked</c:if>> Part of a program
 			</td>
 		</tr>
 		<tr>
 			<td>Correctness </td>
 			<td>
-				<input name="correctness_by"  type="radio" value="predefined_values" onClick="switchToCriteriaView();" checked> Predefined values
-				<input name="correctness_by"  type="radio" value="example_program" onClick="switchToExampleView();"> Values given by example program
+				<input name="correctness_by"  type="radio" value="predefined_values" onClick="switchToCriteriaView();" <c:if test="${not task.validateByModel}">checked</c:if>> Predefined values
+				<input name="correctness_by"  type="radio" value="example_program" onClick="switchToExampleView();" <c:if test="${task.validateByModel}">checked</c:if>> Values given by example program
 			</td>
 		</tr>
 	</table>
