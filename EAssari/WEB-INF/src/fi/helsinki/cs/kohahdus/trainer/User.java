@@ -26,7 +26,7 @@ public class User {
 //CONSTRUCTORS
 	/** Creates a new instance of User */
 	public User(String uid, String lname, String fname, String email, String status, String extid, 
-			String extid2, String psw, String lpref) {
+			String extid2, String psw, String language) {
 		this.userid = uid;
 		this.lastname = lname;
 		this.firstname = fname;
@@ -38,7 +38,10 @@ public class User {
 		this.studentnumber = extid;
 		this.socialsecuritynumber = extid2;
 		this.passwd = psw;
-		this.language = lpref;   
+		if (language == null || !(language.equals("EN") || language.equals("FI"))) {
+			throw new IllegalArgumentException("Language param "+language);
+		}
+		this.language = language;   
 	}		
 	
 	/** Construct unitialized User object */
@@ -80,7 +83,7 @@ public class User {
 		if (status == null || !(status.equalsIgnoreCase(STATUS_STUDENT) || status.equalsIgnoreCase(STATUS_TEACHER) || status.equalsIgnoreCase(STATUS_ADMIN))) {
 			throw new IllegalArgumentException("Given status "+status+" not valid");
 		}
-		this.status = status;
+		this.status = status.toLowerCase();
 	}
 	
 	/** Set student number of of this user */
@@ -102,10 +105,10 @@ public class User {
 	 * @param lang either "FI" or "EN"
 	 */
 	public void setLanguage(String lang) {
-		if (lang == null || !(lang.equals("EN") || lang.equals("FI"))) {
+		if (lang == null || !(lang.equalsIgnoreCase("EN") || lang.equalsIgnoreCase("FI"))) {
 			throw new IllegalArgumentException("Language param "+lang);
 		}
-		this.language = lang;
+		this.language = lang.toUpperCase();
 	}
 	
 	
