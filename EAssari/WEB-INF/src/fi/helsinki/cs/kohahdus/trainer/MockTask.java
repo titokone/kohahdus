@@ -11,33 +11,29 @@ import java.util.Random;
  */
 
 public class MockTask extends Task {
-
-	private String language;
-	
-	public MockTask(String name, String category, String author, boolean inEnglish, boolean fillin) {
-		super((inEnglish ? "EN" : "FI"), name, author, "description", "modelAnswer", category, (fillin ? Task.TYPE_FILL : Task.TYPE_FULL), "", "", false );
-
-		
-	}
-	
-	
-	public MockTask(String taskid, String courseid, String moduleid, String tasktypeid, int seqno, Timestamp deadline, boolean shouldstore, boolean shouldregister, boolean shouldknowstudent, boolean shouldevaluate, int cvalue, int nooftries, Tasktype tType) {
-		super(taskid, courseid, moduleid, tasktypeid, seqno, deadline, shouldstore,
-				shouldregister, shouldknowstudent, shouldevaluate, cvalue, nooftries,
-				tType);
-		// TODO Auto-generated constructor stub
-	}
-	
-
-	/** Return tasks language ("FI" or "EN") */
-	public String getLanguage() {
-		return this.language;
-	}
-	
-	
 	
 	private static List<MockTask> tasks = null;
 	private static Random rng = new Random();
+	private static String[] categories = { "Easy task", "Moderate task", "Hard task", "Some other category" };
+
+	public MockTask(String name) {
+		this.setName(name);
+		this.setCategory(rndCategory());
+		this.setAuthor(rndAuthor());
+		this.setLanguage(rng.nextBoolean() ? "EN" : "FI");
+		this.setTitoTaskType(rng.nextBoolean() ? Task.TYPE_FILL : Task.TYPE_FULL);
+		this.setHasSucceeded(rng.nextBoolean());
+		this.setNoOfTries(rng.nextInt(10));
+	}
+	
+	public MockTask(String name, String category, String author, boolean inEnglish, boolean fillin) {
+		super();
+		this.setName(name);
+		this.setCategory(category);
+		this.setAuthor(author);
+		this.setLanguage(inEnglish ? "EN" : "FI");
+		this.setTitoTaskType(fillin ? Task.TYPE_FILL : Task.TYPE_FULL);
+	}
 	
 	public static List<MockTask> getTasks() {
 		if (tasks == null) {
@@ -49,12 +45,10 @@ public class MockTask extends Task {
 	private static void initTasks() {
 		tasks = new ArrayList<MockTask>();
 		for (int i=0; i<10; i++) {
-			tasks.add(new MockTask("Task "+i, rndCategory(), rndAuthor(), rng.nextBoolean(), rng.nextBoolean()));
+			tasks.add(new MockTask("Task "+i));
 		}
 	}
-	
-	private static String[] categories = { "Easy task", "Moderate task", "Hard task", "Some other category" };
-	
+
 	private static String rndCategory() {
 		return categories[rng.nextInt(categories.length)];
 	}

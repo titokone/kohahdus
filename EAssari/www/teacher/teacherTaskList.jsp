@@ -5,9 +5,9 @@
 
 <%-- 
 	TeacherTaskList is able to list all courses and tasks that reside in DB.
-	Inserting a course in DB should work also.
+	Inserting a course in DB works also.
 	Current implementation lacks delete functionality and links to task creation and
-	statistics. We are also missing the possibility of arranging listing by name, category, etc.
+	statistics. 
 --%>	
 
 
@@ -28,41 +28,38 @@
 	<c:redirect url="../student/studentTaskList.jsp"/>
 </c:if>
 
+<%-- Kurssin luonti toimii kuten pitääkin. Uudet kurssit menevät kantaan ja tehtävät linkitetään kurssiin --%>
+
 <jsp:include page="../menu.jsp"/>
-		
 <c:if test="${param.action=='create_course'}">
 	<p>CREATING COURSE <c:out value="${param.new_course}"/>
 	
-	<% 	//TODO: luodaan kurssiolio ja annetaan dbHandlerille
-		//Course newCourse = new Course();
-		//FIXME: ID == name ??
+	<% 	
 		String s = request.getParameter("new_course");
 						
 		//Check whether the given course already exists
-		List<MockCourse> courses = MockCourse.getCourses();
-		//List<Course> courses = DBHandler.getInstance().getCourses();
+		//List<MockCourse> courses = MockCourse.getCourses();
+		List<Course> courses = DBHandler.getInstance().getCourses();
 		
 		boolean ok = true;
 		for (Course c : courses) {
-			if (c.getName().equals(s) || c.getCourseID().equals(s)) {
+			if (c.getName().equals(s)) {
 				ok = false;
 				break;
 			}
 		}
 		
-		
-		//FIXME: vaihdettava DBHandler töihin
 		if (ok) {		
-			MockCourse newCourse = new MockCourse(s,s);
-			MockCourse.createCourse(newCourse);
-			//Log.write("Kurssi luotu");
+			//MockCourse newCourse = new MockCourse(s,s);
+			//MockCourse.createCourse(newCourse);
 			
-			//Course() params: int modules, String courseID, String  coursetype, String courseStyle
-			//Course newCourse = new Course(0, s, "titotrainer", "");
-			//DBHandler.getInstance().createCourse(newCourse);
+			Course newCourse = new Course();
+			newCourse.setName(s);
+			DBHandler.getInstance().createCourse(newCourse);
+			Log.write("New course "+newCourse.getName()+" inserted in DB.");
 					
 		} else {
-			out.print("Duplicate course");
+			out.print("ERROR: Duplicate course");
 		}		
 	%>
 </c:if>
@@ -83,27 +80,35 @@
 <table border="0" bgcolor="#000000" cellpadding="4">
 	<tr>
 		<td bgcolor="#CECECE"><b>ID</b></td>
-		<td bgcolor="#CECECE"><b>Name</b></td>
+		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortCourses=true"><b>Name</b></a></td>
 		<td bgcolor="#CECECE" colspan="2"><b></b></td>
 	</tr>
-	<%  //FIXME: uncomment DBHandler to integrate with system (also from tasks)
-		List<MockCourse> courses = MockCourse.getCourses(); 
-		//LinkedList<Course> courses = DBHandler.getInstance().getCourses();	
+	<%  
+		//List<MockCourse> courses = MockCourse.getCourses(); 
+		List<Course> courses = DBHandler.getInstance().getCourses();	
 		if (courses != null) pageContext.setAttribute("courses", courses);
+		
 	%>
 	<c:if test="${empty courses}">
 		<tr>
-			<td bgcolor="#FFFFFF" colspan="4">Ei kursseja.</td>
+			<td bgcolor="#FFFFFF" colspan="4">No available courses.</td>
 		</tr>
 	</c:if>
 	<c:if test="${not empty courses}">
+		<c:if test="${not empty param.sortCourses}">
+			<%-- sort courses with comparator object. Comparison type is stored in request --%>
+			<%
+				CourseComparator cc = new CourseComparator();
+				Collections.sort(courses, cc);
+			%>
+		</c:if>	
 		<c:forEach var="course" items="${pageScope.courses}">	
 			<tr>
 				<%-- TODO: add implementation for statisics and delete buttons --%>
 				<td bgcolor="#FFFFFF"><c:out value="${course.courseID}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${course.name}"/></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Statistics"></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="window.confirm('Do you really want to delete course?');"></td>
+				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="window.confirm('Do you really want to delete course <c:out value="${course.name}"/>?');"></td>
 			</tr>
 		</c:forEach>	
 	</c:if>
@@ -139,22 +144,22 @@
 </table>
 </p>
 
+<%-- TODO: kun halutaan sortata listausta, niin sivu ladataan uudestaan. Voisi ohjata selaimen suoraan task listauksen alkuun eikä sivun alkuun --%>
 
 <table border="0" bgcolor="#000000" cellpadding="4">
 	<tr>
 		<td bgcolor="#CECECE"><b>ID</b></td>
-		<td bgcolor="#CECECE"><b>Name</b></td>
-		<td bgcolor="#CECECE"><b>Type</b></td>
-		<td bgcolor="#CECECE"><b>Category</b></td>
-		<td bgcolor="#CECECE"><b>Language</b></td>
-		<td bgcolor="#CECECE"><b>Author</b></td>
+		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=0"><b>Name</b></a></td>
+		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=1"><b>Type</b></a></td>
+		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=2"><b>Category</b></a></td>
+		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=3"><b>Language</b></a></td>
+		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=4"><b>Author</b></a></td>
 		<td bgcolor="#CECECE" colspan="3"><b></b></td>
 	</tr>
 	
 	<%	//Get tasks from DB
-		//FIXME: uncomment DBHandler to integrate with other system (also from courses)
-		List<MockTask> tasks = MockTask.getTasks(); 
-		//LinkedList<Task> tasks = DBHandler.getInstance().getTasks();	
+		//List<MockTask> tasks = MockTask.getTasks(); 
+		LinkedList<Task> tasks = DBHandler.getInstance().getTasks();	
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 	%>
 	<c:if test="${empty tasks}">
@@ -163,6 +168,23 @@
 		</tr>
 	</c:if>
 	<c:if test="${not empty tasks}">
+	
+		<c:if test="${not empty param.sortTasks}">
+			<%
+				TaskComparator tc = null;
+				String sortRequest = request.getParameter("sortTasks");
+				try {
+					int sort = Integer.parseInt(sortRequest);
+					tc = new TaskComparator(sort);
+				} catch (NumberFormatException e) {
+					Log.write("TeacherTaskList: Invalid sort parameter");
+				}
+				if (tc != null) {
+					Collections.sort(tasks, tc);
+				}
+			%>				
+		</c:if>
+	
 		<c:forEach var="task" items="${pageScope.tasks}"> 
 			<tr>
 			
@@ -176,7 +198,7 @@
 				<td bgcolor="#FFFFFF"><c:out value="${task.author}"/></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Modify"></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Modify as new"></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="window.confirm('Do you really want to delete task?');"></td>
+				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="window.confirm('Do you really want to delete task <c:out value="${task.name}"/>?');"></td>
 			</tr>
 		</c:forEach>
 	</c:if>		

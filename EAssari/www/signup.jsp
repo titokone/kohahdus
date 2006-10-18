@@ -110,10 +110,7 @@
 <c:if test="${param.action=='signup'}">
 	
 	<% //Create a new user and store it in pagecontext as a temp object
-	   	User newUser = new User(request.getParameter("user_name"));
-	   	
-	   	//TODO: language set to english and stored in DB as a default. Only place to change it
-	   	//is at the moment on login page, should we add one here also.
+	   	User newUser = new User(request.getParameter("user_name"));	   	
 	   	newUser.setStatus(User.STATUS_STUDENT);
 	   	newUser.setLanguage("EN");
 	   	pageContext.setAttribute("newUser", newUser);
@@ -163,9 +160,11 @@
 					pageContext.setAttribute("user", newUser, PageContext.SESSION_SCOPE);
 					Log.write("Signup: new user created");
 					//TODO: forwardointi
+			%>		
 					<jsp:forward page="login.jsp">
 						<jsp:param name="action" value="login"/>
 					</jsp:forward>	
+			<%		
 				}
 			%>	
 		</c:otherwise>

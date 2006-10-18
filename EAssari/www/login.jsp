@@ -72,8 +72,8 @@
 				<td><b>Course</b></td>
 				<td>&nbsp;</td>
 				
-				<%	List<MockCourse> courses = MockCourse.getCourses();
-					//List<Course> courses = DBHandler().getInstance().getCourses();
+				<%	//List<MockCourse> courses = MockCourse.getCourses();
+					List<Course> courses = DBHandler.getInstance().getCourses();
 					pageContext.setAttribute("courses", courses);				
 				%>
 				
