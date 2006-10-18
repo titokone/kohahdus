@@ -235,7 +235,7 @@ public class DBHandler {
 				//task(rs.getDate("datecreate"));			
 				//task.setTasktype(rs.getString("tasktype"));
 				task.setMetadata(rs.getString("taskmetadata"));
-				task.setNoOfTries(rs.getInt("numberoftries_def"));
+				//task.setNoOfTries(rs.getInt("numberoftries_def"));
 				task.setShouldStore("N".equals(rs.getString("shouldstoreanswer_def")) ? false : true);
 				task.setShouldRegister("N".equals(rs.getString("shouldregistertry_def")) ? false : true);
 				task.setShouldKnow("N".equals(rs.getString("shouldknowstudent_def")) ? false : true);
