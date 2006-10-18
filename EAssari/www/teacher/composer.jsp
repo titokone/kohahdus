@@ -16,6 +16,17 @@
 </c:if>
 
 
+<%	
+	//Get task from DB
+	Task task = DBHandler.getInstance().getTask(request.getParameter("task_id"));	
+	if (tasks != null) pageContext.setAttribute("task", task);
+	
+    // Get all criteria from the database
+	CriterionMap criteria = DBHandler.getInstance().getCriteriaMap(task);	
+	if (!criteria.isEmpty()) pageContext.setAttribute("criteria", criteria);
+%>
+
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
@@ -24,7 +35,7 @@
 <script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
 <script language="Javascript">
 
-var variableCounter = 1;
+var variableCounter = <c:out value="${criteria.symbolCriteriaCount}"/>;
 
 var positive = new Image();
 positive.src = "positive.gif";
@@ -146,13 +157,14 @@ function addVariable() {
 	var endhtml = html.substring(html.length - 16)
 
 	beginhtml += '<tr><td><input name="v' + variableCounter + '_name" type="text" size="2"></td>';
-	beginhtml += '<td><select name="v' + variableCounter + '_comparison_op"><option><</option><option><=</option><option selected>=</option><option>>=</option><option>></option></select></td>';
-	beginhtml += '<td><input name="v' + variableCounter + '_value_public" type="text" size="2"></td>';
-	beginhtml += '<td><textarea name="v' + variableCounter + '_correct_feedback_public" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><textarea name="v' + variableCounter + '_wrong_feedback_public" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><input name="v' + variableCounter + '_value_secret" type="text" size="2"></td>';
-	beginhtml += '<td><textarea name="v' + variableCounter + '_correct_feedback_secret" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><textarea name="v' + variableCounter + '_wrong_feedback_secret" cols="20" rows="2"> </textarea></td></tr>';
+	beginhtml += '<td><select name="PUBSYM' + variableCounter + '_comparison_op"><option><</option><option><=</option><option selected>=</option><option>>=</option><option>></option></select></td>';
+	beginhtml += '<td><input name="PUBSYM' + variableCounter + '_value" type="text" size="2"></td>';
+	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_correct_feedback" cols="20" rows="2"> </textarea></td>';
+	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_wrong_feedback" cols="20" rows="2"> </textarea></td>';
+	beginhtml += '<td><select name="SECSYM' + variableCounter + '_comparison_op"><option><</option><option><=</option><option selected>=</option><option>>=</option><option>></option></select></td>';
+	beginhtml += '<td><input name="SECSYM' + variableCounter + '_value" type="text" size="2"></td>';
+	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_correct_feedback" cols="20" rows="2"> </textarea></td>';
+	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_wrong_feedback" cols="20" rows="2"> </textarea></td></tr>';
 
 	cell.innerHTML = beginhtml + endhtml;
 
@@ -235,12 +247,6 @@ function instructionRequirementsIntoText() {
 
 </script>
 </head>
-
-
-<%	//Get task from DB
-	Task task = DBHandler.getInstance().getTask(request.getParameter("task_id"));	
-	if (tasks != null) pageContext.setAttribute("task", task);
-%>
 
 
 <body onLoad="initTaskCreation();">
@@ -363,10 +369,6 @@ function instructionRequirementsIntoText() {
 		<br><br>
 	</div>
 
-	<%  // Get all criteria from the database
-		CriterionMap criteria = DBHandler.getInstance().getCriteriaMap(task);	
-		if (!criteria.isEmpty()) pageContext.setAttribute("criteria", criteria);
-	%>
 	<table border="1" cellpadding="3" cellspacing="0">
 		<tr>
 			<td align="center" colspan="2"><h2>Criteria</h2></td>
