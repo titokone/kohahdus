@@ -1,5 +1,6 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import fi.helsinki.cs.kohahdus.trainer.Task;
@@ -9,12 +10,11 @@ import fi.helsinki.cs.kohahdus.DBHandler;
  * Kriteerit on tehty, task-ilmentymät pitäisi vielä vääntää. Palautteet 
  * pitää tietysti vielä hioa, nämä kelpaavat vain testaukseen. */
 
-//Erroreita, mikähän vialla?
 public class TaskMaker {
 	static LinkedList<Criterion> fiCriteria = new LinkedList<Criterion>();
 	static LinkedList<Criterion> enCriteria = new LinkedList<Criterion>();
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws SQLException {
 		// Suomenkieliset kriteerit:
 		for (int i=0; i<8; i++) {
 			fiCriteria.add(createRegisterCriterion_FI_pub(i));
@@ -74,37 +74,25 @@ public class TaskMaker {
 		et.setFailFeedBack("Task wasn't solved");
 		et.setPassFeedBack("Task was solved");
 		et.setTitoTaskType(Task.TYPE_FULL); // oletuksena vaikka näin
-		//et.setCourseID();				// Ei käytetä tässä tapauksessa
-		// Tarviiko näitä? Jos tarvii niin samat suomi-versioon: Joo ei...
-		//et.setCutoffvalue(100);
-		//et.setShouldEvaluate();
-		//et.setShouldKnow();
-		//et.setShouldRegister();
-		//et.setShouldStore();
 		
 
 		Task ft = new Task("FI_TEMPLATE");
-		ft.setFailFeedBack("Tehtävää ei ratkaistu hyväksyttävästi");
+		ft.setFailFeedBack("Ratkaisuyritys epäonnistui");
 		ft.setPassFeedBack("Tehtävä ratkaistu hyväksytysti");
 		ft.setCutoffvalue(100);
-		et.setTitoTaskType(Task.TYPE_FULL); // oletuksena vaikka näin
-		//et.setCourseID();				// Ei käytetä tässä tapauksessa
-
+		et.setTitoTaskType(Task.TYPE_FULL);
 		
 		
 		// Viedään tietokantaan:
-		//FIX ME
 		DBHandler handler=DBHandler.getInstance();
-		boolean enCreate=handler.createTask(et, enCriteria); //Oh come on! toimi pliis!
+		boolean enCreate=handler.createTask(et, enCriteria);
 		boolean fiCreate=handler.createTask(ft, fiCriteria);
 		
 		if (enCreate&&fiCreate) {
 			System.out.println("Tasks were added to database succesfully.");
 		} else {
 			System.out.println("There were errors with DBHandler. Tasks not added succesfully.");
-		}
-		
-		
+		}		
 	}
 	
 	
@@ -123,7 +111,7 @@ public class TaskMaker {
 	static Criterion createRegisterCriterion_EN_pub(int register) {
 		RegisterCriterion cr = new RegisterCriterion("PUBREG" + register, false, register);
 		cr.setAcceptanceFeedback("Register R"+ register + " value correct");
-		cr.setFailureFeedback("Rekisterin R" + register + " value incorrect");
+		cr.setFailureFeedback("Register R" + register + " value incorrect");
 		return cr;
 	}
 	static Criterion createRegisterCriterion_FI_sec(int register) {
@@ -135,7 +123,7 @@ public class TaskMaker {
 	static Criterion createRegisterCriterion_EN_sec(int register) {
 		RegisterCriterion cr = new RegisterCriterion("SECREG" + register, true, register);
 		cr.setAcceptanceFeedback("Register R"+ register + " value was correct when using alternate input");
-		cr.setFailureFeedback("Rekisterin R" + register + " value was incorrect when using alternate input");
+		cr.setFailureFeedback("Register R" + register + " value was incorrect when using alternate input");
 		return cr;
 	}
 	// </rekisterikriteerit>
@@ -156,13 +144,13 @@ public class TaskMaker {
 		return cr;		
 	}
 	static Criterion createSymbolCriterion_FI_sec() {
-		SymbolCriterion cr = new SymbolCriterion("SECSYM1", false);
+		SymbolCriterion cr = new SymbolCriterion("SECSYM1", true);
 		cr.setAcceptanceFeedback("Symbolin _ arvo arvo oikein myös vaihtoehtoisella syötteellä");
 		cr.setFailureFeedback("Symbolin _ arvo oli väärin kun käytettiin vaihtoehtoista syötettä");
 		return cr;		
 	}	
 	static Criterion createSymbolCriterion_EN_sec() {
-		SymbolCriterion cr = new SymbolCriterion("SECSYM1", false);
+		SymbolCriterion cr = new SymbolCriterion("SECSYM1", true);
 		cr.setAcceptanceFeedback("Symbol _ value was correct when using alternate input");
 		cr.setFailureFeedback("Symbol _ value was incorrect when using alternate input");
 		return cr;		
