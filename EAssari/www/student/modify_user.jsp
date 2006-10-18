@@ -10,6 +10,11 @@
 <!-- // TODO
 If new password field isn't empty, check that the old password matches.
 -->
+<%-- Ylläoleva fiksattu. Tiedot viedään kantaan, jos passukenttiin ei ole koskettu.
+	 Jos johonkin passukenttään on kirjoitettu, niin tarkistukset hoidetaan kuten
+	 aikaisemmin.
+--%>	   
+
 
 <script language="Javascript">
 
@@ -91,13 +96,14 @@ If new password field isn't empty, check that the old password matches.
 			returnvalue = false;
 		}
 
-		// "password" and "repeat password" don't match and neither is empty
-		if((form.new_password.value != '') && (form.repeat_new_password.value != '') && (form.new_password.value != form.repeat_new_password.value)) {
-			var elem = document.getElementById("password_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Different values in password fields. Please check your typing.</b></font>';			
-			returnvalue = false;
+		// Only if user is trying to change password and "password" and "repeat password" don't match and neither is empty
+		if ((form.old_password != '') || (form.new_password.value != '') || (form.repeat_new_password.value != '')) {
+			if((form.new_password.value != '') && (form.repeat_new_password.value != '') && (form.new_password.value != form.repeat_new_password.value)) {
+				var elem = document.getElementById("password_error_msg_space");
+				elem.innerHTML = '<font color="#FF0000"><b>Different values in password fields. Please check your typing.</b></font>';			
+				returnvalue = false;
+			}
 		}
-
 		return returnvalue;
 	}
 
