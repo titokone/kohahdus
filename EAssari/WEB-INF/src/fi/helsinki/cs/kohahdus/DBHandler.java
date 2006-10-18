@@ -260,7 +260,7 @@ public class DBHandler {
 		PreparedStatement st = null;
 		LinkedList<Task> tasks = new LinkedList<Task>();
 		try {
-			st = conn.prepareStatement("select t.*, sm.hassucceeded" +
+			st = conn.prepareStatement("select t.*, sm.lasttrynumber, sm.hassucceeded" +
 									   "from studentmodel sm, taskidmodule tim, task t " +
 									   "where sm.sid=? and sm.courseid=? and sm.courseid=tim.courseid " +
 									   "and sm.moduleid=tim.moduleid and sm.seqno=tim.seqno " +
@@ -279,7 +279,7 @@ public class DBHandler {
 				//task(rs.getDate("datecreate"));
 				//task.setTasktype(rs.getString("tasktype"));
 				task.setMetadata(rs.getString("taskmetadata"));
-				task.setNoOfTries(rs.getInt("numberoftries_def"));
+				task.setNoOfTries(rs.getInt("lasttrynumber"));
 				task.setShouldStore("N".equals(rs.getString("shouldstoreanswer_def")) ? false : true);
 				task.setShouldRegister("N".equals(rs.getString("shouldregistertry_def")) ? false : true);
 				task.setShouldKnow("N".equals(rs.getString("shouldknowstudent_def")) ? false : true);
