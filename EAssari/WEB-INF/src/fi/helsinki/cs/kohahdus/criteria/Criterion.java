@@ -132,10 +132,11 @@ public abstract class Criterion {
 		}
 	}
 	
+	// TODO: tämä takaisin VariableCriterion luokkaan?
 	public String getComparisonOperator() {
 		return "";
 	}
-	
+	// TODO: tämä takaisin VariableCriterion luokkaan?
 	public void setComparisonOperator(String operator) {
 		
 	}
