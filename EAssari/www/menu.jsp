@@ -28,7 +28,7 @@
 	</td>
 	<td align="right">
 		<c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> (<c:out value="${user.status}"/>)
-		<a href="login.jsp?action=logout">Logout</a>
+		<a href="../login.jsp?action=logout">Logout</a>
 	</td>
 </tr>
 </table>
