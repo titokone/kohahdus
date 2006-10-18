@@ -82,7 +82,7 @@ create table task (
   shouldknowstudent_def char,                /* must the student be known (Y/N) -default value */
   shouldevaluate_def char,                   /* should the task be evaluated on-line (Y/N) - default value */
   cutoffvalue integer,                       /* the value to be exceeded to pass the task */
-  foreign key (tasktype) references tasktype
+  foreign key (tasktype) references tasktype.typename
 );
 
 

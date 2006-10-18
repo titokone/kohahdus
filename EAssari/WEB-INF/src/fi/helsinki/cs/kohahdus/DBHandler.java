@@ -24,6 +24,7 @@ import fi.helsinki.cs.kohahdus.criteria.*;
 */
 
 public class DBHandler {
+	private static final String DEFAULT_TASKTYPE = "titotask"; 
 	private static final String DEFAULT_MODULE_ID = "0"; 
 	private static final String DEFAULT_MODULE_TYPE = "training"; 
 	private static final String ATTRIBUTE_TYPE_TASK = "T"; 
@@ -358,19 +359,18 @@ public class DBHandler {
 		return true;
 	}
 
-	/** Add task to Course */
-	private boolean addTask(Task task) throws SQLException{
+	/** Adds a task to DB without any linkage to courses and modules */
+	public boolean addTask(Task task) throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("insert into task (taskid, taskname, author, datecreated, cutoffvalue) " +
-									   "values (?,?,?,sysdate,?)"); 
+			st = conn.prepareStatement("insert into task (taskid, taskname, author, datecreated, cutoffvalue, tasktype) " +
+									   "values (?,?,?,sysdate,?,?)"); 
 			st.setString(1, task.getTaskID());
 			st.setString(2, task.getName());
 			st.setString(3, task.getAuthor());
 			st.setInt(4, task.getCutoffvalue());
-			// Todo: implement task type for the task
-			//st.setString(4, task.getTasktype());
+			st.setString(5, DBHandler.DEFAULT_TASKTYPE);
 			int c = st.executeUpdate();
 			if (c > 0){
 				Log.write("DBHandler: Task added to DB: name=" +task.getName()+ ", id="+task.getTaskID());

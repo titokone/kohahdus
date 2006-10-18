@@ -71,13 +71,13 @@ public class TaskMaker {
 		et.setFailFeedBack("You suck");
 		et.setPassFeedBack("You go girl!");
 		et.setTasktype(Task.TYPE_FULL); // oletuksena vaikka näin
-		et.setCourseID();				// Ja mitäs ***tua tähän voi laittaa?
-		// Tarviiko näitä? Jos tarvii niin samat suomi-versioon:
-		et.setCutoffvalue(100);
-		et.setShouldEvaluate();
-		et.setShouldKnow();
-		et.setShouldRegister();
-		et.setShouldStore();
+		//et.setCourseID();				// Ei käytetä tässä tapauksessa
+		// Tarviiko näitä? Jos tarvii niin samat suomi-versioon: Joo ei...
+		//et.setCutoffvalue(100);
+		//et.setShouldEvaluate();
+		//et.setShouldKnow();
+		//et.setShouldRegister();
+		//et.setShouldStore();
 		
 
 		Task ft = new Task("FI_TEMPLATE");
@@ -85,7 +85,7 @@ public class TaskMaker {
 		ft.setPassFeedBack("Tehtävä ratkaistu hyväksytysti");
 		ft.setCutoffvalue(100);
 		et.setTasktype(Task.TYPE_FULL); // oletuksena vaikka näin
-		et.setCourseID();				// Ja mitäs ***tua tähän voi laittaa?
+		//et.setCourseID();				// Ei käytetä tässä tapauksessa
 
 		
 		
