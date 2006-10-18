@@ -24,5 +24,15 @@ public class CriterionMap extends HashMap<String,Criterion> {
 		return criteria;
 	}
 	
+	public int getSymbolCriteriaCount(){
+		int count = 0;
+		for (Criterion c : this.values()) {
+			if (c instanceof SymbolCriterion) {
+				count++;
+			}
+		}
+		return count/2;
+	}
+	
 	
 }
