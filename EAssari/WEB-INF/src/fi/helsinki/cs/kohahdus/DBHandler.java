@@ -142,7 +142,7 @@ public class DBHandler {
 			st.setString(4, course.getCourseStyle());
 			int c = st.executeUpdate();
 			if (c > 0){
-				st = conn.prepareStatement("select common_seq.curval as courseid from dual");
+				st = conn.prepareStatement("select common_seq.currval as courseid from dual");
 				ResultSet rs = st.executeQuery();
 				if (rs.next()){
 					course.setCourseID(rs.getString("courseid"));
