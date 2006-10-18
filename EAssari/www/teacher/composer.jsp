@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.criteria.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 <%@ page import="java.util.*" %>
 
@@ -340,7 +341,7 @@ function instructionRequirementsIntoText() {
 					correctness of the answer to be checked by values given by the example program.</td>
 			</tr>
 			<tr>
-				<td valign="top"><textarea name="partial_code" cols="100" rows="30"> </textarea></td>
+				<td valign="top"><textarea name="partial_code" cols="100" rows="30"></textarea></td>
 			</tr>
 		</table>
 	
@@ -355,37 +356,17 @@ function instructionRequirementsIntoText() {
 				<td align="center"><h2>Example program code</h2></td>
 			</tr>
 			<tr>
-				<td valign="top"><textarea name="example_code" cols="100" rows="40"> </textarea></td>
+				<td valign="top"><textarea name="example_code" cols="100" rows="40"></textarea></td>
 			</tr>
 		</table>
 	
 		<br><br>
 	</div>
 
-	<% 
-		Map<String, Criterion> criteria = DBHandler.getInstance().getCriteriaMap(task);	
+	<%  // Get all criteria from the database
+		CriterionMap criteria = DBHandler.getInstance().getCriteriaMap(task);	
 		if (!criteria.isEmpty()) pageContext.setAttribute("criteria", criteria);
 	%>
-	<c:set var="pubR0" value="${criteria["PUBREG0"]}"/>
-	<c:set var="pubR1" value="${criteria["PUBREG1"]}"/>
-	<c:set var="pubR2" value="${criteria["PUBREG2"]}"/>
-	<c:set var="pubR3" value="${criteria["PUBREG3"]}"/>
-	<c:set var="pubR4" value="${criteria["PUBREG4"]}"/>
-	<c:set var="pubR5" value="${criteria["PUBREG5"]}"/>
-	<c:set var="pubR6" value="${criteria["PUBREG6"]}"/>
-	<c:set var="pubR7" value="${criteria["PUBREG7"]}"/>
-	<c:set var="secR0" value="${criteria["PUBREG0"]}"/>
-	<c:set var="secR1" value="${criteria["PUBREG1"]}"/>
-	<c:set var="secR2" value="${criteria["PUBREG2"]}"/>
-	<c:set var="secR3" value="${criteria["PUBREG3"]}"/>
-	<c:set var="secR4" value="${criteria["PUBREG4"]}"/>
-	<c:set var="secR5" value="${criteria["PUBREG5"]}"/>
-	<c:set var="secR6" value="${criteria["PUBREG6"]}"/>
-	<c:set var="secR7" value="${criteria["PUBREG7"]}"/>
-
-
-
-
 	<table border="1" cellpadding="3" cellspacing="0">
 		<tr>
 			<td align="center" colspan="2"><h2>Criteria</h2></td>
@@ -408,158 +389,38 @@ function instructionRequirementsIntoText() {
 						<td><p>Feedback if correct</p></td>
 						<td><p>Feedback if wrong</p></td>
 					</tr>				
-					<tr>
-						<td><input type="checkbox" name="r0_checked"></td>
-						<td>R0</td>
-						<td>
-							<select name="r0_comparison_op">
-								<option><</option>
-								<option><=</option>
-								<option selected>=</option>
-								<option>>=</option>
-								<option>></option>
-							</select>
-						</td>
-						<td><input name="r0_value_public" type="text" size="4" value="<c:out value="${pubReg0.acceptanceTestValue}"/>"></td>
-						<td><textarea name="r0_correct_feedback_public" cols="20" rows="4"></textarea></td>
-						<td><textarea name="r0_wrong_feedback_public" cols="20" rows="4"></textarea></td>
-						<td><input name="r0_value_secret" type="text" size="4"></td>
-						<td><textarea name="r0_correct_feedback_secret" cols="20" rows="4"></textarea></td>
-						<td><textarea name="r0_wrong_feedback_secret" cols="20" rows="4"></textarea></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="r1_checked"></td>
-						<td>R1</td>
-						<td>
-							<select name="r1_comparison_op">
-								<option><</option>
-								<option><=</option>
-								<option selected>=</option>
-								<option>>=</option>
-								<option>></option>
-							</select>
-						</td>
-						<td><input name="r1_value_public" type="text" size="2"></td>
-						<td><textarea name="r1_correct_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="r1_wrong_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><input name="r1_value_secret" type="text" size="2"></td>
-						<td><textarea name="r1_correct_feedback_secret" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="r1_wrong_feedback_secret" cols="20" rows="2"> </textarea></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="r2_checked"></td>
-						<td>R2</td>
-						<td>
-							<select name="r2_comparison_op">
-								<option><</option>
-								<option><=</option>
-								<option selected>=</option>
-								<option>>=</option>
-								<option>></option>
-							</select>
-						</td>
-						<td><input name="r2_value_public" type="text" size="2"></td>
-						<td><textarea name="r2_correct_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="r2_wrong_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><input name="r2_value_secret" type="text" size="2"></td>
-						<td><textarea name="r2_correct_feedback_secret" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="r2_wrong_feedback_secret" cols="20" rows="2"> </textarea></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="r3_checked"></td>
-						<td>R3</td>
-						<td>
-							<select name="r3_comparison_op">
-								<option><</option>
-								<option><=</option>
-								<option selected>=</option>
-								<option>>=</option>
-								<option>></option>
-							</select>
-						</td>
-						<td><input name="r3_value_public" type="text" size="2"></td>
-						<td><textarea name="r3_correct_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="r3_wrong_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><input name="r3_value_secret" type="text" size="2"></td>
-						<td><textarea name="r3_correct_feedback_secret" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="r3_wrong_feedback_secret" cols="20" rows="2"> </textarea></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="r4_checked"></td>
-						<td>R4</td>
-						<td>
-							<select name="r4_comparison_op">
-								<option><</option>
-								<option><=</option>
-								<option selected>=</option>
-								<option>>=</option>
-								<option>></option>
-							</select>
-						</td>
-						<td><input name="r4_value_public" type="text" size="2"></td>
-						<td><textarea name="r4_correct_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="r4_wrong_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><input name="r4_value_secret" type="text" size="2"></td>
-						<td><textarea name="r4_correct_feedback_secret" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="r4_wrong_feedback_secret" cols="20" rows="2"> </textarea></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="r5_checked"></td>
-						<td>R5</td>
-						<td>
-							<select name="r5_comparison_op">
-								<option><</option>
-								<option><=</option>
-								<option selected>=</option>
-								<option>>=</option>
-								<option>></option>
-							</select>
-						</td>
-						<td><input name="r5_value_public" type="text" size="2"></td>
-						<td><textarea name="r5_correct_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="r5_wrong_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><input name="r5_value_secret" type="text" size="2"></td>
-						<td><textarea name="r5_correct_feedback_secret" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="r5_wrong_feedback_secret" cols="20" rows="2"> </textarea></td>
-					</tr>	
-					<tr>
-						<td><input type="checkbox" name="sp_checked"></td>
-						<td>SP</td>
-						<td>
-							<select name="sp_comparison_op">
-								<option><</option>
-								<option><=</option>
-								<option selected>=</option>
-								<option>>=</option>
-								<option>></option>
-							</select>
-						</td>
-						<td><input name="sp_value_public" type="text" size="2"></td>
-						<td><textarea name="sp_correct_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="sp_wrong_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><input name="sp_value_secret" type="text" size="2"></td>
-						<td><textarea name="sp_correct_feedback_secret" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="sp_wrong_feedback_secret" cols="20" rows="2"> </textarea></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="fp_checked"></td>
-						<td>FP</td>
-						<td>
-							<select name="fp_comparison_op">
-								<option><</option>
-								<option><=</option>
-								<option selected>=</option>
-								<option>>=</option>
-								<option>></option>
-							</select>
-						</td>
-						<td><input name="fp_value_public" type="text" size="2"></td>
-						<td><textarea name="fp_correct_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="fp_wrong_feedback_public" cols="20" rows="2"> </textarea></td>
-						<td><input name="fp_value_secret" type="text" size="2"></td>
-						<td><textarea name="fp_correct_feedback_secret" cols="20" rows="2"> </textarea></td>
-						<td><textarea name="fp_wrong_feedback_secret" cols="20" rows="2"> </textarea></td>
-					</tr>
+					<c:forEach begin="0" end="8" step="1" var="i">
+						<c:set var="pub" value="${criteria['PUBREG'+i]}"/>
+						<c:set var="sec" value="${criteria['SECREG'+i]}"/>
+						<tr>
+							<td><input type="checkbox" name="r<c:out value="${i}"/>_checked"></td>
+							<td>R<c:out value="${i}"/></td>
+							<td>
+								<select name="<c:out value="${pub.id}"/>_comparison_op">
+									<option><</option>
+									<option><=</option>
+									<option selected>=</option>
+									<option>>=</option>
+									<option>></option>
+								</select>
+							</td>
+							<td><input name="<c:out value="${pub.id}"/>_value" type="text" size="4" value="<c:out value="${pub.acceptanceTestValue}"/>"></td>
+							<td><textarea name="<c:out value="${pub.id}"/>_correct_feedback" cols="20" rows="4"><c:out value="${pub.acceptanceFeedback}"/></textarea></td>
+							<td><textarea name="<c:out value="${pub.id}"/>_wrong_feedback" cols="20" rows="4"><c:out value="${pub.failureFeedback}"/></textarea></td>
+							<td>
+								<select name="<c:out value="${sec.id}"/>_comparison_op">
+									<option><</option>
+									<option><=</option>
+									<option selected>=</option>
+									<option>>=</option>
+									<option>></option>
+								</select>
+							</td>
+							<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="4" value="<c:out value="${sec.acceptanceTestValue}"/>"></td>
+							<td><textarea name="<c:out value="${sec.id}"/>_correct_feedback" cols="20" rows="4"><c:out value="${sec.acceptanceFeedback}"/></textarea></td>
+							<td><textarea name="<c:out value="${sec.id}"/>_wrong_feedback" cols="20" rows="4"><c:out value="${sec.failureFeedback}"/></textarea></td>
+						</tr>
+					</c:forEach>
 				</table>
 			</td>
 		</tr>
@@ -585,24 +446,36 @@ function instructionRequirementsIntoText() {
 									<td><p>Feedback if correct</p></td>
 									<td><p>Feedback if wrong</p></td>
 								</tr>
-								<tr>
-									<td><input name="v0_name" type="text" size="2"></td>
-									<td>
-										<select name="v0_comparison_op">
-											<option><</option>
-											<option><=</option>
-											<option selected>=</option>
-											<option>>=</option>
-											<option>></option>
-										</select>
-									</td>
-									<td><input name="v0_value_public" type="text" size="2"></td>
-									<td><textarea name="v0_correct_feedback_public" cols="20" rows="2"> </textarea></td>
-									<td><textarea name="v0_wrong_feedback_public" cols="20" rows="2"> </textarea></td>
-									<td><input name="v0_value_secret" type="text" size="2"></td>
-									<td><textarea name="v0_correct_feedback_secret" cols="20" rows="2"> </textarea></td>
-									<td><textarea name="v0_wrong_feedback_secret" cols="20" rows="2"> </textarea></td>
-								</tr></table></td>
+								<c:forEach begin="0" end="8" step="1" var="i">
+									<c:set var="pub" value="${criteria['PUBSYM'+i]}"/>
+									<c:set var="sec" value="${criteria['SECSYM'+i]}"/>
+									<tr>
+										<td><input name="v<c:out value="${i}"/>_name" type="text" size="2"></td>
+										<td>
+											<select name="<c:out value="${pub.id}"/>_comparison_op">
+												<option><</option>
+												<option><=</option>
+												<option selected>=</option>
+												<option>>=</option>
+												<option>></option>
+											</select>
+										</td>
+										<td><input name="<c:out value="${pub.id}"/>_value" type="text" size="2" value="<c:out value="${pub.acceptanceTestValue}"/>"></td>
+										<td><textarea name="<c:out value="${pub.id}"/>_correct_feedback" cols="20" rows="2"><c:out value="${pub.acceptanceFeedback}"/></textarea></td>
+										<td><textarea name="<c:out value="${pub.id}"/>_wrong_feedback" cols="20" rows="2"><c:out value="${pub.failureFeedback}"/></textarea></td>
+										<td>
+											<select name="<c:out value="${sec.id}"/>_comparison_op">
+												<option><</option>
+												<option><=</option>
+												<option selected>=</option>
+												<option>>=</option>
+												<option>></option>
+											</select>
+										</td>
+										<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="2" value="<c:out value="${sec.acceptanceTestValue}"/>"></td>
+										<td><textarea name="<c:out value="${sec.id}"/>_correct_feedback" cols="20" rows="2"><c:out value="${sec.acceptanceFeedback}"/></textarea></td>
+										<td><textarea name="<c:out value="${sec.id}"/>_wrong_feedback" cols="20" rows="2"><c:out value="${sec.failureFeedback}"/></textarea></td>
+									</tr></c:forEach></table></td>
 						<!-- DO NOT separate </tr></table></td> above. Required for Javascript function addVariable() to function correctly. -->
 					</tr>
 					<tr>
