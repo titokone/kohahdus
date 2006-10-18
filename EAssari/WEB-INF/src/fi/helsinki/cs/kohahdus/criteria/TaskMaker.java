@@ -3,10 +3,13 @@ package fi.helsinki.cs.kohahdus.criteria;
 import java.util.*;
 
 import fi.helsinki.cs.kohahdus.trainer.Task;
+import fi.helsinki.cs.kohahdus.DBHandler;
 
 /** Copy-paste koodauksella aikaansaatu template-teht‰v‰n luonti h‰ss‰kk‰.
  * Kriteerit on tehty, task-ilmentym‰t pit‰isi viel‰ v‰‰nt‰‰. Palautteet 
  * pit‰‰ tietysti viel‰ hioa, n‰m‰ kelpaavat vain testaukseen. */
+
+//Erroreita, mik‰h‰n vialla?
 public class TaskMaker {
 	static LinkedList<Criterion> fiCriteria = new LinkedList<Criterion>();
 	static LinkedList<Criterion> enCriteria = new LinkedList<Criterion>();
@@ -68,9 +71,9 @@ public class TaskMaker {
 		
 		// Tehd‰‰n task-ilmentym‰t:
 		Task et = new Task("EN_TEMPLATE");
-		et.setFailFeedBack("You suck");
-		et.setPassFeedBack("You go girl!");
-		et.setTasktype(Task.TYPE_FULL); // oletuksena vaikka n‰in
+		et.setFailFeedBack("Task wasn't solved");
+		et.setPassFeedBack("Task was solved");
+		et.setTitoTaskType(Task.TYPE_FULL); // oletuksena vaikka n‰in
 		//et.setCourseID();				// Ei k‰ytet‰ t‰ss‰ tapauksessa
 		// Tarviiko n‰it‰? Jos tarvii niin samat suomi-versioon: Joo ei...
 		//et.setCutoffvalue(100);
@@ -81,15 +84,26 @@ public class TaskMaker {
 		
 
 		Task ft = new Task("FI_TEMPLATE");
-		ft.setFailFeedBack("EVO");
+		ft.setFailFeedBack("Teht‰v‰‰ ei ratkaistu hyv‰ksytt‰v‰sti");
 		ft.setPassFeedBack("Teht‰v‰ ratkaistu hyv‰ksytysti");
 		ft.setCutoffvalue(100);
-		et.setTasktype(Task.TYPE_FULL); // oletuksena vaikka n‰in
+		et.setTitoTaskType(Task.TYPE_FULL); // oletuksena vaikka n‰in
 		//et.setCourseID();				// Ei k‰ytet‰ t‰ss‰ tapauksessa
 
 		
 		
 		// Vied‰‰n tietokantaan:
+		//FIX ME
+		DBHandler handler=DBHandler.getInstance();
+		boolean enCreate=handler.createTask(et, enCriteria); //Oh come on! toimi pliis!
+		boolean fiCreate=handler.createTask(ft, fiCriteria);
+		
+		if (enCreate&&fiCreate) {
+			System.out.println("Tasks were added to database succesfully.");
+		} else {
+			System.out.println("There were errors with DBHandler. Tasks not added succesfully.");
+		}
+		
 		
 	}
 	
@@ -214,91 +228,91 @@ public class TaskMaker {
 	// <mittauskriteerit>
 	static Criterion createCodeSizeCriterion_FI() {
 		Criterion cr = new CodeSizeCriterion("CODESIZE", false);
-		cr.setHighQualityFeedback("Ohjelma on eritt‰in kompaktin kokoinen");
+		cr.setHighQualityFeedback("Ohjelma on eritt‰in kompaktin kokoinen :)");
 		cr.setAcceptanceFeedback("Ohjelman koko t‰ytt‰‰ vaatimukset [mutta voisi olla pienempikin]");
 		cr.setFailureFeedback("Ohjelma on liian suuri (sis‰lt‰‰ liian monta k‰sky‰)");
 		return cr;		
 	}	
 	static Criterion createCodeSizeCriterion_EN() {
 		Criterion cr = new CodeSizeCriterion("CODESIZE", false);
-		cr.setHighQualityFeedback("Vittu en jaksa, v‰‰nt‰k‰‰ te");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("...");
+		cr.setHighQualityFeedback("Program size is very compact :)");
+		cr.setAcceptanceFeedback("Program size meets the requirements [could be smaller though]");
+		cr.setFailureFeedback("Program is too large (contains too many instructions)");
 		return cr;		
 	}
 	
 	static Criterion createDataAreaSizeCriterion_FI() {
 		Criterion cr = new DataAreaSizeCriterion("DATASIZE", false);
-		cr.setHighQualityFeedback("...");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("....");
+		cr.setHighQualityFeedback("Data-alueen koko on eritt‰in kompakti :)");
+		cr.setAcceptanceFeedback("Data-alueen koko on hyv‰ksytt‰v‰");
+		cr.setFailureFeedback("Data-alueen koko on liian suuri");
 		return cr;		
 	}	
 	static Criterion createDataAreaSizeCriterion_EN() {
 		Criterion cr = new DataAreaSizeCriterion("DATASIZE", false);
-		cr.setHighQualityFeedback("...");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("...");
+		cr.setHighQualityFeedback("Data-area size is very compact :) ");
+		cr.setAcceptanceFeedback("Data-area size is acceptable");
+		cr.setFailureFeedback("Data-area size is too large");
 		return cr;		
 	}
 	
 	static Criterion createStackSizeCriterion_FI() {
 		Criterion cr = new StackSizeCriterion("STACKSIZE", false);
-		cr.setHighQualityFeedback("...");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("....");
+		cr.setHighQualityFeedback("Pinon koko on eritt‰in kompakti :)");
+		cr.setAcceptanceFeedback("Pinon koko on hyv‰ksytt‰v‰");
+		cr.setFailureFeedback("Pinon koko on liian suuri");
 		return cr;		
 	}	
 	static Criterion createStackSizeCriterion_EN() {
 		Criterion cr = new StackSizeCriterion("STACKSIZE", false);
-		cr.setHighQualityFeedback("...");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("...");
+		cr.setHighQualityFeedback("Stack size is very compact :)");
+		cr.setAcceptanceFeedback("Stack size is acceptable");
+		cr.setFailureFeedback("Stack size is too large");
 		return cr;		
 	}	
 	
 	static Criterion createExecutetionStepsCriterion_FI() {
 		Criterion cr = new ExecutetionStepsCriterion("STEPS", false);
-		cr.setHighQualityFeedback("...");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("....");
+		cr.setHighQualityFeedback("Suoritettuja k‰skyj‰ on v‰h‰n :)");
+		cr.setAcceptanceFeedback("Suoritettuja k‰skyj‰ m‰‰r‰ on hyv‰ksytt‰v‰");
+		cr.setFailureFeedback("K‰skyj‰ suoritettiin liian paljon");
 		return cr;		
 	}	
 	static Criterion createExecutetionStepsCriterion_EN() {
 		Criterion cr = new ExecutetionStepsCriterion("STEPS", false);
-		cr.setHighQualityFeedback("...");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("...");
+		cr.setHighQualityFeedback("Number of executed instructions  is low :)");
+		cr.setAcceptanceFeedback("Number of executed instructions is acceptable");
+		cr.setFailureFeedback("Too many executed instructions");
 		return cr;		
 	}
 	
 	static Criterion createMemReferencesCriterion_FI() {
 		Criterion cr = new MemReferencesCriterion("MEMREF", false);
-		cr.setHighQualityFeedback("...");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("....");
+		cr.setHighQualityFeedback("Muistiviittauksia oli eritt‰in v‰h‰n :)");
+		cr.setAcceptanceFeedback("Muistiviittausten lukum‰‰r‰ oli hyv‰ksytt‰v‰");
+		cr.setFailureFeedback("Muistiviittauksia oli liikaa");
 		return cr;		
 	}	
 	static Criterion createMemReferencesCriterion_EN() {
 		Criterion cr = new MemReferencesCriterion("MEMREF", false);
-		cr.setHighQualityFeedback("...");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("...");
+		cr.setHighQualityFeedback("Number of memory references is low :)");
+		cr.setAcceptanceFeedback("Number of memory references is acceptable");
+		cr.setFailureFeedback("Too many memory references");
 		return cr;		
 	}		
 	
 	static Criterion createDataReferencesCriterion_FI() {
 		Criterion cr = new DataReferencesCriterion("DATAREF", false);
-		cr.setHighQualityFeedback("...");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("....");
+		cr.setHighQualityFeedback("Suoritettuja data-viittauksia on v‰h‰n :)");
+		cr.setAcceptanceFeedback("Suoritettujen data-viittausten lukum‰‰r‰ on hyv‰ksytt‰v‰");
+		cr.setFailureFeedback("Suoritettuja data-viittauksia on liikaa");
 		return cr;		
 	}	
 	static Criterion createDataReferencesCriterion_EN() {
 		Criterion cr = new DataReferencesCriterion("DATAREF", false);
-		cr.setHighQualityFeedback("...");
-		cr.setAcceptanceFeedback("...");
-		cr.setFailureFeedback("...");
+		cr.setHighQualityFeedback("Number of executed data references is low :)");
+		cr.setAcceptanceFeedback("Number of executed data references is acceptable");
+		cr.setFailureFeedback("Too many executed data references");
 		return cr;		
 	}	
 	// </mittauskriteerit>
