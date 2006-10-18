@@ -253,6 +253,8 @@ function instructionRequirementsIntoText() {
 
 <h1 align="center">Create Task</h1>
 
+<jsp:include page="../menu.jsp"/>
+
 <form name="task_creation_form" method="" action="" onSubmit="formOnSubmit()">
 
 <input type="hidden" name="required_ttk_instructions">

@@ -24,7 +24,7 @@
 				<a href="teacherTaskList.jsp">Task list</a>
 				<a href="statistics.jsp">Statistics</a>
 			</c:otherwise>
-		<c:choose>
+		</c:choose>
 	</td>
 	<td align="right">
 		<c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> (<c:out value="${user.status}"/>)

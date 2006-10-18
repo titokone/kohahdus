@@ -20,6 +20,9 @@
 	<c:redirect url="../login.jsp"/>	
 </c:if>
 
+<jsp:include page="../menu.jsp"/>
+
+
 <%-- DEBUG --%>
 <p>Logged in as <c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/>
 <p>Kurssi: <c:out value="${course}"/>

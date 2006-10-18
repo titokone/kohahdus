@@ -130,6 +130,8 @@ If new password field isn't empty, check that the old password matches.
 	Logged in: <c:out value="${user.firstName} ${user.lastName}"/>
 </c:if>
 
+<jsp:include page="../menu.jsp"/>
+
 
 <c:if test="${param.action=='modify'}">
 

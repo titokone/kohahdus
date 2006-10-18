@@ -108,7 +108,7 @@
 </div>
 
 <c:if test="${empty param.role}">
-	<p><small>New user? <a href="signup.html">Sign up</a></small></p>
+	<p><small>New user? <a href="signup.jsp">Sign up</a></small></p>
 </c:if>
 
 </form>

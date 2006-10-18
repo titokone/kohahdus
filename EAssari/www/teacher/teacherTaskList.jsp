@@ -27,6 +27,8 @@
 	Student tried to load a restricted page - redirecting to students tasklisting
 	<c:redirect url="../student/studentTaskList.jsp"/>
 </c:if>
+
+<jsp:include page="../menu.jsp"/>
 		
 <c:if test="${param.action=='create_course'}">
 	<p>CREATING COURSE <c:out value="${param.new_course}"/>
