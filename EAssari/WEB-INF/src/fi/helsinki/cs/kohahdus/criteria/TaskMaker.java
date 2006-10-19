@@ -87,9 +87,9 @@ public class TaskMaker {
 		
 		// Viedään tietokantaan:
 		DBHandler handler=DBHandler.getInstance();
-		System.out.println("Meneekö?");
+		handler.removeTask(et);
+		handler.removeTask(ft);
 		boolean enCreate=handler.createTask(et, enCriteria);
-	System.out.println("Meni " + enCreate);
 		boolean fiCreate=handler.createTask(ft, fiCriteria);
 		
 		if (enCreate&&fiCreate) {
