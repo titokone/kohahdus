@@ -57,9 +57,18 @@ public class TaskComparator implements Comparator<Task> {
 	}
 	
 	private int compareStatus(Task t1, Task t2) {
-		if (t1.isHasSucceeded() || t2.getNoOfTries() == 0) return -1;
-		if (t2.isHasSucceeded()) return 1;		
-		return 0;
+		int t1status = t1.isHasSucceeded()    ? 2 
+				     : t1.getNoOfTries() == 0 ? 1
+				     :                          0
+				     ;
+		int t2status = t2.isHasSucceeded()    ? 2 
+					 : t2.getNoOfTries() == 0 ? 1
+					 :                          0
+					 ;
+		
+//		if (t1.isHasSucceeded() || t2.getNoOfTries() == 0) return -1;
+//		if (t2.isHasSucceeded()) return 1;		
+		return t2status - t1status;
 	}
 	
 	private int compareTries(Task t1, Task t2) {
