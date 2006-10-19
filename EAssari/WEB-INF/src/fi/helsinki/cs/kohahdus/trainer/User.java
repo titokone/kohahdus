@@ -184,9 +184,10 @@ public class User {
 		if (isEmptyString(lastname)) return false;
 		if (isEmptyString(firstname)) return false;
 		if (isEmptyString(passwd)) return false;
-		if (isEmptyString(email)) return false;
-		if (isEmptyString(studentnumber)) return false;
-		if (isEmptyString(socialsecuritynumber)) return false;
+		if (isEmptyString(email)) return false;		
+		if (isEmptyString(studentnumber) && (isEmptyString(socialsecuritynumber))) return false;
+		
+//		if (isEmptyString(socialsecuritynumber)) return false;
 		
 		return true;
 	}

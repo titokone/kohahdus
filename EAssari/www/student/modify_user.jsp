@@ -128,34 +128,23 @@
 		<c:set target="${user}" property="socialSecurityNumber" value="${param.social_security_number}"/>
 	</c:if>
 
-	<c:choose>
-		<c:when test="${param.new_password == param.repeat_new_password}">
-			Kaikki salasanat OK
-			<c:set target="${user}" property="password" value="${param.new_password}"/>
+	<c:if test="${not empty param.new_password && not empty param.repeat_new_password && (param.new_password == param.repeat_new_password)}">
+		<c:set target="${user}" property="password" value="${param.new_password}"/>
+	</c:if>
+
 	
 			<%
 			User user = (User) session.getAttribute("user");
 			if (user.isValid()) {
 	 			boolean testi = DBHandler.getInstance().updateUser(user);
-	 			out.print("Nyt yritettiin kirjoittaa kantaa ");
-	 			out.print(testi);
+	 			out.print("Updated to database.");
 	 		} else {
 	 		out.print("Error in updating database");
 	 		}		
 			%>	
 
-			</c:when>
-			
-			<c:otherwise>
-				Error in password, try again
-			</c:otherwise>
-	</c:choose>
 	
 </c:if>
-
-
-
-
 
 
 <h2>Edit Your Profile</h2>
