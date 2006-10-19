@@ -74,13 +74,15 @@ public class TaskMaker {
 		et.setFailFeedBack("Task wasn't solved");
 		et.setPassFeedBack("Task was solved");
 		et.setTitoTaskType(Task.TYPE_FULL); // oletuksena vaikka n‰in
+		et.setLanguage("EN");
 		
 
 		Task ft = new Task("FI_TEMPLATE");
 		ft.setFailFeedBack("Ratkaisuyritys ep‰onnistui");
 		ft.setPassFeedBack("Teht‰v‰ ratkaistu hyv‰ksytysti");
 		ft.setCutoffvalue(100);
-		et.setTitoTaskType(Task.TYPE_FULL);
+		ft.setTitoTaskType(Task.TYPE_FULL);
+		ft.setLanguage("FI");
 		
 		
 		// Vied‰‰n tietokantaan:

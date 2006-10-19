@@ -11,7 +11,7 @@
 	<c:redirect url="../login.jsp?role=teacher"/>	
 </c:if>
 
-<table border="0" style="width:100%">
+<table style="width:100%;background:#eeeeff;border-style:solid;border-width:2">
 <tr>
 	<td align="left">
 		<c:choose>

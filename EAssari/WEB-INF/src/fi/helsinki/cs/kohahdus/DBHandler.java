@@ -63,7 +63,8 @@ public class DBHandler {
 	// TODO: DBConnectionPool
 	///      !!!!!!!!!!!!!!!!!! Tosi likainen ratkaisu ennen DBConnectionPool luokkaa
 	protected Connection getConnection () throws SQLException {
-	    // load database driver if not already loaded
+		// load database driver if not already loaded
+		//Log.write("DBHandler: Getting connection...");
 		Connection conn = null;
 		try { 
 		  Class.forName(dbDriver);               // load driver if not loaded
@@ -75,6 +76,7 @@ public class DBHandler {
 		} catch (SQLException sex) {
 			throw new SQLException("Couldn't establish a repository connection. ");
         }
+		//Log.write("DBHandler: Got connection.");
         return conn;
 	}	
 
@@ -372,8 +374,8 @@ public class DBHandler {
 			st.setString(3, task.getAuthor());
 			st.setInt(4, task.getCutoffvalue());
 			st.setString(5, DBHandler.DEFAULT_TASKTYPE);
-			int c = st.executeUpdate();
-			if (c > 0){
+			//Log.write("DBHandler: Executing insert...");			
+			if (st.executeUpdate() > 0){
 				Log.write("DBHandler: Task added to DB: name=" +task.getName()+ ", id="+task.getTaskID());
 				return true;
 			} else {
