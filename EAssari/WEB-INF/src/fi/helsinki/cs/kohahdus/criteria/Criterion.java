@@ -22,12 +22,29 @@ package fi.helsinki.cs.kohahdus.criteria;
  * </ul>   
  */
 public abstract class Criterion {
+	public static final String ID_PUBLIC_REGISTER_PREFIX = "PUBREG";
+	public static final String ID_SECRET_REGISTER_PREFIX = "SECREG";
+	public static final String ID_PUBLIC_SYMBOL_PREFIX   = "PUBSYM";
+	public static final String ID_SECRET_SYMBOL_PREFIX   = "SECSYM";
+	public static final String ID_PUBLIC_OUTPUT          = "PUBOUT";
+	public static final String ID_SECRET_OUTPUT          = "SECOUT";
+	public static final String ID_REQUIRED_INSTRUCTIONS  = "REQOPCODES";
+	public static final String ID_FORBIDDEN_INSTRUCTIONS = "BANOPCODES";
+	public static final String ID_CODE_SIZE              = "CODESIZE";
+	public static final String ID_DATA_AREA_SIZE         = "DATASIZE";
+	public static final String ID_STACK_SIZE             = "STACKSIZE";
+	public static final String ID_EXECUTION_STEPS        = "STEPS";
+	public static final String ID_MEMORY_REFERENCES      = "MEMREF";
+	public static final String ID_DATA_REFERENCES        = "DATAREF";
+	
+	
+	
+	
 	/** Special case for signaling undefined numeric value. Criteria that deal with numeric
 	 *  types (such as RegisterCriterium) need all 32-bits of int, but we also need a way
 	 *  to represent undefined (IOW null) values. Best-but-still-ugly solution is to use
 	 *  longs for all numeric types and use a special signal value for undef. */
 	protected static final long UNDEFINED = Long.MIN_VALUE; 
-
 	
 	private String id;
 	private String highQualityFeedback = "";
