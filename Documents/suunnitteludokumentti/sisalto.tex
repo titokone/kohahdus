@@ -50,7 +50,7 @@ opettajien tunnusten kanssa, mutta odotettavissa on, ett‰ opettajatunnusten tuke
 mink‰‰nlaista lis‰tyˆt‰.
 
 \subsection{Kirjautuminen}
-Kirjautumissivulla k‰ytt‰j‰ syˆtt‰‰ tunnuksensa, salasanansa ja pudotusvalikosta kurssin nimi.
+Kirjautumissivulla k‰ytt‰j‰ syˆtt‰‰ tunnuksensa, salasanansa ja pudotusvalikosta kurssin nimen.
 Kurssivalinta m‰‰ritt‰‰, ett‰ mink‰ kurssin suorituksiin opiskelijan tekem‰t vastaukset tallennetaan.
 Opettajan ollessa kyseess‰ kurssivalinnalla ei ole merkityst‰. Jos kirjautuminen onnistuu, n‰ytet‰‰n
 teht‰v‰listaus. Jos kirjautuminen ep‰onnistuu, k‰ytt‰j‰ palautetaan kirjautumissivulle.
@@ -96,7 +96,7 @@ opiskelija kirjoittaa vastauksensa. Lis‰ksi on linkki jolla p‰‰see takaisin teht
 
 Kun opiskelija on kirjoittanut vastauksensa, h‰n painaa "Suorita"-nappia joka vie
 takaisin teht‰v‰vastaussivulle. Sivulla n‰ytet‰‰n samat tiedot kuin alussa, mutta
-lis‰ksi n‰ytet‰‰n palautetta teht‰v‰n ratkaisun onnistumisesta/ep‰onnistumisesta.
+lis‰ksi n‰ytet‰‰n palautetta ratkaisun onnistumisesta/ep‰onnistumisesta.
 
 Teht‰v‰‰n vastaaminen toteutetaan toisessa kehitysiteraatiossa.
 
@@ -110,7 +110,7 @@ J‰rjestelm‰ on jaettu kahteen osaj‰rjestelm‰‰n, Titokone ja eAssari/TitoTrainer.
 olisi ollut kolme osaj‰rjestelm‰‰, jossa eAssari on TitoTraineria kutsuva sovelluskehys. T‰m‰
 malli ei kuitenkaan ole mahdollinen, johtuen eAssarin keskener‰isyydest‰. Lopputuotteelle 
 asettujen vaatimusten t‰ytt‰minen vaatii huomattavia lis‰yksi‰ eAssariin, mm. puuttuvat
-kurssien ja k‰ytt‰jien hallinta t‰ytyy tehd‰. Kire‰n aikataulun vuoksi eAssaria ei yritet‰
+kurssien ja k‰ytt‰jien hallinta t‰ytyy toteuttaa. Kire‰n aikataulun vuoksi eAssaria ei yritet‰
 s‰ilytt‰‰ geneerisen‰ kehyksen‰, vaan muokkauset tehd‰‰n vain Kohahdus projektin tarpeita
 ajatellen. K‰yt‰nnˆss‰ eAssarista tehd‰‰n siis ns. code fork, eli synnytet‰‰n t‰ysin
 TitoTrainer-spesifinen eAssari-versio, jonka ei taata olevan yhteensopiva geneerisen eAssarin kanssa.
@@ -138,17 +138,17 @@ asioiksi.
 	\caption{Tietokantakaavio}
 \end{figure}
 
-Tietotokannan rakenteen m‰‰r‰‰ eAssari kehys. Rakenne on kuvattu liitteess‰ 1. Ajanpuutteesta johtuen
+Tietokannan rakenteen m‰‰r‰‰ eAssari kehys. Rakenne on kuvattu liitteess‰ 1. Ajanpuutteesta johtuen
 module-tietokantataulua ei tulla k‰ytt‰m‰‰n sen mahdollistamassa laajuudessa. Kyseisest‰ taulusta
 luodaan vain yksi rivi kantaan, johon sitten viitataan muista tauluista. Lis‰ksi jokainen teht‰v‰
 sis‰ltyy jokaiseen kurssiin. Eli kun teht‰v‰ luodaan, niin se liitet‰‰n jokaiseen kurssiin. Lis‰ksi 
 kun kurssi luodaan, niin jokainen teht‰v‰ lis‰t‰‰n kyseiseen uuteen kurssiin. T‰m‰ linkitys tapahtuu
 "taskinmodule"-tietokantataulussa. 
 
-Tietokantaa k‰ytet‰‰n aina DBHandler-luokan kautta, joka piilottaa tietokantarakenteen yksityiskohdat.
-Eli SQL-lauseita tulee vain ks. luokkaan eik‰ muualle koodiin. DBHandler-luokasta voidaan luoda instanssi
-staattisen DBHandler.getInstance() -metodin avulla. T‰m‰ tarkoittaa sit‰, ett‰ ko. luokkaa voidaan 
-k‰ytt‰‰ virtuaalikoneen sis‰ll‰ mist‰ vaan.
+Tietokantaa k‰ytet‰‰n aina DBHandler-nimisen singleton-luokan kautta, joka piilottaa tietokantarakenteen
+yksityiskohdat. SQL-lauseita tulee siis vain DBHandler luokkaan eik‰ muualle koodiin. DBHandler-luokasta
+voidaan luoda instanssi staattisen DBHandler.getInstance() -metodin avulla. T‰m‰ tarkoittaa, ett‰ ko.
+luokkaa voidaan k‰ytt‰‰ virtuaalikoneen sis‰ll‰ mist‰ vaan.
 
 \subsection{Tasktype}
 Tasktype on eAssari-kehyksen tarvitsema taulu, joka m‰‰rittelee teht‰v‰tyypin k‰ytt‰m‰t

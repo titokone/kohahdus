@@ -57,14 +57,14 @@ public class TaskMaker {
 			String xml1 = cr.serializeToXML();
 			cr = Criterion.deserializeFromXML(xml1);
 			String xml2 = cr.serializeToXML();
-			System.out.println(xml2);
+//			System.out.println(xml2);
 			assert(xml1.equals(xml2));
 		}
 		for (Criterion cr : enCriteria) {
 			String xml1 = cr.serializeToXML();
 			cr = Criterion.deserializeFromXML(xml1);
 			String xml2 = cr.serializeToXML();
-			System.out.println(xml2);
+//			System.out.println(xml2);
 			assert(xml1.equals(xml2));
 		}
 		
@@ -85,7 +85,9 @@ public class TaskMaker {
 		
 		// Viedään tietokantaan:
 		DBHandler handler=DBHandler.getInstance();
+		System.out.println("Meneekö?");
 		boolean enCreate=handler.createTask(et, enCriteria);
+	System.out.println("Meni " + enCreate);
 		boolean fiCreate=handler.createTask(ft, fiCriteria);
 		
 		if (enCreate&&fiCreate) {
