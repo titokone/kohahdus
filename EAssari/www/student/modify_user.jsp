@@ -7,14 +7,6 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Edit Your Profile</title>
-<!-- // TODO
-If new password field isn't empty, check that the old password matches.
--->
-<%-- Ylläoleva fiksattu. Tiedot viedään kantaan, jos passukenttiin ei ole koskettu.
-	 Jos johonkin passukenttään on kirjoitettu, niin tarkistukset hoidetaan kuten
-	 aikaisemmin.
---%>	   
-
 
 <script language="Javascript">
 
@@ -32,7 +24,6 @@ If new password field isn't empty, check that the old password matches.
 		document.getElementById("student_number_error_msg_space").innerHTML = '';
 		document.getElementById("ssn_error_msg_space").innerHTML = '';
 		document.getElementById("email_error_msg_space").innerHTML = '';
-		document.getElementById("old_password_error_msg_space").innerHTML = '';
 		document.getElementById("new_password_error_msg_space").innerHTML = '';
 		document.getElementById("repeat_new_password_error_msg_space").innerHTML = '';
 
@@ -61,24 +52,11 @@ If new password field isn't empty, check that the old password matches.
 			returnvalue = false;
 		}
 		
-		// old password given, but no new one chosen
-		if((form.old_password.value != '') && (form.new_password.value == '')) {
-			var elem = document.getElementById("new_password_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please choose a new password.</b></font>';
-			returnvalue = false;
-		}
 
 		// new password chosen, but not repeated
 		if((form.new_password.value != '') && (form.repeat_new_password.value == '')) {
 			var elem = document.getElementById("repeat_new_password_error_msg_space");
 			elem.innerHTML = '<font color="#FF0000"><b>Please repeat your new password.</b></font>';
-			returnvalue = false;
-		}
-
-		// new password chosen, but old one not given
-		if(((form.new_password.value != '') || (form.repeat_new_password.value != '')) && (form.old_password.value == '')) {
-			var elem = document.getElementById("old_password_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your old password.</b></font>';
 			returnvalue = false;
 		}
 
@@ -97,7 +75,7 @@ If new password field isn't empty, check that the old password matches.
 		}
 
 		// Only if user is trying to change password and "password" and "repeat password" don't match and neither is empty
-		if ((form.old_password != '') || (form.new_password.value != '') || (form.repeat_new_password.value != '')) {
+		if ((form.new_password.value != '') || (form.repeat_new_password.value != '')) {
 			if((form.new_password.value != '') && (form.repeat_new_password.value != '') && (form.new_password.value != form.repeat_new_password.value)) {
 				var elem = document.getElementById("password_error_msg_space");
 				elem.innerHTML = '<font color="#FF0000"><b>Different values in password fields. Please check your typing.</b></font>';			
@@ -126,12 +104,7 @@ If new password field isn't empty, check that the old password matches.
 
 <body>
 
-<c:if test="${not empty user}">
-	Logged in: <c:out value="${user.firstName} ${user.lastName}"/>
-</c:if>
-
 <jsp:include page="../menu.jsp"/>
-
 
 <c:if test="${param.action=='modify'}">
 
@@ -148,37 +121,29 @@ If new password field isn't empty, check that the old password matches.
 		<c:set target="${user}" property="socialSecurityNumber" value="${param.social_security_number}"/>
 	</c:if>
 
-	<c:if test="${not empty param.new_password}">
-		<c:set target="${user}" property="password" value="${param.new_password}"/>
-	</c:if>
+	<c:choose>
+		<c:when test="${param.new_password == param.repeat_new_password}">
+			Kaikki salasanat OK
+			<c:set target="${user}" property="password" value="${param.new_password}"/>
 
-
-
-	<c:out value="${user.password}"/>	
-	<c:out value="${param.old_password}"/>
 	
-	Viedään kantaan:
-	<br>
-	<c:out value="firstname: ${param.first_name}"/>
-	<br>
-	<c:out value="lastname: ${param.last_name}"/>
-	<br>
-	<c:out value="email: ${param.email}"/>
-	<br>
-	<c:out value="student_number: ${param.student_number}"/>
-	<br>
-	<c:out value="social_security_number: ${param.social_security_number}"/>
+			<%
+			User user = (User) session.getAttribute("user");
+			if (user.isValid()) {
+	 			boolean testi = DBHandler.getInstance().updateUser(user);
+	 			out.print("Nyt yritettiin kirjoittaa kantaa ");
+	 			out.print(testi);
+	 		} else {
+	 		out.print("Error in updating database");
+	 		}		
+			%>	
 
-<%
-	 User user = (User) session.getAttribute("user");
-	 if (user.isValid()) {
-	 	boolean testi = DBHandler.getInstance().updateUser(user);
-	 	out.print("Nyt yritettiin kirjoittaa kantaa ");
-	 	out.print(testi);
-	 } else {
-	 	out.print("Error in updating database");
-	 }		
-%>	
+			</c:when>
+			
+			<c:otherwise>
+				Error in password, try again
+			</c:otherwise>
+	</c:choose>
 	
 </c:if>
 
@@ -241,11 +206,6 @@ If new password field isn't empty, check that the old password matches.
                 </tr>
                 <tr>
                         <td colspan="2"><b><i>Change password</i></b></td>
-                </tr>
-                <tr>
-                        <td><b>Old password </b></td>
-                        <td><input type="password" name="old_password"></td>
-                        <td id="old_password_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>New password </b></td>
