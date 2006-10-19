@@ -442,17 +442,46 @@ public class DBHandler {
 		
 	/** Remove task from task database (and thus all courses). This will also remove all stored
 	 * answers of the task. */
-	public void removeTask(Task task, List<Criterion> criteria) {
-		if (!removeTask(task)) return false;
-		
-		// Update criterions to the db
-		for (Criterion c : criteria) {
-			if (!removeCriterion(task, c)) return false;
-		}
-		
-		// Todo: rollback in case of failing of one of the methods above.
-	
+	public boolean removeTask(Task task) throws SQLException {
+		// TODO: Tämä metodi on Mikon vääntämä, Taro saa korjata
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+/*			st = conn.prepareStatement("delete from storedanswer where taskid=?");
+			st.setString(1, task.getTaskID());
+			st.executeUpdate();
+			
+			st = conn.prepareStatement("delete from studentmodel where taskid=?");
+			st.setString(1, task.getTaskID());
+			st.executeUpdate();
+*/			
+			// Seuraava SQL-lause poistaa myös kriteerit
+			removeCriteria(task); 
+			
+			st = conn.prepareStatement("delete from attributevalues where objecttype=? and objectid=?");
+			st.setString(1, "T");
+			st.setString(2, task.getTaskID());
+			st.executeUpdate();
+
+			st = conn.prepareStatement("delete from taskinmodule where taskid=?");
+			st.setString(1, task.getTaskID());			
+			st.executeUpdate();			
+			
+			st = conn.prepareStatement("delete from task where taskid=?");
+			st.setString(1, task.getTaskID());			
+			st.executeUpdate();
+			return true;
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to remove task '" +task.getName()+"', taskid="+task.getTaskID()+". " +e);
+			e.printStackTrace();
+		} finally {
+			release(conn);
+			if (st != null) st.close();
+		}	
+		return false;		
+		// Todo: rollback in case of failing of one of the methods above.	
 	}
+	
 	
 	/** Adds criterion c to task */
 	private boolean addCriterion(Task t, Criterion c) throws SQLException{
