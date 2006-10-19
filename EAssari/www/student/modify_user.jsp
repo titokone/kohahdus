@@ -60,6 +60,13 @@
 			returnvalue = false;
 		}
 
+		// new password repeated, but not chosen
+		if((form.repeat_new_password.value != '') && (form.new_password.value == '')) {
+			var elem = document.getElementById("new_password_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Please type your new password.</b></font>';
+			returnvalue = false;
+		}
+
 		// student number of wrong format
 		if((form.student_number.value != '') && (form.student_number.value.length != 9 || !stringContainsOnlyNumbers(form.student_number.value))) {
 			var elem = document.getElementById("student_number_error_msg_space");
@@ -77,7 +84,7 @@
 		// Only if user is trying to change password and "password" and "repeat password" don't match and neither is empty
 		if ((form.new_password.value != '') || (form.repeat_new_password.value != '')) {
 			if((form.new_password.value != '') && (form.repeat_new_password.value != '') && (form.new_password.value != form.repeat_new_password.value)) {
-				var elem = document.getElementById("password_error_msg_space");
+				var elem = document.getElementById("new_password_error_msg_space");
 				elem.innerHTML = '<font color="#FF0000"><b>Different values in password fields. Please check your typing.</b></font>';			
 				returnvalue = false;
 			}
@@ -125,7 +132,6 @@
 		<c:when test="${param.new_password == param.repeat_new_password}">
 			Kaikki salasanat OK
 			<c:set target="${user}" property="password" value="${param.new_password}"/>
-
 	
 			<%
 			User user = (User) session.getAttribute("user");
