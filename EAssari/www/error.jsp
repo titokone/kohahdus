@@ -13,6 +13,8 @@
 
 <h2>TitoTrainer - Error</h2>
 
+<jsp:include page="../menu.jsp"/>
+
 Error occurred:<br>
 <br>
 <c:out value="${param.errorMgs}"/>

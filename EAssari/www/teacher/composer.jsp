@@ -19,12 +19,19 @@
 <%	
 	//Get task from DB
 	Task task = DBHandler.getInstance().getTask(request.getParameter("task_id"));	
-	if (tasks != null) pageContext.setAttribute("task", task);
-	
-    // Get all criteria from the database
-	CriterionMap criteria = DBHandler.getInstance().getCriteriaMap(task);	
-	if (!criteria.isEmpty()) pageContext.setAttribute("criteria", criteria);
+	if (task != null) {
+		pageContext.setAttribute("task", task);
+	    // Get all criteria from the database
+		CriterionMap criteria = DBHandler.getInstance().getCriteriaMap(task);	
+		if (!criteria.isEmpty()) pageContext.setAttribute("criteria", criteria);
+	} 
 %>
+
+<c:if test="${empty task or empty criteria}">
+	<c:redirect url="../error.jsp">
+		<c:param name="errorMsg" value="Task or attributes not found!"/>
+	</c:redirect>
+</c:if>
 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">

@@ -552,10 +552,10 @@ public class DBHandler {
 	}	
 	
 	/** Return the criteria of a task in a map */
-	public Map<String,Criterion> getCriteriaMap(Task task) throws SQLException {
+	public CriterionMap getCriteriaMap(Task task) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
-		HashMap<String,Criterion> criteria = new HashMap<String,Criterion>();
+		CriterionMap criteria = new CriterionMap();
 		try {
 			st = conn.prepareStatement("select * from attributevalues " +
 									   "where objecttype=? and objectid=? and language=?");
