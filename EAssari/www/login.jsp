@@ -26,28 +26,28 @@
 	User user = DBHandler.getInstance().getUser(request.getParameter("username"), request.getParameter("password"));
 	if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
 	%>
+	<c:if test="${empty user}">
+		Username or password not correct..
+	</c:if>
+	<c:if test="${not empty user}">		
+		Login ok and then redirect here....
+		<c:if test="${user.admin}">		
+			<c:redirect url="teacher/teacherTaskList.jsp"/>
+			You are an admin so not redirecting to anywhere...
+		</c:if>
+		<c:if test="${user.teacher}">		
+			<c:redirect url="teacher/teacherTaskList.jsp"/>
+		</c:if>
+		<c:if test="${user.student}">	
+			
+			<c:set var="course" value="${param.course}" scope="session"/>
+			<c:set var="language" value="${param.language}" scope="session"/>
+			
+			<c:redirect url="student/studentTaskList.jsp"/>
+		</c:if>
+	</c:if>
 </c:if>
 
-<c:if test="${param.action=='login' and empty user}">
-	Username or password not correct..
-</c:if>
-<c:if test="${not empty user}">		
-	Login ok and then redirect here....
-	<c:if test="${user.admin}">		
-		<c:redirect url="teacher/teacherTaskList.jsp"/>
-		You are an admin so not redirecting to anywhere...
-	</c:if>
-	<c:if test="${user.teacher}">		
-		<c:redirect url="teacher/teacherTaskList.jsp"/>
-	</c:if>
-	<c:if test="${user.student}">	
-		
-		<c:set var="course" value="${param.course}" scope="session"/>
-		<c:set var="language" value="${param.language}" scope="session"/>
-		
-		<c:redirect url="student/studentTaskList.jsp"/>
-	</c:if>
-</c:if>
 
 <form action="login.jsp" method="POST">
 <input type="hidden" name="action" value="login">

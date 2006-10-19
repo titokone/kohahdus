@@ -18,7 +18,7 @@
 
 Error occurred:<br>
 <br>
-<c:out value="${param.errorMgs}"/>
+<c:out value="${param.errorMsg}"/>
 
 </body>
 </html>
