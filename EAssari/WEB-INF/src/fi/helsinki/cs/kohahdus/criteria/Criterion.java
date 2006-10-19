@@ -213,7 +213,7 @@ public abstract class Criterion {
 	 * the tags used by this class: "class", "posfb", "negfb",* "hqfb", "secret" 
 	 * and "id". The abstract Criterion class will handle the serialization of its
 	 * data-members, subclasses need to deserialize only the fields they add.
-	 * 
+	 * <p>
 	 * NOTE: aAssari DB imposes a 2000 char limit to stored strings so subclasses
 	 * should try to keep the tags and data short (without being cryptic). */
 	protected abstract String serializeSubClass();	
@@ -265,7 +265,8 @@ public abstract class Criterion {
 		return value.indexOf(0) == 'T';
 	}
 	
-	/** Deserialize long value from XML string. Helper function for initSubClass() */
+	/** Deserialize long value from XML string. Helper function for initSubClass()
+	 * @return value or UNDEFINED */
 	protected static long parseXMLLong(String XML, String tagname) {
 		String value = parseXMLString(XML, tagname);
 		try {
