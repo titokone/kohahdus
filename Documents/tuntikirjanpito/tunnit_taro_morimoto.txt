@@ -44,5 +44,7 @@ Taro Morimoto
 16.10.2006	KOKO	1	Palaveri
 16.10.2006	TOTE	2	Koodaamista
 17.10.2006	TOTE	3	Koodaamista
+18.10.2006	TOTE	3.5	Koodaamista
+19.10.2006	TOTE	4	Koodaamista
 
 

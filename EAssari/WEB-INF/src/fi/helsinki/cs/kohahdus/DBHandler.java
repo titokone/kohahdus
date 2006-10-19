@@ -310,6 +310,7 @@ public class DBHandler {
 		Task task = null;
 		try {
 			st = conn.prepareStatement("select * from task where taskid=?");
+			st.setString(1, taskID);
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			if (rs.next()){
@@ -558,10 +559,12 @@ public class DBHandler {
 		CriterionMap criteria = new CriterionMap();
 		try {
 			st = conn.prepareStatement("select * from attributevalues " +
-									   "where objecttype=? and objectid=? and language=?");
+									   "where objecttype=? and objectid=?");
+		   								//"where objecttype=? and objectid=? and language=?");
 			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
 			st.setString(2, task.getTaskID());
-			st.setString(3, task.getLanguage());
+			// TODO: Kysytään, että käytetäänkö taskeissa monenkielisiä criteereitä...
+			//st.setString(3, task.getLanguage());
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			while (rs.next()){
