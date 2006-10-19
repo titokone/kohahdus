@@ -13,7 +13,7 @@
 
 <h2>TitoTrainer - Error</h2>
 
-<jsp:include page="../menu.jsp"/>
+<jsp:include page="${pageContext.request.contextPath + '/menu.jsp'}"/>
 
 Error occurred:<br>
 <br>

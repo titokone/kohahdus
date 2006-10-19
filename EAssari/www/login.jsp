@@ -15,9 +15,10 @@
 
 <h2>TitoTrainer - Sign in</h2>
 
-<c:if test="${not empty user}">
-	Logged in: <c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> (<c:out value="${user.status}"/>)<br>
+<c:if test="${param.action=='logout'}">
+	<c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> logged out.<br>
 	<br>
+	<c:remove var="user" scope="session"/>
 </c:if>
 
 <c:if test="${param.action=='login'}">
@@ -26,13 +27,8 @@
 	if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
 	%>
 </c:if>
-<c:if test="${param.action=='logout'}">
-	<c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> logged out.<br>
-	<br>
-	<c:remove var="user" scope="session"/>
-</c:if>
 
-<c:if test="${empty user}">
+<c:if test="${param.action=='login' and empty user}">
 	Username or password not correct..
 </c:if>
 <c:if test="${not empty user}">		
