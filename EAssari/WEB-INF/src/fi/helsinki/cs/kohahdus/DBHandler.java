@@ -442,8 +442,16 @@ public class DBHandler {
 		
 	/** Remove task from task database (and thus all courses). This will also remove all stored
 	 * answers of the task. */
-	public void removeTask(Task task) {
+	public void removeTask(Task task, List<Criterion> criteria) {
+		if (!removeTask(task)) return false;
 		
+		// Update criterions to the db
+		for (Criterion c : criteria) {
+			if (!removeCriterion(task, c)) return false;
+		}
+		
+		// Todo: rollback in case of failing of one of the methods above.
+	
 	}
 	
 	/** Adds criterion c to task */
