@@ -341,6 +341,7 @@ public class DBHandler {
 	/** Adds a new task to task database. The insert will affect all courses. This operation
 	 * also adds all the criteria for the task to database*/ 
 	public synchronized boolean createTask(Task task, List<Criterion> criteria) throws SQLException{
+		Log.write("DBHandler: Creating a task and criteria to DB: name=" +task.getName()+ ", id="+task.getTaskID()+", criteriaCount="+criteria.size());
 		if (!addTask(task)) return false;
 		
 		// Link the new task with all existing courses 
