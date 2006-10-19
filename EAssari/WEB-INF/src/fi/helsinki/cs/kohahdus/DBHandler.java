@@ -229,8 +229,12 @@ public class DBHandler {
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			while (rs.next()){
+				String taskID = rs.getString("taskid");
+				if (("EN_TEMPLATE".equals(taskID)) || ("FI_TEMPLATE".equals(taskID))) {
+					continue;
+				}				
 				Task task = new Task();
-				task.setTaskID(rs.getString("taskid"));
+				task.setTaskID(taskID);
 				task.setName(rs.getString("taskname"));
 				task.setAuthor(rs.getString("author"));
 				// Todo: implement these fields
