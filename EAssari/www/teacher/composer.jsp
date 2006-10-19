@@ -268,7 +268,7 @@ function instructionRequirementsIntoText() {
 
 <h1 align="center">Create Task</h1>
 
-<form name="task_creation_form" method="" action="" onSubmit="formOnSubmit()">
+<form name="task_creation_form" method="POST" action="save_task.jsp" onSubmit="formOnSubmit()">
 
 <c:set var="reqopcodes" value="${criteria['REQOPCODES']}"/>
 <c:set var="banopcodes" value="${criteria['BANOPCODES']}"/>
@@ -409,11 +409,11 @@ function instructionRequirementsIntoText() {
 						<td><p>Feedback if correct</p></td>
 						<td><p>Feedback if wrong</p></td>
 					</tr>				
-					<c:forEach begin="0" end="8" step="1" var="i">
+					<c:forEach begin="0" end="7" step="1" var="i">
 						
 						<c:set var="pubIndex" value='PUBREG${i}'/>
-						<c:set var="pub" value='${criteria[pubIndex]}'/>
 						<c:set var="secIndex" value='SECREG${i}'/>
+						<c:set var="pub" value='${criteria[pubIndex]}'/>
 						<c:set var="sec" value="${criteria[secIndex]}"/>
 						<tr>
 							<td><input type="checkbox" name="r<c:out value="${i}"/>_checked"></td>
@@ -469,9 +469,11 @@ function instructionRequirementsIntoText() {
 									<td><p>Feedback if correct</p></td>
 									<td><p>Feedback if wrong</p></td>
 								</tr>
-								<c:forEach begin="0" end="${criteria.symbolCriteriaCount}+1" step="1" var="i">
-									<c:set var="pub" value="${criteria['PUBSYM'+i]}"/>
-									<c:set var="sec" value="${criteria['SECSYM'+i]}"/>
+								<c:forEach begin="0" end="${criteria.symbolCriteriaCount}" step="1" var="i">
+									<c:set var="pubIndex" value='PUBSYM${i}'/>
+									<c:set var="secIndex" value='SECSYM${i}'/>
+									<c:set var="pub" value="${criteria[pubIndex]}"/>
+									<c:set var="sec" value="${criteria[secIndex]}"/>
 									<tr>
 										<td><input name="v<c:out value="${i}"/>_name" type="text" size="2"></td>
 										<td>
