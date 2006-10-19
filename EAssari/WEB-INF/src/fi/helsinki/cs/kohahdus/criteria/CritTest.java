@@ -40,7 +40,7 @@ public class CritTest {
 			System.out.println("sis‰lt‰‰ hyv‰ksymiskriteerin: " + c.hasAcceptanceTest(false));
 			System.out.println("hyv‰ksymiskriteeri l‰pi: "      + c.passesAcceptanceTest(t, null));
 			System.out.println("korkean laadun palaute: "       + c.getHighQualityFeedback());
-			if (c.getID().equals("SYM1")) {
+			if (c.getId().equals("SYM1")) {
 				SymbolCriterion c2 = (SymbolCriterion)c; 
 				System.out.println("symbolin nimi: " + c2.getSymbolName());
 				System.out.println("vertailu oper: " + c2.getComparisonOperator());

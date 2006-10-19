@@ -73,7 +73,7 @@ public abstract class Criterion {
 
 	
 	/** Return the identifier of this Criterion */
-	public String getID(){
+	public String getId(){
 		return id;
 	}
 
@@ -124,7 +124,7 @@ public abstract class Criterion {
 			   toXML("negfb", getFailureFeedback()) +
 			   toXML("hqfb", getHighQualityFeedback()) +
 			   toXML("secret", isSecretInputCriterion()) + 
-			   toXML("id", getID()) +
+			   toXML("id", getId()) +
 			   serializeSubClass();
 	}
 

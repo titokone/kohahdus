@@ -455,19 +455,19 @@ public class DBHandler {
 									   "values (?,?,?,?,?,?)"); 
 			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
 			st.setString(2, t.getTaskID());
-			st.setString(3, c.getID());
+			st.setString(3, c.getId());
 			st.setString(4, t.getLanguage());
 			st.setString(5, DBHandler.ATTRIBUTE_VALUE_TYPE_CHARACTER);
 			st.setString(6, c.serializeToXML());
 			if (st.executeUpdate() > 0){
-				Log.write("DBHandler: Criterion added: task=" +t.getName()+", criterion="+c.getID());
+				Log.write("DBHandler: Criterion added: task=" +t.getName()+", criterion="+c.getId());
 				return true;
 			} else {
-				Log.write("DBHandler: Failed to add criterion: task=" +t.getName()+", criterion="+c.getID());
+				Log.write("DBHandler: Failed to add criterion: task=" +t.getName()+", criterion="+c.getId());
 			}
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to add criterion: task=" +t.getName()+", criterion="+c.getID()+". " +e);
+			Log.write("DBHandler: Failed to add criterion: task=" +t.getName()+", criterion="+c.getId()+". " +e);
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -485,17 +485,17 @@ public class DBHandler {
 			st.setString(1, c.serializeToXML());
 			st.setString(2, DBHandler.ATTRIBUTE_TYPE_TASK);
 			st.setString(3, t.getTaskID());
-			st.setString(4, c.getID());
+			st.setString(4, c.getId());
 			st.setString(5, t.getLanguage());
 			if (st.executeUpdate() > 0){
-				Log.write("DBHandler: Criterion updated: task=" +t.getName()+", criterion="+c.getID());
+				Log.write("DBHandler: Criterion updated: task=" +t.getName()+", criterion="+c.getId());
 				return true;
 			} else {
-				Log.write("DBHandler: Failed to update criterion: task=" +t.getName()+", criterion="+c.getID());
+				Log.write("DBHandler: Failed to update criterion: task=" +t.getName()+", criterion="+c.getId());
 			}
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to update criterion: task=" +t.getName()+", criterion="+c.getID()+". " +e);
+			Log.write("DBHandler: Failed to update criterion: task=" +t.getName()+", criterion="+c.getId()+". " +e);
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -573,7 +573,7 @@ public class DBHandler {
 			ResultSet rs = st.getResultSet();
 			while (rs.next()){
 				Criterion c = Criterion.deserializeFromXML(rs.getString("attributevalue"));
-				criteria.put(c.getID(), c);
+				criteria.put(c.getId(), c);
 			} 
 			Log.write("DBHandler: Fetched " +criteria.size() + " criteria with task="+task.getName()+ ", taskid="+task.getTaskID());
 			rs.close();

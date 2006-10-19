@@ -264,9 +264,9 @@ function instructionRequirementsIntoText() {
 
 <body onLoad="initTaskCreation();">
 
-<h1 align="center">Create Task</h1>
-
 <jsp:include page="../menu.jsp"/>
+
+<h1 align="center">Create Task</h1>
 
 <form name="task_creation_form" method="" action="" onSubmit="formOnSubmit()">
 
@@ -410,8 +410,11 @@ function instructionRequirementsIntoText() {
 						<td><p>Feedback if wrong</p></td>
 					</tr>				
 					<c:forEach begin="0" end="8" step="1" var="i">
-						<c:set var="pub" value="${criteria['PUBREG'+i]}"/>
-						<c:set var="sec" value="${criteria['SECREG'+i]}"/>
+						
+						<c:set var="pubIndex" value='PUBREG${i}'/>
+						<c:set var="pub" value='${criteria[pubIndex]}'/>
+						<c:set var="secIndex" value='SECREG${i}'/>
+						<c:set var="sec" value="${criteria[secIndex]}"/>
 						<tr>
 							<td><input type="checkbox" name="r<c:out value="${i}"/>_checked"></td>
 							<td>R<c:out value="${i}"/></td>
