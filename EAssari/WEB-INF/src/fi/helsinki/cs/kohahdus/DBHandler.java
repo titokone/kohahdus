@@ -388,18 +388,196 @@ public class DBHandler {
 		return true;
 	}
 	
-	/** Update existing task. The update will affect all courses This operation
+	/** Update existing task. The update will affect all courses. This operation
 	 * will also update the criteria for the task */  
-	public void updateTask(Task task, Criterion[] criteria) {
+	public boolean updateTask(Task task, Criterion[] criteria) throws SQLException{
+		if (!updateTask(task)) return false;
 		
+		// Update criterions to the db
+		for (Criterion c : criteria) {
+			if (!updateCriterion(task, c)) return false;
+		}
+		
+		// Todo: rollback in case of failing of one of the methods above.
+	
+		return true;
 	}
 
+	/** Updates a task to DB without modifying any courses or modules */
+	private boolean updateTask(Task task) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("update task set taskname=?, author=?, cutoffvalue=?, tasktype=?) " +
+									   "where taskid=?"); 
+			st.setString(1, task.getName());
+			st.setString(2, task.getAuthor());
+			st.setInt(3, task.getCutoffvalue());
+			st.setString(4, DBHandler.DEFAULT_TASKTYPE);
+			st.setString(5, task.getTaskID());
+			int c = st.executeUpdate();
+			if (c > 0){
+				Log.write("DBHandler: Task updated to DB: name=" +task.getName()+ ", id="+task.getTaskID());
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to update task to DB: name=" +task.getName()+ ", id="+task.getTaskID());
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to update task to DB: name=" +task.getName()+ ", id="+task.getTaskID()+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return true;
+	}
+		
 	/** Remove task from task database (and thus all courses). This will also remove all stored
 	 * answers of the task. */
 	public void removeTask(Task task) {
 		
 	}
+	
+	/** Adds criterion c to task */
+	private boolean addCriterion(Task t, Criterion c) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("insert into attributevalues (objecttype, objectid, attributename, language, valuetype, attributevalue) " +
+									   "values (?,?,?,?,?,?)"); 
+			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
+			st.setString(2, t.getTaskID());
+			st.setString(3, c.getID());
+			st.setString(4, t.getLanguage());
+			st.setString(5, DBHandler.ATTRIBUTE_VALUE_TYPE_CHARACTER);
+			st.setString(6, c.serializeToXML());
+			if (st.executeUpdate() > 0){
+				Log.write("DBHandler: Criterion added: task=" +t.getName()+", criterion="+c.getID());
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to add criterion: task=" +t.getName()+", criterion="+c.getID());
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to add criterion: task=" +t.getName()+", criterion="+c.getID()+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return false;
+	}
+	
+	/** Updates criterion c of task */
+	private boolean updateCriterion(Task t, Criterion c) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("update attributevalues set attributevalue=? " +
+									   "where objecttype=? and objectid=? and attributename=? and language=?"); 
+			st.setString(1, c.serializeToXML());
+			st.setString(2, DBHandler.ATTRIBUTE_TYPE_TASK);
+			st.setString(3, t.getTaskID());
+			st.setString(4, c.getID());
+			st.setString(5, t.getLanguage());
+			if (st.executeUpdate() > 0){
+				Log.write("DBHandler: Criterion updated: task=" +t.getName()+", criterion="+c.getID());
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to update criterion: task=" +t.getName()+", criterion="+c.getID());
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to update criterion: task=" +t.getName()+", criterion="+c.getID()+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return false;
+	}
+	
+	/** Remove criteria form task */
+	private void removeCriteria(Task t) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("delete from attributevalues " +
+									   "where objecttype=? and objectid=? and language=?"); 
+			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
+			st.setString(2, t.getTaskID());
+			st.setString(3, t.getLanguage());
+			int c = st.executeUpdate();
+			if (c > 0){
+				Log.write("DBHandler: "+c+" criterions deleted: task=" +t.getName()+", taskid="+t.getTaskID());
+			} else {
+				Log.write("DBHandler: Failed to delete criterion: task=" +t.getName()+", taskid="+t.getTaskID());
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to delete criterion: task=" +t.getName()+", taskid="+t.getTaskID()+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+	}
 
+	/** Return the criteria of a task */
+	public LinkedList<Criterion> getCriteria(Task task) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		LinkedList<Criterion> criteria = new LinkedList<Criterion>();
+		try {
+			st = conn.prepareStatement("select * from attributevalues " +
+									   "where objecttype=? and objectid=? and language=?");
+			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
+			st.setString(2, task.getTaskID());
+			st.setString(3, task.getLanguage());
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			while (rs.next()){
+				criteria.add(Criterion.deserializeFromXML(rs.getString("attributevalue")));
+			} 
+			Log.write("DBHandler: Fetched " +criteria.size() + " criteria with task="+task.getName()+ ", taskid="+task.getTaskID());
+			rs.close();
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to fetch criteria with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return criteria;
+	}	
+	
+	/** Return the criteria of a task in a map */
+	public Map<String,Criterion> getCriteriaMap(Task task) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		HashMap<String,Criterion> criteria = new HashMap<String,Criterion>();
+		try {
+			st = conn.prepareStatement("select * from attributevalues " +
+									   "where objecttype=? and objectid=? and language=?");
+			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
+			st.setString(2, task.getTaskID());
+			st.setString(3, task.getLanguage());
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			while (rs.next()){
+				Criterion c = Criterion.deserializeFromXML(rs.getString("attributevalue"));
+				criteria.put(c.getID(), c);
+			} 
+			Log.write("DBHandler: Fetched " +criteria.size() + " criteria with task="+task.getName()+ ", taskid="+task.getTaskID());
+			rs.close();
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to fetch criteria with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}
+		return criteria;
+	}	
+	
+		
 	/** Return all users who have attempted to solve at least one task of Course c */
 	public User[] getUsers(Course c) throws SQLException {
 		return null;
@@ -541,145 +719,6 @@ public class DBHandler {
 		return false;
 	} 	
 		
-	/** Adds criterion c to task */
-	private boolean addCriterion(Task t, Criterion c) throws SQLException{
-		Connection conn = getConnection();
-		PreparedStatement st = null;
-		try {
-			st = conn.prepareStatement("insert into attributevalues (objecttype, objectid, attributename, language, valuetype, attributevalue) " +
-									   "values (?,?,?,?,?,?)"); 
-			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
-			st.setString(2, t.getTaskID());
-			st.setString(3, c.getID());
-			st.setString(4, t.getLanguage());
-			st.setString(5, DBHandler.ATTRIBUTE_VALUE_TYPE_CHARACTER);
-			st.setString(6, c.serializeToXML());
-			if (st.executeUpdate() > 0){
-				Log.write("DBHandler: Criterion added: task=" +t.getName()+", criterion="+c.getID());
-				return true;
-			} else {
-				Log.write("DBHandler: Failed to add criterion: task=" +t.getName()+", criterion="+c.getID());
-			}
-			
-		} catch (SQLException e){
-			Log.write("DBHandler: Failed to add criterion: task=" +t.getName()+", criterion="+c.getID()+". " +e);
-		} finally {
-			release(conn);
-			if (st != null) st.close();			
-		}	
-		return false;
-	}
-	
-	/** Updates criterion c of task */
-	private boolean updateCriterion(Task t, Criterion c) throws SQLException{
-		Connection conn = getConnection();
-		PreparedStatement st = null;
-		try {
-			st = conn.prepareStatement("update attributevalues set attributevalue=? " +
-									   "where objecttype=? and objectid=? and attributename=? and language=?"); 
-			st.setString(1, c.serializeToXML());
-			st.setString(2, DBHandler.ATTRIBUTE_TYPE_TASK);
-			st.setString(3, t.getTaskID());
-			st.setString(4, c.getID());
-			st.setString(5, t.getLanguage());
-			if (st.executeUpdate() > 0){
-				Log.write("DBHandler: Criterion updated: task=" +t.getName()+", criterion="+c.getID());
-				return true;
-			} else {
-				Log.write("DBHandler: Failed to update criterion: task=" +t.getName()+", criterion="+c.getID());
-			}
-			
-		} catch (SQLException e){
-			Log.write("DBHandler: Failed to update criterion: task=" +t.getName()+", criterion="+c.getID()+". " +e);
-		} finally {
-			release(conn);
-			if (st != null) st.close();			
-		}	
-		return false;
-	}
-	
-	/** Remove criteria form task */
-	private void removeCriteria(Task t) throws SQLException{
-		Connection conn = getConnection();
-		PreparedStatement st = null;
-		try {
-			st = conn.prepareStatement("delete from attributevalues " +
-									   "where objecttype=? and objectid=? and language=?"); 
-			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
-			st.setString(2, t.getTaskID());
-			st.setString(3, t.getLanguage());
-			int c = st.executeUpdate();
-			if (c > 0){
-				Log.write("DBHandler: "+c+" criterions deleted: task=" +t.getName()+", taskid="+t.getTaskID());
-			} else {
-				Log.write("DBHandler: Failed to delete criterion: task=" +t.getName()+", taskid="+t.getTaskID());
-			}
-			
-		} catch (SQLException e){
-			Log.write("DBHandler: Failed to delete criterion: task=" +t.getName()+", taskid="+t.getTaskID()+". " +e);
-		} finally {
-			release(conn);
-			if (st != null) st.close();			
-		}	
-	}
-
-	/** Return the criteria of a task */
-	public LinkedList<Criterion> getCriteria(Task task) throws SQLException {
-		Connection conn = getConnection();
-		PreparedStatement st = null;
-		LinkedList<Criterion> criteria = new LinkedList<Criterion>();
-		try {
-			st = conn.prepareStatement("select * from attributevalues " +
-									   "where objecttype=? and objectid=? and language=?");
-			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
-			st.setString(2, task.getTaskID());
-			st.setString(3, task.getLanguage());
-			st.executeQuery();
-			ResultSet rs = st.getResultSet();
-			while (rs.next()){
-				criteria.add(Criterion.deserializeFromXML(rs.getString("attributevalue")));
-			} 
-			Log.write("DBHandler: Fetched " +criteria.size() + " criteria with task="+task.getName()+ ", taskid="+task.getTaskID());
-			rs.close();
-			
-		} catch (SQLException e){
-			Log.write("DBHandler: Failed to fetch criteria with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
-		} finally {
-			release(conn);
-			if (st != null) st.close();			
-		}	
-		return criteria;
-	}	
-	
-	/** Return the criteria of a task in a map */
-	public Map<String,Criterion> getCriteriaMap(Task task) throws SQLException {
-		Connection conn = getConnection();
-		PreparedStatement st = null;
-		HashMap<String,Criterion> criteria = new HashMap<String,Criterion>();
-		try {
-			st = conn.prepareStatement("select * from attributevalues " +
-									   "where objecttype=? and objectid=? and language=?");
-			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
-			st.setString(2, task.getTaskID());
-			st.setString(3, task.getLanguage());
-			st.executeQuery();
-			ResultSet rs = st.getResultSet();
-			while (rs.next()){
-				Criterion c = Criterion.deserializeFromXML(rs.getString("attributevalue"));
-				criteria.put(c.getID(), c);
-			} 
-			Log.write("DBHandler: Fetched " +criteria.size() + " criteria with task="+task.getName()+ ", taskid="+task.getTaskID());
-			rs.close();
-			
-		} catch (SQLException e){
-			Log.write("DBHandler: Failed to fetch criteria with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
-		} finally {
-			release(conn);
-			if (st != null) st.close();			
-		}
-		return criteria;
-	}	
-	
 }
 
 
