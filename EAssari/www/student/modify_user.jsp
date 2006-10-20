@@ -111,6 +111,12 @@
 
 <body>
 
+<%-- check that user is logged in --%>
+<c:if test="${empty user}">
+	Not logged in - redirecting to login
+	<c:redirect url="../login.jsp"/>	
+</c:if>
+
 <jsp:include page="../menu.jsp"/>
 
 <c:if test="${param.action=='modify'}">
@@ -120,13 +126,9 @@
 	<c:set target="${user}" property="lastName" value="${param.last_name}"/>
 	<c:set target="${user}" property="email" value="${param.email}"/>
 
-	<c:if test="${not empty param.student_number}">
-		<c:set target="${user}" property="studentNumber" value="${param.student_number}"/>
-	</c:if>
-	
-	<c:if test="${not empty param.social_security_number}">
-		<c:set target="${user}" property="socialSecurityNumber" value="${param.social_security_number}"/>
-	</c:if>
+	<c:set target="${user}" property="studentNumber" value="${param.student_number}"/>
+	<c:set target="${user}" property="socialSecurityNumber" value="${param.social_security_number}"/>
+
 
 	<c:if test="${not empty param.new_password && not empty param.repeat_new_password && (param.new_password == param.repeat_new_password)}">
 		<c:set target="${user}" property="password" value="${param.new_password}"/>
@@ -137,9 +139,10 @@
 			User user = (User) session.getAttribute("user");
 			if (user.isValid()) {
 	 			boolean testi = DBHandler.getInstance().updateUser(user);
-	 			out.print("Updated to database.");
+	 			out.print("<BR>Updated to database.");
+	 			Log.write("Modify_User: Updated user "+user.getFirstName()+" "+user.getLastName());
 	 		} else {
-	 		out.print("Error in updating database");
+	 		out.print("<BR>Error in updating database");
 	 		}		
 			%>	
 
