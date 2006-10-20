@@ -69,7 +69,8 @@
 	<tr>
 		<td><font size="+2"><b>Courses</b></font></td>
 		<td width="100">&nbsp;</td>
-		<td><input type="button" value="Create task" onclick="location.href = 'create_task.jsp'">
+		<td><input type="button" value="Create task" onclick="location.href = 'composer.jsp?task_id=EN_TEMPLATE&save_type=new'">
+		<td><input type="button" value="Create task in finnish" onclick="location.href = 'composer.jsp?task_id=FI_TEMPLATE&save_type=new'">
 		<input type="button" value="Statistics" onclick="location.href = 'statistics.jsp'"></td>
 	</tr>
 </table>
@@ -196,8 +197,8 @@
 				<td bgcolor="#FFFFFF"><c:out value="${task.category}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.language}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.author}"/></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Modify"></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Modify as new"></td>
+				<td bgcolor="#FFFFFF"><input type="button" value="Modify" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=update'"></td>
+				<td bgcolor="#FFFFFF"><input type="button" value="Modify as new" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=new'"></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="window.confirm('Do you really want to delete task <c:out value="${task.name}"/>?');"></td>
 			</tr>
 		</c:forEach>

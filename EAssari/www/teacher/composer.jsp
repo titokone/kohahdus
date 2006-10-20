@@ -307,6 +307,8 @@ function instructionRequirementsIntoText() {
 
 <input type="hidden" name="REQOPCODES_instructions" value="<c:out value="${reqopcodes.acceptanceTestValue}"/>">
 <input type="hidden" name="BANOPCODES_instructions" value="<c:out value="${banopcodes.acceptanceTestValue}"/>">
+<input type="hidden" name="save_type" value="<c:out value="${param.save_type}"/>">
+<input type="hidden" name="task_id" value="<c:out value="${param.task_id}"/>">
 
 <div align="center">
 

@@ -14,7 +14,7 @@
 				&nbsp;&nbsp;&nbsp;<a href="<c:out value="${pageContext.request.contextPath}"/>/www/student/modify_user.jsp">Personal information</a>
 			</c:when>
 			<c:otherwise>
-				&nbsp;&nbsp;&nbsp;<a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacher/composer.jsp?task_id=EN_TEMPLATE">Create new task</a>
+				&nbsp;&nbsp;&nbsp;<a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacher/composer.jsp?task_id=EN_TEMPLATE&save_type=new">Create new task</a>
 				&nbsp;&nbsp;&nbsp;<a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacher/teacherTaskList.jsp">Task list</a>
 				&nbsp;&nbsp;&nbsp;<a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacher/statistics.jsp">Statistics</a>
 			</c:otherwise>

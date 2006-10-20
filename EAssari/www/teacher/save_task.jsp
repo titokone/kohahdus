@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
-
+<%@ page import="fi.helsinki.cs.kohahdus.criteria.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
@@ -15,6 +17,56 @@
 
 <h2>Task saved</h2>
 
+
+Params from TaskMaker:
+
+<%
+	TaskMaker tm = new TaskMaker(request);
+	
+	/* DEBUG
+	Map<String, String> map = tm.getParams();
+	Set<String> keys = map.keySet();
+	
+	for (String s : keys) {
+		out.print(s + " : " + map.get(s));
+	}	 
+	*/
+	
+	List<Criterion> crits = tm.getCriteria();
+	
+	for (Criterion c : crits) {
+		out.print(c.serializeToXML());
+		out.print("<br>");
+	}	
+	
+	Task t = tm.getTask();
+	out.print("<p><pre>Task name: "+t.getName()+"</pre>");
+	out.print("<p><pre>Author: "+t.getAuthor()+"</pre>");
+	out.print("<p><pre>Category: "+t.getCategory()+"</pre>");
+	out.print("<p><pre>Instructions: "+t.getDescription()+"</pre>");
+	out.print("<p><pre>Pub input: "+t.getPublicInput()+"</pre>");
+	out.print("<p><pre>Sec input: "+t.getSecretInput()+"</pre>");
+	
+	t.setTaskID("TESTING");
+	//DEBUG: korvataan aina vanha..
+	//DBHandler.getInstance().updateTask(task);		
+%>
+<c:if test="${param.save_type=='new'}">	
+	Task saved.... yeah right
+<%	
+	
+	//DBHandler.getInstance().createTask(tm.getTask(), tm.getCriteria());
+%>
+</c:if>
+<c:if test="${param.save_type=='update'}">
+	Task updated...
+<%
+	
+	Task task = tm.getTask();
+	task.setTaskID(request.getParameter("task_id"));
+	//DBHandler.getInstance().updateTask(task);		
+%>
+</c:if>
 
 Task xxx saved... not yet! ;D<br>
 <br>

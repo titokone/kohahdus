@@ -3,8 +3,13 @@ package fi.helsinki.cs.kohahdus.criteria;
 import static fi.helsinki.cs.kohahdus.criteria.Criterion.*; 
 import java.util.*;
 import java.sql.SQLException;
-import fi.helsinki.cs.kohahdus.trainer.Task;
-import fi.helsinki.cs.kohahdus.DBHandler;
+
+import javax.servlet.http.HttpServletRequest;
+
+import fi.helsinki.cs.kohahdus.trainer.*;
+import fi.helsinki.cs.kohahdus.*;
+
+
 
 /** Copy-paste koodauksella aikaansaatu template-teht‰v‰n luonti h‰ss‰kk‰.
  * Kriteerit on tehty, task-ilmentym‰t pit‰isi viel‰ v‰‰nt‰‰. Palautteet 
@@ -14,6 +19,182 @@ public class TaskMaker {
 	static LinkedList<Criterion> fiCriteria = new LinkedList<Criterion>();
 	static LinkedList<Criterion> enCriteria = new LinkedList<Criterion>();
 
+	
+	
+	private static final String ACCEPTANCE_VAL = "_value";
+	private static final String ACCEPTANCE_FB = "_acceptance_feedback";
+	private static final String FAILURE_FB = "_failure_feedback";
+	private static final String COMPARISON = "_comparison_op";
+	
+	private static final String OUTPUT_VAL = "output_value";
+	private static final String OUTPUT_ACCEPTANCE_FB = "output_acceptance_feedback";
+	private static final String OUTPUT_FAILURE_FB = "output_failure_feedback";
+	
+	private static final String ACCEPTANCE_LIMIT = "_acceptance_limit";
+	private static final String QUALITY_LIMIT = "_quality_limit";
+	private static final String QUALITY_FB = "_quality_feedback";
+	
+	private static final String OPCODE_INSTRUCTIONS = "_instructions";
+	private static final String OPCODE_FB = "_feedback";
+	private static final String MAX_INSTRUCTIONS = "maximum_number_of_executed_instructions";
+
+	
+	
+	private Task task;
+	private List<Criterion> criteria;
+	
+	//TEMP
+	private Map<String, String> params;
+	
+	
+	public TaskMaker(HttpServletRequest req) {
+		
+		//TEMP
+		params = new HashMap<String, String>();
+		
+		Enumeration names = req.getParameterNames();
+		
+		while (names.hasMoreElements()) {
+			String elem = (String) names.nextElement();
+			String value = req.getParameter(elem);
+			params.put(elem, value);				
+		}
+		//END TEMP
+		
+		this.task = new Task();
+		this.criteria = new LinkedList<Criterion>();
+		
+		for (int i=0; i<8; i++) {
+			addRegisterCriterion(i, req, false);
+			addRegisterCriterion(i, req, true);
+		}
+		
+		addOutputCriterion(req, true);
+		addOutputCriterion(req, false);
+		
+		addInstructionCriteria(req);
+		
+		addQualityCriteria(req);
+		
+		
+		
+		//Add values that are equal to all task types to the task
+		User user = (User) req.getSession().getAttribute("user");
+		//task.setAuthor(user.getFirstName()+" "+user.getLastName());
+		task.setName(req.getParameter("task_name"));
+		task.setCategory(req.getParameter("category"));
+		task.setDescription(req.getParameter("instructions"));
+		task.setSecretInput(req.getParameter("secret_input"));
+		task.setPublicInput(req.getParameter("public_input"));
+			
+		
+		
+		
+		//TODO:
+		//task.setTaskID();
+		//task.setTitoTaskType()
+		//task.setFillInTask();
+		//task.setFillInPostCode();
+		//task.setFillInPreCode();
+		//task.setModelAnswer();
+		//task.setValidateByModel();
+		
+		Log.write("Task created with following criteria:");
+		for (Criterion c : criteria) {
+			Log.write(c.serializeToXML());
+		}
+	}
+	
+	public Task getTask() {
+		return task;
+	}
+	
+	public List<Criterion> getCriteria() {
+		return criteria;
+	}
+	
+	
+	private void addRegisterCriterion(int register, HttpServletRequest req, boolean isSecret) {
+		String id = (isSecret ? Criterion.ID_SECRET_REGISTER_PREFIX : Criterion.ID_PUBLIC_REGISTER_PREFIX) + register;
+		RegisterCriterion crit = new RegisterCriterion(id, isSecret, register);
+		
+		crit.setComparisonOperator(req.getParameter(id + COMPARISON));
+		crit.setAcceptanceTestValue(req.getParameter(id + ACCEPTANCE_VAL));
+		crit.setAcceptanceFeedback(req.getParameter(id + ACCEPTANCE_FB));
+		crit.setFailureFeedback(req.getParameter(id + FAILURE_FB));
+		
+		criteria.add(crit);
+	}
+
+	private void addOutputCriterion(HttpServletRequest req, boolean isSecret) {
+		String id = (isSecret ? ID_SECRET_OUTPUT : ID_PUBLIC_OUTPUT);
+		ScreenOutputCriterion oc = new ScreenOutputCriterion(id, isSecret);
+		
+		oc.setAcceptanceTestValue(req.getParameter(id + OUTPUT_VAL));
+		oc.setAcceptanceFeedback(req.getParameter(id + OUTPUT_ACCEPTANCE_FB));
+		oc.setFailureFeedback(req.getParameter(id + OUTPUT_FAILURE_FB));
+		
+		criteria.add(oc);
+	}
+	
+	private void addInstructionCriteria(HttpServletRequest req) {
+		RequiredInstructionsCriterion required = new RequiredInstructionsCriterion(Criterion.ID_REQUIRED_INSTRUCTIONS, false);
+		required.setAcceptanceTestValue(req.getParameter(ID_REQUIRED_INSTRUCTIONS + OPCODE_INSTRUCTIONS));
+		required.setFailureFeedback(req.getParameter(ID_REQUIRED_INSTRUCTIONS + OPCODE_FB));
+		
+		ForbiddenInstructionsCriterion forbidden = new ForbiddenInstructionsCriterion(Criterion.ID_FORBIDDEN_INSTRUCTIONS, false);
+		forbidden.setAcceptanceTestValue(req.getParameter(ID_FORBIDDEN_INSTRUCTIONS + OPCODE_FB));
+		
+		criteria.add(required);
+		criteria.add(forbidden);
+	}
+	
+	private void addQualityCriteria(HttpServletRequest req) {
+		CodeSizeCriterion codeSize = new CodeSizeCriterion(ID_CODE_SIZE, false);
+		addQualityValues(codeSize, ID_CODE_SIZE, req);
+		
+		DataAreaSizeCriterion dataSize = new DataAreaSizeCriterion(ID_DATA_AREA_SIZE, false);
+		addQualityValues(dataSize, ID_DATA_AREA_SIZE, req);
+		
+		StackSizeCriterion stackSize = new StackSizeCriterion(ID_STACK_SIZE, false);
+		addQualityValues(stackSize, ID_STACK_SIZE, req);
+		
+		ExecutetionStepsCriterion execSteps = new ExecutetionStepsCriterion(ID_EXECUTION_STEPS, false);
+		addQualityValues(execSteps, ID_EXECUTION_STEPS, req);
+		
+		DataReferencesCriterion dataRefs = new DataReferencesCriterion(ID_DATA_REFERENCES, false);
+		addQualityValues(dataRefs, ID_DATA_REFERENCES, req);
+		
+		MemReferencesCriterion memRefs = new MemReferencesCriterion(ID_MEMORY_REFERENCES, false);
+		addQualityValues(memRefs, ID_MEMORY_REFERENCES, req);
+		
+		criteria.add(codeSize);
+		criteria.add(dataSize);
+		criteria.add(stackSize);
+		criteria.add(execSteps);
+		criteria.add(dataRefs);
+		criteria.add(memRefs);
+		
+	}
+	
+	private void addQualityValues(Criterion crit, String prefix, HttpServletRequest req) {
+		crit.setAcceptanceTestValue(req.getParameter(prefix + ACCEPTANCE_LIMIT));
+		crit.setQualityTestValue(req.getParameter(prefix + QUALITY_LIMIT));
+		crit.setAcceptanceFeedback(req.getParameter(prefix + ACCEPTANCE_FB));
+		crit.setHighQualityFeedback(req.getParameter(prefix + QUALITY_FB));
+		crit.setFailureFeedback(req.getParameter(prefix + FAILURE_FB));
+	}
+	
+	//TEMP
+	public Map<String, String> getParams() {
+		return params;
+	}
+	
+	
+	
+	
+	
+	
 	public static void main(String args[]) throws SQLException {
 		// Suomenkieliset kriteerit:
 		for (int i=0; i<8; i++) {
