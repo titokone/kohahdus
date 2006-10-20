@@ -47,9 +47,11 @@ Params from TaskMaker:
 	out.print("<p><pre>Pub input: "+t.getPublicInput()+"</pre>");
 	out.print("<p><pre>Sec input: "+t.getSecretInput()+"</pre>");
 	
-	t.setTaskID("TESTING");
 	//DEBUG: korvataan aina vanha..
-	//DBHandler.getInstance().updateTask(task);		
+	t.setTaskID("TESTING");
+	t.setAuthor("TEST");
+	t.setLanguage("EN");
+	DBHandler.getInstance().updateTask(t, tm.getCriteria());		
 %>
 <c:if test="${param.save_type=='new'}">	
 	Task saved.... yeah right

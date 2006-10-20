@@ -20,7 +20,8 @@ public class TaskMaker {
 	static LinkedList<Criterion> enCriteria = new LinkedList<Criterion>();
 
 	
-	
+	//These fields are equal with their HTML counterparts. To access a parameter in request
+	//one has to append ID (from Criteria) with one of these.
 	private static final String ACCEPTANCE_VAL = "_value";
 	private static final String ACCEPTANCE_FB = "_acceptance_feedback";
 	private static final String FAILURE_FB = "_failure_feedback";
@@ -36,9 +37,21 @@ public class TaskMaker {
 	
 	private static final String OPCODE_INSTRUCTIONS = "_instructions";
 	private static final String OPCODE_FB = "_feedback";
+	
+	private static final String PRE_CODE = "partial_code1";
+	private static final String POST_CODE = "partial_code2";
+	private static final String EX_CODE = "example_code";
+	
+	private static final String TASK_TYPE = "task_type";
+	private static final String TASK_PROGRAM = "whole_program";
+	private static final String TASK_FILLIN = "partial";
+	
+	private static final String VALIDATING_MODEL = "correctness_by";
+	private static final String VALIDATE_BY_EXAMPLE = "example_program";
+	
 	private static final String MAX_INSTRUCTIONS = "maximum_number_of_executed_instructions";
 
-	
+	//TODO: tallennetaanko ^ silmukan esto kriteerinä vai taskin ominaisuutena? Oletan jälkimmäistä.
 	
 	private Task task;
 	private List<Criterion> criteria;
@@ -70,34 +83,45 @@ public class TaskMaker {
 		}
 		
 		addOutputCriterion(req, true);
-		addOutputCriterion(req, false);
-		
-		addInstructionCriteria(req);
-		
+		addOutputCriterion(req, false);		
+		addInstructionCriteria(req);		
 		addQualityCriteria(req);
+	
+		//TODO: addSymbolCriteria();
 		
 		
 		
 		//Add values that are equal to all task types to the task
-		User user = (User) req.getSession().getAttribute("user");
+		//User user = (User) req.getSession().getAttribute("user"); <- Tehdään save_task.jsp sivulla
 		//task.setAuthor(user.getFirstName()+" "+user.getLastName());
 		task.setName(req.getParameter("task_name"));
 		task.setCategory(req.getParameter("category"));
 		task.setDescription(req.getParameter("instructions"));
 		task.setSecretInput(req.getParameter("secret_input"));
 		task.setPublicInput(req.getParameter("public_input"));
-			
+					
+		task.setFillInPostCode(req.getParameter(POST_CODE));
+		task.setFillInPreCode(req.getParameter(PRE_CODE));
+		task.setModelAnswer(req.getParameter(EX_CODE));
 		
+		task.setCutoffvalue(100);
 		
+		if (TASK_FILLIN.equals(req.getParameter(TASK_TYPE))) {
+			task.setFillInTask(true);
+			task.setTitoTaskType(Task.TYPE_FILL);
+		} else {
+			task.setFillInTask(false);
+			task.setTitoTaskType(Task.TYPE_FULL);
+		}
+		
+		if (VALIDATE_BY_EXAMPLE.equals(req.getParameter(VALIDATING_MODEL))) {
+			task.setValidateByModel(true);
+		} else {
+			task.setValidateByModel(false);
+		}
 		
 		//TODO:
-		//task.setTaskID();
-		//task.setTitoTaskType()
-		//task.setFillInTask();
-		//task.setFillInPostCode();
-		//task.setFillInPreCode();
-		//task.setModelAnswer();
-		//task.setValidateByModel();
+		//task.setTaskID(); <- tehdään save_task.jsp sivulla?
 		
 		Log.write("Task created with following criteria:");
 		for (Criterion c : criteria) {
@@ -137,6 +161,7 @@ public class TaskMaker {
 		criteria.add(oc);
 	}
 	
+	//FIXME: käskyt eivät taida löytyä tuolta. Joko javascript ongelma tai katsotaan väärästä paikasta...
 	private void addInstructionCriteria(HttpServletRequest req) {
 		RequiredInstructionsCriterion required = new RequiredInstructionsCriterion(Criterion.ID_REQUIRED_INSTRUCTIONS, false);
 		required.setAcceptanceTestValue(req.getParameter(ID_REQUIRED_INSTRUCTIONS + OPCODE_INSTRUCTIONS));

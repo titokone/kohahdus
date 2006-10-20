@@ -48,7 +48,8 @@
 <script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
 <script language="Javascript">
 
-var variableCounter = <c:out value="${criteria.symbolCriteriaCount}"/>;
+//var variableCounter = <c:out value="${criteria.symbolCriteriaCount}"/>;
+var variableCounter = 1;
 
 var positive = new Image();
 positive.src = "positive.gif";
@@ -79,8 +80,8 @@ function initTaskCreation()
 	}
 
 	// parse values already in required and forbidden instructions fields and set symbols in GUI
-	if(document.task_creation_form.required_ttk_instructions.value != "") {
-		var requiredInstructions = document.task_creation_form.required_ttk_instructions.value.split(", ")
+	if(document.task_creation_form.REQOPCODES_instructions.value != "") {
+		var requiredInstructions = document.task_creation_form.REQOPCODES_instructions.value.split(", ")
 		var img;
 
 		for (var requiredCounter = 0; requiredCounter < requiredInstructions.length; requiredCounter++) {
@@ -95,8 +96,8 @@ function initTaskCreation()
 		}
 	}
 
-	if(document.task_creation_form.forbidden_ttk_instructions.value != "") {
-		var forbiddenInstructions = document.task_creation_form.forbidden_ttk_instructions.value.split(", ")
+	if(document.task_creation_form.BANOPCODES_instructions.value != "") {
+		var forbiddenInstructions = document.task_creation_form.BANOPCODES_instructions.value.split(", ")
 		var img;
 
 		for (var forbiddenCounter = 0; forbiddenCounter < forbiddenInstructions.length; forbiddenCounter++) {

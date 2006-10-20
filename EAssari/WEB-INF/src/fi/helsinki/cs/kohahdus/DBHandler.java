@@ -322,7 +322,19 @@ public class DBHandler {
 				task.setTaskID(taskID);
 				task.setName(rs.getString("taskname"));
 				task.setAuthor(rs.getString("author"));
-				// Todo: implement these fields
+				// TODO: implement these fields
+				//most of these are needed in composer to fill default values.
+				//task.setCategory();
+				//task.setDescription();
+				//task.setFailFeedBack();
+				//task.setFillInPostCode();
+				//task.setFillInPreCode();
+				//task.setFillInTask();
+				//task.setLanguage();
+				//task.setPublicInput();
+				//task.setSecretInput();
+				//task.setTitoTaskType();
+				//task.setValidateByModel();
 				//task(rs.getDate("datecreate"));			
 				//task.setTasktype(rs.getString("tasktype"));
 				task.setMetadata(rs.getString("taskmetadata"));
@@ -368,6 +380,9 @@ public class DBHandler {
 	}
 
 	/** Adds a task to DB without any linkage to courses and modules */
+	//TODO: add TitoTrainer specific data somehere
+	//At least these fields from Task:
+	//description; pinput; sinput; modelAnswer; category; taskType; fillInPreCode; fillInPostCode; useModel; passFeedBack; failFeedBack;
 	public boolean addTask(Task task) throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st = null;
@@ -398,12 +413,13 @@ public class DBHandler {
 	
 	/** Update existing task. The update will affect all courses. This operation
 	 * will also update the criteria for the task */  
-	public boolean updateTask(Task task, Criterion[] criteria) throws SQLException{
+	public boolean updateTask(Task task, List<Criterion> criteria) throws SQLException{
 		if (!updateTask(task)) return false;
 		
 		// Update criterions to the db
+		removeCriteria(task);
 		for (Criterion c : criteria) {
-			if (!updateCriterion(task, c)) return false;
+			if (!addCriterion(task, c)) return false;
 		}
 		
 		// Todo: rollback in case of failing of one of the methods above.
@@ -412,11 +428,12 @@ public class DBHandler {
 	}
 
 	/** Updates a task to DB without modifying any courses or modules */
+	//TODO: päivitetään myös ne kentät jotka tarvitsee lisätä createTask metodiin 
 	private boolean updateTask(Task task) throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("update task set taskname=?, author=?, cutoffvalue=?, tasktype=?) " +
+			st = conn.prepareStatement("update task set taskname=?, author=?, cutoffvalue=?, tasktype=? " +
 									   "where taskid=?"); 
 			st.setString(1, task.getName());
 			st.setString(2, task.getAuthor());
@@ -437,7 +454,7 @@ public class DBHandler {
 			release(conn);
 			if (st != null) st.close();			
 		}	
-		return true;
+		return false;
 	}
 		
 	/** Remove task from task database (and thus all courses). This will also remove all stored
