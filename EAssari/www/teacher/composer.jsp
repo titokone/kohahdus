@@ -544,7 +544,7 @@ function instructionRequirementsIntoText() {
 										<a href="#" onClick="return ttkInstructionOnClick('store')"><img id="store_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> STORE<br>
 										<a href="#" onClick="return ttkInstructionOnClick('push')"><img id="push_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> PUSH<br>
 										<a href="#" onClick="return ttkInstructionOnClick('pop')"><img id="pop_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> POP<br>
-										<a href="#" onClick="return ttkInstructionOnClick('pushr')"><img id="push_rimg" src="neutral.gif" border="0" style="vertical-align:middle"></a> PUSHR<br>
+										<a href="#" onClick="return ttkInstructionOnClick('pushr')"><img id="pushr_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> PUSHR<br>
 										<a href="#" onClick="return ttkInstructionOnClick('popr')"><img id="popr_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> POPR<br>
 										<br>
 										<a href="#" onClick="return ttkInstructionOnClick('in')"><img id="in_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> IN<br>
@@ -567,7 +567,7 @@ function instructionRequirementsIntoText() {
 										<a href="#" onClick="return ttkInstructionOnClick('comp')"><img id="comp_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> COMP<br>
 									</td>
 									<td valign="top">
-										<a href="#" onclick="return ttkInstructionOnClick('jump')"><img id="jumpimg" src="neutral.gif" border="0" style="vertical-align:middle"></a> JUMP<br>
+										<a href="#" onclick="return ttkInstructionOnClick('jump')"><img id="jump_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JUMP<br>
 										<br>
 										<a href="#" onClick="return ttkInstructionOnClick('jneg')"><img id="jneg_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNEG<br>
 										<a href="#" onClick="return ttkInstructionOnClick('jzer')"><img id="jzer_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JZER<br>
