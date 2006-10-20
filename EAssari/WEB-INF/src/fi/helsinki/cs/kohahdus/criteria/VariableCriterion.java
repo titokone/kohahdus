@@ -72,6 +72,7 @@ public abstract class VariableCriterion extends Criterion {
 		} catch (Exception e) { // NumberFormatException, NullPointerException
 			comparisonValue = UNDEFINED;
 		}		
+		System.out.println(comparisonValue);
 	}
 
 	

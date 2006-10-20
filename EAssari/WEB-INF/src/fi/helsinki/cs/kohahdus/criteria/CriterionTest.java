@@ -7,7 +7,8 @@ import java.util.*;
 /** JUnit test class that tests all criterion types */
 public class CriterionTest extends TestCase {
 	private Set<Criterion> allCriteria;
-	private Set<VariableCriterion> variableCriteria;
+	private Set<RegisterCriterion> registerCriteria;
+	private Set<SymbolCriterion> symbolCriteria;
 	private Set<MeasuredCriterion> measuredCriteria;
 	private Set<InstructionCriterion> instructionCriteria;
 	private Set<ScreenOutputCriterion> outputCriteria;
@@ -19,11 +20,13 @@ public class CriterionTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		variableCriteria = new HashSet<VariableCriterion>();
-		variableCriteria.add(new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 0, false, 0));
-		variableCriteria.add(new RegisterCriterion(ID_SECRET_REGISTER_PREFIX + 0, true, 0));
-		variableCriteria.add(new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 0, false));
-		variableCriteria.add(new SymbolCriterion(ID_SECRET_SYMBOL_PREFIX + 0, true));
+		registerCriteria = new HashSet<RegisterCriterion>();
+		registerCriteria.add(new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 0, false, 0));
+		registerCriteria.add(new RegisterCriterion(ID_SECRET_REGISTER_PREFIX + 0, true, 0));
+
+		symbolCriteria = new HashSet<SymbolCriterion>();
+		symbolCriteria.add(new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 0, false));
+		symbolCriteria.add(new SymbolCriterion(ID_SECRET_SYMBOL_PREFIX + 0, true));
 
 		outputCriteria = new HashSet<ScreenOutputCriterion>();
 		outputCriteria.add(new ScreenOutputCriterion(ID_PUBLIC_OUTPUT, false));
@@ -42,7 +45,8 @@ public class CriterionTest extends TestCase {
 		measuredCriteria.add(new DataReferencesCriterion(ID_DATA_REFERENCES, false));
 		
 		allCriteria = new HashSet<Criterion>();
-		allCriteria.addAll(variableCriteria);
+		allCriteria.addAll(registerCriteria);
+		allCriteria.addAll(symbolCriteria);
 		allCriteria.addAll(measuredCriteria);
 		allCriteria.addAll(instructionCriteria);
 		allCriteria.addAll(outputCriteria);
@@ -126,8 +130,8 @@ public class CriterionTest extends TestCase {
 			assertEquals("500", c.getAcceptanceTestValue());
 		}
 	}		
-	public void testVariableCriterionAcceptanceTestValue() {
-		for (VariableCriterion c : variableCriteria) {
+	public void testRegisterCriterionAcceptanceTestValue() {
+		for (VariableCriterion c : registerCriteria) {
 			c.setAcceptanceTestValue("500");
 			assertTrue(c.hasAcceptanceTest(false));
 			assertFalse(c.hasAcceptanceTest(true));
