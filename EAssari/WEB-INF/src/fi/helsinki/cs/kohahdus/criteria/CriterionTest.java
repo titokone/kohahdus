@@ -117,46 +117,46 @@ public class CriterionTest extends TestCase {
 		}
 	}
 
-	/* Test method for 'hasAcceptanceTest(boolean)' */
-	public void testHasAcceptanceTest() {
-//		for (Criterion c : allCriteria) {
-//			c.setAcceptanceTestValue()
-//		}
+	
+	public void testMeasuredCriterionAcceptanceTestValue() {
+		for (MeasuredCriterion c : measuredCriteria) {
+			c.setAcceptanceTestValue("500");
+			assertTrue(c.hasAcceptanceTest(true));
+			assertTrue(c.hasAcceptanceTest(false));
+			assertEquals("500", c.getAcceptanceTestValue());
+		}
+	}		
+	public void testVariableCriterionAcceptanceTestValue() {
+		for (VariableCriterion c : variableCriteria) {
+			c.setAcceptanceTestValue("500");
+			assertTrue(c.hasAcceptanceTest(false));
+			assertFalse(c.hasAcceptanceTest(true));
+			assertEquals("500", c.getAcceptanceTestValue());
+		}
+	}
+	public void testScreenOutputCriterionAcceptanceTestValue() {
+		for (ScreenOutputCriterion c : outputCriteria) {
+			c.setAcceptanceTestValue("1, 2,  3,,4;5 ; 6,");
+			assertTrue(c.hasAcceptanceTest(true));
+			assertTrue(c.hasAcceptanceTest(false));
+			assertEquals(c.getAcceptanceTestValue(), "1, 2, 3, 4, 5, 6");		
+		}		
+	}
+	public void testInstructionCriterionAcceptanceTestValue() {
+		for (InstructionCriterion c : instructionCriteria) {
+			c.setAcceptanceTestValue("NOP, MUL,  ADD,,XOR;DIV ; SUB,");
+			assertTrue(c.hasAcceptanceTest(true));
+			assertTrue(c.hasAcceptanceTest(false));
+			assertEquals(c.getAcceptanceTestValue(), "NOP, MUL, ADD, XOR, DIV, SUB");		
+		}		
 	}
 
-	/* Test method for 'passesAcceptanceTest(TitoState, TitoState)' */
-	public void testPassesAcceptanceTest() {
-
-	}
-
-	/* Test method for 'getAcceptanceTestValue()' */
-	public void testGetAcceptanceTestValue() {
-
-	}
-
-	/* Test method for 'setAcceptanceTestValue(String)' */
-	public void testSetAcceptanceTestValue() {
-
-	}
-
-	/* Test method for 'hasQualityTest(boolean)' */
-	public void testHasQualityTest() {
-
-	}
-
-	/* Test method for 'passesQualityTest(TitoState, TitoState)' */
-	public void testPassesQualityTest() {
-
-	}
-
-	/* Test method for 'getQualityTestValue()' */
-	public void testGetQualityTestValue() {
-
-	}
-
+	
 	/* Test method for 'setQualityTestValue(String)' */
 	public void testSetQualityTestValue() {
-
+		for (MeasuredCriterion c : measuredCriteria) {
+			c.setAcceptanceTestValue("");
+		}
 	}
 
 }

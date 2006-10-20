@@ -38,7 +38,7 @@ public abstract class MeasuredCriterion extends Criterion {
 	@Override public void setAcceptanceTestValue(String test) {
 		try {
 			passingLimit = Integer.parseInt(test);
-		} catch (Exception e) {} { // NumberFormatException, NullPointerException
+		} catch (Exception e) { // NumberFormatException, NullPointerException
 			passingLimit = UNDEFINED;
 		}
 	}
@@ -65,7 +65,7 @@ public abstract class MeasuredCriterion extends Criterion {
 	@Override public void setQualityTestValue(String test) {
 		try {
 			qualityLimit = Integer.parseInt(test);
-		} catch (Exception e) {} { // NumberFormatException, NullPointerException
+		} catch (Exception e) { // NumberFormatException, NullPointerException
 			qualityLimit = UNDEFINED;
 		}
 	}

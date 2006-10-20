@@ -29,8 +29,7 @@ public class ScreenOutputCriterion extends Criterion {
 			expectedOutput = "";
 		} else {
 			// reformat test as "124, 4242, 2335, 3535, 35325"
-//			String[] outputs = test.split("[ \t\r\f\n,;]+");
-			String[] outputs = test.split("\\D+");
+			String[] outputs = test.split("[ \t\r\f\n,;]+");
 			StringBuffer buffer = new StringBuffer();
 			for (int i=0; i<outputs.length; i++) {
 				buffer.append(outputs[i]);

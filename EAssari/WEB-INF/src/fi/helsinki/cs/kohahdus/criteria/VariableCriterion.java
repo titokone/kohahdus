@@ -69,7 +69,7 @@ public abstract class VariableCriterion extends Criterion {
 	@Override public void setAcceptanceTestValue(String test) {
 		try {
 			comparisonValue = Integer.parseInt(test);
-		} catch (Exception e) {} { // NumberFormatException, NullPointerException
+		} catch (Exception e) { // NumberFormatException, NullPointerException
 			comparisonValue = UNDEFINED;
 		}		
 	}
