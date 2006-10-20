@@ -262,7 +262,7 @@ public abstract class Criterion {
 	/** Deserialize boolean value from XML string. Helper function for initSubClass() */
 	protected static boolean parseXMLBoolean(String XML, String tagname) {
 		String value = parseXMLString(XML, tagname);
-		return value.indexOf(0) == 'T';
+		return value.charAt(0) == 'T';
 	}
 	
 	/** Deserialize long value from XML string. Helper function for initSubClass()
@@ -274,5 +274,5 @@ public abstract class Criterion {
 		} catch (NumberFormatException e) {
 			return UNDEFINED;
 		}
-	}
-}
+	}	
+}	
