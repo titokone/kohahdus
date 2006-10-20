@@ -63,13 +63,14 @@ var REQUIRED_STATUS = 1;
 var FORBIDDEN_STATUS = -1;
 var NEUTRAL_STATUS = 0;
 
-// TODO
+// initialize TTK-91 instruction arrays and switch to initial view
 function initTaskCreation()
 {
 	// Javascript version of a hash table - location of a instruction name in the array "instructionNames" is the same as the location of the
 	// instruction status in array "instructionStatus".
 	instructionNames = new Array("load", "store", "push", "pop", "pushr", "popr", "in", "out", "add", "sub", "mul", "div", "mod", "not", "and", "or",
-	"xor", "shl", "shr", "comp", "jump", );
+	"xor", "shl", "shr", "comp", "jump", "jneg", "jzer", "jpos", "jnneg", "jnzer", "jnpos", "jles", "jequ", "jgre", "jnle", "jnequ", "jngre", "call",
+	"exit", "svc", "nop", "equ", "dc", "ds");
 
 	instructionStatus = new Array(instructionNames.length);
 
@@ -77,86 +78,111 @@ function initTaskCreation()
 		instructionStatus[counter] = NEUTRAL_STATUS;
 	}
 
+	// parse values already in required and forbidden instructions fields and set symbols in GUI
+	if(document.task_creation_form.required_ttk_instructions.value != "") {
+		var requiredInstructions = document.task_creation_form.required_ttk_instructions.value.split(", ")
+		var img;
+
+		for (var requiredCounter = 0; requiredCounter < requiredInstructions.length; requiredCounter++) {
+			for (var nameCounter = 0; nameCounter < instructionNames.length; nameCounter++) {
+				if(instructionNames[nameCounter] == requiredInstructions[requiredCounter]) {
+					instructionStatus[nameCounter] = REQUIRED_STATUS;
+					img = document.getElementById(instructionNames[nameCounter] + "_img");
+					img.src = positive.src;
+					break;
+				}
+			}
+		}
+	}
+
+	if(document.task_creation_form.forbidden_ttk_instructions.value != "") {
+		var forbiddenInstructions = document.task_creation_form.forbidden_ttk_instructions.value.split(", ")
+		var img;
+
+		for (var forbiddenCounter = 0; forbiddenCounter < forbiddenInstructions.length; forbiddenCounter++) {
+			for (var nameCounter = 0; nameCounter < instructionNames.length; nameCounter++) {
+				if(instructionNames[nameCounter] == forbiddenInstructions[forbiddenCounter]) {
+					instructionStatus[nameCounter] = FORBIDDEN_STATUS;
+					img = document.getElementById(instructionNames[nameCounter] + "_img");
+					img.src = negative.src;
+					break;
+				}
+			}
+		}
+	}
+
 	switchToCriteriaView();
 	switchToWholeProgramView();
 }
 
+// show example code and register checkboxes, hide value fields
 function switchToExampleView(){
-	showElementById('tableExample');
+	showElementById('exampleTable');
+	showElementById('exampleCodeDiv');
 	
 	inputs = document.getElementsByTagName('input');
 	for (i=0; i<inputs.length; i++){
-		if (inputs[i].name.indexOf("check_") != -1){
+		if (inputs[i].name.indexOf("_checked") != -1){
 			inputs[i].style.display = "block";
-		} else if (inputs[i].name.indexOf("private_reg_") != -1){
+		} else if (inputs[i].name.indexOf("_value_public") != -1){
 			inputs[i].style.display = "none";
-		} else if (inputs[i].name.indexOf("private_var_") != -1){
-			inputs[i].style.display = "none";
-		} else if (inputs[i].name.indexOf("public_reg_") != -1){
-			inputs[i].style.display = "none";
-		} else if (inputs[i].name.indexOf("public_var_") != -1){
+		} else if (inputs[i].name.indexOf("_value_secret") != -1){
 			inputs[i].style.display = "none";
 		}
 	}
 	
-//	selects = document.getElementsByTagName('select');
-//	for (i=0; i<selects.length; i++){
-//		if (selects[i].name.indexOf("_vertailu") != -1){
-//			selects[i].style.display = "none";
-//		}
-//	}
-
 	textareas = document.getElementsByTagName('textarea');
 	for (i=0; i<textareas.length; i++){
-		if (textareas[i].name.indexOf("_fileout_") != -1){
-			textareas[i].style.display = "none";
-		} else if (textareas[i].name.indexOf("_stdout_") != -1){
+		if (textareas[i].name.indexOf("output_value_") != -1){
 			textareas[i].style.display = "none";
 		}
 	}
 }
 
+// show value fields, hide example code and register checkboxes
 function switchToCriteriaView(){
-	hideElementById('tableExample');
+
+	hideElementById('exampleCodeDiv');
+
+	if(document.task_creation_form.task_type[0].checked == true) {
+		hideElementById('exampleTable');
+	}
 
 	inputs = document.getElementsByTagName('input');
 	for (i=0; i<inputs.length; i++){
-		if (inputs[i].name.indexOf("check_") != -1){
+		if (inputs[i].name.indexOf("_checked") != -1){
 			inputs[i].style.display = "none";
-		} else if (inputs[i].name.indexOf("private_reg_") != -1){
+		} else if (inputs[i].name.indexOf("_value_public") != -1){
 			inputs[i].style.display = "block";
-		} else if (inputs[i].name.indexOf("public_reg_") != -1){
-			inputs[i].style.display = "block";
-		} else if (inputs[i].name.indexOf("private_var_") != -1){
-			inputs[i].style.display = "block";
-		} else if (inputs[i].name.indexOf("public_var_") != -1){
+		} else if (inputs[i].name.indexOf("_value_secret") != -1){
 			inputs[i].style.display = "block";
 		}
 	}
-
-//	selects = document.getElementsByTagName('select');
-//	for (i=0; i<selects.length; i++){
-//		if (selects[i].name.indexOf("_vertailu") != -1){
-//			selects[i].style.display = "block";
-//		}
-//	}
 
 	textareas = document.getElementsByTagName('textarea');
 	for (i=0; i<textareas.length; i++){
-		if (textareas[i].name.indexOf("_fileout_") != -1){
-			textareas[i].style.display = "block";
-		} else if (textareas[i].name.indexOf("_stdout_") != -1){
+		if (textareas[i].name.indexOf("output_value_") != -1){
 			textareas[i].style.display = "block";
 		}
 	}
 }
 
+// hide partial program code snippets, put all code into one box
 function switchToWholeProgramView() {
-	hideElementById('tablePartialProgram');
+	hideElementById('partialProgramDiv1');
+	hideElementById('partialProgramDiv2');
+	document.task_creation_form.example_code.value = document.task_creation_form.partial_code1.value +  document.task_creation_form.example_code.value +  document.task_creation_form.partial_code2.value;
+
+	if(document.task_creation_form.correctness_by[0].checked == true) {
+		hideElementById('exampleTable');
+	}
 }
 
+// show boxes for partial code
 function switchToPartOfProgramView() {
-	showElementById('tablePartialProgram');
+	showElementById('exampleTable');
+	showElementById('partialProgramDiv1');
+	showElementById('partialProgramDiv2');
 }
 
 
@@ -170,18 +196,24 @@ function addVariable() {
 	var endhtml = html.substring(html.length - 16)
 
 	beginhtml += '<tr><td><input name="v' + variableCounter + '_name" type="text" size="2"></td>';
-	beginhtml += '<td><select name="PUBSYM' + variableCounter + '_comparison_op"><option><</option><option><=</option><option selected>=</option><option>>=</option><option>></option></select></td>';
-	beginhtml += '<td><input name="PUBSYM' + variableCounter + '_value" type="text" size="2"></td>';
-	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_failure_feedback" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><select name="SECSYM' + variableCounter + '_comparison_op"><option><</option><option><=</option><option selected>=</option><option>>=</option><option>></option></select></td>';
-	beginhtml += '<td><input name="SECSYM' + variableCounter + '_value" type="text" size="2"></td>';
-	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_failure_feedback" cols="20" rows="2"> </textarea></td></tr>';
+	beginhtml += '<td><select name="v' + variableCounter + '_comparison_op"><option><</option><option><=</option><option selected>=</option><option>>=</option><option>></option></select></td>';
+	beginhtml += '<td><input name="v' + variableCounter + '_value_public" type="text" size="2"></td>';
+	beginhtml += '<td><textarea name="v' + variableCounter + '_correct_feedback_public" cols="20" rows="2"> </textarea></td>';
+	beginhtml += '<td><textarea name="v' + variableCounter + '_wrong_feedback_public" cols="20" rows="2"> </textarea></td>';
+	beginhtml += '<td><input name="v' + variableCounter + '_value_secret" type="text" size="2"></td>';
+	beginhtml += '<td><textarea name="v' + variableCounter + '_correct_feedback_secret" cols="20" rows="2"> </textarea></td>';
+	beginhtml += '<td><textarea name="v' + variableCounter + '_wrong_feedback_secret" cols="20" rows="2"> </textarea></td></tr>';
 
 	cell.innerHTML = beginhtml + endhtml;
 
 	variableCounter++;
+
+	// make sure that the new row conforms to the current view
+	if(document.task_creation_form.correctness_by.value == "predefined_values") {
+		switchToCriteriaView();
+	} else {
+		switchToExampleView();
+	}
 }
 
 
@@ -353,34 +385,19 @@ function instructionRequirementsIntoText() {
 
 	<br>
 
-	<div id="tablePartialProgram">
-		<table border="1" cellpadding="3" cellspacing="0" width="300">
-			<tr>
-				<td align="center"><h2>Partial program code</h2></td>
-			</tr>
-			<tr>
-				<td align="center">
-					Write here your partial program code. Write <b>[[fill-in]]</b> where you want the answer to be typed.
-					Please pay attention that you should still write the complete code into the example code box if you wish the
-					correctness of the answer to be checked by values given by the example program.</td>
-			</tr>
-			<tr>
-				<td valign="top"><textarea name="partial_code" cols="100" rows="30"></textarea></td>
-			</tr>
-		</table>
-	
-		<br><br>
-	</div>
-
-	<br>
-
-	<div id="tableExample">
+	<div id="exampleTable">
 		<table border="1" cellpadding="3" cellspacing="0">
 			<tr>
-				<td align="center"><h2>Example program code</h2></td>
+				<td align="center"><h2>Program code</h2></td>
 			</tr>
 			<tr>
-				<td valign="top"><textarea name="example_code" cols="100" rows="40"></textarea></td>
+				<td align="top">
+					<div id="partialProgramDiv1"><b>Visible code, part 1:</b><br><textarea name="partial_code1" cols="100" rows="30"></textarea></div>
+
+					<div id="exampleCodeDiv"><b>Example code:</b><br><textarea name="example_code" cols="100" rows="40"></textarea></div>
+
+					<div id="partialProgramDiv2"><b>Visible code, part 2:</b><br><textarea name="partial_code2" cols="100" rows="30"></textarea></div>
+				</td>
 			</tr>
 		</table>
 	
