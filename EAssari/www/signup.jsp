@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
-
+<%@ page import="java.util.*" %>
 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -112,7 +112,7 @@
 	<% //Create a new user and store it in pagecontext as a temp object
 	   	User newUser = new User(request.getParameter("user_name"));	   	
 	   	newUser.setStatus(User.STATUS_STUDENT);
-	   	newUser.setLanguage("EN");
+	   	newUser.setLanguage(request.getParameter("language").equals("english") ? "EN" : "FI");
 	   	pageContext.setAttribute("newUser", newUser);
 		Log.write("Signup: creating a new user");
 	%>
@@ -158,12 +158,11 @@
 					DBHandler.getInstance().createUser(newUser);
 					out.print("USER CREATED -- FORWARDING TO LOGIN");
 					pageContext.setAttribute("user", newUser, PageContext.SESSION_SCOPE);
+					pageContext.setAttribute("course", request.getParameter("course"), PageContext.SESSION_SCOPE);
 					Log.write("Signup: new user created");
 					//TODO: forwardointi
 			%>		
-					<jsp:forward page="login.jsp">
-						<jsp:param name="action" value="login"/>
-					</jsp:forward>	
+					<c:redirect url="student/studentTaskList.jsp"/>
 			<%		
 				}
 			%>	
@@ -192,6 +191,11 @@
 			<td id="last_name_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
+			<td><b>E-mail: </b></td>
+			<td><input type="text" name="email" value="<c:out value="${newUser.email}"/>"></td>
+			<td id="email_error_msg_space">&nbsp;</td>
+		</tr>
+		<tr>
 			<td><b>Student number<sup>1</sup> </b></td>
 			<td><input type="text" name="student_number" value="<c:out value="${newUser.studentNumber}"/>"></td>
 			<td id="student_number_error_msg_space">&nbsp;</td>
@@ -210,13 +214,31 @@
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td><b>E-mail: </b></td>
-			<td><input type="text" name="email" value="<c:out value="${newUser.email}"/>"></td>
-			<td id="email_error_msg_space">&nbsp;</td>
-		</tr>
+			<td><b>Course</b></td>
+				
+			<%	
+				List<Course> courses = DBHandler.getInstance().getCourses();
+				pageContext.setAttribute("courses", courses);				
+			%>
+				
+			<td>
+				<select name="course">
+					<c:if test="${not empty courses}">
+						<c:forEach var="course" items="${pageScope.courses}">
+							<option value="<c:out value="${course.ID}"/>"><c:out value="${course.name}"/></option>							
+						</c:forEach>
+					</c:if>	
+				</select>
+			</td>
+		</tr>			
 		<tr>
-			<td colspan="2"><hr></td>
-			<td>&nbsp;</td>
+			<td><b>Language</b></td>
+			<td>
+				<select name="language">
+					<option value="english">English</option>
+					<option value="finnish">Finnish</option>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td><b>User name </b></td>
