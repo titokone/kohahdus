@@ -335,7 +335,10 @@ function instructionRequirementsIntoText() {
 			<td>Category </td>
 			<td>
 				<select name="category">
-					<option></option>
+					<option>Category 1</option>
+					<option>Category 2</option>
+					<option>Category 3</option>
+					<option>Category 4</option>
 				</select>
 			</td>
 		</tr>

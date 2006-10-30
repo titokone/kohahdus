@@ -240,7 +240,7 @@ public class DBHandler {
 				// Todo: implement these fields
 				//task(rs.getDate("datecreate"));			
 				//task.setTasktype(rs.getString("tasktype"));
-				task.setMetadata(rs.getString("taskmetadata"));
+				task.deserializeFromXML(rs.getString("taskmetadata"));
 				task.setNoOfTries(rs.getInt("numberoftries_def"));
 				task.setShouldStore("N".equals(rs.getString("shouldstoreanswer_def")) ? false : true);
 				task.setShouldRegister("N".equals(rs.getString("shouldregistertry_def")) ? false : true);
@@ -285,7 +285,7 @@ public class DBHandler {
 				// Todo: implement these fields
 				//task(rs.getDate("datecreate"));
 				//task.setTasktype(rs.getString("tasktype"));
-				task.setMetadata(rs.getString("taskmetadata"));
+				task.deserializeFromXML(rs.getString("taskmetadata"));
 				task.setNoOfTries(rs.getInt("lasttrynumber"));
 				task.setShouldStore("N".equals(rs.getString("shouldstoreanswer_def")) ? false : true);
 				task.setShouldRegister("N".equals(rs.getString("shouldregistertry_def")) ? false : true);
@@ -337,7 +337,7 @@ public class DBHandler {
 				//task.setValidateByModel();
 				//task(rs.getDate("datecreate"));			
 				//task.setTasktype(rs.getString("tasktype"));
-				task.setMetadata(rs.getString("taskmetadata"));
+				task.deserializeFromXML(rs.getString("taskmetadata"));
 				task.setNoOfTries(rs.getInt("numberoftries_def"));
 				task.setShouldStore("N".equals(rs.getString("shouldstoreanswer_def")) ? false : true);
 				task.setShouldRegister("N".equals(rs.getString("shouldregistertry_def")) ? false : true);
@@ -387,13 +387,14 @@ public class DBHandler {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("insert into task (taskid, taskname, author, datecreated, cutoffvalue, tasktype) " +
-									   "values (?,?,?,sysdate,?,?)"); 
+			st = conn.prepareStatement("insert into task (taskid, taskname, author, datecreated, cutoffvalue, tasktype, taskmetadata) " +
+									   "values (?,?,?,sysdate,?,?,?)"); 
 			st.setString(1, task.getTaskID());
 			st.setString(2, task.getName());
 			st.setString(3, task.getAuthor());
 			st.setInt(4, task.getCutoffvalue());
 			st.setString(5, DBHandler.DEFAULT_TASKTYPE);
+			st.setString(6, task.serializeToXML());
 			//Log.write("DBHandler: Executing insert...");			
 			if (st.executeUpdate() > 0){
 				Log.write("DBHandler: Task added to DB: name=" +task.getName()+ ", id="+task.getTaskID());
@@ -433,13 +434,14 @@ public class DBHandler {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("update task set taskname=?, author=?, cutoffvalue=?, tasktype=? " +
+			st = conn.prepareStatement("update task set taskname=?, author=?, cutoffvalue=?, tasktype=?, taskmetadata=? " +
 									   "where taskid=?"); 
 			st.setString(1, task.getName());
 			st.setString(2, task.getAuthor());
 			st.setInt(3, task.getCutoffvalue());
 			st.setString(4, DBHandler.DEFAULT_TASKTYPE);
-			st.setString(5, task.getTaskID());
+			st.setString(5, task.serializeToXML());
+			st.setString(6, task.getTaskID());
 			int c = st.executeUpdate();
 			if (c > 0){
 				Log.write("DBHandler: Task updated to DB: name=" +task.getName()+ ", id="+task.getTaskID());

@@ -3,6 +3,10 @@ package fi.helsinki.cs.kohahdus.trainer;
 import java.sql.Timestamp;
 import java.util.*;
 
+import javax.security.auth.callback.LanguageCallback;
+
+import fi.helsinki.cs.kohahdus.criteria.Criterion;
+
 //import fi.helsinki.cs.kohahdus.Criterion;
 /**
 *
@@ -31,8 +35,8 @@ public class Task {
 	private String fillInPostCode;
 	private boolean useModel;
 	
-	private String passFeedBack;
-	private String failFeedBack;
+	private String passFeedback;
+	private String failFeedback;
 	
 	private boolean hasSucceeded;		// If the student has completed the task successfully
 	private int noOfTries;			// How many times student has tried to complete the task
@@ -89,8 +93,8 @@ public class Task {
 		this.modificationdate=new Date();
 		this.hasSucceeded=succeed;
 		this.noOfTries=tries;
-		this.passFeedBack=passFeedBack;
-		this.failFeedBack=failFeedBack;
+		this.passFeedback=passFeedBack;
+		this.failFeedback=failFeedBack;
 	}
 	
 	
@@ -195,12 +199,12 @@ public class Task {
     
 	/** Return feedback if student passes the task */
 	public void setPassFeedBack(String pass) {
-		this.passFeedBack=pass;
+		this.passFeedback=pass;
 	}
 	
 	/** Return feedback if student fails the task */
 	public void setFailFeedBack(String fail) {
-		this.failFeedBack=fail;
+		this.failFeedback=fail;
 	}
 	
 	
@@ -315,12 +319,12 @@ public class Task {
 	
 	/** Return feedback if student passes the task */
 	public String getPassFeedBack() {
-		return passFeedBack;
+		return passFeedback;
 	}
 	
 	/** Return feedback if student fails the task */
 	public String getFailFeedBack() {
-		return failFeedBack;
+		return failFeedback;
 	}
 	
 	
@@ -328,6 +332,73 @@ public class Task {
 	/** Returns String of the date and time */
 	public String getDateAsString() {
 		return modificationdate.toString();
+	}
+	
+	/** Deserialize String value from XML string. Helper function for initSubClass() */
+	protected static String parseXMLString(String XML, String tagname) {
+		int begin = XML.indexOf("<" + tagname + ">") + tagname.length() + 2;
+		int end   = XML.indexOf("</" + tagname + ">");
+		String value = XML.substring(begin, end);
+		value = value.replaceAll("&gt;", ">");
+		value = value.replaceAll("&lt;", "<");
+		value = value.replaceAll("&amp;", "&");
+		return value;
+	}
+	/** Deserialize boolean value from XML string. Helper function for initSubClass() */
+	protected static boolean parseXMLBoolean(String XML, String tagname) {
+		String value = parseXMLString(XML, tagname);
+		return value.indexOf(0) == 'T';
+	}
+
+	/** Serialize String value to XML string. Helper function for serializeSubClass() */
+	protected static String toXML(String tagname, String value) {
+		value = value.replaceAll("&", "&amp;");
+		value = value.replaceAll(">", "&gt;");
+		value = value.replaceAll("<", "&lt;");
+		return "<" + tagname + ">" + value + "</" + tagname + ">";
+	}
+	
+	/** Serialize boolean value to XML string. Helper function for serializeSubClass() */
+	protected static String toXML(String tagname, boolean value) {
+		return "<" + tagname + ">" + (value ? 'T' : 'F') + "</" + tagname + ">";
+	}
+	
+	/** Return a serialized this Task class into XML-format */
+	public String serializeToXML() {
+		return toXML("language", language) +
+			   toXML("description", description) +
+			   toXML("pinput", pinput) +
+			   toXML("modelAnswer", modelAnswer) +
+			   toXML("category", category) +
+			   toXML("taskType", taskType) +
+			   toXML("fillInPreCode", fillInPreCode) +
+			   toXML("fillInPostCode", fillInPostCode) +
+			   toXML("useModel", useModel) +
+			   toXML("passFeedback", passFeedback) +
+			   toXML("failFeedback", failFeedback);
+	}
+
+	
+	/** Instantiate the Task class's parameters using the serialized form XML.
+	 * @throws RuntimeException exceptions in the deserialization are
+	 * caught and rethrown as uncheckced exception. */
+	public void deserializeFromXML(String xml)  {
+		try {
+			language = parseXMLString(xml, "language");
+			description = parseXMLString(xml, "description");
+			pinput = parseXMLString(xml, "pinput");
+			sinput = parseXMLString(xml, "sinput");
+			modelAnswer = parseXMLString(xml, "modelAnswer");
+			category = parseXMLString(xml, "category");
+			taskType = parseXMLString(xml, "taskType");
+			fillInPreCode = parseXMLString(xml, "fillInPreCode");
+			fillInPostCode = parseXMLString(xml, "fillInPostCode");
+			useModel = parseXMLBoolean(xml, "useModel");
+			passFeedback = parseXMLString(xml, "passFeedback");
+			failFeedback = parseXMLString(xml, "failFeedback");
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 
@@ -341,7 +412,6 @@ public class Task {
     private String courseID;
     private String moduleID;
     private String tasktypeID;
-    private String metadata;
     private Tasktype tasktype;
     private int seqNo;
     private Timestamp deadLine;
@@ -458,16 +528,7 @@ public class Task {
 		this.tasktype = tasktype;
 	}
 
-	public String getMetadata() {
-		return metadata;
-	}
 
-	public void setMetadata(String metadata) {
-		this.metadata = metadata;
-	}
-
-
-	
 	
 
 }
