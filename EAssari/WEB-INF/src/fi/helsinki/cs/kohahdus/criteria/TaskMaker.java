@@ -50,7 +50,17 @@ public class TaskMaker {
 	private static final String VALIDATE_BY_EXAMPLE = "example_program";
 	
 	private static final String MAX_INSTRUCTIONS = "maximum_number_of_executed_instructions";
-
+	
+	public static final String TASK_NAME = "task_name";
+	public static final String CATEGORY = "category";
+	public static final String INSTRUCTIONS = "instructions";
+	public static final String SECRET_INPUT = "secret_input";
+	public static final String PUBLIC_INPUT = "public_input";
+	
+	
+	
+	
+	
 	//TODO: tallennetaanko ^ silmukan esto kriteerinä vai taskin ominaisuutena? Oletan jälkimmäistä.
 	
 	private Task task;
@@ -82,23 +92,26 @@ public class TaskMaker {
 			addRegisterCriterion(i, req, true);
 		}
 		
+		addSymbolCriteria(req);
+		
+		
 		addOutputCriterion(req, true);
 		addOutputCriterion(req, false);		
 		addInstructionCriteria(req);		
 		addQualityCriteria(req);
 	
-		//TODO: addSymbolCriteria();
+		
 		
 		
 		
 		//Add values that are equal to all task types to the task
 		//User user = (User) req.getSession().getAttribute("user"); <- Tehdään save_task.jsp sivulla
 		//task.setAuthor(user.getFirstName()+" "+user.getLastName());
-		task.setName(req.getParameter("task_name"));
-		task.setCategory(req.getParameter("category"));
-		task.setDescription(req.getParameter("instructions"));
-		task.setSecretInput(req.getParameter("secret_input"));
-		task.setPublicInput(req.getParameter("public_input"));
+		task.setName(req.getParameter(TASK_NAME));
+		task.setCategory(req.getParameter(CATEGORY));
+		task.setDescription(req.getParameter(INSTRUCTIONS));
+		task.setSecretInput(req.getParameter(SECRET_INPUT));
+		task.setPublicInput(req.getParameter(PUBLIC_INPUT));
 					
 		task.setFillInPostCode(req.getParameter(POST_CODE));
 		task.setFillInPreCode(req.getParameter(PRE_CODE));
@@ -201,6 +214,28 @@ public class TaskMaker {
 		criteria.add(memRefs);
 		
 	}
+	
+	private void addSymbolCriteria(HttpServletRequest req) {
+		int count = Integer.parseInt(req.getParameter("symbol_criterion_count"));
+		for (int i=1; i<=count; i++) {
+			addSymbolCriterion(req, true, i);
+			addSymbolCriterion(req, false, i);
+		}
+	}
+	
+	
+	private void addSymbolCriterion(HttpServletRequest req, boolean isSecret, int num) {
+		String id = (isSecret ? Criterion.ID_SECRET_SYMBOL_PREFIX : Criterion.ID_PUBLIC_SYMBOL_PREFIX) + num;
+		SymbolCriterion crit = new SymbolCriterion(id, isSecret);
+		
+		crit.setComparisonOperator(req.getParameter(id + COMPARISON));
+		crit.setAcceptanceTestValue(req.getParameter(id + ACCEPTANCE_VAL));
+		crit.setAcceptanceFeedback(req.getParameter(id + ACCEPTANCE_FB));
+		crit.setFailureFeedback(req.getParameter(id + FAILURE_FB));
+		
+		criteria.add(crit);
+	}
+	
 	
 	private void addQualityValues(Criterion crit, String prefix, HttpServletRequest req) {
 		crit.setAcceptanceTestValue(req.getParameter(prefix + ACCEPTANCE_LIMIT));
