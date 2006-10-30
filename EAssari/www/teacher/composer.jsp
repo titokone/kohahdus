@@ -344,10 +344,10 @@ function instructionRequirementsIntoText() {
 			<td>Category </td>
 			<td>
 				<select name="category">
-					<option>Category 1</option>
-					<option>Category 2</option>
-					<option>Category 3</option>
-					<option>Category 4</option>
+					<option <c:if test="${task.category=='Category 1'}">checked</c:if>>Category 1</option>
+					<option <c:if test="${task.category=='Category 2'}">checked</c:if>>Category 2</option>
+					<option <c:if test="${task.category=='Category 3'}">checked</c:if>>Category 3</option>
+					<option <c:if test="${task.category=='Category 4'}">checked</c:if>>Category 4</option>
 				</select>
 			</td>
 		</tr>
