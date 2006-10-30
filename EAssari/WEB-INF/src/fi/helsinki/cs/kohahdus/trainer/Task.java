@@ -336,6 +336,7 @@ public class Task {
 	
 	/** Deserialize String value from XML string. Helper function for initSubClass() */
 	protected static String parseXMLString(String XML, String tagname) {
+		if (XML == null) return "";
 		int begin = XML.indexOf("<" + tagname + ">") + tagname.length() + 2;
 		int end   = XML.indexOf("</" + tagname + ">");
 		String value = XML.substring(begin, end);
@@ -383,6 +384,7 @@ public class Task {
 	 * @throws RuntimeException exceptions in the deserialization are
 	 * caught and rethrown as uncheckced exception. */
 	public void deserializeFromXML(String xml)  {
+		if (xml == null) return;
 		try {
 			language = parseXMLString(xml, "language");
 			description = parseXMLString(xml, "description");

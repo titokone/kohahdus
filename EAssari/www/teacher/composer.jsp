@@ -48,8 +48,9 @@
 <script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
 <script language="Javascript">
 
-//var variableCounter = <c:out value="${criteria.symbolCriteriaCount}"/>;
-var variableCounter = 1;
+var variableCounter = <c:out value="${criteria.symbolCriteriaCount}"/>;
+//var variableCounter = 1;
+alert("symbolCriteriaCount:"+variableCounter);
 
 var positive = new Image();
 positive.src = "positive.gif";
@@ -251,6 +252,7 @@ function ttkInstructionOnClick(instruction) {
 
 function onFormSubmit() {
 	instructionRequirementsIntoText();
+	document.task_creation_form.symbol_criterion_count.value = variableCounter;
 }
 
 function showPrintDisplay() {
@@ -310,6 +312,7 @@ function instructionRequirementsIntoText() {
 <input type="hidden" name="BANOPCODES_instructions" value="<c:out value="${banopcodes.acceptanceTestValue}"/>">
 <input type="hidden" name="save_type" value="<c:out value="${param.save_type}"/>">
 <input type="hidden" name="task_id" value="<c:out value="${param.task_id}"/>">
+<input type="hidden" name="symbol_criterion_count" value="">
 
 <div align="center">
 
