@@ -216,7 +216,12 @@ public class TaskMaker {
 	}
 	
 	private void addSymbolCriteria(HttpServletRequest req) {
-		int count = Integer.parseInt(req.getParameter("symbol_criterion_count"));
+		String count_str = req.getParameter("symbol_criterion_count");
+		if (count_str == null || count_str.equals("")) {
+			Log.write("TaskMaker: Symbol criteria count invalid");
+			return;
+		}
+		int count = Integer.parseInt(count_str);
 		for (int i=1; i<=count; i++) {
 			addSymbolCriterion(req, true, i);
 			addSymbolCriterion(req, false, i);
