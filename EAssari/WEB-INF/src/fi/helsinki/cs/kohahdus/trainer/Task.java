@@ -339,6 +339,9 @@ public class Task {
 		if (XML == null) return "";
 		int begin = XML.indexOf("<" + tagname + ">") + tagname.length() + 2;
 		int end   = XML.indexOf("</" + tagname + ">");
+		
+		if (begin < 0 || end < 0) return "";
+		
 		String value = XML.substring(begin, end);
 		value = value.replaceAll("&gt;", ">");
 		value = value.replaceAll("&lt;", "<");
