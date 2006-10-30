@@ -591,10 +591,10 @@ public class DBHandler {
 		LinkedList<Criterion> criteria = new LinkedList<Criterion>();
 		try {
 			st = conn.prepareStatement("select * from attributevalues " +
-									   "where objecttype=? and objectid=? and language=?");
+									   "where objecttype=? and objectid=?");
 			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
 			st.setString(2, task.getTaskID());
-			st.setString(3, task.getLanguage());
+			//st.setString(3, task.getLanguage());
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			while (rs.next()){
@@ -620,7 +620,6 @@ public class DBHandler {
 		try {
 			st = conn.prepareStatement("select * from attributevalues " +
 									   "where objecttype=? and objectid=?");
-		   								//"where objecttype=? and objectid=? and language=?");
 			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
 			st.setString(2, task.getTaskID());
 			// TODO: Kysytään, että käytetäänkö taskeissa monenkielisiä criteereitä...

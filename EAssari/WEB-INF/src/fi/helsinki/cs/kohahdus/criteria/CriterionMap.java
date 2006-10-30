@@ -1,6 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
 import java.util.*;
+import fi.helsinki.cs.kohahdus.*;
 
 public class CriterionMap extends HashMap<String,Criterion> {
 	
@@ -24,7 +25,7 @@ public class CriterionMap extends HashMap<String,Criterion> {
 		return criteria;
 	}
 	
-	public int getSymbolCriteriaCount(){
+	public int getSymbolCriterionCount(){
 		int count = 0;
 		for (Criterion c : this.values()) {
 			if (c instanceof SymbolCriterion) {
@@ -32,6 +33,12 @@ public class CriterionMap extends HashMap<String,Criterion> {
 			}
 		}
 		return count/2;
+	}
+	
+	public int getCriterionCount(){
+		int count = this.size();
+		Log.write("getCriterionCount:"+count);
+		return count;
 	}
 	
 	

@@ -24,7 +24,11 @@
 		
 	    // Get all criteria from the database
 		CriterionMap criteria = DBHandler.getInstance().getCriteriaMap(task);
-		if (!criteria.isEmpty()) pageContext.setAttribute("criteria", criteria);
+		if (!criteria.isEmpty()) {
+			//Log.write("Setting criteria:" +criteria.getCriterionCount());
+			pageContext.setAttribute("criteria", criteria);
+			pageContext.setAttribute("symbolCriterionCount", criteria.getSymbolCriterionCount());
+		}
 	} 
 %>
 
@@ -48,9 +52,11 @@
 <script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
 <script language="Javascript">
 
-var variableCounter = <c:out value="${criteria.symbolCriteriaCount}"/>;
-//var variableCounter = 1;
-alert("symbolCriteriaCount:"+variableCounter);
+//alert("criteriaCount2:"+<%= ((CriterionMap)pageContext.getAttribute("criteria")).getCriterionCount() %>);
+//alert("criteriaCount:"+<c:out value="${pageScope.criteria.criterionCount}"/>);
+//alert("symbolCriteriaCount:"+<c:out value="${criteria.symbolCriterionCount}"/>);
+//var variableCounter = <c:out value="${criteria.criterionCount}"/>;
+var variableCounter = <%= ((CriterionMap)pageContext.getAttribute("criteria")).getCriterionCount() %>;
 
 var positive = new Image();
 positive.src = "positive.gif";
@@ -495,7 +501,7 @@ function instructionRequirementsIntoText() {
 									<td><p>Feedback if correct</p></td>
 									<td><p>Feedback if wrong</p></td>
 								</tr>
-								<c:forEach begin="0" end="${criteria.symbolCriteriaCount}" step="1" var="i">
+								<c:forEach begin="0" end="${symbolCriterionCount}" step="1" var="i">
 									<c:set var="pubIndex" value='PUBSYM${i}'/>
 									<c:set var="secIndex" value='SECSYM${i}'/>
 									<c:set var="pub" value="${criteria[pubIndex]}"/>
