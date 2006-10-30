@@ -356,6 +356,7 @@ public class Task {
 
 	/** Serialize String value to XML string. Helper function for serializeSubClass() */
 	protected static String toXML(String tagname, String value) {
+		if (value == null) value = "";
 		value = value.replaceAll("&", "&amp;");
 		value = value.replaceAll(">", "&gt;");
 		value = value.replaceAll("<", "&lt;");
