@@ -13,7 +13,10 @@ import fi.helsinki.cs.kohahdus.*;
 
 /** Copy-paste koodauksella aikaansaatu template-teht‰v‰n luonti h‰ss‰kk‰.
  * Kriteerit on tehty, task-ilmentym‰t pit‰isi viel‰ v‰‰nt‰‰. Palautteet 
- * pit‰‰ tietysti viel‰ hioa, n‰m‰ kelpaavat vain testaukseen. */
+ * pit‰‰ tietysti viel‰ hioa, n‰m‰ kelpaavat vain testaukseen. 
+ * 
+ * TaskMaker creates a Task object and all its criteria from HttpRequest.
+ * All fields in Task and Criteria should be initialized to appropriate values.*/
 
 public class TaskMaker {
 	static LinkedList<Criterion> fiCriteria = new LinkedList<Criterion>();
@@ -38,6 +41,8 @@ public class TaskMaker {
 	private static final String OPCODE_INSTRUCTIONS = "_instructions";
 	private static final String OPCODE_FB = "_feedback";
 	
+	private static final String SYMBOL_NAME = "_name";
+	
 	private static final String PRE_CODE = "partial_code1";
 	private static final String POST_CODE = "partial_code2";
 	private static final String EX_CODE = "example_code";
@@ -51,25 +56,31 @@ public class TaskMaker {
 	
 	private static final String MAX_INSTRUCTIONS = "maximum_number_of_executed_instructions";
 	
+	
 	public static final String TASK_NAME = "task_name";
+	public static final String LANGUAGE = "language";
 	public static final String CATEGORY = "category";
 	public static final String INSTRUCTIONS = "instructions";
 	public static final String SECRET_INPUT = "secret_input";
 	public static final String PUBLIC_INPUT = "public_input";
 	
-	
-	
-	
-	
+	private static final int DEFAULT_CUTOFF = 100;
+		
 	//TODO: tallennetaanko ^ silmukan esto kriteerin‰ vai taskin ominaisuutena? Oletan j‰lkimm‰ist‰.
 	
+	/** Task object that matches given values in request */
 	private Task task;
+	/** Criteria linked to the Task. */
 	private List<Criterion> criteria;
 	
 	//TEMP
 	private Map<String, String> params;
 	
-	
+	/**
+	 * Creates a TaskMaker object from qualified HttpRequest. All parameters
+	 * required in task/criterion creation are assumed to be included in request.
+	 * @param req Request that contains all of Tasks data.
+	 */
 	public TaskMaker(HttpServletRequest req) {
 		
 		//TEMP
@@ -87,6 +98,8 @@ public class TaskMaker {
 		this.task = new Task();
 		this.criteria = new LinkedList<Criterion>();
 		
+		
+		//Add criteria...
 		for (int i=0; i<8; i++) {
 			addRegisterCriterion(i, req, false);
 			addRegisterCriterion(i, req, true);
@@ -102,12 +115,11 @@ public class TaskMaker {
 	
 		
 		
-		
-		
 		//Add values that are equal to all task types to the task
 		//User user = (User) req.getSession().getAttribute("user"); <- Tehd‰‰n save_task.jsp sivulla
 		//task.setAuthor(user.getFirstName()+" "+user.getLastName());
 		task.setName(req.getParameter(TASK_NAME));
+		task.setLanguage(req.getParameter(LANGUAGE));
 		task.setCategory(req.getParameter(CATEGORY));
 		task.setDescription(req.getParameter(INSTRUCTIONS));
 		task.setSecretInput(req.getParameter(SECRET_INPUT));
@@ -117,8 +129,9 @@ public class TaskMaker {
 		task.setFillInPreCode(req.getParameter(PRE_CODE));
 		task.setModelAnswer(req.getParameter(EX_CODE));
 		
-		task.setCutoffvalue(100);
+		task.setCutoffvalue(DEFAULT_CUTOFF);
 		
+		//Determine task type
 		if (TASK_FILLIN.equals(req.getParameter(TASK_TYPE))) {
 			task.setFillInTask(true);
 			task.setTitoTaskType(Task.TYPE_FILL);
@@ -127,6 +140,7 @@ public class TaskMaker {
 			task.setTitoTaskType(Task.TYPE_FULL);
 		}
 		
+		//Determine if Analyzer should use model answer
 		if (VALIDATE_BY_EXAMPLE.equals(req.getParameter(VALIDATING_MODEL))) {
 			task.setValidateByModel(true);
 		} else {
@@ -142,15 +156,25 @@ public class TaskMaker {
 		}
 	}
 	
+	/** Returns the fully initialized Task */
 	public Task getTask() {
 		return task;
 	}
 	
+	/** Returns all Criteria of the Task */
 	public List<Criterion> getCriteria() {
 		return criteria;
 	}
 	
-	
+	/** 
+	 * Creates a new RegisterCriterion for a given register number.
+	 * Criterion attributes are set to the values defined in request.
+	 * The new criterion object is added to criteria list.
+	 *  
+	 * @param register
+	 * @param req
+	 * @param isSecret
+	 */
 	private void addRegisterCriterion(int register, HttpServletRequest req, boolean isSecret) {
 		String id = (isSecret ? Criterion.ID_SECRET_REGISTER_PREFIX : Criterion.ID_PUBLIC_REGISTER_PREFIX) + register;
 		RegisterCriterion crit = new RegisterCriterion(id, isSecret, register);
@@ -163,6 +187,13 @@ public class TaskMaker {
 		criteria.add(crit);
 	}
 
+	/**
+	 * Creates a new ScreenOutputCriterion and adds it to criterion list.
+	 * All values are set to the values defined in request.
+	 * 
+	 * @param req
+	 * @param isSecret
+	 */
 	private void addOutputCriterion(HttpServletRequest req, boolean isSecret) {
 		String id = (isSecret ? ID_SECRET_OUTPUT : ID_PUBLIC_OUTPUT);
 		ScreenOutputCriterion oc = new ScreenOutputCriterion(id, isSecret);
@@ -174,6 +205,11 @@ public class TaskMaker {
 		criteria.add(oc);
 	}
 	
+	/**
+	 * Creates InstructionCriterion for required and forbidden instructions and adds them to criterion list.
+	 * All values are set to the values defined in request.
+	 * @param req
+	 */
 	//FIXME: k‰skyt eiv‰t taida lˆyty‰ tuolta. Joko javascript ongelma tai katsotaan v‰‰r‰st‰ paikasta...
 	private void addInstructionCriteria(HttpServletRequest req) {
 		RequiredInstructionsCriterion required = new RequiredInstructionsCriterion(Criterion.ID_REQUIRED_INSTRUCTIONS, false);
@@ -187,6 +223,13 @@ public class TaskMaker {
 		criteria.add(forbidden);
 	}
 	
+	/**
+	 * Creates appropriate Criterion objects for each quality criteria and adds them to criterion list.
+	 * Quality criteria includes size of code, data area and stack; number of executed instructions,
+	 * data references and memory references.
+	 * All values are set to the values defined in request.
+	 * @param req
+	 */
 	private void addQualityCriteria(HttpServletRequest req) {
 		CodeSizeCriterion codeSize = new CodeSizeCriterion(ID_CODE_SIZE, false);
 		addQualityValues(codeSize, ID_CODE_SIZE, req);
@@ -214,7 +257,27 @@ public class TaskMaker {
 		criteria.add(memRefs);
 		
 	}
+
+	/**
+	 * Helper method for addSymbolCriteria.
+	 * Sets all required fields of a Criterion to the values defined in request.
+	 * @param crit
+	 * @param prefix
+	 * @param req
+	 */
+	private void addQualityValues(Criterion crit, String prefix, HttpServletRequest req) {
+		crit.setAcceptanceTestValue(req.getParameter(prefix + ACCEPTANCE_LIMIT));
+		crit.setQualityTestValue(req.getParameter(prefix + QUALITY_LIMIT));
+		crit.setAcceptanceFeedback(req.getParameter(prefix + ACCEPTANCE_FB));
+		crit.setHighQualityFeedback(req.getParameter(prefix + QUALITY_FB));
+		crit.setFailureFeedback(req.getParameter(prefix + FAILURE_FB));
+	}
 	
+	/**
+	 * Creates Criterion objects for each symbol criterion included in request and adds them
+	 * to criteria list.
+	 * @param req
+	 */
 	private void addSymbolCriteria(HttpServletRequest req) {
 		String count_str = req.getParameter("symbol_criterion_count");
 		if (count_str == null || count_str.equals("")) {
@@ -233,6 +296,7 @@ public class TaskMaker {
 		String id = (isSecret ? Criterion.ID_SECRET_SYMBOL_PREFIX : Criterion.ID_PUBLIC_SYMBOL_PREFIX) + num;
 		SymbolCriterion crit = new SymbolCriterion(id, isSecret);
 		
+		crit.setSymbolName(req.getParameter("v" + (num-1) + SYMBOL_NAME));
 		crit.setComparisonOperator(req.getParameter(id + COMPARISON));
 		crit.setAcceptanceTestValue(req.getParameter(id + ACCEPTANCE_VAL));
 		crit.setAcceptanceFeedback(req.getParameter(id + ACCEPTANCE_FB));
@@ -242,13 +306,7 @@ public class TaskMaker {
 	}
 	
 	
-	private void addQualityValues(Criterion crit, String prefix, HttpServletRequest req) {
-		crit.setAcceptanceTestValue(req.getParameter(prefix + ACCEPTANCE_LIMIT));
-		crit.setQualityTestValue(req.getParameter(prefix + QUALITY_LIMIT));
-		crit.setAcceptanceFeedback(req.getParameter(prefix + ACCEPTANCE_FB));
-		crit.setHighQualityFeedback(req.getParameter(prefix + QUALITY_FB));
-		crit.setFailureFeedback(req.getParameter(prefix + FAILURE_FB));
-	}
+
 	
 	//TEMP
 	public Map<String, String> getParams() {
