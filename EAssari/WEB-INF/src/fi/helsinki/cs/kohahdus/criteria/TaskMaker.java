@@ -66,7 +66,6 @@ public class TaskMaker {
 	
 	private static final int DEFAULT_CUTOFF = 100;
 		
-	//TODO: tallennetaanko ^ silmukan esto kriteerinä vai taskin ominaisuutena? Oletan jälkimmäistä.
 	
 	/** Task object that matches given values in request */
 	private Task task;
@@ -128,6 +127,8 @@ public class TaskMaker {
 		task.setFillInPostCode(req.getParameter(POST_CODE));
 		task.setFillInPreCode(req.getParameter(PRE_CODE));
 		task.setModelAnswer(req.getParameter(EX_CODE));
+		
+		task.setMaximumNumberOfInstructions(req.getParameter(MAX_INSTRUCTIONS));
 		
 		task.setCutoffvalue(DEFAULT_CUTOFF);
 		
@@ -217,7 +218,11 @@ public class TaskMaker {
 		required.setFailureFeedback(req.getParameter(ID_REQUIRED_INSTRUCTIONS + OPCODE_FB));
 		
 		ForbiddenInstructionsCriterion forbidden = new ForbiddenInstructionsCriterion(Criterion.ID_FORBIDDEN_INSTRUCTIONS, false);
-		forbidden.setAcceptanceTestValue(req.getParameter(ID_FORBIDDEN_INSTRUCTIONS + OPCODE_FB));
+		forbidden.setAcceptanceTestValue(req.getParameter(ID_FORBIDDEN_INSTRUCTIONS + OPCODE_INSTRUCTIONS));
+		forbidden.setFailureFeedback(req.getParameter(ID_FORBIDDEN_INSTRUCTIONS + OPCODE_FB));
+		
+		Log.write("TaskMaker: forbidden opcodes - "+forbidden.getAcceptanceTestValue());
+		Log.write("TaskMaker: required opcodes - "+required.getAcceptanceTestValue());
 		
 		criteria.add(required);
 		criteria.add(forbidden);

@@ -5,6 +5,7 @@ import java.util.*;
 
 import javax.security.auth.callback.LanguageCallback;
 
+import fi.helsinki.cs.kohahdus.Log;
 import fi.helsinki.cs.kohahdus.criteria.Criterion;
 
 //import fi.helsinki.cs.kohahdus.Criterion;
@@ -33,6 +34,7 @@ public class Task {
 	private String taskType;
 	private String fillInPreCode;
 	private String fillInPostCode;
+	private int maxInstructions;
 	private boolean useModel;
 	
 	private String passFeedback;
@@ -207,6 +209,19 @@ public class Task {
 		this.failFeedback=fail;
 	}
 	
+	/** Endless loop prevention */
+	public void setMaximumNumberOfInstructions(int num) {
+		this.maxInstructions = num;
+	}
+	
+	/** Endless loop prevention */
+	public void setMaximumNumberOfInstructions(String num) {
+		try {
+			this.maxInstructions = Integer.parseInt(num);
+		} catch (NumberFormatException e) {
+			this.maxInstructions = 0;
+		}
+	}
 	
 //GET-METHODS
 	/** Return id of this task */
@@ -327,6 +342,10 @@ public class Task {
 		return failFeedback;
 	}
 	
+	/** Returns loop prevention value */
+	public int getMaximumNumberOfInstructions() {
+		return maxInstructions;
+	}
 	
 //OTHER METHODS
 	/** Returns String of the date and time */
@@ -340,7 +359,10 @@ public class Task {
 		int begin = XML.indexOf("<" + tagname + ">") + tagname.length() + 2;
 		int end   = XML.indexOf("</" + tagname + ">");
 		
-		if (begin < 0 || end < 0) return "";
+		if (begin < 0 || end < 0) {
+			Log.write("Task: failed to parseXML tag "+tagname);
+			return "";
+		}
 		
 		String value = XML.substring(begin, end);
 		value = value.replaceAll("&gt;", ">");
@@ -354,7 +376,24 @@ public class Task {
 		if (value == null) return false;
 		return value.equals("T");
 	}
-
+	
+	/** Deserialize int value from XML string. Helper function for initSubClass()
+	 * @return value or UNDEFINED */
+	protected static int parseXMLint(String XML, String tagname) {
+		String value = parseXMLString(XML, tagname);
+		try {
+			return Integer.parseInt(value);
+		} catch (NumberFormatException e) {
+			return 0;
+		}
+	}
+	
+	/** Serialize long value to XML string. Helper function for serializeSubClass() */
+	protected static String toXML(String tagname, int value) {
+		String xml = "<" + tagname + ">";
+		xml = xml + value;
+		return xml + "</" + tagname + ">";
+	}
 	/** Serialize String value to XML string. Helper function for serializeSubClass() */
 	protected static String toXML(String tagname, String value) {
 		if (value == null) value = "";
@@ -382,7 +421,8 @@ public class Task {
 			   toXML("fillInPostCode", fillInPostCode) +
 			   toXML("useModel", useModel) +
 			   toXML("passFeedback", passFeedback) +
-			   toXML("failFeedback", failFeedback);
+			   toXML("failFeedback", failFeedback) +
+			   toXML("maxInstructions", maxInstructions);
 	}
 
 	
@@ -404,6 +444,7 @@ public class Task {
 			useModel = parseXMLBoolean(xml, "useModel");
 			passFeedback = parseXMLString(xml, "passFeedback");
 			failFeedback = parseXMLString(xml, "failFeedback");
+			maxInstructions = parseXMLint(xml, "maxInstructions");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
