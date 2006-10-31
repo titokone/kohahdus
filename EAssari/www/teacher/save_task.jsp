@@ -22,12 +22,10 @@
 	<c:redirect url="../student/studentTaskList.jsp"/>
 </c:if>
 
-<jsp:include page="menu.jsp"/>
+<jsp:include page="../menu.jsp"/>
 
 <h2>Task saved</h2>
 
-
-Params from TaskMaker:
 
 <%
 	TaskMaker tm = new TaskMaker(request);
@@ -36,6 +34,7 @@ Params from TaskMaker:
 	t.setAuthor(user.getLastName());
 	
 	//DEBUG	
+	/*
 	List<Criterion> crits = tm.getCriteria();
 	
 	for (Criterion c : crits) {
@@ -51,17 +50,16 @@ Params from TaskMaker:
 	out.print("<p><pre>Instructions: "+t.getDescription()+"</pre>");
 	out.print("<p><pre>Pub input: "+t.getPublicInput()+"</pre>");
 	out.print("<p><pre>Sec input: "+t.getSecretInput()+"</pre>");
+	*/
 	//END	
 %>
 <c:if test="${param.save_type=='new'}">	
-	Task saved.... yeah right
 <%	
-	
+	//Task saved
 	DBHandler.getInstance().createTask(tm.getTask(), tm.getCriteria());
 %>
 </c:if>
 <c:if test="${param.save_type=='update'}">
-	Task updated...
 <%
 	
 	Task task = tm.getTask();
@@ -70,9 +68,10 @@ Params from TaskMaker:
 %>
 </c:if>
 
-Task xxx saved... not yet! ;D<br>
+
 <br>
 
+<!--
 Request parameters:<br>
 <c:forEach var="pMap" items="${paramValues}">
 	<c:out value="${pMap.key}: "/>
@@ -81,7 +80,7 @@ Request parameters:<br>
 	</c:forEach>
 	<br>
 </c:forEach>
-
+--!>
 
 
 </body>
