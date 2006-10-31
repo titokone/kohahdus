@@ -361,7 +361,6 @@ function instructionRequirementsIntoText() {
 					<option <c:if test="${task.category=='Category 3'}">selected</c:if>>Category 3</option>
 					<option <c:if test="${task.category=='Category 4'}">selected</c:if>>Category 4</option>
 				</select>
-				<c:out value="${task.category}"/>
 			</td>
 		</tr>
 	</table>
@@ -464,11 +463,12 @@ function instructionRequirementsIntoText() {
 							<td>R<c:out value="${i}"/></td>
 							<td>
 								<select name="<c:out value="${pub.id}"/>_comparison_op">
-									<option><</option>
-									<option><=</option>
-									<option selected>=</option>
-									<option>>=</option>
-									<option>></option>
+									<option <c:if test="${pub.comparisonOperator=='=='}">selected</c:if>>=</option>
+									<option <c:if test="${pub.comparisonOperator=='!='}">selected</c:if>>!=</option>
+									<option <c:if test="${pub.comparisonOperator=='<'}">selected</c:if>><</option>
+									<option <c:if test="${pub.comparisonOperator=='>'}">selected</c:if>>></option>
+									<option <c:if test="${pub.comparisonOperator=='<='}">selected</c:if>><=</option>
+									<option <c:if test="${pub.comparisonOperator=='>='}">selected</c:if>>>=</option>
 								</select>
 							</td>
 							<td><input name="<c:out value="${pub.id}"/>_value" type="text" size="4" value="<c:out value="${pub.acceptanceTestValue}"/>"></td>
@@ -476,11 +476,12 @@ function instructionRequirementsIntoText() {
 							<td><textarea name="<c:out value="${pub.id}"/>_failure_feedback" cols="20" rows="4"><c:out value="${pub.failureFeedback}"/></textarea></td>
 							<td>
 								<select name="<c:out value="${sec.id}"/>_comparison_op">
-									<option><</option>
-									<option><=</option>
-									<option selected>=</option>
-									<option>>=</option>
-									<option>></option>
+									<option <c:if test="${sec.comparisonOperator=='=='}">selected</c:if>>=</option>
+									<option <c:if test="${sec.comparisonOperator=='!='}">selected</c:if>>!=</option>
+									<option <c:if test="${sec.comparisonOperator=='<'}">selected</c:if>><</option>
+									<option <c:if test="${sec.comparisonOperator=='>'}">selected</c:if>>></option>
+									<option <c:if test="${sec.comparisonOperator=='<='}">selected</c:if>><=</option>
+									<option <c:if test="${sec.comparisonOperator=='>='}">selected</c:if>>>=</option>
 								</select>
 							</td>
 							<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="4" value="<c:out value="${sec.acceptanceTestValue}"/>"></td>
@@ -524,11 +525,12 @@ function instructionRequirementsIntoText() {
 										<td><input name="v<c:out value="${i}"/>_name" type="text" size="2"></td>
 										<td>
 											<select name="<c:out value="${pub.id}"/>_comparison_op">
-												<option><</option>
-												<option><=</option>
-												<option selected>=</option>
-												<option>>=</option>
-												<option>></option>
+												<option <c:if test="${pub.comparisonOperator=='=='}">selected</c:if>>=</option>
+												<option <c:if test="${pub.comparisonOperator=='!='}">selected</c:if>>!=</option>
+												<option <c:if test="${pub.comparisonOperator=='<'}">selected</c:if>><</option>
+												<option <c:if test="${pub.comparisonOperator=='>'}">selected</c:if>>></option>
+												<option <c:if test="${pub.comparisonOperator=='<='}">selected</c:if>><=</option>
+												<option <c:if test="${pub.comparisonOperator=='>='}">selected</c:if>>>=</option>
 											</select>
 										</td>
 										<td><input name="<c:out value="${pub.id}"/>_value" type="text" size="2" value="<c:out value="${pub.acceptanceTestValue}"/>"></td>
@@ -536,11 +538,12 @@ function instructionRequirementsIntoText() {
 										<td><textarea name="<c:out value="${pub.id}"/>_failure_feedback" cols="20" rows="2"><c:out value="${pub.failureFeedback}"/></textarea></td>
 										<td>
 											<select name="<c:out value="${sec.id}"/>_comparison_op">
-												<option><</option>
-												<option><=</option>
-												<option selected>=</option>
-												<option>>=</option>
-												<option>></option>
+												<option <c:if test="${sec.comparisonOperator=='=='}">selected</c:if>>=</option>
+												<option <c:if test="${sec.comparisonOperator=='!='}">selected</c:if>>!=</option>
+												<option <c:if test="${sec.comparisonOperator=='<'}">selected</c:if>><</option>
+												<option <c:if test="${sec.comparisonOperator=='>'}">selected</c:if>>></option>
+												<option <c:if test="${sec.comparisonOperator=='<='}">selected</c:if>><=</option>
+												<option <c:if test="${sec.comparisonOperator=='>='}">selected</c:if>>>=</option>
 											</select>
 										</td>
 										<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="2" value="<c:out value="${sec.acceptanceTestValue}"/>"></td>
@@ -741,7 +744,7 @@ function instructionRequirementsIntoText() {
 		</tr>
 		<tr>
 			<td>Endless loop prevention </td>
-			<td>Maximum number of executed instructions <input name="maximum_number_of_executed_instructions" type="text"></td>
+			<td>Maximum number of executed instructions <input name="maximum_number_of_executed_instructions" type="text" value="<c:out value="${task.maximumNumberOfInstructions}"/>"></td>
 		</tr>
 	</table>
 
