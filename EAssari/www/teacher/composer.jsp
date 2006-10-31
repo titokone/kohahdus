@@ -56,7 +56,8 @@
 //alert("criteriaCount:"+<c:out value="${pageScope.criteria.criterionCount}"/>);
 //alert("symbolCriteriaCount:"+<c:out value="${criteria.symbolCriterionCount}"/>);
 //var variableCounter = <c:out value="${criteria.criterionCount}"/>;
-var variableCounter = <%= ((CriterionMap)pageContext.getAttribute("criteria")).getCriterionCount() %>;
+//var variableCounter = <%= ((CriterionMap)pageContext.getAttribute("criteria")).getCriterionCount() %>;
+var variableCounter = <c:out value="${symbolCriterionCount}"/>;
 
 var positive = new Image();
 positive.src = "positive.gif";
@@ -127,9 +128,11 @@ function initTaskCreation()
 		//showElementById('partialCode2');
 		showElementById('partialProgramDiv1');
 		showElementById('partialProgramDiv2');
+		showElementById('exampleTable');
 	</c:if>
 	<c:if test="${task.validateByModel}">
 		showElementById('exampleCodeDiv');
+		showElementById('exampleTable');
 		//showElementById('example_code');
 	</c:if>
 	
@@ -321,7 +324,7 @@ function instructionRequirementsIntoText() {
 
 <h1 align="center">Create Task</h1>
 
-<form name="task_creation_form" method="POST" action="save_task.jsp" onSubmit="formOnSubmit()">
+<form name="task_creation_form" method="POST" action="save_task.jsp" onSubmit="onFormSubmit()">
 
 <c:set var="reqopcodes" value="${criteria['REQOPCODES']}"/>
 <c:set var="banopcodes" value="${criteria['BANOPCODES']}"/>
