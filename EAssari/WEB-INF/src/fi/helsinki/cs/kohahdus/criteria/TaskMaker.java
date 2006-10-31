@@ -294,7 +294,7 @@ public class TaskMaker {
 		}
 		int count = Integer.parseInt(count_str);
 		Log.write("TaskMaker: Symbolcriteria count = "+count);
-		for (int i=1; i<=count; i++) {
+		for (int i=0; i<=count; i++) {
 			addSymbolCriterion(req, true, i);
 			addSymbolCriterion(req, false, i);
 		}
@@ -305,11 +305,14 @@ public class TaskMaker {
 		String id = (isSecret ? Criterion.ID_SECRET_SYMBOL_PREFIX : Criterion.ID_PUBLIC_SYMBOL_PREFIX) + num;
 		SymbolCriterion crit = new SymbolCriterion(id, isSecret);
 		
-		crit.setSymbolName(req.getParameter("v" + (num-1) + SYMBOL_NAME));
+		crit.setSymbolName(req.getParameter("SYM" + num + SYMBOL_NAME));
 		crit.setComparisonOperator(req.getParameter(id + COMPARISON));
 		crit.setAcceptanceTestValue(req.getParameter(id + ACCEPTANCE_VAL));
 		crit.setAcceptanceFeedback(req.getParameter(id + ACCEPTANCE_FB));
 		crit.setFailureFeedback(req.getParameter(id + FAILURE_FB));
+		
+		Log.write("TaskMaker: new SymbolCriteria created - symName="+crit.getSymbolName()+" CompOp="+crit.getComparisonOperator()+
+				  " TestValue="+crit.getAcceptanceTestValue()+" AccFB="+crit.getAcceptanceFeedback()+" FFB="+crit.getFailureFeedback());
 		
 		criteria.add(crit);
 	}

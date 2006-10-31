@@ -32,6 +32,7 @@ Params from TaskMaker:
 <%
 	TaskMaker tm = new TaskMaker(request);
 	User user = (User)session.getAttribute("user");
+	Task t = tm.getTask();
 	t.setAuthor(user.getLastName());
 	
 	//DEBUG	
@@ -43,7 +44,7 @@ Params from TaskMaker:
 	}	
 
 	
-	Task t = tm.getTask();
+	
 	out.print("<p><pre>Task name: "+t.getName()+"</pre>");
 	out.print("<p><pre>Author: "+t.getAuthor()+"</pre>");
 	out.print("<p><pre>Category: "+t.getCategory()+"</pre>");
