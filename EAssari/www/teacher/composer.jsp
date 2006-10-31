@@ -121,6 +121,18 @@ function initTaskCreation()
 
 	switchToCriteriaView();
 	switchToWholeProgramView();
+	
+	<c:if test="${task.fillInTask}">
+		//showElementById('partialCode1');
+		//showElementById('partialCode2');
+		showElementById('partialProgramDiv1');
+		showElementById('partialProgramDiv2');
+	</c:if>
+	<c:if test="${task.validateByModel}">
+		showElementById('exampleCodeDiv');
+		//showElementById('example_code');
+	</c:if>
+	
 }
 
 // show example code and register checkboxes, hide value fields
@@ -337,18 +349,16 @@ function instructionRequirementsIntoText() {
 			<td>Task name </td>
 			<td><input name="task_name" type="text" size="66" value="<c:out value="${task.name}"/>"></td>
 		</tr>
-		
-		<%--  ??? Mistäs nämä saadaan ja miten lisätään ??? --%>
-		
 		<tr>
 			<td>Category </td>
 			<td>
 				<select name="category">
-					<option <c:if test="${task.category=='Category 1'}">checked</c:if>>Category 1</option>
-					<option <c:if test="${task.category=='Category 2'}">checked</c:if>>Category 2</option>
-					<option <c:if test="${task.category=='Category 3'}">checked</c:if>>Category 3</option>
-					<option <c:if test="${task.category=='Category 4'}">checked</c:if>>Category 4</option>
+					<option <c:if test="${task.category=='Category 1'}">selected</c:if>>Category 1</option>
+					<option <c:if test="${task.category=='Category 2'}">selected</c:if>>Category 2</option>
+					<option <c:if test="${task.category=='Category 3'}">selected</c:if>>Category 3</option>
+					<option <c:if test="${task.category=='Category 4'}">selected</c:if>>Category 4</option>
 				</select>
+				<c:out value="${task.category}"/>
 			</td>
 		</tr>
 	</table>
@@ -361,11 +371,8 @@ function instructionRequirementsIntoText() {
 		</tr>
 		<tr>
 			<td valign="top">Instructions </td>
-			<td valign="top"><textarea name="instructions" cols="90" rows="20" value="<c:out value="${task.description}"/>"></textarea></td>
+			<td valign="top"><textarea name="instructions" cols="90" rows="20"><c:out value="${task.description}"/></textarea></td>
 		</tr>
-		
-		<%-- TODO: inputit taskista --%>
-		
 		<tr>
 			<td>Public input </td>
 			<td><input name="public_input" type="text" size="60" value="<c:out value="${task.publicInput}"/>"></td>
@@ -407,11 +414,11 @@ function instructionRequirementsIntoText() {
 			</tr>
 			<tr>
 				<td align="top">
-					<div id="partialProgramDiv1"><b>Visible code, part 1:</b><br><textarea name="partial_code1" cols="100" rows="30"></textarea></div>
+					<div id="partialProgramDiv1"><b>Visible code, part 1:</b><br><textarea name="partial_code1" cols="100" rows="30"><c:out value="${task.fillInPreCode}"/></textarea></div>
 
-					<div id="exampleCodeDiv"><b>Example code:</b><br><textarea name="example_code" cols="100" rows="40"></textarea></div>
+					<div id="exampleCodeDiv"><b>Example code:</b><br><textarea name="example_code" cols="100" rows="40"><c:out value="${task.modelAnswer}"/></textarea></div>
 
-					<div id="partialProgramDiv2"><b>Visible code, part 2:</b><br><textarea name="partial_code2" cols="100" rows="30"></textarea></div>
+					<div id="partialProgramDiv2"><b>Visible code, part 2:</b><br><textarea name="partial_code2" cols="100" rows="30"><c:out value="${task.fillInPostCode}"/></textarea></div>
 				</td>
 			</tr>
 		</table>
@@ -741,4 +748,7 @@ function instructionRequirementsIntoText() {
 </form>
 
 </body>
+
+
 </html>
+

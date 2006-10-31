@@ -291,12 +291,12 @@ public class Task {
 	
 	/** Return true if this is a fill-in task */
 	public boolean isFillInTask() {
-		return taskType==TYPE_FILL;
+		return TYPE_FILL.equals(taskType);
 	}
 	
 	/** Return true if this is a programming task */
 	public boolean isProgrammingTask() {
-		return taskType==TYPE_FULL;
+		return TYPE_FULL.equals(taskType);
 	}
 
 	/** Return true if this task is to be validated by comparing results of the student's answer
@@ -351,7 +351,8 @@ public class Task {
 	/** Deserialize boolean value from XML string. Helper function for initSubClass() */
 	protected static boolean parseXMLBoolean(String XML, String tagname) {
 		String value = parseXMLString(XML, tagname);
-		return value.indexOf(0) == 'T';
+		if (value == null) return false;
+		return value.equals("T");
 	}
 
 	/** Serialize String value to XML string. Helper function for serializeSubClass() */
@@ -365,7 +366,7 @@ public class Task {
 	
 	/** Serialize boolean value to XML string. Helper function for serializeSubClass() */
 	protected static String toXML(String tagname, boolean value) {
-		return "<" + tagname + ">" + (value ? 'T' : 'F') + "</" + tagname + ">";
+		return "<" + tagname + ">" + (value ? "T" : "F") + "</" + tagname + ">";
 	}
 	
 	/** Return a serialized this Task class into XML-format */
@@ -373,6 +374,7 @@ public class Task {
 		return toXML("language", language) +
 			   toXML("description", description) +
 			   toXML("pinput", pinput) +
+			   toXML("sinput", sinput) +
 			   toXML("modelAnswer", modelAnswer) +
 			   toXML("category", category) +
 			   toXML("taskType", taskType) +
@@ -408,7 +410,22 @@ public class Task {
 	}
 	
 
-
+	public String toString(){
+		String ret = "id:"+ taskID;
+		ret += ", lang:" +language;
+		ret += ", name:" +taskName;
+		ret += ", author:" +author;
+		ret += ", pubin:" +pinput;
+		ret += ", secin:" +sinput;
+		ret += ", useModel:" +useModel;
+		ret += ", modelAnswer:" +modelAnswer;
+		ret += ", category:" +category;
+		ret += ", type:" +taskType;
+		ret += ", succeeded:" +hasSucceeded;
+		ret += ", noOfTries:" +noOfTries;
+		ret += ", modDate:" +modificationdate;
+		return ret;
+	}
 
 	
 	

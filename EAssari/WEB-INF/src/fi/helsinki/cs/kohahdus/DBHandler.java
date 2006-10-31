@@ -324,17 +324,10 @@ public class DBHandler {
 				task.setAuthor(rs.getString("author"));
 				// TODO: implement these fields
 				//most of these are needed in composer to fill default values.
-				//task.setCategory();
-				//task.setDescription();
-				//task.setFailFeedBack();
 				//task.setFillInPostCode();
 				//task.setFillInPreCode();
 				//task.setFillInTask();
-				//task.setLanguage();
-				//task.setPublicInput();
-				//task.setSecretInput();
 				//task.setTitoTaskType();
-				//task.setValidateByModel();
 				//task(rs.getDate("datecreate"));			
 				//task.setTasktype(rs.getString("tasktype"));
 				task.deserializeFromXML(rs.getString("taskmetadata"));
@@ -344,7 +337,7 @@ public class DBHandler {
 				task.setShouldKnow("N".equals(rs.getString("shouldknowstudent_def")) ? false : true);
 				task.setShouldEvaluate("N".equals(rs.getString("shouldevaluate_def")) ? false : true);
 				task.setCutoffvalue(rs.getInt("cutoffvalue"));
-				Log.write("DBHandler: Fetched " +task.getName() + " from DB.");
+				Log.write("DBHandler: Fetched " +task+ " from DB.");
 			} 
 			rs.close();
 			
@@ -353,7 +346,7 @@ public class DBHandler {
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
-		}	
+		}
 		return task;
 	}
 
@@ -397,14 +390,14 @@ public class DBHandler {
 			st.setString(6, task.serializeToXML());
 			//Log.write("DBHandler: Executing insert...");			
 			if (st.executeUpdate() > 0){
-				Log.write("DBHandler: Task added to DB: name=" +task.getName()+ ", id="+task.getTaskID());
+				Log.write("DBHandler: Task added to DB: "+task);
 				return true;
 			} else {
-				Log.write("DBHandler: Failed to add task to DB: name=" +task.getName()+ ", id="+task.getTaskID());
+				Log.write("DBHandler: Failed to add task to DB: " +task);
 			}
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to add task to DB: name=" +task.getName()+ ", id="+task.getTaskID()+". " +e);
+			Log.write("DBHandler: Failed to add task to DB: " +task+". " +e);
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
