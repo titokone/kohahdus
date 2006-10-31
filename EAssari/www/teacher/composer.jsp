@@ -514,7 +514,7 @@ function instructionRequirementsIntoText() {
 									<td><p>Feedback if correct</p></td>
 									<td><p>Feedback if wrong</p></td>
 								</tr>
-								<c:forEach begin="0" end="${symbolCriterionCount}" step="1" var="i">
+								<c:forEach begin="0" end="${symbolCriterionCount-1}" step="1" var="i">
 									<c:set var="pubIndex" value='PUBSYM${i}'/>
 									<c:set var="secIndex" value='SECSYM${i}'/>
 									<c:set var="pub" value="${criteria[pubIndex]}"/>
