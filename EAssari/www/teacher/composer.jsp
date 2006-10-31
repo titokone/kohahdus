@@ -520,7 +520,7 @@ function instructionRequirementsIntoText() {
 									<c:set var="pub" value="${criteria[pubIndex]}"/>
 									<c:set var="sec" value="${criteria[secIndex]}"/>
 									<tr>
-										<td><input name="SYM<c:out value="${i}"/>_name" type="text" size="2"></td>
+										<td><input name="SYM<c:out value="${i}"/>_name" type="text" size="2" value="<c:out value="${pub.symbolName}"/>"></td>
 										<td>
 											<select name="<c:out value="${pub.id}"/>_comparison_op">
 												<option <c:if test="${pub.comparisonOperator=='=='}">selected</c:if>>=</option>
