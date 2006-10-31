@@ -128,6 +128,7 @@ public class TaskMaker {
 		task.setFillInPreCode(req.getParameter(PRE_CODE));
 		task.setModelAnswer(req.getParameter(EX_CODE));
 		
+		Log.write("TaskMaker: Max no. instructions = "+req.getParameter(MAX_INSTRUCTIONS));
 		task.setMaximumNumberOfInstructions(req.getParameter(MAX_INSTRUCTIONS));
 		
 		task.setCutoffvalue(DEFAULT_CUTOFF);

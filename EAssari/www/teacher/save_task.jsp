@@ -13,33 +13,35 @@
 
 <body>
 
+<c:if test="${empty user}">
+	Not logged in - redirecting to login
+	<c:redirect url="../login.jsp"/>	
+</c:if>
+<c:if test="${user.student}">
+	Student tried to load a restricted page - redirecting to students tasklisting
+	<c:redirect url="../student/studentTaskList.jsp"/>
+</c:if>
+
 <jsp:include page="menu.jsp"/>
 
 <h2>Task saved</h2>
-
-
 
 
 Params from TaskMaker:
 
 <%
 	TaskMaker tm = new TaskMaker(request);
+	User user = (User)session.getAttribute("user");
+	t.setAuthor(user.getLastName());
 	
-	/* DEBUG
-	Map<String, String> map = tm.getParams();
-	Set<String> keys = map.keySet();
-	
-	for (String s : keys) {
-		out.print(s + " : " + map.get(s));
-	}	 
-	*/
-	
+	//DEBUG	
 	List<Criterion> crits = tm.getCriteria();
 	
 	for (Criterion c : crits) {
 		out.print(c.serializeToXML());
 		out.print("<br>");
 	}	
+
 	
 	Task t = tm.getTask();
 	out.print("<p><pre>Task name: "+t.getName()+"</pre>");
@@ -48,12 +50,7 @@ Params from TaskMaker:
 	out.print("<p><pre>Instructions: "+t.getDescription()+"</pre>");
 	out.print("<p><pre>Pub input: "+t.getPublicInput()+"</pre>");
 	out.print("<p><pre>Sec input: "+t.getSecretInput()+"</pre>");
-	
-	//DEBUG: korvataan aina vanha..
-	//t.setTaskID("TESTING");
-	t.setAuthor("TEST");
-	t.setLanguage("EN");
-	//DBHandler.getInstance().updateTask(t, tm.getCriteria());		
+	//END	
 %>
 <c:if test="${param.save_type=='new'}">	
 	Task saved.... yeah right
