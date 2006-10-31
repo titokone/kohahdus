@@ -440,6 +440,7 @@ function instructionRequirementsIntoText() {
 					<tr>
 						<td align="center" colspan="3"></td>
 						<td align="center" colspan="3"><b>With public input</b></td>
+						<td></td>
 						<td align="center" colspan="3"><b>With secret input</b></td>
 					</tr>
 					<tr>
@@ -447,6 +448,7 @@ function instructionRequirementsIntoText() {
 						<td><p>Value</p></td>
 						<td><p>Feedback if correct</p></td>
 						<td><p>Feedback if wrong</p></td>
+						<td></td>
 						<td><p>Value</p></td>
 						<td><p>Feedback if correct</p></td>
 						<td><p>Feedback if wrong</p></td>
@@ -500,6 +502,7 @@ function instructionRequirementsIntoText() {
 								<tr>
 									<td align="center" colspan="2"></td>
 									<td align="center" colspan="3"><b>With public input</b></td>
+									<td></td>
 									<td align="center" colspan="3"><b>With secret input</b></td>
 								</tr>
 								<tr>
@@ -507,6 +510,7 @@ function instructionRequirementsIntoText() {
 									<td><p>Value</p></td>
 									<td><p>Feedback if correct</p></td>
 									<td><p>Feedback if wrong</p></td>
+									<td></td>
 									<td><p>Value</p></td>
 									<td><p>Feedback if correct</p></td>
 									<td><p>Feedback if wrong</p></td>
