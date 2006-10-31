@@ -457,7 +457,7 @@ function instructionRequirementsIntoText() {
 						<c:set var="pub" value='${criteria[pubIndex]}'/>
 						<c:set var="sec" value="${criteria[secIndex]}"/>
 						<tr>
-							<td><input type="checkbox" name="r<c:out value="${i}"/>_checked"></td>
+							<td><input type="checkbox" name="REG<c:out value="${i}"/>_checked"></td>
 							<td>R<c:out value="${i}"/></td>
 							<td>
 								<select name="<c:out value="${pub.id}"/>_comparison_op">
@@ -499,7 +499,7 @@ function instructionRequirementsIntoText() {
 						<td id="variables_cell">
 							<table border="1" cellpadding="3" cellspacing="0" class="bordered">
 								<tr>
-									<td align="center" colspan="2"></td>
+									<td align="center" colspan="3"></td>
 									<td align="center" colspan="3"><b>With public input</b></td>
 									<td></td>
 									<td align="center" colspan="3"><b>With secret input</b></td>
@@ -520,6 +520,7 @@ function instructionRequirementsIntoText() {
 									<c:set var="pub" value="${criteria[pubIndex]}"/>
 									<c:set var="sec" value="${criteria[secIndex]}"/>
 									<tr>
+										<td><input type="checkbox" name="SYM<c:out value="${i}"/>_checked"></td>
 										<td><input name="SYM<c:out value="${i}"/>_name" type="text" size="2" value="<c:out value="${pub.symbolName}"/>"></td>
 										<td>
 											<select name="<c:out value="${pub.id}"/>_comparison_op">

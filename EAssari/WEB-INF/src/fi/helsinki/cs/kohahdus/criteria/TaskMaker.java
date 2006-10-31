@@ -294,7 +294,7 @@ public class TaskMaker {
 		}
 		int count = Integer.parseInt(count_str);
 		Log.write("TaskMaker: Symbolcriteria count = "+count);
-		for (int i=0; i<=count; i++) {
+		for (int i=0; i<count; i++) {
 			addSymbolCriterion(req, true, i);
 			addSymbolCriterion(req, false, i);
 		}

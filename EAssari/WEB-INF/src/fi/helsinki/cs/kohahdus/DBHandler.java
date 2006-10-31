@@ -165,6 +165,38 @@ public class DBHandler {
 		}	
 		return false;
 	} 
+
+	/** 
+	 * Remove course from database (and thus all refering taskinmodules).
+	 */
+	public boolean removeCourse(String courseID) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("delete from taskinmodule where courseid=?");
+			st.setString(1, courseID);			
+			st.executeUpdate();			
+			
+			st = conn.prepareStatement("delete from module where courseid=?");
+			st.setString(1, courseID);			
+			st.executeUpdate();
+			
+			st = conn.prepareStatement("delete from course where courseid=?");
+			st.setString(1, courseID);
+			st.executeUpdate();
+			return true;
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to remove course " +courseID+". " +e);
+			e.printStackTrace();
+		} finally {
+			release(conn);
+			if (st != null) st.close();
+		}	
+		return false;		
+		// Todo: rollback in case of failing of one of the methods above.	
+	}
+	
+	
 	
 	/** Add a default module to course. */
 	private boolean addModule(String courseID) throws SQLException {
