@@ -394,7 +394,7 @@ public class DBHandler {
 				st2 = conn.prepareStatement("select common_seq.currval from dual");
 				ResultSet rs = st2.executeQuery();
 				if (rs.next()){
-					task.setTaskID(rs.getString(0));
+					task.setTaskID(rs.getString(1));
 				}
 				rs.close();
 				return true;
