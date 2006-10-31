@@ -431,7 +431,7 @@ function instructionRequirementsIntoText() {
 			<td align="center"><h2>Criteria</h2></td>
 		</tr>
 		<tr>
-			<td valign="top"><b><i>Registers</i></b></td>
+			<td valign="top" bgcolor="#6495ED"><b><i>Registers</i></b></td>
 		</tr>
 		<tr>
 			<td>
@@ -494,7 +494,7 @@ function instructionRequirementsIntoText() {
 		</tr>
 
 		<tr>
-			<td valign="top"><b><i>Variables</i></b></td>
+			<td valign="top" bgcolor="#6495ED"><b><i>Variables</i></b></td>
 		</tr>
 		<tr>
 			<td>
@@ -509,7 +509,7 @@ function instructionRequirementsIntoText() {
 									<td align="center" colspan="3"><b>With secret input</b></td>
 								</tr>
 								<tr>
-									<td align="center" colspan="2"></td>
+									<td align="center" colspan="3"></td>
 									<td><p>Value</p></td>
 									<td><p>Feedback if correct</p></td>
 									<td><p>Feedback if wrong</p></td>
@@ -562,7 +562,7 @@ function instructionRequirementsIntoText() {
 			</td>
 		</tr>
 		<tr>
-			<td valign="top">
+			<td valign="top" bgcolor="#6495ED">
 				<b><i>TTK-91 Instructions</i></b>
 			</td>
 		</tr>
@@ -655,7 +655,7 @@ function instructionRequirementsIntoText() {
 			</td>
 		</tr>
 		<tr>
-			<td valign="top"><b><i>Simulator output</i></b></td>
+			<td valign="top" bgcolor="#6495ED"><b><i>Simulator output</i></b></td>
 		</tr>
 		<tr>
 			<td>
@@ -690,7 +690,7 @@ function instructionRequirementsIntoText() {
 			</td>
 		</tr>
 		<tr>
-			<td valign="top"><b><i>Quality criteria</i></b></td>
+			<td valign="top" bgcolor="#6495ED"><b><i>Quality criteria</i></b></td>
 		</tr>
 		<tr>
 			<td>
@@ -761,7 +761,7 @@ function instructionRequirementsIntoText() {
 			</td>
 		</tr>
 		<tr>
-			<td><b><i>Endless loop prevention</i></b></td>
+			<td bgcolor="#6495ED"><b><i>Endless loop prevention</i></b></td>
 		</tr>
 		<tr>
 			<td>Maximum number of executed instructions <input name="maximum_number_of_executed_instructions" type="text" value="<c:out value="${task.maximumNumberOfInstructions}"/>"></td>
