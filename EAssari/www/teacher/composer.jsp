@@ -215,15 +215,15 @@ function addVariable() {
 	var beginhtml = html.substring(0, (html.length - 16));
 	var endhtml = html.substring(html.length - 16)
 
-	beginhtml += '<tr><td><input name="SYM' + variableCounter + '_name" type="text" size="2"></td>';
+	beginhtml += '<tr><td><input name="SYM' + variableCounter + '_name" type="text" size="4"></td>';
 	beginhtml += '<td><select name="PUBSYM' + variableCounter + '_comparison_op"><option>=</option><option>!=</option><option><</option><option>></option><option><=</option><option>>=</option></select></td>';
-	beginhtml += '<td><input name="PUBSYM' + variableCounter + '_value" type="text" size="2"></td>';
-	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_failure_feedback" cols="20" rows="2"> </textarea></td>';
+	beginhtml += '<td><input name="PUBSYM' + variableCounter + '_value" type="text" size="4"></td>';
+	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="4"> </textarea></td>';
+	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_failure_feedback" cols="20" rows="4"> </textarea></td>';
 	beginhtml += '<td><select name="SECSYM' + variableCounter + '_comparison_op"><option>=</option><option>!=</option><option><</option><option>></option><option><=</option><option>>=</option></select></td>';
-	beginhtml += '<td><input name="SECSYM' + variableCounter + '_value" type="text" size="2"></td>';
-	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_failure_feedback" cols="20" rows="2"> </textarea></td></tr>';
+	beginhtml += '<td><input name="SECSYM' + variableCounter + '_value" type="text" size="4"></td>';
+	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="4"> </textarea></td>';
+	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_failure_feedback" cols="20" rows="4"> </textarea></td></tr>';
 
 	cell.innerHTML = beginhtml + endhtml;
 
@@ -387,7 +387,7 @@ function instructionRequirementsIntoText() {
 
 	<table border="1" cellpadding="3" cellspacing="0">
 		<tr>
-			<td align="center" colspan="2"><h2>???</h2></td>
+			<td align="center" colspan="2"><h2>Type</h2></td>
 		</tr>
 		<tr>
 			<td>Task type </td>
@@ -428,10 +428,12 @@ function instructionRequirementsIntoText() {
 
 	<table border="1" cellpadding="3" cellspacing="0">
 		<tr>
-			<td align="center" colspan="2"><h2>Criteria</h2></td>
+			<td align="center"><h2>Criteria</h2></td>
 		</tr>
 		<tr>
-			<td valign="top">Registers </td>
+			<td valign="top"><b><i>Registers</i></b></td>
+		</tr>
+		<tr>
 			<td>
 				<table border="1" cellpadding="3" cellspacing="0">
 					<tr>
@@ -470,8 +472,8 @@ function instructionRequirementsIntoText() {
 								</select>
 							</td>
 							<td><input name="<c:out value="${pub.id}"/>_value" type="text" size="4" value="<c:out value="${pub.acceptanceTestValue}"/>"></td>
-							<td><textarea name="<c:out value="${pub.id}"/>_acceptance_feedback" cols="20" rows="4"><c:out value="${pub.acceptanceFeedback}"/></textarea></td>
-							<td><textarea name="<c:out value="${pub.id}"/>_failure_feedback" cols="20" rows="4"><c:out value="${pub.failureFeedback}"/></textarea></td>
+							<td><textarea name="<c:out value="${pub.id}"/>_acceptance_feedback" cols="21" rows="4"><c:out value="${pub.acceptanceFeedback}"/></textarea></td>
+							<td><textarea name="<c:out value="${pub.id}"/>_failure_feedback" cols="21" rows="4"><c:out value="${pub.failureFeedback}"/></textarea></td>
 							<td>
 								<select name="<c:out value="${sec.id}"/>_comparison_op">
 									<option <c:if test="${sec.comparisonOperator=='=='}">selected</c:if>>=</option>
@@ -483,8 +485,8 @@ function instructionRequirementsIntoText() {
 								</select>
 							</td>
 							<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="4" value="<c:out value="${sec.acceptanceTestValue}"/>"></td>
-							<td><textarea name="<c:out value="${sec.id}"/>_acceptance_feedback" cols="20" rows="4"><c:out value="${sec.acceptanceFeedback}"/></textarea></td>
-							<td><textarea name="<c:out value="${sec.id}"/>_failure_feedback" cols="20" rows="4"><c:out value="${sec.failureFeedback}"/></textarea></td>
+							<td><textarea name="<c:out value="${sec.id}"/>_acceptance_feedback" cols="21" rows="4"><c:out value="${sec.acceptanceFeedback}"/></textarea></td>
+							<td><textarea name="<c:out value="${sec.id}"/>_failure_feedback" cols="21" rows="4"><c:out value="${sec.failureFeedback}"/></textarea></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -492,7 +494,9 @@ function instructionRequirementsIntoText() {
 		</tr>
 
 		<tr>
-			<td valign="top">Variables </td>
+			<td valign="top"><b><i>Variables</i></b></td>
+		</tr>
+		<tr>
 			<td>
 				<table border="0">
 					<tr>
@@ -521,7 +525,7 @@ function instructionRequirementsIntoText() {
 									<c:set var="sec" value="${criteria[secIndex]}"/>
 									<tr>
 										<td><input type="checkbox" name="SYM<c:out value="${i}"/>_checked"></td>
-										<td><input name="SYM<c:out value="${i}"/>_name" type="text" size="2" value="<c:out value="${pub.symbolName}"/>"></td>
+										<td><input name="SYM<c:out value="${i}"/>_name" type="text" size="4" value="<c:out value="${pub.symbolName}"/>"></td>
 										<td>
 											<select name="<c:out value="${pub.id}"/>_comparison_op">
 												<option <c:if test="${pub.comparisonOperator=='=='}">selected</c:if>>=</option>
@@ -532,7 +536,7 @@ function instructionRequirementsIntoText() {
 												<option <c:if test="${pub.comparisonOperator=='>='}">selected</c:if>>>=</option>
 											</select>
 										</td>
-										<td><input name="<c:out value="${pub.id}"/>_value" type="text" size="2" value="<c:out value="${pub.acceptanceTestValue}"/>"></td>
+										<td><input name="<c:out value="${pub.id}"/>_value" type="text" size="4" value="<c:out value="${pub.acceptanceTestValue}"/>"></td>
 										<td><textarea name="<c:out value="${pub.id}"/>_acceptance_feedback" cols="20" rows="2"><c:out value="${pub.acceptanceFeedback}"/></textarea></td>
 										<td><textarea name="<c:out value="${pub.id}"/>_failure_feedback" cols="20" rows="2"><c:out value="${pub.failureFeedback}"/></textarea></td>
 										<td>
@@ -545,7 +549,7 @@ function instructionRequirementsIntoText() {
 												<option <c:if test="${sec.comparisonOperator=='>='}">selected</c:if>>>=</option>
 											</select>
 										</td>
-										<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="2" value="<c:out value="${sec.acceptanceTestValue}"/>"></td>
+										<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="4" value="<c:out value="${sec.acceptanceTestValue}"/>"></td>
 										<td><textarea name="<c:out value="${sec.id}"/>_acceptance_feedback" cols="20" rows="2"><c:out value="${sec.acceptanceFeedback}"/></textarea></td>
 										<td><textarea name="<c:out value="${sec.id}"/>_failure_feedback" cols="20" rows="2"><c:out value="${sec.failureFeedback}"/></textarea></td>
 									</tr></c:forEach></table></td>
@@ -559,11 +563,10 @@ function instructionRequirementsIntoText() {
 		</tr>
 		<tr>
 			<td valign="top">
-				TTK-91 Instructions <br>
-				<img src="positive.gif"> = required<br>
-				<img src="negative.gif"> = forbidden<br>
-				<img src="neutral.gif"> = neither required nor forbidden
+				<b><i>TTK-91 Instructions</i></b>
 			</td>
+		</tr>
+		<tr>
 			<td>
 				<table border="0" width="100%">
 					<tr>
@@ -629,18 +632,32 @@ function instructionRequirementsIntoText() {
 							</table>
 						</td>
 						<td valign="top">
+							<table border="0">
+								<tr>
+									<td style="border: thin solid #000000; padding: 0.5em">
+										<b>Key:</b><br>
+										<img src="positive.gif"> = required<br>
+										<img src="negative.gif"> = forbidden<br>
+										<img src="neutral.gif"> = neither required<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nor forbidden
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td valign="top">
 							Feedback if some forbidden instruction has been used:<br>
-							<textarea name="<c:out value="${reqopcodes.id}"/>_feedback" cols="40" rows="6"><c:out value="${reqopcodes.failureFeedback}"/></textarea>
+							<textarea name="<c:out value="${reqopcodes.id}"/>_feedback" cols="60" rows="6"><c:out value="${reqopcodes.failureFeedback}"/></textarea>
 							<br><br>
 							Feedback if not all required instructions have been used:<br>
-							<textarea name="<c:out value="${banopcodes.id}"/>_feedback" cols="40" rows="6"><c:out value="${banopcodes.failureFeedback}"/></textarea>
+							<textarea name="<c:out value="${banopcodes.id}"/>_feedback" cols="60" rows="6"><c:out value="${banopcodes.failureFeedback}"/></textarea>
 						</td>
 					</tr>
 				</table>
 			</td>
 		</tr>
 		<tr>
-			<td valign="top">Simulator output </td>
+			<td valign="top"><b><i>Simulator output</i></b></td>
+		</tr>
+		<tr>
 			<td>
 				<c:set var="pub" value="${criteria['PUBOUT']}"/>
 				<b>With public input:</b><br>
@@ -651,9 +668,9 @@ function instructionRequirementsIntoText() {
 						<td>Feedback if wrong</td>
 					</tr>
 					<tr>
-						<td><textarea name="<c:out value="${pub.id}"/>output_value" cols="20" rows="2"><c:out value="${pub.acceptanceTestValue}"/></textarea></td>
-						<td><textarea name="<c:out value="${pub.id}"/>output_acceptance_feedback" cols="20" rows="2"><c:out value="${pub.acceptanceFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${pub.id}"/>output_failure_feedback" cols="20" rows="2"><c:out value="${pub.failureFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${pub.id}"/>output_value" cols="20" rows="4"><c:out value="${pub.acceptanceTestValue}"/></textarea></td>
+						<td><textarea name="<c:out value="${pub.id}"/>output_acceptance_feedback" cols="47" rows="4"><c:out value="${pub.acceptanceFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${pub.id}"/>output_failure_feedback" cols="47" rows="4"><c:out value="${pub.failureFeedback}"/></textarea></td>
 					</tr>
 				</table>
 				<c:set var="sec" value="${criteria['SECOUT']}"/>
@@ -665,15 +682,17 @@ function instructionRequirementsIntoText() {
 						<td>Feedback if wrong</td>
 					</tr>
 					<tr>
-						<td><textarea name="<c:out value="${sec.id}"/>output_value" cols="20" rows="2"><c:out value="${sec.acceptanceTestValue}"/></textarea></td>
-						<td><textarea name="<c:out value="${sec.id}"/>output_acceptance_feedback" cols="20" rows="2"><c:out value="${sec.acceptanceFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${sec.id}"/>output_failure_feedback" cols="20" rows="2"><c:out value="${sec.failureFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${sec.id}"/>output_value" cols="20" rows="4"><c:out value="${sec.acceptanceTestValue}"/></textarea></td>
+						<td><textarea name="<c:out value="${sec.id}"/>output_acceptance_feedback" cols="47" rows="4"><c:out value="${sec.acceptanceFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${sec.id}"/>output_failure_feedback" cols="47" rows="4"><c:out value="${sec.failureFeedback}"/></textarea></td>
 					</tr>
 				</table>
 			</td>
 		</tr>
 		<tr>
-			<td valign="top">Quality criteria </td>
+			<td valign="top"><b><i>Quality criteria</i></b></td>
+		</tr>
+		<tr>
 			<td>
 				<table border="1" cellpadding="3" cellspacing="0">
 					<tr>
@@ -687,62 +706,64 @@ function instructionRequirementsIntoText() {
 					<tr>
 						<td>Number of lines (in program)</td>
 						<c:set var="codesize" value="${criteria['CODESIZE']}"/>
-						<td><input name="<c:out value="${codesize.id}"/>_acceptance_limit" value="<c:out value="${codesize.acceptanceTestValue}"/>" type="text" size="2"></td>
-						<td><input name="<c:out value="${codesize.id}"/>_quality_limit" value="<c:out value="${codesize.qualityTestValue}"/>" type="text" size="2"></td>
-						<td><textarea name="<c:out value="${codesize.id}"/>_acceptance_feedback" cols="20" rows="2"><c:out value="${codesize.acceptanceFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${codesize.id}"/>_quality_feedback" cols="20" rows="2"><c:out value="${codesize.highQualityFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${codesize.id}"/>_failure_feedback" cols="20" rows="2"><c:out value="${codesize.failureFeedback}"/></textarea></td>
+						<td><input name="<c:out value="${codesize.id}"/>_acceptance_limit" value="<c:out value="${codesize.acceptanceTestValue}"/>" type="text" size="4"></td>
+						<td><input name="<c:out value="${codesize.id}"/>_quality_limit" value="<c:out value="${codesize.qualityTestValue}"/>" type="text" size="4"></td>
+						<td><textarea name="<c:out value="${codesize.id}"/>_acceptance_feedback" cols="22" rows="4"><c:out value="${codesize.acceptanceFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${codesize.id}"/>_quality_feedback" cols="22" rows="4"><c:out value="${codesize.highQualityFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${codesize.id}"/>_failure_feedback" cols="22" rows="4"><c:out value="${codesize.failureFeedback}"/></textarea></td>
 					</tr>
 					<tr>
 						<td>Size of data storage</td>
 						<c:set var="datasize" value="${criteria['DATASIZE']}"/>
-						<td><input name="<c:out value="${datasize.id}"/>_acceptance_limit" value="<c:out value="${datasize.acceptanceTestValue}"/>" type="text" size="2"></td>
-						<td><input name="<c:out value="${datasize.id}"/>_quality_limit" value="<c:out value="${datasize.qualityTestValue}"/>" type="text" size="2"></td>
-						<td><textarea name="<c:out value="${datasize.id}"/>_acceptance_feedback" cols="20" rows="2"><c:out value="${datasize.acceptanceFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${datasize.id}"/>_quality_feedback" cols="20" rows="2"><c:out value="${datasize.highQualityFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${datasize.id}"/>_failure_feedback" cols="20" rows="2"><c:out value="${datasize.failureFeedback}"/></textarea></td>
+						<td><input name="<c:out value="${datasize.id}"/>_acceptance_limit" value="<c:out value="${datasize.acceptanceTestValue}"/>" type="text" size="4"></td>
+						<td><input name="<c:out value="${datasize.id}"/>_quality_limit" value="<c:out value="${datasize.qualityTestValue}"/>" type="text" size="4"></td>
+						<td><textarea name="<c:out value="${datasize.id}"/>_acceptance_feedback" cols="22" rows="4"><c:out value="${datasize.acceptanceFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${datasize.id}"/>_quality_feedback" cols="22" rows="4"><c:out value="${datasize.highQualityFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${datasize.id}"/>_failure_feedback" cols="22" rows="4"><c:out value="${datasize.failureFeedback}"/></textarea></td>
 					</tr>
 					<tr>
 						<td>Maximum size of stack</td>
 						<c:set var="stacksize" value="${criteria['STACKSIZE']}"/>
-						<td><input name="<c:out value="${stacksize.id}"/>_acceptance_limit" value="<c:out value="${stacksize.acceptanceTestValue}"/>" type="text" size="2"></td>
-						<td><input name="<c:out value="${stacksize.id}"/>_quality_limit" value="<c:out value="${stacksize.qualityTestValue}"/>" type="text" size="2"></td>
-						<td><textarea name="<c:out value="${stacksize.id}"/>_acceptance_feedback" cols="20" rows="2"><c:out value="${stacksize.acceptanceFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${stacksize.id}"/>_quality_feedback" cols="20" rows="2"><c:out value="${stacksize.highQualityFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${stacksize.id}"/>_failure_feedback" cols="20" rows="2"><c:out value="${stacksize.failureFeedback}"/></textarea></td>
+						<td><input name="<c:out value="${stacksize.id}"/>_acceptance_limit" value="<c:out value="${stacksize.acceptanceTestValue}"/>" type="text" size="4"></td>
+						<td><input name="<c:out value="${stacksize.id}"/>_quality_limit" value="<c:out value="${stacksize.qualityTestValue}"/>" type="text" size="4"></td>
+						<td><textarea name="<c:out value="${stacksize.id}"/>_acceptance_feedback" cols="22" rows="4"><c:out value="${stacksize.acceptanceFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${stacksize.id}"/>_quality_feedback" cols="22" rows="4"><c:out value="${stacksize.highQualityFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${stacksize.id}"/>_failure_feedback" cols="22" rows="4"><c:out value="${stacksize.failureFeedback}"/></textarea></td>
 					</tr>
 					<tr>
 						<td>Number of executed instructions</td>
 						<c:set var="steps" value="${criteria['STEPS']}"/>
-						<td><input name="<c:out value="${steps.id}"/>_acceptance_limit" value="<c:out value="${steps.acceptanceTestValue}"/>" type="text" size="2"></td>
-						<td><input name="<c:out value="${steps.id}"/>_quality_limit" value="<c:out value="${steps.qualityTestValue}"/>" type="text" size="2"></td>
-						<td><textarea name="<c:out value="${steps.id}"/>_acceptance_feedback" cols="20" rows="2"><c:out value="${steps.acceptanceFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${steps.id}"/>_quality_feedback" cols="20" rows="2"><c:out value="${steps.highQualityFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${steps.id}"/>_failure_feedback" cols="20" rows="2"><c:out value="${steps.failureFeedback}"/></textarea></td>
+						<td><input name="<c:out value="${steps.id}"/>_acceptance_limit" value="<c:out value="${steps.acceptanceTestValue}"/>" type="text" size="4"></td>
+						<td><input name="<c:out value="${steps.id}"/>_quality_limit" value="<c:out value="${steps.qualityTestValue}"/>" type="text" size="4"></td>
+						<td><textarea name="<c:out value="${steps.id}"/>_acceptance_feedback" cols="22" rows="4"><c:out value="${steps.acceptanceFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${steps.id}"/>_quality_feedback" cols="22" rows="4"><c:out value="${steps.highQualityFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${steps.id}"/>_failure_feedback" cols="22" rows="4"><c:out value="${steps.failureFeedback}"/></textarea></td>
 					</tr>
 					<tr>
 						<td>Number of executed data references</td>
 						<c:set var="dataref" value="${criteria['DATAREF']}"/>
-						<td><input name="<c:out value="${dataref.id}"/>_acceptance_limit" value="<c:out value="${dataref.acceptanceTestValue}"/>" type="text" size="2"></td>
-						<td><input name="<c:out value="${dataref.id}"/>_quality_limit" value="<c:out value="${dataref.qualityTestValue}"/>" type="text" size="2"></td>
-						<td><textarea name="<c:out value="${dataref.id}"/>_acceptance_feedback" cols="20" rows="2"><c:out value="${dataref.acceptanceFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${dataref.id}"/>_quality_feedback" cols="20" rows="2"><c:out value="${dataref.highQualityFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${dataref.id}"/>_failure_feedback" cols="20" rows="2"><c:out value="${dataref.failureFeedback}"/></textarea></td>
+						<td><input name="<c:out value="${dataref.id}"/>_acceptance_limit" value="<c:out value="${dataref.acceptanceTestValue}"/>" type="text" size="4"></td>
+						<td><input name="<c:out value="${dataref.id}"/>_quality_limit" value="<c:out value="${dataref.qualityTestValue}"/>" type="text" size="4"></td>
+						<td><textarea name="<c:out value="${dataref.id}"/>_acceptance_feedback" cols="22" rows="4"><c:out value="${dataref.acceptanceFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${dataref.id}"/>_quality_feedback" cols="22" rows="4"><c:out value="${dataref.highQualityFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${dataref.id}"/>_failure_feedback" cols="22" rows="4"><c:out value="${dataref.failureFeedback}"/></textarea></td>
 					</tr>
 					<tr>
 						<td>Number of executed memory references</td>
 						<c:set var="memref" value="${criteria['MEMREF']}"/>
-						<td><input name="<c:out value="${memref.id}"/>_acceptance_limit" value="<c:out value="${memref.acceptanceTestValue}"/>" type="text" size="2"></td>
-						<td><input name="<c:out value="${memref.id}"/>_quality_limit" value="<c:out value="${memref.qualityTestValue}"/>" type="text" size="2"></td>
-						<td><textarea name="<c:out value="${memref.id}"/>_acceptance_feedback" cols="20" rows="2"><c:out value="${memref.acceptanceFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${memref.id}"/>_quality_feedback" cols="20" rows="2"><c:out value="${memref.highQualityFeedback}"/></textarea></td>
-						<td><textarea name="<c:out value="${memref.id}"/>_failure_feedback" cols="20" rows="2"><c:out value="${memref.failureFeedback}"/></textarea></td>
+						<td><input name="<c:out value="${memref.id}"/>_acceptance_limit" value="<c:out value="${memref.acceptanceTestValue}"/>" type="text" size="4"></td>
+						<td><input name="<c:out value="${memref.id}"/>_quality_limit" value="<c:out value="${memref.qualityTestValue}"/>" type="text" size="4"></td>
+						<td><textarea name="<c:out value="${memref.id}"/>_acceptance_feedback" cols="22" rows="4"><c:out value="${memref.acceptanceFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${memref.id}"/>_quality_feedback" cols="22" rows="4"><c:out value="${memref.highQualityFeedback}"/></textarea></td>
+						<td><textarea name="<c:out value="${memref.id}"/>_failure_feedback" cols="22" rows="4"><c:out value="${memref.failureFeedback}"/></textarea></td>
 					</tr>
 				</table>
 			</td>
 		</tr>
 		<tr>
-			<td>Endless loop prevention </td>
+			<td><b><i>Endless loop prevention</i></b></td>
+		</tr>
+		<tr>
 			<td>Maximum number of executed instructions <input name="maximum_number_of_executed_instructions" type="text" value="<c:out value="${task.maximumNumberOfInstructions}"/>"></td>
 		</tr>
 	</table>
