@@ -381,13 +381,12 @@ public class DBHandler {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("insert into task (taskid, taskname, author, datecreated, cutoffvalue, tasktype, taskmetadata) " +
-									   "values (?,?,?,sysdate,?,?,?)"); 
-			st.setString(1, task.getTaskID());
-			st.setString(2, task.getName());
-			st.setString(3, task.getAuthor());
-			st.setInt(4, task.getCutoffvalue());
-			st.setString(5, DBHandler.DEFAULT_TASKTYPE);
-			st.setString(6, task.serializeToXML());
+									   "values (common_seq.nextval,?,?,sysdate,?,?,?)"); 
+			st.setString(1, task.getName());
+			st.setString(2, task.getAuthor());
+			st.setInt(3, task.getCutoffvalue());
+			st.setString(4, DBHandler.DEFAULT_TASKTYPE);
+			st.setString(5, task.serializeToXML());
 			//Log.write("DBHandler: Executing insert...");			
 			if (st.executeUpdate() > 0){
 				Log.write("DBHandler: Task added to DB: "+task);
