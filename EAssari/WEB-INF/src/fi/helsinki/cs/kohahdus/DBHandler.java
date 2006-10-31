@@ -378,18 +378,25 @@ public class DBHandler {
 	//description; pinput; sinput; modelAnswer; category; taskType; fillInPreCode; fillInPostCode; useModel; passFeedBack; failFeedBack;
 	public boolean addTask(Task task) throws SQLException{
 		Connection conn = getConnection();
-		PreparedStatement st = null;
+		PreparedStatement st1 = null;
+		PreparedStatement st2 = null;
 		try {
-			st = conn.prepareStatement("insert into task (taskid, taskname, author, datecreated, cutoffvalue, tasktype, taskmetadata) " +
+			st1 = conn.prepareStatement("insert into task (taskid, taskname, author, datecreated, cutoffvalue, tasktype, taskmetadata) " +
 									   "values (common_seq.nextval,?,?,sysdate,?,?,?)"); 
-			st.setString(1, task.getName());
-			st.setString(2, task.getAuthor());
-			st.setInt(3, task.getCutoffvalue());
-			st.setString(4, DBHandler.DEFAULT_TASKTYPE);
-			st.setString(5, task.serializeToXML());
+			st1.setString(1, task.getName());
+			st1.setString(2, task.getAuthor());
+			st1.setInt(3, task.getCutoffvalue());
+			st1.setString(4, DBHandler.DEFAULT_TASKTYPE);
+			st1.setString(5, task.serializeToXML());
 			//Log.write("DBHandler: Executing insert...");			
-			if (st.executeUpdate() > 0){
+			if (st1.executeUpdate() > 0){
 				Log.write("DBHandler: Task added to DB: "+task);
+				st2 = conn.prepareStatement("select common_seq.currval from dual");
+				ResultSet rs = st2.executeQuery();
+				if (rs.next()){
+					task.setTaskID(rs.getString(0));
+				}
+				rs.close();
 				return true;
 			} else {
 				Log.write("DBHandler: Failed to add task to DB: " +task);
@@ -399,7 +406,7 @@ public class DBHandler {
 			Log.write("DBHandler: Failed to add task to DB: " +task+". " +e);
 		} finally {
 			release(conn);
-			if (st != null) st.close();			
+			if (st1 != null) st1.close();			
 		}	
 		return true;
 	}
