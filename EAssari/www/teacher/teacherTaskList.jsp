@@ -15,11 +15,28 @@
 <html>
 <head>
 <title>Task listing</title>
+<script language="Javascript">
+
+function deleteTask(taskName, taskID) {
+	if (window.confirm('Do you really want to delete task '+taskName+'?')) {
+		location.href="teacherTaskList.jsp?action=deleteTask&taskID="+taskID;
+	}
+}
+
+function deleteCourse(courseName, courseID) {
+	if (window.confirm('Do you really want to delete course '+courseName+'?')) {
+		location.href="teacherTaskList.jsp?action=deleteCourse&courseID="+courseID;
+	}
+}
+
+
+</script>
+
 </head>
 
 <body>
 
-<c:if test="${empty user}">
+<c:if test="${empty user}"><script language="Javascript">
 	Not logged in - redirecting to login
 	<c:redirect url="../login.jsp"/>	
 </c:if>
@@ -31,6 +48,22 @@
 <%-- Kurssin luonti toimii kuten pitääkin. Uudet kurssit menevät kantaan ja tehtävät linkitetään kurssiin --%>
 
 <jsp:include page="../menu.jsp"/>
+
+<c:if test="${param.action=='deleteTask'}">
+	Deleting task <c:out value="${param.taskID}"/>
+	<%
+		Task task = DBHandler.getInstance().getTask(request.getParameter("taskID"));
+		if (task != null) DBHandler.getInstance().removeTask(task);
+	%>	
+</c:if>
+
+<c:if test="${param.action=='deleteCourse'}">
+	Deleting course <c:out value="${param.courseID}"/>
+	<%
+		DBHandler.getInstance().removeCourse(request.getParameter("courseID"));
+	%>
+</c:if>
+
 <c:if test="${param.action=='create_course'}">
 	<p>CREATING COURSE <c:out value="${param.new_course}"/>
 	
@@ -109,7 +142,7 @@
 				<td bgcolor="#FFFFFF"><c:out value="${course.courseID}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${course.name}"/></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Statistics"></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="window.confirm('Do you really want to delete course <c:out value="${course.name}"/>?');"></td>
+				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="Javascript:deleteCourse('<c:out value="${course.name}"/>', '<c:out value="${course.courseID}"/>');"></td>
 			</tr>
 		</c:forEach>	
 	</c:if>
@@ -199,7 +232,7 @@
 				<td bgcolor="#FFFFFF"><c:out value="${task.author}"/></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Modify" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=update'"></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Modify as new" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=new'"></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="window.confirm('Do you really want to delete task <c:out value="${task.name}"/>?');"></td>
+				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="Javascript:deleteTask('<c:out value="${task.name}"/>', '<c:out value="${task.taskID}"/>');"></td>
 			</tr>
 		</c:forEach>
 	</c:if>		
