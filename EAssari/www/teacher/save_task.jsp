@@ -18,6 +18,8 @@
 <h2>Task saved</h2>
 
 
+
+
 Params from TaskMaker:
 
 <%
@@ -48,16 +50,16 @@ Params from TaskMaker:
 	out.print("<p><pre>Sec input: "+t.getSecretInput()+"</pre>");
 	
 	//DEBUG: korvataan aina vanha..
-	t.setTaskID("TESTING");
+	//t.setTaskID("TESTING");
 	t.setAuthor("TEST");
 	t.setLanguage("EN");
-	DBHandler.getInstance().updateTask(t, tm.getCriteria());		
+	//DBHandler.getInstance().updateTask(t, tm.getCriteria());		
 %>
 <c:if test="${param.save_type=='new'}">	
 	Task saved.... yeah right
 <%	
 	
-	//DBHandler.getInstance().createTask(tm.getTask(), tm.getCriteria());
+	DBHandler.getInstance().createTask(tm.getTask(), tm.getCriteria());
 %>
 </c:if>
 <c:if test="${param.save_type=='update'}">
@@ -66,7 +68,7 @@ Params from TaskMaker:
 	
 	Task task = tm.getTask();
 	task.setTaskID(request.getParameter("task_id"));
-	//DBHandler.getInstance().updateTask(task);		
+	DBHandler.getInstance().updateTask(task, tm.getCriteria());		
 %>
 </c:if>
 

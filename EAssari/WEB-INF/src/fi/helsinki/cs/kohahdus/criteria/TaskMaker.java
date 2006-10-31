@@ -151,10 +151,12 @@ public class TaskMaker {
 		//TODO:
 		//task.setTaskID(); <- tehdään save_task.jsp sivulla?
 		
+		/*
 		Log.write("Task created with following criteria:");
 		for (Criterion c : criteria) {
 			Log.write(c.serializeToXML());
 		}
+		*/
 	}
 	
 	/** Returns the fully initialized Task */
@@ -290,6 +292,7 @@ public class TaskMaker {
 			return;
 		}
 		int count = Integer.parseInt(count_str);
+		Log.write("TaskMaker: Symbolcriteria count = "+count);
 		for (int i=1; i<=count; i++) {
 			addSymbolCriterion(req, true, i);
 			addSymbolCriterion(req, false, i);
