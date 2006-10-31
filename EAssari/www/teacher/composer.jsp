@@ -124,8 +124,6 @@ function initTaskCreation()
 	switchToWholeProgramView();
 	
 	<c:if test="${task.fillInTask}">
-		//showElementById('partialCode1');
-		//showElementById('partialCode2');
 		showElementById('partialProgramDiv1');
 		showElementById('partialProgramDiv2');
 		showElementById('exampleTable');
@@ -133,7 +131,6 @@ function initTaskCreation()
 	<c:if test="${task.validateByModel}">
 		showElementById('exampleCodeDiv');
 		showElementById('exampleTable');
-		//showElementById('example_code');
 	</c:if>
 	
 }
@@ -218,14 +215,15 @@ function addVariable() {
 	var beginhtml = html.substring(0, (html.length - 16));
 	var endhtml = html.substring(html.length - 16)
 
-	beginhtml += '<tr><td><input name="v' + variableCounter + '_name" type="text" size="2"></td>';
-	beginhtml += '<td><select name="v' + variableCounter + '_comparison_op"><option><</option><option><=</option><option selected>=</option><option>>=</option><option>></option></select></td>';
-	beginhtml += '<td><input name="v' + variableCounter + '_value_public" type="text" size="2"></td>';
-	beginhtml += '<td><textarea name="v' + variableCounter + '_correct_feedback_public" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><textarea name="v' + variableCounter + '_wrong_feedback_public" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><input name="v' + variableCounter + '_value_secret" type="text" size="2"></td>';
-	beginhtml += '<td><textarea name="v' + variableCounter + '_correct_feedback_secret" cols="20" rows="2"> </textarea></td>';
-	beginhtml += '<td><textarea name="v' + variableCounter + '_wrong_feedback_secret" cols="20" rows="2"> </textarea></td></tr>';
+	beginhtml += '<tr><td><input name="SYM' + variableCounter + '_name" type="text" size="2"></td>';
+	beginhtml += '<td><select name="PUBSYM' + variableCounter + '_comparison_op"><option>=</option><option>!=</option><option><</option><option>></option><option><=</option><option>>=</option></select></td>';
+	beginhtml += '<td><input name="PUBSYM' + variableCounter + '_value" type="text" size="2"></td>';
+	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="2"> </textarea></td>';
+	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_failure_feedback" cols="20" rows="2"> </textarea></td>';
+	beginhtml += '<td><select name="SECSYM' + variableCounter + '_comparison_op"><option>=</option><option>!=</option><option><</option><option>></option><option><=</option><option>>=</option></select></td>';
+	beginhtml += '<td><input name="SECSYM' + variableCounter + '_value" type="text" size="2"></td>';
+	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="2"> </textarea></td>';
+	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_failure_feedback" cols="20" rows="2"> </textarea></td></tr>';
 
 	cell.innerHTML = beginhtml + endhtml;
 
@@ -522,7 +520,7 @@ function instructionRequirementsIntoText() {
 									<c:set var="pub" value="${criteria[pubIndex]}"/>
 									<c:set var="sec" value="${criteria[secIndex]}"/>
 									<tr>
-										<td><input name="v<c:out value="${i}"/>_name" type="text" size="2"></td>
+										<td><input name="SYM<c:out value="${i}"/>_name" type="text" size="2"></td>
 										<td>
 											<select name="<c:out value="${pub.id}"/>_comparison_op">
 												<option <c:if test="${pub.comparisonOperator=='=='}">selected</c:if>>=</option>
