@@ -12,6 +12,7 @@ public class CriterionTest extends TestCase {
 	private Set<MeasuredCriterion> measuredCriteria;
 	private Set<InstructionCriterion> instructionCriteria;
 	private Set<ScreenOutputCriterion> outputCriteria;
+	private Set<VariableCriterion> variableCriteria;
 
 	
 	public CriterionTest(String name) {
@@ -44,6 +45,10 @@ public class CriterionTest extends TestCase {
 		measuredCriteria.add(new MemReferencesCriterion(ID_MEMORY_REFERENCES, false));
 		measuredCriteria.add(new DataReferencesCriterion(ID_DATA_REFERENCES, false));
 		
+		variableCriteria = new HashSet<VariableCriterion>();
+		variableCriteria.addAll(registerCriteria);
+		variableCriteria.addAll(symbolCriteria);
+		
 		allCriteria = new HashSet<Criterion>();
 		allCriteria.addAll(registerCriteria);
 		allCriteria.addAll(symbolCriteria);
@@ -57,6 +62,9 @@ public class CriterionTest extends TestCase {
 	}
 
 	
+	
+	
+// <Feedback Tests>	
 	/* Test method for setHighQualityFeedback(String), getHighQualityFeedback() */
 	public void testSetHighQualityFeedback() {
 		String fb = "Korkean laadun palaute";
@@ -84,13 +92,26 @@ public class CriterionTest extends TestCase {
 			assertEquals(c.getFailureFeedback(), fb);			
 		}
 	}
+// </Feedback Tests>	
 
+	
+	
+	
+	
 	/* Test method for 'serializeToXML()' */
 	public void testSerializeToXML() {
+		for (SymbolCriterion c : symbolCriteria) {
+			c.setSymbolName("X");
+		}
+		for (VariableCriterion c :variableCriteria) {
+			c.setComparisonOperator("<");
+		}		
 		for (Criterion c1 : allCriteria) {
 			c1.setHighQualityFeedback("1");
 			c1.setAcceptanceFeedback("2");
 			c1.setFailureFeedback("3");
+			c1.setAcceptanceTestValue("30");			
+
 			
 			String xml = c1.serializeToXML();
 			Criterion c2 = Criterion.deserializeFromXML(xml);
@@ -122,45 +143,267 @@ public class CriterionTest extends TestCase {
 	}
 
 	
+// <Acceptance Value Tests>
+// Test that:
+// - initial state for hasAcceptanceTest(..) is always false
+// - initial state for getAcceptanceTestValue() is always ""
+// - when set to valid value, hasAcceptanceTest(..) gives true
+// - when set to valid value, getAcceptanceTestValue() returns that value
+// - when set to invalid value, hasAcceptanceTest(..) gives false
+// - when set to invalid value, getAcceptanceTestValue() returns ""	
+// - when set to null value, hasAcceptanceTest(..) gives false
+// - when set to null value, getAcceptanceTestValue() returns ""	
 	public void testMeasuredCriterionAcceptanceTestValue() {
 		for (MeasuredCriterion c : measuredCriteria) {
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());			
+
 			c.setAcceptanceTestValue("500");
 			assertTrue(c.hasAcceptanceTest(true));
 			assertTrue(c.hasAcceptanceTest(false));
 			assertEquals("500", c.getAcceptanceTestValue());
+			
+			c.setAcceptanceTestValue("Invalid input");
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());
+			
+			c.setAcceptanceTestValue(null);
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());			
 		}
 	}		
-	public void testRegisterCriterionAcceptanceTestValue() {
-		for (VariableCriterion c : registerCriteria) {
-			c.setAcceptanceTestValue("500");
-			assertTrue(c.hasAcceptanceTest(false));
-			assertFalse(c.hasAcceptanceTest(true));
-			assertEquals("500", c.getAcceptanceTestValue());
-		}
-	}
+	
 	public void testScreenOutputCriterionAcceptanceTestValue() {
 		for (ScreenOutputCriterion c : outputCriteria) {
-			c.setAcceptanceTestValue("1, 2,  3,,4;5 ; 6,");
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());			
+
+			c.setAcceptanceTestValue("1, 2,  3,garbage,4;5\t6,");
 			assertTrue(c.hasAcceptanceTest(true));
 			assertTrue(c.hasAcceptanceTest(false));
-			assertEquals(c.getAcceptanceTestValue(), "1, 2, 3, 4, 5, 6");		
+			assertEquals("1, 2, 3, 4, 5, 6", c.getAcceptanceTestValue());		
+
+			c.setAcceptanceTestValue("Invalid input,");
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());
+
+			c.setAcceptanceTestValue(null);
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());			
 		}		
 	}
+	
 	public void testInstructionCriterionAcceptanceTestValue() {
 		for (InstructionCriterion c : instructionCriteria) {
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());			
+
 			c.setAcceptanceTestValue("NOP, MUL,  ADD,,XOR;DIV ; SUB,");
 			assertTrue(c.hasAcceptanceTest(true));
 			assertTrue(c.hasAcceptanceTest(false));
 			assertEquals(c.getAcceptanceTestValue(), "NOP, MUL, ADD, XOR, DIV, SUB");		
+
+			c.setAcceptanceTestValue("");
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());
+
+			c.setAcceptanceTestValue(null);
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());			
 		}		
 	}
-
 	
-	/* Test method for 'setQualityTestValue(String)' */
-	public void testSetQualityTestValue() {
-		for (MeasuredCriterion c : measuredCriteria) {
-			c.setAcceptanceTestValue("");
+	public void testRegisterCriterionAcceptanceTestValue() {
+		for (RegisterCriterion c : registerCriteria) {
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());			
+
+			// Valid value, Model = true
+			c.setAcceptanceTestValue("500");
+			c.setCompareToModel("yes");
+			assertTrue(c.hasAcceptanceTest(false));
+			assertTrue(c.hasAcceptanceTest(true));
+			assertEquals("500", c.getAcceptanceTestValue());
+
+			// Valid value, Model = false
+			c.setAcceptanceTestValue("500");
+			c.setCompareToModel("");
+			assertTrue(c.hasAcceptanceTest(false));
+			assertFalse(c.hasAcceptanceTest(true));
+			assertEquals("500", c.getAcceptanceTestValue());
+
+			// Invalid value, Model = true
+			c.setAcceptanceTestValue("Invalid input");
+			c.setCompareToModel("yes");
+			assertFalse(c.hasAcceptanceTest(false));
+			assertTrue(c.hasAcceptanceTest(true));
+			assertEquals("", c.getAcceptanceTestValue());
+			
+			// Invalid value, Model = false		
+			c.setAcceptanceTestValue(null);
+			c.setCompareToModel(null);
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());
 		}
 	}
+
+	public void testSymbolCriterionAcceptanceTestValue() {
+		for (SymbolCriterion c : symbolCriteria) {
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());
+			assertEquals("", c.getSymbolName());			
+
+			// Invalid value, Invalid symbol, Model = false
+			c.setAcceptanceTestValue("Invalid Input");
+			c.setSymbolName("");
+			c.setCompareToModel("");
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());
+			assertEquals("", c.getSymbolName());
+			
+			// Valid value, Invalid symbol,  Model = false
+			c.setAcceptanceTestValue("500");
+			c.setSymbolName("");
+			c.setCompareToModel("");
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("500", c.getAcceptanceTestValue());
+			assertEquals("", c.getSymbolName());
+
+			// Invalid value, Valid symbol,  Model = false 
+			c.setAcceptanceTestValue("Invalid Input");
+			c.setSymbolName("X");
+			c.setCompareToModel("");
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());
+			assertEquals("X", c.getSymbolName());
+			
+			// Valid value, Valid symbol,  Model = false
+			c.setAcceptanceTestValue("500");
+			c.setSymbolName("X");
+			c.setCompareToModel("");
+			assertFalse(c.hasAcceptanceTest(true));
+			assertTrue(c.hasAcceptanceTest(false));
+			assertEquals("500", c.getAcceptanceTestValue());
+			assertEquals("X", c.getSymbolName());
+			
+			// Invalid value, Invalid symbol, Model = true
+			c.setAcceptanceTestValue(null);
+			c.setSymbolName(null);
+			c.setCompareToModel("yes");
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());
+			assertEquals("", c.getSymbolName());
+			
+			// Valid value, Invalid symbol,  Model = true
+			c.setAcceptanceTestValue("500");
+			c.setSymbolName(null);
+			c.setCompareToModel("yes");
+			assertFalse(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("500", c.getAcceptanceTestValue());
+			assertEquals("", c.getSymbolName());
+
+			// Invalid value, Valid symbol,  Model = true 
+			c.setAcceptanceTestValue(null);
+			c.setSymbolName("X");
+			c.setCompareToModel("yes");
+			assertTrue(c.hasAcceptanceTest(true));
+			assertFalse(c.hasAcceptanceTest(false));
+			assertEquals("", c.getAcceptanceTestValue());
+			assertEquals("X", c.getSymbolName());
+			
+			// Valid value, Valid symbol,  Model = true
+			c.setAcceptanceTestValue("500");
+			c.setSymbolName("X");
+			c.setCompareToModel("yes");
+			assertTrue(c.hasAcceptanceTest(true));
+			assertTrue(c.hasAcceptanceTest(false));
+			assertEquals("500", c.getAcceptanceTestValue());
+			assertEquals("X", c.getSymbolName());
+		}
+	}
+// </Acceptance Value Tests>	
+
+	
+// <Quality Value Tests>
+	/** Test Quality test-methods of all MeasuredCriterion. */  
+	public void testMeasuredCriterionQualityTestValue() {
+		for (MeasuredCriterion c : measuredCriteria) {
+			assertFalse(c.hasQualityTest(true));
+			assertFalse(c.hasQualityTest(false));
+			assertEquals("", c.getQualityTestValue());			
+
+			c.setQualityTestValue("500");
+			assertTrue(c.hasQualityTest(true));
+			assertTrue(c.hasQualityTest(false));
+			assertEquals("500", c.getQualityTestValue());
+			
+			c.setQualityTestValue("Invalid input");
+			assertFalse(c.hasQualityTest(true));
+			assertFalse(c.hasQualityTest(false));
+			assertEquals("", c.getQualityTestValue());
+			
+			c.setQualityTestValue(null);
+			assertFalse(c.hasQualityTest(true));
+			assertFalse(c.hasQualityTest(false));
+			assertEquals("", c.getAcceptanceTestValue());			
+		}
+	}		
+
+	
+	/** Test Quality test-methods of all other criteria than MeasuredCriterion.
+	 * Since MeasuredCriterion are the only ones to support quality test,
+	 * hasQualityTest(..) should always return false and getQualityTestValue()  
+	 * should always return "".
+	 */  
+	public void testCriterionQualityTestValue() {
+		allCriteria.removeAll(measuredCriteria);
+		
+		for (Criterion c : allCriteria) {
+			assertFalse(c.hasQualityTest(true));
+			assertFalse(c.hasQualityTest(false));
+			assertEquals("", c.getQualityTestValue());			
+
+			c.setQualityTestValue("NOP");
+			assertFalse(c.hasQualityTest(true));
+			assertFalse(c.hasQualityTest(false));
+			assertEquals("", c.getQualityTestValue());
+			
+			c.setQualityTestValue("500");
+			assertFalse(c.hasQualityTest(true));
+			assertFalse(c.hasQualityTest(false));
+			assertEquals("", c.getQualityTestValue());
+			
+			c.setQualityTestValue("Invalid input");
+			assertFalse(c.hasQualityTest(true));
+			assertFalse(c.hasQualityTest(false));
+			assertEquals("", c.getQualityTestValue());
+			
+			c.setQualityTestValue(null);
+			assertFalse(c.hasQualityTest(true));
+			assertFalse(c.hasQualityTest(false));
+			assertEquals("", c.getAcceptanceTestValue());			
+		}
+	}	
+// </Quality Value Tests>
+	
+	
+		
 
 }

@@ -22,6 +22,15 @@ public abstract class VariableCriterion extends Criterion {
 	}
 
 	
+	/** Set wheater this Variable criterion is to be used with model answer
+	 * @param useWithModel any non-empty string sets compare-to-model flag true */
+	public void setCompareToModel(String useWithModel) {
+		compareToModel = (useWithModel != null) && (!useWithModel.equals(""));
+	}
+	
+	
+	
+	
 
 	
 	@Override public boolean hasAcceptanceTest(boolean usingModelAnswer) {
