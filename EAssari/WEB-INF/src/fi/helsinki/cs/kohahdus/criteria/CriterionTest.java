@@ -66,7 +66,7 @@ public class CriterionTest extends TestCase {
 	
 // <Feedback Tests>	
 	/* Test setHighQualityFeedback(String), getHighQualityFeedback() of all Criterion types */
-	public void testSetHighQualityFeedback() {
+	public void testHighQualityFeedback() {
 		String fb = "Korkean laadun palaute";
 		for (Criterion c : allCriteria) {
 			c.setHighQualityFeedback(fb);
@@ -78,7 +78,7 @@ public class CriterionTest extends TestCase {
 
 	
 	/* Test method for 'setAcceptanceFeedback(String)' */
-	public void testSetAcceptanceFeedback() {
+	public void testAcceptanceFeedback() {
 		String fb = "Onnistumisen palaute";
 		for (Criterion c : allCriteria) {
 			c.setAcceptanceFeedback(fb);
@@ -89,7 +89,7 @@ public class CriterionTest extends TestCase {
 	}
 
 	/* Test method for 'setFailureFeedback(String)' */
-	public void testSetFailureFeedback() {
+	public void testFailureFeedback() {
 		String fb = "Epäonnistumisen palaute";
 		for (Criterion c : allCriteria) {
 			c.setFailureFeedback(fb);
