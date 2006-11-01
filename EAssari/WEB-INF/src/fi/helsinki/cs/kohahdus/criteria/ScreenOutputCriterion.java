@@ -32,6 +32,8 @@ public class ScreenOutputCriterion extends Criterion {
 			String[] outputs = test.split("[ \t\r\f\n,;]+");
 			StringBuffer buffer = new StringBuffer();
 			for (int i=0; i<outputs.length; i++) {
+				if (!outputs[i].matches("^[\\-\\+]?\\d$"))
+					continue;				
 				buffer.append(outputs[i]);
 				if (i < outputs.length-1) {
 					buffer.append(", ");
