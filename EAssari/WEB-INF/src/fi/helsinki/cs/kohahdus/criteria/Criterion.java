@@ -208,14 +208,17 @@ public abstract class Criterion {
 	}
 	
 	
+	
+	
+	
 	/** Serialize non-static data-members of Criterion sub-class to XML format. The
 	 * subclass can decide the names of its XML tags but they must not collide with
-	 * the tags used by this class: "class", "posfb", "negfb",* "hqfb", "secret" 
+	 * the tags used by this class: "class", "posfb", "negfb", "hqfb", "secret" 
 	 * and "id". The abstract Criterion class will handle the serialization of its
 	 * data-members, subclasses need to deserialize only the fields they add.
 	 * <p>
 	 * NOTE: aAssari DB imposes a 2000 char limit to stored strings so subclasses
-	 * should try to keep the tags and data short (without being cryptic). */
+	 * should try to keep both tags and data short (without being cryptic). */
 	protected abstract String serializeSubClass();	
 	
 	
@@ -239,7 +242,7 @@ public abstract class Criterion {
 		return "<" + tagname + ">" + (value ? 'T' : 'F') + "</" + tagname + ">";
 	}
 	
-	/** Serialize long value to XML string. Helper function for serializeSubClass() */
+	/** Serialize int value to XML string. Helper function for serializeSubClass() */
 	protected static String toXML(String tagname, long value) {
 		String xml = "<" + tagname + ">";
 		if (value != UNDEFINED) { // Empty tag is better and shorter representation of undefined
