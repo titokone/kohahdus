@@ -151,7 +151,7 @@
 			<%
 				if (!newUser.isValid()) {
 					//TODO: ohjaus erroriin
-					out.print("Grave ERROR -- user data corrupt or incomplete");
+					out.print("ERROR -- user data corrupt or incomplete");
 					Log.write("Signup: error in new users data");
 				} else {
 					//Add new user to db and set up session
@@ -175,8 +175,6 @@
 <input type="hidden" name="action" value="signup">
 
 <p>Please fill in all the fields.</p>
-
-<p>DEBUG HUOM: kantaan tallennetaan vain jos sotu ja opnum ovat täytetty
 
 <div>
 	<table border="0" cellpadding="5">
