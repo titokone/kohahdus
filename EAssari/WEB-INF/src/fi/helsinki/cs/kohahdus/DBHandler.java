@@ -103,6 +103,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to fetch courses from DB. " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -159,6 +160,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to create course "+course+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -188,11 +190,11 @@ public class DBHandler {
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to remove course " +courseID+". " +e);
 			e.printStackTrace();
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();
 		}	
-		return false;		
 		// Todo: rollback in case of failing of one of the methods above.	
 	}
 	
@@ -217,6 +219,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to add module to course "+courseID+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -244,6 +247,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to add taskinmodule: course=" +courseID+", task="+taskID+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -286,6 +290,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to fetch tasks from DB. " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -332,6 +337,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to fetch tasks with course="+courseID+ ", user="+userID+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -375,6 +381,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to fetch tasks from DB. " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -436,6 +443,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to add task to DB: " +task+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st1 != null) st1.close();			
@@ -483,6 +491,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to update task to DB: name=" +task.getName()+ ", id="+task.getTaskID()+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -524,11 +533,11 @@ public class DBHandler {
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to remove task '" +task.getName()+"', taskid="+task.getTaskID()+". " +e);
 			e.printStackTrace();
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();
 		}	
-		return false;		
 		// Todo: rollback in case of failing of one of the methods above.	
 	}
 	
@@ -555,6 +564,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to add criterion: task=" +t.getName()+", criterion="+c.getId()+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -583,6 +593,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to update criterion: task=" +t.getName()+", criterion="+c.getId()+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -609,6 +620,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to delete criterion: task=" +t.getName()+", taskid="+t.getTaskID()+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -636,6 +648,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to fetch criteria with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -666,6 +679,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to fetch criteria with task="+task.getName()+", taskid="+task.getTaskID()+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -707,6 +721,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to add user " +userID+ ". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -742,6 +757,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to get user "+userID+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -775,6 +791,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to create user "+user.getUserID()+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
@@ -808,6 +825,7 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to update user "+user.getUserID()+". " +e);
+			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
