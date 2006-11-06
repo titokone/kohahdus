@@ -161,7 +161,9 @@ public abstract class Criterion {
 	
 	/** Return true if this criterion has test for evaluating failure/success
 	 * of the student's answer. Return of false means this criterion should
-	 * NOT be used to test <code>passesAcceptanceTest(..)</code>. */
+	 * NOT be used to test <code>passesAcceptanceTest(..)</code>.
+	 * 
+	 * @param usingModelAnswer True if the inspection method for this task is model-answer */
 	public abstract boolean hasAcceptanceTest(boolean usingModelAnswer);
 	
 	/** Return true if student's solution meets the passing requirement of this Criterion. 

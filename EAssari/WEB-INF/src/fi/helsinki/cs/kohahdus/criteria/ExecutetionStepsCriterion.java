@@ -14,7 +14,7 @@ public class ExecutetionStepsCriterion extends MeasuredCriterion {
 
 	/** Return the number of executed instructions */
 	@Override protected int getCriterionValue(TitoState studentAnswer) {
-		return studentAnswer.getInstructionCount();
+		return studentAnswer.getExecutionSteps();
 	}
 
 }
