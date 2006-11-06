@@ -59,7 +59,7 @@ public abstract class Criterion {
 	
 	/** Initialize mandatory data members of Criterion 
 	 * @param id Identifier that can used to distinguish the different criteria of one task
-	 * @param usesSecretInput true if criterion is to be use in conjunktion to secret input */
+	 * @param usesSecretInput true if criterion is to be used in conjunktion to secret input */
 	protected Criterion(String id, boolean usesSecretInput) {
 		if (id == null) {
 			throw new NullPointerException("Criterion ID cannot be null");

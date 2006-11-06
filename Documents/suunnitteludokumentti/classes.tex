@@ -9,7 +9,7 @@ modiying Tasks is aware that differnt types of criteria exist.}\\
 {\tt	protected Criterion(String id, boolean usesSecretInput)}\\
 Constructor to initialize mandatory data members of Criterion.\\
 {\tt@param id} Identifier that can used to distinguish the different criteria of one task\\
-{\tt@param usesSecretInput} true if criterion is to be use in conjunktion to secret input
+{\tt@param usesSecretInput} true if criterion is to be used in conjunktion to secret input
 
 {\tt	public String getId()}\\
 Return the identifier of this Criterion\\
@@ -24,39 +24,45 @@ Return the feedback string used for acceptable solution attempts\\
 Return the feedback string used for failed solution attempts\\
 
 {\tt	public String getHighQualityFeedback()} \\
-Return the feedback string used for high quality solution attempts
+Return the feedback string used for high quality solution attempts\\
 
 {\tt 	public String setAcceptanceFeedback()} \\
-Set the feedback string used for acceptable solution attempts
+Set the feedback string used for acceptable solution attempts\\
 
 {\tt 	public String setFailureFeedback()} \\
-Set the feedback string used for failed solution attempts
+Set the feedback string used for failed solution attempts\\
 
 {\tt	public String setHighQualityFeedback()} \\
-Set the feedback string used for high quality solution attempts
-
-
-
+Set the feedback string used for high quality solution attempts\\
 
 {\tt 	public abstract boolean hasAcceptanceTest(boolean usingModelAnswer)}\\
 Return true if this criterion has test for evaluating failure/success of the
 student's answer. Return of false means this criterion should NOT be used to
-test passesAcceptanceTest(..)
+test passesAcceptanceTest(..)\\
 {\tt@param usingModelAnswer} True if the inspection method for this task is model-answer\\
 
 {\tt	public abstract boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer)} \\
-Return true if student's solution meets the passing requirement of this Criterion
-{\tt@param studentAnswer} end state of TitoKone for student's answer
-{\tt@param modelAnswer} end state of TitoKone for teacher's answer, or null
+Return true if student's solution meets the passing requirement of this Criterion\\
+{\tt@param studentAnswer} end state of TitoKone for student's answer\\
+{\tt@param modelAnswer} end state of TitoKone for teacher's answer, or null\\
 
 {\tt	public abstract String getAcceptanceTestValue()}\\
-Return the value the student's answer will be compared to
+Return the value the student's answer will be compared to\\
 
 {\tt	public abstract void setAcceptanceTestValue(String test)}\\
-Set the value the student's answer will be compared to
+Set the value the student's answer will be compared to\\
 
+{\tt 	public abstract boolean hasQualityTest(boolean usingModelAnswer)}\\
+Return true if this criterion has test for evaluating quality of the student's answer\\
 
+{\tt	public abstract boolean passesQualityTest(TitoState studentAnswer, TitoState modelAnswer)} \\
+Return true if student's solution meets the quality requirement of this Criterion\\
 
+{\tt	public abstract String getQualityTestValue()}\\
+Return the value the student's answer will be compared to\\
+
+{\tt	public abstract void setQualityTestValue(String test)}\\
+Set the value the student's answer will be compared to\\
 
 
 
