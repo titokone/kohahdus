@@ -1,0 +1,156 @@
+Arviot Crierion-luokkien testien kattavuusdesta
+
+
+Criterion
+---------
+Metodi									Lausekattavuus	Haaraumakattavuus
+Criterion(String, boolean)					
+getId()
+isSecretInputCriterion()
+getFailureFeedback()    	   				1/1				0/0
+getAcceptanceFeedback()						1/1				0/0
+getHighQualityFeedback()					1/1				0/0
+setFailureFeedback(String)	      	 		1/1				1/1
+setAcceptanceFeedback(String)				1/1				1/1
+setHighQualityFeedback(String)				1/1				1/1
+serializeToXML()							7/7				0/0
+deserializeFromXML(String)					11/13			1/2	(epätodennäköinen poikkeus jää testaamatta)
+hasQualityTest(boolean)						1/1				0/0 (dummy)
+passesQualityTest(TitoState, TitoState)
+getQualityTestValue()						1/1				0/0 (dummy)
+setQualityTestValue(String)					0/0				0/0 (dummy)
+toXML(String, long)							4/4				1/1
+toXML(String, String)						4/4				0/0
+toXML(String, boolean)						1/1				1/1
+parseXMLLong(String, String)				5/5				1/1
+parseXMLString(String, String)				7/7				0/0
+parseXMLBoolean(String, String)				2/2				1/1
+
+
+MeasuredCriterion
+-----------------
+MeasuredCriterion(String, boolean)			1/1				0/0
+setAcceptanceTestValue(String)				4/4				1/1
+hasAcceptanceTest(boolean)					1/1				0/0
+getAcceptanceTestValue()					4/4				1/1
+passesAcceptanceTest(TitoState,	TitoState)	
+setQualityTestValue(String)					4/4				1/1
+hasQualityTest(boolean)						1/1				0/0
+getQualityTestValue()						4/4				1/1
+passesQualityTest(TitoState, TitoState)		
+serializeSubClass()							2/2				0/0
+initSubClass(String)						2/2				0/0
+
+CodeSizeCriterion
+-----------------
+CodeSizeCriterion(String, boolean)			1/1				0/0
+getCriterionValue(TitoState)
+
+DataAreaSizeCriterion
+---------------------
+DataAreaSizeCriterion(String, boolean)		1/1				0/0
+getCriterionValue(TitoState)
+
+DataReferencesCriterion
+-----------------------
+DataReferencesCriterion(String, boolean)	1/1				0/0
+getCriterionValue(TitoState)
+
+ExecutionStepsCriterion
+-----------------------
+ExecutionStepsCriterion(String, boolean)	1/1				0/0
+getCriterionValue(TitoState)
+
+MemReferencesCriterion
+----------------------
+MemReferencesCriterion(String, boolean)		1/1				0/0
+getCriterionValue(TitoState)
+
+StackSizeCriterion
+------------------
+StackSizeCriterion
+getCriterionValue(TitoState)
+
+
+
+
+ScreenOutputCriterion
+---------------------
+ScreenOutputCriterion(String, boolean)		1/1				0/0
+serializeSubClass()							1/1				0/0
+initSubClass(String)						1/1				0/0
+setAcceptanceTestValue(String)				
+hasAcceptanceTest(boolean)					
+getAcceptanceTestValue()					1/1				0/0
+passesAcceptanceTest(TitoState,	TitoState)	
+
+
+VariableCriterion
+-----------------
+VariableCriterion(String, boolean)			1/1				0/0
+serializeSubClass()							3/3				0/0
+initSubClass(String)						3/3				0/0
+setComparisonOperator(String)				18/18			9/9
+getComparisonOperator()						9/9				6/7	(jokin case-haara toteutuu aina)
+setAcceptanceTestValue(String)				4/4				1/1
+hasAcceptanceTest(boolean)					6/6				5/5
+getAcceptanceTestValue()					4/4				1/1
+passesAcceptanceTest(TitoState,	TitoState)	
+setCompareToModel(String)					1/1				3/3					
+
+RegisterCriterion
+-----------------
+RegisterCriterion(String, boolean, int)
+getCriterionValue(TitoState)
+serializeSubClass()							2/2				0/0
+initSubClass(String)						2/2				0/0
+
+SymbolCriterion
+-----------------
+SymbolCriterion(String, boolean)			1/1				0/0
+hasAcceptanceTest(boolean)					1/1				3/3
+setSymbolName(String)						4/4				3/3
+getSymbolName()								1/1				0/0
+getCriterionValue(TitoState)				
+serializeSubClass()							2/2				0/0
+initSubClass(String)						2/2				0/0
+
+
+InstructionCriterion
+--------------------
+InstructionCriterion(String, boolean)		1/1				0/0
+hasAcceptanceTest(boolean)					
+getAcceptanceTestValue()					
+setAcceptanceTestValue(String)				
+serializeSubClass()							1/1				0/0
+initSubClass(String)						1/1				0/0
+
+RequiredInstructionCriterion
+----------------------------
+RequiredInstructionCriterion(String, boolean)	1/1				0/0
+passesAcceptanceTest(TitoState,	TitoState)	
+
+
+ForbiddenInstructionCriterion
+-----------------------------
+ForbiddenInstructionCriterion(String, boolean)	1/1				0/0
+passesAcceptanceTest(TitoState,	TitoState)	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

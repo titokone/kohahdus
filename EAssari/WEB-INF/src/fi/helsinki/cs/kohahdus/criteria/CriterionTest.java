@@ -116,8 +116,8 @@ public class CriterionTest extends TestCase {
 			c1.setHighQualityFeedback("1");
 			c1.setAcceptanceFeedback("2");
 			c1.setFailureFeedback("3");
-			c1.setAcceptanceTestValue("30");			
-
+			c1.setAcceptanceTestValue("30");
+			c1.setQualityTestValue("mostly-invalid");
 			
 			String xml = c1.serializeToXML();
 			Criterion c2 = Criterion.deserializeFromXML(xml);
@@ -408,6 +408,42 @@ public class CriterionTest extends TestCase {
 		}
 	}	
 // </Quality Value Tests>
+	
+// <Variable comparison operator>
+	public void testVariableCriterionComparisonOperator() {
+		for (VariableCriterion c : variableCriteria) {
+			assertEquals("==", c.getComparisonOperator()); 
+
+			c.setComparisonOperator("!=");
+			assertEquals("!=", c.getComparisonOperator()); 
+			
+			c.setComparisonOperator("<");
+			assertEquals("<", c.getComparisonOperator()); 
+
+			c.setComparisonOperator("=");
+			assertEquals("==", c.getComparisonOperator()); 
+			
+			c.setComparisonOperator(">");
+			assertEquals(">", c.getComparisonOperator()); 
+
+			c.setComparisonOperator("==");
+			assertEquals("==", c.getComparisonOperator()); 
+			
+			c.setComparisonOperator(">=");
+			assertEquals(">=", c.getComparisonOperator()); 
+
+			c.setComparisonOperator(null);
+			assertEquals("==", c.getComparisonOperator()); 
+						
+			c.setComparisonOperator("<=");
+			assertEquals("<=", c.getComparisonOperator());
+			
+			c.setComparisonOperator("invalid");
+			assertEquals("==", c.getComparisonOperator()); 
+		}		
+	}
+// </Variable comparison operator>
+	
 	
 	
 		

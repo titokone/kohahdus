@@ -17,8 +17,8 @@ public abstract class VariableCriterion extends Criterion {
 	protected VariableCriterion() { }
 	
 	
-	public VariableCriterion(String id, boolean usesScretInput) {
-		super(id, usesScretInput);
+	public VariableCriterion(String id, boolean usesSecretInput) {
+		super(id, usesSecretInput);
 	}
 
 	
