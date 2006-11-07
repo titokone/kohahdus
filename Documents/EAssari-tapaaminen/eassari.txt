@@ -12,10 +12,16 @@ automaattisesti tarkistettavien tehtävien määrittelyyn ja toteutukseen.
 
 ---
 
+Tulemme käyttämään EAssarin tietokantaa sellaisenaan. EAssarin Displayer-osuuden 
+toteuttamme eri tavalla kuin se on EAssarin esimerkeissä toteutettu. Yleisesti ottaen 
+EAssari ei ole riittävän joustava monimutkaisten ja ylläpidettävien 
+webbisovellusten tekemiseen.
+
 EAssarin on ilmeisesti tarkoitus olla niin geneerinen, että uusien tehtävätyyppien
 luominen onnistuu pelkästään uudet Displayer ja Analyzer luokat määrittelemällä.
 Tämän projektin tarkoitus on kuitenkin luoda toimiva järjestelmä, ja tätä eAssari
 ei tue. Seuraavat asiat puuttuvat:
+
 - Käyttäjän rekisteröityminen     (toteutettu)
 - Käyttäjän tietojen muokkaaminen (toteutettu)
 - Käyttäjän kirjautuminen         (toteutettu)
