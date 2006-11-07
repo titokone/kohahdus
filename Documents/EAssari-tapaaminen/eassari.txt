@@ -21,21 +21,21 @@ EAssarin on ilmeisesti tarkoitus olla niin geneerinen, että uusien tehtävätyyppi
 luominen onnistuu pelkästään uudet Displayer ja Analyzer luokat määrittelemällä.
 Tämän projektin tarkoitus on kuitenkin luoda toimiva järjestelmä, ja tätä eAssari
 ei tue. Seuraavat asiat puuttuvat:
-
-- Käyttäjän rekisteröityminen     (toteutettu)
-- Käyttäjän tietojen muokkaaminen (toteutettu)
-- Käyttäjän kirjautuminen         (toteutettu)
-- Kurssien hallinnointi           (toteutettu)
-- Moduulien hallinnointi		  (ei tehdä)
-- Tehtävien selaaminen            (toteutettu)
-- Suoritustilastojen katsominen   (tehdään)
+- Käyttäjän rekisteröityminen     (kohahdus toteuttanut)
+- Käyttäjän tietojen muokkaaminen (kohahdus toteuttanut)
+- Käyttäjän kirjautuminen         (kohahdus toteuttanut)
+- Kurssien hallinnointi           (kohahdus toteuttanut)
+- Moduulien hallinnointi		  (moduuleja ei käytetä siinä laajudessa kuin EAssariin on suunniteltu)
+- Tehtävien selaaminen            (kohahdus toteuttanut)
+- Suoritustilastojen katsominen   (kohahdus toteuttaa)
 
 Nämä asiat on siis kohahdus projektin aikana toteuttu tai tullaan toteuttamaan,
 mutta vain siltä osin kuin TitoTrainer järjestelmä tarvitsee. EAssarin puuttuvien
 ominaisuuksien toteuttaminen geneerisellä tavalla, siis siten että em. toiminnot
 olisivat käyttökelpoisia myös tulevien tehtävätyyppien kanssa, vaatisi kokonaan
-oman OhTu-projektin. Kun tarkoitus on tehdä valmis järjestelmä tehtävien määrittelyyn
-tarkistukseen, on selvää että tähän ei voitu lähteä.
+oman OhTu-projektin. Kun kohahdus-projektin määrä on tehdä myös toimiva järjestelmä
+TTK91-tehtävien määrittelyyn tarkistukseen, on selvää että EAssarin puutuuvia
+toimintoja ei voitu toteuttaa yleiskäyttöisesti.
 
 ---
 
