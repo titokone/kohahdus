@@ -216,17 +216,42 @@ public class Task
 
 {\bf Modify existing Task class by adding the following methods}\\
 
-{\tt	public String getName()} \\
-Return the name of this task\\
-	
+{\tt	public Task()} \\
+Creates a new instance of Task\\
+
+{\tt	public Task(String taskID)} \\
+Creates a new instance of Task\\
+
+{\tt	public setTaskID(String taskID)} \\
+Sets ID of task\\
+
+{\tt	public setLanguage(String lang)} \\
+Set the preferred language of this user. The language is either "EN" or "FI\\
+
 {\tt	public void setName(String name)} \\
 Set the name of this task\\
-	
-{\tt	public String getAuthor()} \\
-Return name of the last person who has modified this task\\
 
 {\tt	public void setAuthor(String name)} \\
 Set "last task modification by" attribute to Name, set last-modification-timestamp to current date and time\\
+
+{\tt	public void setDescription(String desc)} \\
+Set description (tehtävänanto) of this task\\
+
+
+
+
+
+
+
+{\tt	public String getName()} \\
+Return the name of this task\\
+
+
+
+{\tt	public String getAuthor()} \\
+Return name of the last person who has modified this task\\
+
+
 
 {\tt	public Date getModificationDate()} \\
 Return the date and time this task was last modified\\
@@ -271,8 +296,6 @@ Set the code that is appended to student's code in a fill-in task\\
 {\tt	public String getDescription()} \\
 Return the description (tehtävänanto) of this task\\
 
-{\tt	public void setDescription()} \\
-Set description (tehtävänanto) of this task\\
 
 
 
