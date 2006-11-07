@@ -1,0 +1,35 @@
+Projektissa luodaan järjestelmä automaattisesti tarkastettavien TTK-91-konekielen
+ harjoitustehtävien luomiseen ja ratkomiseen.
+
+Painopiste projektissa on opettajan ja opiskelijan käyttöliittymillä. Opettajan
+käyttöliittymän avulla määritellään tehtävät parametreineen ja kuinka opiskelijan
+ratkaisun oikeellisuus tarkistetaan. Opiskelijan käyttöliittymän avulla opiskelija
+valitsee tehtäviä, syöttää niiden ratkaisut ja saa palautetta vastauksensa oikeellisuudesta.
+
+Projekti käyttää valmiina olevaa Titokone-simulaattoria harjoitustehtävien ratkaisemiseen.
+**Projekti rakennetaan valmiina olevaan eAssari-kehykseen**, joka sopii geneerisiin
+automaattisesti tarkistettavien tehtävien määrittelyyn ja toteutukseen.
+
+---
+
+EAssarin on ilmeisesti tarkoitus olla niin geneerinen, että uusien tehtävätyyppien
+luominen onnistuu pelkästään uudet Displayer ja Analyzer luokat määrittelemällä.
+Tämän projektin tarkoitus on kuitenkin luoda toimiva järjestelmä, ja tätä eAssari
+ei tue. Seuraavat asiat puuttuvat:
+- Käyttäjän rekisteröityminen     (toteutettu)
+- Käyttäjän tietojen muokkaaminen (toteutettu)
+- Käyttäjän kirjautuminen         (toteutettu)
+- Kurssien hallinnointi           (toteutettu)
+- Tehtävien selaaminen            (toteutettu)
+- Suoritustilastojen katsominen   (tehdään)
+
+Nämä asiat on siis kohahdus projektin aikana toteuttu tai tullaan toteuttamaan,
+mutta vain siltä osin kuin TitoTrainer järjestelmä tarvitsee. EAssarin puuttuvien
+ominaisuuksien toteuttaminen geneerisellä tavalla, siis siten että em. toiminnot
+olisivat käyttökelpoisia myös tulevien tehtävätyyppien kanssa, vaatisi kokonaan
+oman OhTu-projektin. Kun tarkoitus on tehdä valmis järjestelmä tehtävien määrittelyyn
+tarkistukseen, on selvää että tähän ei voitu lähteä.
+
+---
+
+
