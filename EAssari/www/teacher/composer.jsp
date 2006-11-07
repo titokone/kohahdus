@@ -274,11 +274,32 @@ function onFormSubmit() {
 	document.task_creation_form.symbol_criterion_count.value = variableCounter;
 }
 
-function showPrintDisplay() {
-	instructionRequirementsIntoText();
-
-	// create a new window and display form fields in printable form // TODO
+function switchToPrintableView(){
+	elems = document.getElementsByTagName('textarea');
+	for (i=0; i<elems.length; i++){
+		var area = elems[i];
+		var newElement = document.getElementById(area.name + "_printable_element");
+		if (newElement == null) {
+			newElement = document.createElement('P');
+			newElement.innerHTML = area.value;
+			newElement.id = area.name + "_printable_element";
+			area.parentNode.insertBefore(newElement, area);
+		}
+		newElement.style.display = "block";
+		area.style.display = "none";
+	}
 }
+
+function switchPrintableViewOff(){
+	elems = document.getElementsByTagName('textarea');
+	for (i=0; i<elems.length; i++){
+		var area = elems[i];
+		var pElement = document.getElementById(area.name + "_printable_element");
+		pElement.style.display = "none";
+		area.style.display = "block";
+	}
+}
+
 
 // collect TTK-91 instruction requirements into text fields
 function instructionRequirementsIntoText() {
@@ -772,7 +793,8 @@ function instructionRequirementsIntoText() {
 
 	<p>
 		<input type="submit" value="Save task">
-		<input type="button" value="Print task" onClick="showPrintDisplay();">
+		<input value="Show printable view" onclick="javascript:switchToPrintableView();" type="button">
+		<input value="Hide printable view" onclick="javascript:switchPrintableViewOff();" type="button">
 	</p>
 </div>
 </form>

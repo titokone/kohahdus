@@ -51,5 +51,9 @@ Taro Morimoto
 20.10.2006	TOTE	1	Koodaamista
 30.10.2006	KOKO	1	Palaveri
 30.10.2006	TOTE	2	Koodaamista
+31.10.2006	TOTE	6	Koodaamista
+2.11.2006	PROJ	1	Projektisuunnitelman tekemistä
+2.11.2006	KOKO	1.5	Palaveri
+3.11.2006	SUUN	1.5	Suunnittelua
 
 
