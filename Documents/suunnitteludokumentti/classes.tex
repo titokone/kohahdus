@@ -4,12 +4,36 @@ public abstract class Criterion
 {\bf Base class for all criterion types. The many different types of criteria in TitoTrainer
 are all used via the interface defined here. The analyzer component does not know the
 details of different Criterion sub-classes. Only the composer used for creating and
-modiying Tasks is aware that differnt types of criteria exist.}\\
+modiying Tasks is aware that different types of criteria exist.
+
+This class and all sub-classes shall provide following quarantees:
+\begin{itemize}
+\item getters always return Strings, regardless of the field type
+\item getters never return null, but they may return empty strings
+\item setters always take Strings, regarless of the field type. Invalid strings, (eg. non-numeric
+      string for numeric field), empty strings, and null values are acceptable and will clear the
+      field OR set the field to some default value.
+\item neither getter nor setters will ever throw exceptions
+\item Criterion objects are never in an invalid state. This is done by setting and validating
+      mandatory fields in the constructor. However, Criterion object deserialized from the database
+      are not subject to validation, they are assumed to be always valid.
+\end{itemize}
+
+For sake of brevity, Criterion subclasses are not described in this document.}
+
+{\tt	protected static final long UNDEFINED = Long.MIN\_VALUE;}\\
+Special case for signaling undefined numeric value. Criteria that deal with numeric
+types (such as RegisterCriterium) need all 32-bits of int, but we also need a way
+to represent undefined (null) values. Best-but-still-ugly solution is to use
+longs for all numeric types and use a special signal value for undef.
+
+{\tt	protected Criterion()}\\
+Empty constructor for deserialization\\	
 
 {\tt	protected Criterion(String id, boolean usesSecretInput)}\\
 Constructor to initialize mandatory data members of Criterion.\\
 {\tt@param id} Identifier that can used to distinguish the different criteria of one task\\
-{\tt@param usesSecretInput} true if criterion is to be used in conjunktion to secret input
+{\tt@param usesSecretInput} true if criterion is to be used in conjunction to secret input\\
 
 {\tt	public String getId()}\\
 Return the identifier of this Criterion\\
@@ -42,7 +66,8 @@ test passesAcceptanceTest(..)\\
 {\tt@param usingModelAnswer} True if the inspection method for this task is model-answer\\
 
 {\tt	public abstract boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer)} \\
-Return true if student's solution meets the passing requirement of this Criterion\\
+Return true if student's solution meets the passing requirement of this Criterion. The behaviour
+of this method is undefined if called despite a false return from hasAcceptanceTest(..)\\
 {\tt@param studentAnswer} end state of TitoKone for student's answer\\
 {\tt@param modelAnswer} end state of TitoKone for teacher's answer, or null\\
 
@@ -52,39 +77,36 @@ Return the value the student's answer will be compared to\\
 {\tt	public abstract void setAcceptanceTestValue(String test)}\\
 Set the value the student's answer will be compared to\\
 
-{\tt 	public abstract boolean hasQualityTest(boolean usingModelAnswer)}\\
-Return true if this criterion has test for evaluating quality of the student's answer\\
+{\tt 	public boolean hasQualityTest(boolean usingModelAnswer)}\\
+Return true if this criterion has test for evaluating quality of the student's answer.
+Criterion class provides a default implementation that always returns false\\
 
-{\tt	public abstract boolean passesQualityTest(TitoState studentAnswer, TitoState modelAnswer)} \\
-Return true if student's solution meets the quality requirement of this Criterion\\
+{\tt	public boolean passesQualityTest(TitoState studentAnswer, TitoState modelAnswer)} \\
+Return true if student's solution meets the quality requirement of this Criterion.
+Criterion class provides a default implementation that always returns false\\
 
-{\tt	public abstract String getQualityTestValue()}\\
-Return the value the student's answer will be compared to\\
+{\tt	public String getQualityTestValue()}\\
+Return the value the student's answer will be compared to.
+Criterion class provides a default implementation that always returns an empty string\\
 
 {\tt	public abstract void setQualityTestValue(String test)}\\
-Set the value the student's answer will be compared to\\
-
-
-
-
-
-
-
-
+Set the value the student's answer will be compared to.
+Criterion class provides a default implementation that is a no-op\\
 
 {\tt 	public String serializeToXML()} \\
-Return a serialized copy of this Criterion in XML-format \\
+Return a serialized copy of this Criterion in XML-format\\
 
 {\tt 	protected abstract String serializeSubClass();} \\
 Serialize non-static data-members of Criterion sub-class to XML format. The subclass
 can freely decide the names of the XML tags. The abstract Criterion class will handle
-the serialization of its data-members. The serialized string is stored in the eAssari database in a 2000-char field so
-subclasses should try to keep the tags and data short (without being cryptic). \\
+the serialization of its data-members. The serialized string is stored in the eAssari
+database in a 2000-char field so subclasses should try to keep the tags and data short
+(without being cryptic). \\
 	
 {\tt 	protected abstract void initSubClass(String serializedXML);} \\
 Initialize non-static data-members of this Criterion subclass instance using the 
-serialized representation returned by <code>serializeToXML()</code>. The data-member
-of the abstract Criterion class will have already been deserialized when this method
+serialized representation returned by serializeToXML. Data-members of the
+abstract Criterion class will have already been deserialized when this method
 is called. \\
 	
 {\tt 	public static Criterion deserializeFromXML(String xml)} \\
@@ -96,7 +118,7 @@ Serialize boolean value to XML string. Helper function for serializeSubClass() \
 {\tt 	protected static String toXML(String tagname, String value)} \\
 Serialize String value to XML string. Helper function for serializeSubClass() \\
 	
-{\tt 	protected static String toXML(String tagname, int value)} \\
+{\tt 	protected static String toXML(String tagname, long value)} \\
 Serialize integer value to XML string. Helper function for serializeSubClass() \\
 
 {\tt 	protected static boolean parseXMLBoolean(String XML, String tagname)} \\
@@ -105,7 +127,7 @@ Deserialize boolean value from XML string. Helper function for initSubClass() \\
 {\tt 	protected static String parseXMLString(String XML, String tagname)} \\
 Deserialize String value from XML string. Helper function for initSubClass() \\
 	
-{\tt 	protected static int parseXMLInt(String XML, String tagname)} \\
+{\tt 	protected static int parseXMLLong(String XML, String tagname)} \\
 Deserialize integer value from XML string. Helper function for initSubClass() \\
 
 

@@ -10,13 +10,15 @@ package fi.helsinki.cs.kohahdus.criteria;
  * <ul>
  * <li> getters always return Strings, regarless of the field type 
  * <li> getters never return null, but they may return empty strings
- * <li> setters always take Strings, regarless of the field type.
+ * <li> setters always take Strings, regardless of the field type.
  *      Invalid strings, (eg. non-numeric string for numeric field),
  *      empty strings, and null values are acceptable and will clear
  *      the field OR set the field to some default value.
- * <li> setters do not throw exceptions
- * <li> Criterion objects are never in an invalid state. This is done
- *      by setting and validating mandatory fields in the constructor.
+ * <li> only constructors can throw exceptions, setters or getters
+ *      never will. Any attributes that have a strict validity
+ *      requirement must be set by the constructor.     
+ * <li> The requirements placed on setter guarantee that creted 
+ *      Criterion objects are never in an invalid state.
  * <li> However, Criterion object deserialized from the database are
  *      not subject to validation, they are assumed to be always valid.
  * </ul>   
@@ -166,7 +168,8 @@ public abstract class Criterion {
 	 * @param usingModelAnswer True if the inspection method for this task is model-answer */
 	public abstract boolean hasAcceptanceTest(boolean usingModelAnswer);
 	
-	/** Return true if student's solution meets the passing requirement of this Criterion. 
+	/** Return true if student's solution meets the passing requirement of this Criterion. The
+	 * behaviour of this method is undefined if called despite a false return from hasAcceptanceTest(..)
 	 * 
 	 * @param studentAnswer end state of TitoKone for student's answer
 	 * @param modelAnswer end state of TitoKone for teacher's answer. If the task is
@@ -225,8 +228,8 @@ public abstract class Criterion {
 	
 	
 	/** Initialize non-static data-members of this Criterion subclass instance using
-	 * the serialized representation returned by <code>serializeToXML()</code>. The
-	 * data-member of the abstract Criterion class will have already been deserialized
+	 * the serialized representation returned by <code>serializeToXML()</code>. Data-members
+	 * of the abstract Criterion class will have already been deserialized
 	 * when this method is called. */
 	protected abstract void initSubClass(String serializedXML);
 
