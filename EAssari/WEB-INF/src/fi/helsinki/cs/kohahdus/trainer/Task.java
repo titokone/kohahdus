@@ -199,12 +199,12 @@ public class Task {
 		this.hasSucceeded = hasSucceeded;
 	}    
     
-	/** Return feedback if student passes the task */
+	/** Set return feedback if student passes the task */
 	public void setPassFeedBack(String pass) {
 		this.passFeedback=pass;
 	}
 	
-	/** Return feedback if student fails the task */
+	/** Set return feedback if student fails the task */
 	public void setFailFeedBack(String fail) {
 		this.failFeedback=fail;
 	}
@@ -370,6 +370,7 @@ public class Task {
 		value = value.replaceAll("&amp;", "&");
 		return value;
 	}
+	
 	/** Deserialize boolean value from XML string. Helper function for initSubClass() */
 	protected static boolean parseXMLBoolean(String XML, String tagname) {
 		String value = parseXMLString(XML, tagname);
@@ -378,7 +379,7 @@ public class Task {
 	}
 	
 	/** Deserialize int value from XML string. Helper function for initSubClass()
-	 * @return value or UNDEFINED */
+	 * @return value or 0 */
 	protected static int parseXMLint(String XML, String tagname) {
 		String value = parseXMLString(XML, tagname);
 		try {
@@ -394,6 +395,7 @@ public class Task {
 		xml = xml + value;
 		return xml + "</" + tagname + ">";
 	}
+	
 	/** Serialize String value to XML string. Helper function for serializeSubClass() */
 	protected static String toXML(String tagname, String value) {
 		if (value == null) value = "";
@@ -450,7 +452,7 @@ public class Task {
 		}
 	}
 	
-
+	/** Returns String from the task */
 	public String toString(){
 		String ret = "id:"+ taskID;
 		ret += ", lang:" +language;
