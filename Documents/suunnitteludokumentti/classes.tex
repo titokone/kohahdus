@@ -1,10 +1,15 @@
 \subsection{Criterion}
 public abstract class Criterion
 
-{\bf Base class for all criterion types. The many different types of criteria in TitoTrainer
-are all used via the interface defined here. The analyzer component does not know the
-details of different Criterion sub-classes. Only the composer used for creating and
-modiying Tasks is aware that different types of criteria exist.
+{\bf Base class for all criterion types. Each task has a fixed number of criteria
+for analyzing the student's solution. Criterion may be used to pass/fail the solution,
+evaluate the quality of the solution, or do both/neither.
+
+Different types of criteria are implemented as Criterion-subclasses. Task composer used
+for creating new tasks uses mostly the interfaces defined here, but also may use some
+methods specifc to the subclass. Task analyzer component used for checking the student's
+solution uses only this abstract interface. The analyzer is not aware of the details
+of the subclasses.
 
 This class and all sub-classes shall provide following quarantees:
 \begin{itemize}
@@ -151,46 +156,46 @@ encapsulates one database transaction, and thus may cause multiple inserts/updat
 with one call. The atomicity of the operations is quaranteed by using the transaction model
 provided by the SQL standard.} \\
     
-{\tt 		private DBHandler()} \\
+{\tt	private DBHandler()} \\
 Prevent youside instatiation by giving constructor private scope
 
-{\tt 		public static synchronized DBHandler getInstance()} \\
+{\tt	public static synchronized DBHandler getInstance()} \\
 Return DBHandler instance\\
 	
-{\tt 		public Task[] getTasks()} \\
+{\tt	public Task[] getTasks()} \\
 Return all tasks\\
 	
-{\tt 		public Task getTask(String taskID)} \\
+{\tt	public Task getTask(String taskID)} \\
 Return task identified by taskID\\
 
-{\tt		public Criterion[] getCriteria(Task task)}\\
+{\tt	public Criterion[] getCriteria(Task task)}\\
 Return the criteria of task\\
 	
-{\tt 		public void createTask(Task task, Criterion[] criteria)} \\
+{\tt	public void createTask(Task task, Criterion[] criteria)} \\
 Add new task to task database. The insert will affect all courses. This operation
 will also create the criteria for the task\\
 	
-{\tt 		public void updateTask(Task task, Criterion[] criteria)} \\
+{\tt	public void updateTask(Task task, Criterion[] criteria)} \\
 Update existing task. The update will affect all courses. This operation
 will also update the criteria of the task.\\
 
-{\tt 		public void removeTask(Task task)} \\
+{\tt	public void removeTask(Task task)} \\
 Remove task from task database (and thus all courses). This will also remove all stored
 answers of the task.\\
 
-{\tt 		public User[] getUsers(Course course) throws SQLException} \\
+{\tt	public User[] getUsers(Course course) throws SQLException} \\
 Return all users who have attempted to solve at least one task of Course\\
 	
-{\tt 		public User getUser(String userID, String password) throws SQLException} \\
+{\tt	public User getUser(String userID, String password) throws SQLException} \\
 Return user identified by userID\\
 
-{\tt 		public User getUser(String userID) throws SQLException} \\
+{\tt	public User getUser(String userID) throws SQLException} \\
 Return user identified by userID\\
 
-{\tt 		public void createUser(User user)} \\
+{\tt	public void createUser(User user)} \\
 Add new user to user database\\
 	
-{\tt 		public void updateUser(User user)} \\
+{\tt	public void updateUser(User user)} \\
 Update existing user\\
 	
 %{\tt 		private void addCriterion(Task t, Criterion c)} \\
@@ -211,62 +216,62 @@ public class Task
 
 {\bf Modify existing Task class by adding the following methods}\\
 
-{\tt 		public String getName()} \\
+{\tt	public String getName()} \\
 Return the name of this task\\
 	
-{\tt 		public void setName(String name)} \\
+{\tt	public void setName(String name)} \\
 Set the name of this task\\
 	
-{\tt 		public String getAuthor()} \\
+{\tt	public String getAuthor()} \\
 Return name of the last person who has modified this task\\
 
-{\tt 		public void setAuthor(String name)} \\
+{\tt	public void setAuthor(String name)} \\
 Set "last task modification by" attribute to Name, set last-modification-timestamp to current date and time\\
 
-{\tt		public Date getModificationDate()} \\
+{\tt	public Date getModificationDate()} \\
 Return the date and time this task was last modified\\
 
-{\tt		public String getModelAnswer()} \\
+{\tt	public String getModelAnswer()} \\
 Return code of the model answer provided by teacher\\
 	
-{\tt		public void setModelAnswer(String code)} \\
+{\tt	public void setModelAnswer(String code)} \\
 Set model answer code\\
 
-{\tt		public boolean isValidateByModel()} \\
+{\tt	public boolean isValidateByModel()} \\
 Return true if this task is to be validated by comparing results
 of the student's answer to results of teacher's answer\\
 	
-{\tt		public void setValidateByModel(boolean useModel)} \\
+{\tt	public void setValidateByModel(boolean useModel)} \\
 Set the validation method of this task\\
 
-{\tt		public String getCategory()} \\
+{\tt	public String getCategory()} \\
 Return the task category of this task\\
 	
-{\tt		public void setCategory(String category)} \\
+{\tt	public void setCategory(String category)} \\
 Set task category of this task\\
 	
-{\tt		public boolean isFillInTask()} \\
+{\tt	public boolean isFillInTask()} \\
 Return true if this is a fill-in task\\
 	
-{\tt		public void setFillInTask(boolean fillIn)} \\
+{\tt	public void setFillInTask(boolean fillIn)} \\
 Set this task as fill-in or create-full-program \\
 
-{\tt		public String getFillInPreCode()} \\
+{\tt	public String getFillInPreCode()} \\
 Return the code that is prepended before student's code in a fill-in task\\
 	
-{\tt		public void SetFillInPreCode(String code)} \\
+{\tt	public void SetFillInPreCode(String code)} \\
 Set the code that is prepended before student's code in a fill-in task\\
 	
-{\tt		public String getFillInPostCode()} \\
+{\tt	public String getFillInPostCode()} \\
 Return the code that is appended to student's code in a fill-in task\\
 	
-{\tt		public void SetFillInPostCode(String code)} \\
+{\tt	public void SetFillInPostCode(String code)} \\
 Set the code that is appended to student's code in a fill-in task\\
 
-{\tt		public String getDescription()} \\
+{\tt	public String getDescription()} \\
 Return the description (tehtävänanto) of this task\\
 
-{\tt		public void setDescription()} \\
+{\tt	public void setDescription()} \\
 Set description (tehtävänanto) of this task\\
 
 
@@ -279,56 +284,56 @@ public class User
 
 {\bf Modify existing User class by adding the following methods}\\
 
-{\tt		public static final String STATUS\_STUDENT = "student";} \\ 
-{\tt		public static final String STATUS\_TEACHER = "teacher";} \\ 
+{\tt	public static final String STATUS\_STUDENT = "student";} \\ 
+{\tt	public static final String STATUS\_TEACHER = "teacher";} \\ 
 	
-{\tt		public User()} \\ 
+{\tt	public User()} \\ 
 Construct unitialized User object\\
 	
-{\tt		public User(String userID)} \\ 
+{\tt	public User(String userID)} \\ 
 Construct unitialized User object with userid\\
 	
-{\tt		public void setLastName(String lastname)} \\ 
+{\tt	public void setLastName(String lastname)} \\ 
 Set last name of this user\\
 	
-{\tt		public void setFirstName(String firstname)} \\ 
+{\tt	public void setFirstName(String firstname)} \\ 
 Set first name of this user\\
 	
-{\tt		public void setEmail(String email)} \\ 
+{\tt	public void setEmail(String email)} \\ 
 Set email address of this user\\
 
-{\tt		public void setUserID(String userID)} \\ 
+{\tt	public void setUserID(String userID)} \\ 
 Set userID of this user\\
 
-{\tt		public String getStudentNumber()} \\ 
+{\tt	public String getStudentNumber()} \\ 
 Return student number of this user. This identifier maps to <code>aeuser.extid</code> in the database\\
 	
-{\tt		public void setStudentNumber(String studentnum)} \\ 
+{\tt	public void setStudentNumber(String studentnum)} \\ 
 Set student number of of this user\\
 	
-{\tt		public String getSocialSecurityNumber()} \\ 
+{\tt	public String getSocialSecurityNumber()} \\ 
 Return social security number of this user. This identifier maps to <code>aeuser.extid2</code> in the database\\
 	
-{\tt		public void setSocialSecurityNumber(String ssn)} \\ 
+{\tt	public void setSocialSecurityNumber(String ssn)} \\ 
 Set social security number of this user\\
 	
-{\tt		public void setPassword(String pass)} \\ 
+{\tt	public void setPassword(String pass)} \\ 
 Set password of this user to Pass\\
 	
-{\tt		public void setLanguage(String lang)} \\ 
+{\tt	public void setLanguage(String lang)} \\ 
 Set the preferred language of this user. The language is either "EN" or "FI\\
 
 {\tt		public String getStatus()} \\
 Return status of this user\\
 	
-{\tt		public boolean isTeacher()} \\ 
+{\tt	public boolean isTeacher()} \\ 
 Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics\\
 
-{\tt		public void setStatus(String status)} \\  
-{\tt		throws IllegalArgumentException if Status is not a valid Status string}\\
+{\tt	public void setStatus(String status)} \\  
+{\tt	throws IllegalArgumentException if Status is not a valid Status string}\\
 Set user status (teacher / student)\\
 	
-{\tt		public boolean isValid()} \\
+{\tt	public boolean isValid()} \\
 Test validity of this user object. The object is considered valid if all data members are set with non-empty values.\\
 
 
@@ -340,16 +345,16 @@ public class Course {
 
 {\bf Simple class for holding basic course information}\\
 
-{\tt		public Course(String name, String id)} \\
+{\tt	public Course(String name, String id)} \\
 Create new Course instance using the specified name and ID\\
 	
-{\tt 	    public String getName()} \\
+{\tt    public String getName()} \\
 Return name of this course\\
 
-{\tt 	    public void setName(String name)} \\
+{\tt    public void setName(String name)} \\
 Set name of this course\\
 
-{\tt 	    public String getID()} \\
+{\tt    public String getID()} \\
 Return course ID of this course\\
 
 
@@ -385,34 +390,34 @@ public class TitoState
 
 This class will provide methods for querying the TitoKone end state.}\\
 
-{\tt		int getRegister(int num)} \\
+{\tt	int getRegister(int num)} \\
 Return contents of register Num (0 for "R0", etc)\\
 
-{\tt		int getMemoryLocation(int address)} \\
+{\tt	int getMemoryLocation(int address)} \\
 Return contents of specified memory address\\
 	
-{\tt		int getSymbolAddress(String symbolName)} \\
+{\tt	int getSymbolAddress(String symbolName)} \\
 Return memory address of specified symbol\\
 	
-{\tt		String getScreenOutput()} \\
+{\tt	String getScreenOutput()} \\
 Return TitoKone output as String in format "1234, 1234, 1234". The returned string may be empty, but it is never null.\\
 
-{\tt		int getStackMaxSize()} \\
+{\tt	int getStackMaxSize()} \\
 Return maximum stack size reached during program execution\\
 
-{\tt		int getExecutionSteps()} \\
+{\tt	int getExecutionSteps()} \\
 Return number of executed instructions\\
 	
-{\tt		int getCodeSize()} \\
+{\tt	int getCodeSize()} \\
 Return number of instruction words in the program code\\
 
-{\tt		int getDataSize()} \\
+{\tt	int getDataSize()} \\
 Return number of words in program's data-area\\
 	
-{\tt		int getMemoryAccessCount()} \\
+{\tt	int getMemoryAccessCount()} \\
 Return number memory references made during program run. This number includes references caused by both data and instruction fetches\\
 	
-{\tt		String[] getUsedOpcodes()} \\
+{\tt	String[] getUsedOpcodes()} \\
 
 
 
