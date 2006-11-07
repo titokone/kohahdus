@@ -113,7 +113,7 @@ public class User {
 	
 	
 //GET-METHODS
-	 /** Return userID of this user*/
+	 /** Return userID of this user */
     public String getUserID() {
     	return userid;
     }

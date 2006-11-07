@@ -398,12 +398,17 @@ public class User
 
 {\tt	public static final String STATUS\_STUDENT = "student";} \\ 
 {\tt	public static final String STATUS\_TEACHER = "teacher";} \\ 
+{\tt	public static final String STATUS\_ADMIN = "adm";} \\ 
 	
 {\tt	public User()} \\ 
 Construct unitialized User object\\
 	
 {\tt	public User(String userID)} \\ 
 Construct unitialized User object with userid\\
+
+
+{\tt	public void setUserID(String userID)} \\ 
+Set userID of this user\\
 	
 {\tt	public void setLastName(String lastname)} \\ 
 Set last name of this user\\
@@ -414,39 +419,66 @@ Set first name of this user\\
 {\tt	public void setEmail(String email)} \\ 
 Set email address of this user\\
 
-{\tt	public void setUserID(String userID)} \\ 
-Set userID of this user\\
-
-{\tt	public String getStudentNumber()} \\ 
-Return student number of this user. This identifier maps to <code>aeuser.extid</code> in the database\\
-	
-{\tt	public void setStudentNumber(String studentnum)} \\ 
-Set student number of of this user\\
-	
-{\tt	public String getSocialSecurityNumber()} \\ 
-Return social security number of this user. This identifier maps to <code>aeuser.extid2</code> in the database\\
-	
-{\tt	public void setSocialSecurityNumber(String ssn)} \\ 
-Set social security number of this user\\
-	
-{\tt	public void setPassword(String pass)} \\ 
-Set password of this user to Pass\\
-	
-{\tt	public void setLanguage(String lang)} \\ 
-Set the preferred language of this user. The language is either "EN" or "FI\\
-
-{\tt		public String getStatus()} \\
-Return status of this user\\
-	
-{\tt	public boolean isTeacher()} \\ 
-Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics\\
-
 {\tt	public void setStatus(String status)} \\  
 {\tt	throws IllegalArgumentException if Status is not a valid Status string}\\
 Set user status (teacher / student)\\
-	
+
+{\tt	public void setStudentNumber(String studentnum)} \\ 
+Set student number of of this user\\
+
+{\tt	public void setSocialSecurityNumber(String ssn)} \\ 
+Set social security number of this user\\
+
+{\tt	public void setPassword(String pass)} \\ 
+Set password of this user to Pass\\
+
+{\tt	public void setLanguage(String lang)} \\ 
+Set the preferred language of this user. The language is either "EN" or "FI\\
+
+
+
+{\tt	public String getUserID()} \\ 
+Return userID of this user\\
+
+{\tt	public String getLastName()} \\ 
+Return last name of this user\\
+
+{\tt	public String getFirstName()} \\ 
+Return first name of this user\\
+
+{\tt	public String getEmail()} \\ 
+Return email address of this user\\
+
+{\tt		public String getStatus()} \\
+Return status of this user\\
+
+{\tt	public String getStudentNumber()} \\ 
+Return student number of this user. This identifier maps to <code>aeuser.extid</code> in the database\\
+
+{\tt	public String getSocialSecurityNumber()} \\ 
+Return social security number of this user. This identifier maps to <code>aeuser.extid2</code> in the database\\
+
+{\tt		public String getPassword()} \\
+Return plaintext password of this user\\
+
+{\tt		public String getLpref()} \\
+Return the preferred language of this user as String. The language is either "EN" or "FI"\\
+
+
+{\tt	public boolean isTeacher()} \\ 
+Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics\\
+
+{\tt	public boolean isStudent()} \\ 
+Return true of this user has student privelidges\\
+
+{\tt	public boolean isAdmin()} \\ 
+Return true of this user has admin privelidges \\
+
 {\tt	public boolean isValid()} \\
 Test validity of this user object. The object is considered valid if all data members are set with non-empty values.\\
+
+{\tt	private boolean isEmptyString(String str)} \\
+Return false if str is null or empty "" string\\
 
 
 
@@ -469,7 +501,8 @@ Set name of this course\\
 {\tt    public String getID()} \\
 Return course ID of this course\\
 
-
+{\tt    public String toString()} \\
+Return name and id of this course as one String\\
 
 
 
