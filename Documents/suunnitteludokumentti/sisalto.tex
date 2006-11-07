@@ -38,6 +38,24 @@ Explorer-selaimilla.
 
 Tämä luku kuvaa järjestelmän HTML-sivut ja sen, mitä toimintoja ne tarjoavät käyttäjälle.
 
+Järjestelmän monikielisyys toteutetaan tietokantaan säilötyillä tekstikenteillä. Jokaisesta näkyvästä 
+käyttöliittymän tekstistä on olemassa tietokannassa suomen- ja englanninkielinen kopio. Näitä tekstejä 
+voidaan käyttää erillisen cache-luokan tai DBHandlerin avulla seuraavaan tapaan.
+
+	...
+	<table>
+	<tr>
+		<td>
+			<%= cache.getAttrib("language selection", language) %>
+		</td>
+		<td>
+		...
+		...
+		
+Esimerkissä oleva "language selection" -parametri on kannassa olevan tekstin avainsana, jota täydennetään
+kielen määrittävällä language -parametrilla. 
+			
+
 \subsection{Rekisteröityminen}
 Rekisteröintisivulla opiskelija rekisteröityy järjestelmän käyttäjäksi. Rekisteröinti vaatii seuraavat 
 tiedot: etunimi, sukunimi, käyttökieli, sähköposti, opiskelijanumero tai henkilötunnus, sekä
