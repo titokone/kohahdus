@@ -20,6 +20,7 @@ ei tue. Seuraavat asiat puuttuvat:
 - Käyttäjän tietojen muokkaaminen (toteutettu)
 - Käyttäjän kirjautuminen         (toteutettu)
 - Kurssien hallinnointi           (toteutettu)
+- Moduulien hallinnointi		  (ei tehdä)
 - Tehtävien selaaminen            (toteutettu)
 - Suoritustilastojen katsominen   (tehdään)
 
