@@ -1,5 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.HashMap;
+
 /** Concrete criterion class for symbol values */  
 public class SymbolCriterion extends VariableCriterion {
 	private String symbolName = "";
@@ -33,12 +35,9 @@ public class SymbolCriterion extends VariableCriterion {
 	}
 
 	@Override protected long getCriterionValue(TitoState answer) {
-		long value = UNDEFINED;
-		int addr = answer.getSymbolAddress(symbolName);
-		if (addr != -1) {
-			value = answer.getMemoryLocation(addr);
-		}	
-		return value;
+		HashMap symbols = answer.getSymbolTable();
+		Integer addr = (Integer)symbols.get(symbolName);
+		return (addr == null) ? UNDEFINED : answer.getMemoryLocation(addr);
 	}	
 
 	@Override protected String serializeSubClass() {

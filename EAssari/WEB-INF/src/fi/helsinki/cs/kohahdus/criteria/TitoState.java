@@ -1,6 +1,8 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
 import java.io.File;
+import java.util.HashMap;
+
 import fi.hu.cs.ttk91.*;
 import fi.hu.cs.titokone.Control;
 
@@ -49,11 +51,13 @@ public class TitoState {
 	
 	
 	/** Runs previously compiled program.
+	 * @param keyboardInput keyboard input for the program, as [ \n\r\t\f,.:;] separated list of numbers
 	 * @param maxExecutionSteps maximum number instruction to execute (prevent inifinite loops)
 	 * @return runtime error message, <code>null</code> if no errors
 	 */
-	public String run(int maxExecutionSteps) {
+	public String run(String keyboardInput, int maxExecutionSteps) {
 		try {
+			app.setKbd(keyboardInput);
 			controller.run(app, maxExecutionSteps);
 			cpu = controller.getCpu();
 			mem = controller.getMemory();
@@ -82,21 +86,21 @@ public class TitoState {
 	 * @throws IllegalArgumentException if Address > (CodeSize + DataSize - 1) 
 	 */
 	int getMemoryLocation(int address) {
-		return 0;
+		return mem.getValue(address);
 	}
 	
 	/** Return memory address of specified symbol
 	 * @param symbolName Name of the symbol 
 	 * @return address or -1 if symbolName does not exist in the symbol table
 	 */
-	int getSymbolAddress(String symbolName) {
-		return 0;
+	HashMap getSymbolTable() {
+		return mem.getSymbolTable();
 	}
 	
 	/** Return TitoKone screen output as String in format "1234, 1234, 1234". Returns and
 	 * emptry String "" if the program produced no screen ouput. */
 	String getScreenOutput() {
-		return null;
+		return app.readCrt();
 	}
 	
 	/** Return maximum size of stack reached during program execution.
