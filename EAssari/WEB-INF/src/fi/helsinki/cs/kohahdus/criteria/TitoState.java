@@ -1,15 +1,82 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.io.File;
+import fi.hu.cs.ttk91.*;
+import fi.hu.cs.titokone.Control;
+
 /** Capsulates the end-state of single run of TitoKone.
  *  
  * Tämä luokka toteutetaan toisessa iteraatiossa */
 public class TitoState {
+	private TTK91Core controller = new Control(new File("/dev/null"), new File("/dev/tty"));
+	private TTK91Application app;
+	
+	private TTK91Cpu cpu;
+	private TTK91Memory mem;
 
-	/** Return contents of register Num (0 for "R0", etc).
-	 * @throws IllegalArgumentException if Num > 7 or Num < 0 */
-	int getRegister(int num) {
-		return 0;
+	
+	
+	/** Silly String wrapper-class required by TitoKone */
+	private class Source implements TTK91CompileSource {
+		private String source;
+		public Source(String sourceCode) {
+			source = sourceCode;
+		}
+		public String getSource() {
+			return source;
+		}	
 	}
+	
+	
+
+	/** Compiles given source code. If this method executes successfully, the program
+	 * may be run with the <code>run()</code> method.
+	 * @param sourceCode TKK91 program source code as a string
+	 * @return compile error message, <code>null</code> if no errors
+	 */
+	public String compile(String sourceCode) {
+		TTK91CompileSource src = new Source(sourceCode);
+		try {
+			this.app = controller.compile(src);
+		} catch (TTK91CompileException e) {
+			return e.getMessage();
+		} catch (TTK91Exception e) { 		// APIdoc indicates this can never happen, and initial  
+			throw new RuntimeException(e);  // check of source code seems to confirm it
+		}		
+		return null;
+	}
+	
+	
+	
+	/** Runs previously compiled program.
+	 * @param maxExecutionSteps maximum number instruction to execute (prevent inifinite loops)
+	 * @return runtime error message, <code>null</code> if no errors
+	 */
+	public String run(int maxExecutionSteps) {
+		try {
+			controller.run(app, maxExecutionSteps);
+			cpu = controller.getCpu();
+			mem = controller.getMemory();
+		} catch (TTK91RuntimeException e) {
+			return e.getMessage();
+		} catch (TTK91Exception e) {		// APIdoc indicates this can never happen
+			throw new RuntimeException(e);
+		}		
+		return null;
+	}
+	
+	
+	
+	/** Return contents of register
+	 * @param registerCode TKK91Cpu.REG_*
+	 * @throws IllegalArgumentException invalid register code is given
+	 * @see fi.hu.cs.ttk91.TTK91Cpu#REG_R0 */
+	int getRegister(int registerCode) {
+		return cpu.getValueOf(registerCode);
+	}
+	
+	
+	
 
 	/** Return contents of specified memory address.
 	 * @throws IllegalArgumentException if Address > (CodeSize + DataSize - 1) 
