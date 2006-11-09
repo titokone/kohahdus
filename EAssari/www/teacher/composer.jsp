@@ -718,11 +718,11 @@ function instructionRequirementsIntoText() {
 				<table border="1" cellpadding="3" cellspacing="0">
 					<tr>
 						<td><p></p></td>
-						<td><p>Accepted with quality limit</p></td>
-						<td><p>Quality<br>limit</p></td>
-						<td><p>Accepted feedback</p></td>
-						<td><p>Acceptance<br>limit</p></td>
 						<td><p>Not accepted feedback</p></td>
+						<td><p>Acceptance<br>limit</p></td>
+						<td><p>Accepted feedback</p></td>
+						<td><p>Quality<br>limit</p></td>
+						<td><p>Accepted with quality limit</p></td>
 					</tr>
 					<tr>
 						<td>Number of lines<br>(in program)</td>
