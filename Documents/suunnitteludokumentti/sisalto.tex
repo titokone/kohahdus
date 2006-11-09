@@ -40,19 +40,15 @@ T‰m‰ luku kuvaa j‰rjestelm‰n HTML-sivut ja sen, mit‰ toimintoja ne tarjoav‰t k‰y
 
 J‰rjestelm‰n monikielisyys toteutetaan tietokantaan s‰ilˆtyill‰ tekstikenteill‰. Jokaisesta n‰kyv‰st‰ 
 k‰yttˆliittym‰n tekstist‰ on olemassa tietokannassa suomen- ja englanninkielinen kopio. N‰it‰ tekstej‰ 
-voidaan k‰ytt‰‰ erillisen cache-luokan tai DBHandlerin avulla seuraavaan tapaan.
-
-	...
-	<table>
-	<tr>
-		<td>
-			<%= cache.getAttrib("language selection", language) %>
-		</td>
-		<td>
-		...
-		...
-		
-Esimerkiss‰ oleva "language selection" -parametri on kannassa olevan tekstin avainsana, jota t‰ydennet‰‰n
+voidaan k‰ytt‰‰ erillisen cache-luokan tai DBHandlerin avulla seuraavaan tapaan.\\
+{\tt
+...\\
+<td>\\
+	<\%= cache.getAttrib("language selection", language) \%>\\
+</td>\\
+...\\
+}	
+Esimerkiss‰ oleva parametri "language selection" on kannassa olevan tekstin avainsana, jota t‰ydennet‰‰n
 kielen m‰‰ritt‰v‰ll‰ language -parametrilla. 
 			
 
@@ -243,7 +239,7 @@ Kuten pluginparameters, j‰‰ k‰ytt‰m‰tt‰.
 
 
 
-
+\newpage
 \section{JSP sivujen sekvenssikaaviot}
 T‰m‰ luku esittelee toteutettavien JSP-sivujen toimintalogiikan. Sekvenssikaaviot
 esittelev‰t t‰rkeimm‰t eri toiminnoissa k‰ytetyt luokat ja metodit, menem‰tt‰
@@ -263,19 +259,22 @@ virheilmoituksen.
 	\includegraphics[width=15cm] {sekvenssikaaviot/K‰ytt‰j‰n_luominen.eps}
 	\caption{K‰ytt‰j‰n rekisterˆityminen}
 \end{figure}
-\begin{figure}[ht]
+
+\newpage
+\subsection{Modify\_user.jsp}
+\begin{figure}[h!]
 	\includegraphics[width=15cm] {sekvenssikaaviot/K‰ytt‰j‰tietojen_muokkaaminen.eps}
 	\caption{K‰ytt‰j‰tietojen muokkaaminen}
 \end{figure}
 
-
+\newpage
 \subsection{Login.jsp}
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Login.eps}
 	\caption{Kirjautuminen}
 \end{figure}
 
-
+\newpage
 \subsection{TeacherTaskList.jsp}
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Kurssinluonti.eps}
@@ -284,7 +283,7 @@ virheilmoituksen.
 
 
 
-\subsection{TaskList.jsp}
+\subsection{StudentTaskList.jsp}
 Ei kaaviota. Sis‰lt‰‰ vain opiskelijan teht‰v‰listauksen. 
 
 \subsection{Report.jsp}
@@ -293,19 +292,21 @@ Toteutetaan ja suunnitellaan toisessa iteraatiossa
 \subsection{UserInfo.jsp}
 Toteutetaan ja suunnitellaan toisessa iteraatiossa
 
+
+\newpage
 \subsection{Composer.jsp}
-\subsection{TeacherTaskList.jsp}
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Taskinluonti.eps}
 	\caption{Teht‰v‰n luominen}
 \end{figure}
-
+\newpage
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Taskin_muokkaaminen.eps}
 	\caption{Teht‰v‰n muokkaaminen}
 \end{figure}
 
 
+\newpage
 \subsection{Answer-servlet}
 Toteutetaan ja suunnitellaan toisessa iteraatiossa
 \begin{figure}[ht]
