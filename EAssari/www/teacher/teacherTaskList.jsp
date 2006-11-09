@@ -1,14 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.sql.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
-<%-- 
-	TeacherTaskList is able to list all courses and tasks that reside in DB.
-	Inserting a course in DB works also.
-	Current implementation lacks delete functionality and links to task creation and
-	statistics. 
---%>	
+<%--
+	TODO: poista ID kentät listauksista
+--%>
 
 
 
@@ -29,10 +27,10 @@ function deleteCourse(courseName, courseID) {
 	}
 }
 
-
 </script>
 
 </head>
+
 
 <body>
 
@@ -45,11 +43,10 @@ function deleteCourse(courseName, courseID) {
 	<c:redirect url="../student/studentTaskList.jsp"/>
 </c:if>
 
-<%-- Kurssin luonti toimii kuten pitääkin. Uudet kurssit menevät kantaan ja tehtävät linkitetään kurssiin --%>
-
 <jsp:include page="../menu.jsp"/>
 
 <c:if test="${param.action=='deleteTask'}">
+	<%-- FIXME: Remove this when not needed --%>
 	Deleting task <c:out value="${param.taskID}"/>
 	<%
 		Task task = DBHandler.getInstance().getTask(request.getParameter("taskID"));
@@ -58,20 +55,27 @@ function deleteCourse(courseName, courseID) {
 </c:if>
 
 <c:if test="${param.action=='deleteCourse'}">
+	<%-- FIXME: Remove this when not needed --%>
 	Deleting course <c:out value="${param.courseID}"/>
 	<%
-		DBHandler.getInstance().removeCourse(request.getParameter("courseID"));
+		try {
+			DBHandler.getInstance().removeCourse(request.getParameter("courseID"));
+		} catch(SQLException e) {
+			//DBHandler has already logged this event
+			
+			//TODO: should we redirect to error page or notify about it here
+		}
 	%>
 </c:if>
 
 <c:if test="${param.action=='create_course'}">
+	<%-- FIXME: Remove this when not needed --%>
 	<p>CREATING COURSE <c:out value="${param.new_course}"/>
 	
 	<% 	
 		String s = request.getParameter("new_course");
 						
 		//Check whether the given course already exists
-		//List<MockCourse> courses = MockCourse.getCourses();
 		List<Course> courses = DBHandler.getInstance().getCourses();
 		
 		boolean ok = true;
@@ -83,33 +87,26 @@ function deleteCourse(courseName, courseID) {
 		}
 		
 		if (ok) {		
-			//MockCourse newCourse = new MockCourse(s,s);
-			//MockCourse.createCourse(newCourse);
-			
 			Course newCourse = new Course();
 			newCourse.setName(s);
 			DBHandler.getInstance().createCourse(newCourse);
-			Log.write("New course "+newCourse.getName()+" inserted in DB.");
-					
+			Log.write("New course "+newCourse.getName()+" inserted in DB.");		
 		} else {
+			//FIXME: Handle error condition more gracefully
 			out.print("ERROR: Duplicate course");
 		}		
 	%>
 </c:if>
 
+
+
+<p>
 <p>
 <table border="0">
 	<tr>
 		<td><font size="+2"><b>Courses</b></font></td>
-		<td width="100">&nbsp;</td>
-		<td><input type="button" value="Create task" onclick="location.href = 'composer.jsp?task_id=EN_TEMPLATE&save_type=new'">
-		<td><input type="button" value="Create task in finnish" onclick="location.href = 'composer.jsp?task_id=FI_TEMPLATE&save_type=new'">
-		<input type="button" value="Statistics" onclick="location.href = 'statistics.jsp'"></td>
 	</tr>
-</table>
-</p>
-
-<p>
+</table>	
 
 <table border="0" bgcolor="#000000" cellpadding="4">
 	<tr>
@@ -118,10 +115,8 @@ function deleteCourse(courseName, courseID) {
 		<td bgcolor="#CECECE" colspan="2"><b></b></td>
 	</tr>
 	<%  
-		//List<MockCourse> courses = MockCourse.getCourses(); 
 		List<Course> courses = DBHandler.getInstance().getCourses();	
-		if (courses != null) pageContext.setAttribute("courses", courses);
-		
+		if (courses != null) pageContext.setAttribute("courses", courses);		
 	%>
 	<c:if test="${empty courses}">
 		<tr>
@@ -146,19 +141,16 @@ function deleteCourse(courseName, courseID) {
 			</tr>
 		</c:forEach>	
 	</c:if>
+	<form name="create_course_form" action="teacherTaskList.jsp" method="POST">
+	<input type="hidden" name="action" value="create_course">
+		<tr>
+			<td bgcolor="#FFFFFF">id dummy</td>
+			<td bgcolor="#FFFFFF"><input type="text" name="new_course"></td>
+			<td bgcolor="#FFFFFF" colspan=2><input type="submit" name="create_course_button" value="Create new course"></td>
+		</tr>
+	</form>
 </table>
-
-<form name="create_course_form" action="teacherTaskList.jsp" method="POST">
-<input type="hidden" name="action" value="create_course">
-
-<table border="0" bgcolor="#000000" cellpadding="4">
-	<tr>
-		<td bgcolor="#CECECE"><b>Create new course</b></td>
-		<td bgcolor="#CECECE"><input type="text" name="new_course"></td>
-		<td bgcolor="#CECECE"><input type="submit" name="create_course_button" value="Create"></td>
-	</tr>
-</table>
-</form>	
+		
 
 
 
@@ -170,15 +162,15 @@ function deleteCourse(courseName, courseID) {
 <p>
 <table border="0">
 	<tr>
-		<td><font size="+2"><b>Tasks</b></font></td>
+		<td><font size="+2"><b>Courses</b></font></td>
 		<td width="100">&nbsp;</td>
-		<td><input type="button" value="Create task" onclick="location.href = 'create_task.jsp'">
-		<input type="button" value="Statistics" onclick="location.href = 'statistics.jsp'"></td>
+		<td><input type="button" value="Create task" onclick="location.href = 'composer.jsp?task_id=EN_TEMPLATE&save_type=new'">
+		<td><input type="button" value="Create task in finnish" onclick="location.href = 'composer.jsp?task_id=FI_TEMPLATE&save_type=new'">
 	</tr>
 </table>
 </p>
 
-<%-- TODO: kun halutaan sortata listausta, niin sivu ladataan uudestaan. Voisi ohjata selaimen suoraan task listauksen alkuun eikä sivun alkuun --%>
+<%-- FIXME: kun halutaan sortata listausta, niin sivu ladataan uudestaan. Voisi ohjata selaimen suoraan task listauksen alkuun eikä sivun alkuun --%>
 
 <table border="0" bgcolor="#000000" cellpadding="4">
 	<tr>
@@ -192,7 +184,6 @@ function deleteCourse(courseName, courseID) {
 	</tr>
 	
 	<%	//Get tasks from DB
-		//List<MockTask> tasks = MockTask.getTasks(); 
 		LinkedList<Task> tasks = DBHandler.getInstance().getTasks();	
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 	%>
