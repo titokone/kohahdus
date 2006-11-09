@@ -1,33 +1,41 @@
-Projektissa luodaan järjestelmä automaattisesti tarkastettavien TTK-91-konekielen
+
+Projektin määrittely kurssin sivuilla:
+
+ Projektissa luodaan järjestelmä automaattisesti tarkastettavien TTK-91-konekielen
  harjoitustehtävien luomiseen ja ratkomiseen.
 
-Painopiste projektissa on opettajan ja opiskelijan käyttöliittymillä. Opettajan
-käyttöliittymän avulla määritellään tehtävät parametreineen ja kuinka opiskelijan
-ratkaisun oikeellisuus tarkistetaan. Opiskelijan käyttöliittymän avulla opiskelija
-valitsee tehtäviä, syöttää niiden ratkaisut ja saa palautetta vastauksensa oikeellisuudesta.
+ Painopiste projektissa on opettajan ja opiskelijan käyttöliittymillä. Opettajan
+ käyttöliittymän avulla määritellään tehtävät parametreineen ja kuinka opiskelijan
+ ratkaisun oikeellisuus tarkistetaan. Opiskelijan käyttöliittymän avulla opiskelija
+ valitsee tehtäviä, syöttää niiden ratkaisut ja saa palautetta vastauksensa oikeellisuudesta.
 
-Projekti käyttää valmiina olevaa Titokone-simulaattoria harjoitustehtävien ratkaisemiseen.
-**Projekti rakennetaan valmiina olevaan eAssari-kehykseen**, joka sopii geneerisiin
-automaattisesti tarkistettavien tehtävien määrittelyyn ja toteutukseen.
+ Projekti käyttää valmiina olevaa Titokone-simulaattoria harjoitustehtävien ratkaisemiseen.
+ **Projekti rakennetaan valmiina olevaan eAssari-kehykseen**, joka sopii geneerisiin
+ automaattisesti tarkistettavien tehtävien määrittelyyn ja toteutukseen.
 
----
+------------------------------------------------------------------------------------
 
-Tulemme käyttämään EAssarin tietokantaa sellaisenaan. EAssarin Displayer-osuuden 
-toteuttamme eri tavalla kuin se on EAssarin esimerkeissä toteutettu. Yleisesti ottaen 
-EAssari ei ole riittävän joustava monimutkaisten ja ylläpidettävien 
-webbisovellusten tekemiseen.
+Yleisesti ottaen EAssarin täysi käyttö projektissa ei ole mahdollista, koska koemme 
+dokumentaation riittämättömäksi (esim minkäänlaista integraatio-ohjetta ei ole olemassa)
+ja järjestelmän keskeneräiseksi. Lisäksi EAssarin tämän hetkinen versio ei ole riittävän 
+joustava tämän kaltaisten monimutkaisten ja ylläpidettävien webbisovellusten tekemiseen. 
+
+Käyttämme EAssarin tietokantaa sellaisenaan, koska se sopii luonnollisesti järjestelmän 
+tarkoitukseen. EAssarin Displayer-osuuden toteuttamme eri tavalla kuin se on EAssarin 
+esimerkeissä toteutettu. Eli kaiken HTML-sisällön tulostamiseen käytämme JSP-sivuja, 
+koska ne ovat mm. paremmin ylläpidettäviä. 
 
 EAssarin on ilmeisesti tarkoitus olla niin geneerinen, että uusien tehtävätyyppien
 luominen onnistuu pelkästään uudet Displayer ja Analyzer luokat määrittelemällä.
 Tämän projektin tarkoitus on kuitenkin luoda toimiva järjestelmä, ja tätä eAssari
 ei tue. Seuraavat asiat puuttuvat:
-- Käyttäjän rekisteröityminen     (kohahdus toteuttanut)
-- Käyttäjän tietojen muokkaaminen (kohahdus toteuttanut)
-- Käyttäjän kirjautuminen         (kohahdus toteuttanut)
-- Kurssien hallinnointi           (kohahdus toteuttanut)
-- Moduulien hallinnointi		  (moduuleja ei käytetä siinä laajudessa kuin EAssariin on suunniteltu)
-- Tehtävien selaaminen            (kohahdus toteuttanut)
-- Suoritustilastojen katsominen   (kohahdus toteuttaa)
+ - Käyttäjän rekisteröityminen     (kohahdus toteuttanut)
+ - Käyttäjän tietojen muokkaaminen (kohahdus toteuttanut)
+ - Käyttäjän kirjautuminen         (kohahdus toteuttanut)
+ - Kurssien hallinnointi           (kohahdus toteuttanut)
+ - Moduulien hallinnointi		  (moduuleja ei käytetä siinä laajudessa kuin EAssariin on suunniteltu)
+ - Tehtävien selaaminen            (kohahdus toteuttanut)
+ - Suoritustilastojen katsominen   (kohahdus toteuttaa)
 
 Nämä asiat on siis kohahdus projektin aikana toteuttu tai tullaan toteuttamaan,
 mutta vain siltä osin kuin TitoTrainer järjestelmä tarvitsee. EAssarin puuttuvien
@@ -35,8 +43,9 @@ ominaisuuksien toteuttaminen geneerisellä tavalla, siis siten että em. toiminnot
 olisivat käyttökelpoisia myös tulevien tehtävätyyppien kanssa, vaatisi kokonaan
 oman OhTu-projektin. Kun kohahdus-projektin määrä on tehdä myös toimiva järjestelmä
 TTK91-tehtävien määrittelyyn tarkistukseen, on selvää että EAssarin puutuuvia
-toimintoja ei voitu toteuttaa yleiskäyttöisesti.
+toimintoja ei voitu toteuttaa yleiskäyttöisesti. EAssari sinällään on hyvä idea 
+ja jatkossa järjestelmää varmasti kehitetään, mutta nykyiseen toteutukseen on kuitenkin
+liian epäkäytännöllistä liittää uusia järjestelmiä. 
 
----
 
 
