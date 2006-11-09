@@ -10,9 +10,8 @@ import fi.hu.cs.titokone.Control;
  *  
  * Tämä luokka toteutetaan toisessa iteraatiossa */
 public class TitoState {
-	private TTK91Core controller = new Control(new File("/dev/null"), new File("/dev/tty"));
+	private Control controller = new Control(new File("/dev/null"), new File("/dev/tty"));
 	private TTK91Application app;
-	
 	private TTK91Cpu cpu;
 	private TTK91Memory mem;
 
