@@ -159,53 +159,89 @@ provided by the SQL standard.} \\
 {\tt	private DBHandler()} \\
 Prevent youside instatiation by giving constructor private scope
 
-{\tt	public static synchronized DBHandler getInstance()} \\
+{\tt	public static DBHandler getInstance()} \\
 Return DBHandler instance\\
-	
-{\tt	public Task[] getTasks()} \\
+
+{\tt	private boolean init()} \\
+Initialize db connection pool\\
+
+{\tt	protected void release(Connection conn) throws SQLException} \\
+Closes db connection\\
+
+{\tt	protected Connection getConnection () throws SQLException} \\
+Load database driver if not already loaded\\
+
+{\tt	public LinkedList<Course> getCourses() throws SQLException} \\
+Returns all courses\\
+
+{\tt	public synchronized boolean createCourse(Course course) throws SQLException} \\
+Adds new course to database\\
+
+{\tt	private boolean addCourse(Course course) throws SQLException} \\
+Add new course to database. Does not check whether the course already exists in the DB.\\
+
+{\tt	public boolean removeCourse(String courseID) throws SQLException} \\
+Remove course from database (and thus all refering taskinmodules).\\
+
+{\tt	private boolean addModule(String courseID) throws SQLException} \\
+Add a default module to course.\\
+
+{\tt	private boolean addTaskInModule(String courseID, String taskID) throws SQLException} \\
+Adds a taskinmodule entry so that the task is linked with the course.\\
+
+{\tt	public LinkedList<Task> getTasks() throws SQLException} \\
 Return all tasks\\
 	
 {\tt	public Task getTask(String taskID)} \\
 Return task identified by taskID\\
 
-{\tt	public Criterion[] getCriteria(Task task)}\\
-Return the criteria of task\\
-	
-{\tt	public void createTask(Task task, Criterion[] criteria)} \\
+{\tt	public synchronized boolean createTask(Task task, List<Criterion> criteria) throws SQLException} \\
 Add new task to task database. The insert will affect all courses. This operation
 will also create the criteria for the task\\
-	
-{\tt	public void updateTask(Task task, Criterion[] criteria)} \\
+
+{\tt	public boolean addTask(Task task) throws SQLException} \\
+Adds a task to DB without any linkage to courses and modules\\
+
+{\tt	public boolean updateTask(Task task, List<Criterion> criteria) throws SQLException} \\
 Update existing task. The update will affect all courses. This operation
 will also update the criteria of the task.\\
 
-{\tt	public void removeTask(Task task)} \\
+{\tt	private boolean updateTask(Task task) throws SQLException}\\
+Updates a task to DB without modifying any courses or modules\\
+
+{\tt	public boolean removeTask(Task task)} \\
 Remove task from task database (and thus all courses). This will also remove all stored
 answers of the task.\\
 
+{\tt 		private boolean addCriterion(Task t, Criterion c)} \\
+Add criterion c to task. Helper for addTask(..) and updateTask(..)\\
+
+{\tt	private boolean updateCriterion(Task t, Criterion c) throws SQLException}\\
+Updates criterion c of task\\
+
+{\tt 		private void removeCriteria(Task t)} \\
+Remove criteria form task. Helper for removeTask(..) and updateTask(..)\\
+
+{\tt	public LinkedList<Criterion> getCriteria(Task task) throws SQLException}\\
+Return the criteria of task\\
+
+{\tt	public CriterionMap getCriteriaMap(Task task) throws SQLException}\\
+Return the criteria of a task in a map\\
+
 {\tt	public User[] getUsers(Course course) throws SQLException} \\
 Return all users who have attempted to solve at least one task of Course\\
-	
+
 {\tt	public User getUser(String userID, String password) throws SQLException} \\
-Return user identified by userID\\
+Return user identified by userID and password (login)\\
 
 {\tt	public User getUser(String userID) throws SQLException} \\
 Return user identified by userID\\
 
-{\tt	public void createUser(User user)} \\
-Add new user to user database\\
+{\tt	public boolean createUser(User user)} \\
+Add new user to user database. Does not check weather the user already exists in the DB.\\
 	
-{\tt	public void updateUser(User user)} \\
-Update existing user\\
-	
-%{\tt 		private void addCriterion(Task t, Criterion c)} \\
-%Add criterion c to task. Helper for addTask(..) and updateTask(..)\\
-	
-%{\tt 		private void removeCriteria(Task t)} \\
-%Remove criteria form task. Helper for removeTask(..) and updateTask(..)\\
-	
-%{\tt 		private void addTask(Course c, Task task)} \\
-%Add task to Course. Helper for addTask(..) and addCourse(..) \\
+{\tt	public boolean updateUser(User user)} \\
+Update existing user to DB with userID. Does not check weather the user exists or not.\\
 
 
 
