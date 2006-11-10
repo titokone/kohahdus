@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>TitoTrainer - Answer task</title>
+<script language="javascript" type="text/javascript" src="visibilityFunctions.js"></script>
+<script language="Javascript">
+
+var titokoneVisible = false;
+
+function showhideTitokoneReport() {
+	if(titokoneVisible == false) {
+		showElementById('titokone_report');
+		document.answerform.titokone_report_button.value = "Hide Titokone report";
+		titokoneVisible = true;
+	} else {
+		hideElementById('titokone_report');
+		document.answerform.titokone_report_button.value = "Show Titokone report";
+		titokoneVisible = false;
+	}
+}
+
+</script>
+</head>
+
+<body>
+
+<h2>"Task name"</h2>
+
+<table border="1" width="750" cellpadding="2">
+	<tr>
+		<td align="center" bgcolor="#6495ED"><b>Instructions</b></td>
+	</tr>
+	<tr>
+		<td>"Blah blah, blah, blah..."<br><br><br><br><br><br><br></td>
+	</tr>
+</table>
+
+<br>
+
+<form name="answerform">
+	<table border="1">
+		<tr>
+			<td colspan="2" align="center" bgcolor="#6495ED"><b>Simulator input</b></td>
+		</tr>
+		<tr>
+			<td width="80"><b>Keyboard&nbsp;</b></td>
+			<td><input name="input_keyboard" type="text" size="90" value=""></td>
+		</tr>
+	</table>
+
+	<br>
+
+	<table border="1" width="750" cellpadding="2">
+		<tr>
+			<td align="center" bgcolor="#6495ED"><b>Program code</b></td>
+		</tr>
+		<tr>
+			<td>
+				<div><b>"First part of a partial program."</b><br><br></div>
+				<textarea name="code" cols="90" rows="40"></textarea>
+				<div><br><b>"Second part of a partial program."</b></div>
+			</td>
+		</tr>
+	</table>
+
+	<br>
+
+	<input type="submit" value="Execute"> <input type="button" name="titokone_report_button" value="Show Titokone report" onclick="showhideTitokoneReport()">
+
+</form>
+
+<div id="titokone_report" style="display: none"><hr><b>Titokone report</b><br><br>..........</div>
+
+<hr>
+
+<table border="1" width="750" cellpadding="2">
+	<tr>
+		<td colspan="2" align="center" bgcolor="#6495ED"><b>Grading</b></td>
+	</tr>
+	<tr>
+		<td width="10%"><b>Grade</b></td>
+		<td width="90%">0% / 100% (?) Passed/Failed (?)</td>
+	</tr>
+	<tr>
+		<td width="10%"><b>Comments&nbsp;</b></td>
+		<td width="90%">"Blaaaaaaaaaaah."</td>
+	</tr>
+</table>
+
+<br>
+
+<table border="1" width="750" cellpadding="2">
+	<tr>
+		<td colspan="2" align="center" bgcolor="#6495ED"><b>Criteria</b></td>
+	</tr>
+	<tr>
+		<td width="10%"><b>Name</b></td>
+		<td width="90%">Comments</td>
+	</tr>
+	<tr>
+		<td width="10%"><b>Name</b></td>
+		<td width="90%">Comments</td>
+	</tr>
+</table>
+
+</body>
+</html>
