@@ -1,0 +1,40 @@
+II Iteraatio:
+
+Osajärjestelmät:
+Analyser:	 	Mikko & Jari
+Displayer: 		Taro & Markus
+Statistiikat: 	Tuomas & Taro
+Monikielisyys: 	Markus & Paula
+ 
+Paulalle tulisi lisäksi kälin ulkoasun viilaus ja javascript tarkistusten päivittäminen vastaamaan
+syötteet/tulosteet dokumentin asettamia vaatimuksia. Jos aikaa riittää, niin listausten järjestäminen
+javascriptillä olisi kiva.
+
+Ensimmäisen iteraation koodijako on edelleen voimassa muutosten osalta.
+
+
+I Iteraatio:
+
+kohahdus
+DBHandler:	Taro
+Log:		Taro
+
+kohahdus.trainer
+Task:		 Jari 
+Course:		 Jari 
+User:		 Jari
+*Comparator: Markus
+
+kohahdus.criteria
+TaskMaker:	Markus & Mikko
+kriteerit:	Mikko
+
+jsp
+Register:	Markus
+Login:		Taro
+ModifyUser:	Tuomas
+TaskListit:	Tuomas & Markus
+Composer:	Taro & Markus
+save_task:	Taro & Markus
+
+ 

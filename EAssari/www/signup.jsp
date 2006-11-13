@@ -15,6 +15,7 @@
 	function checkForm() {
 		var form = document.sign_up_form;
 		var returnvalue = true;
+		var emailExp = /([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;	// name followed by @ followed by domain
 
 		// remove old error messages
 		document.getElementById("first_name_error_msg_space").innerHTML = '';
@@ -76,6 +77,13 @@
 			returnvalue = false;
 		}
 
+
+		// e-mail address of wrong format
+		if((form.email.value != '') && (!emailExp.test(form.email.value))) {
+			var elem = document.getElementById("email_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Your e-mail address isn\'t of a valid format. A valid format would be e.g. user@cs.helsinki.fi</b></font>';
+			returnvalue = false;
+		}
 
 		// "password" and "repeat password" don't match and neither is empty
 		if((form.password.value != '') && (form.repeat_password.value != '') && (form.password.value != form.repeat_password.value)) {
