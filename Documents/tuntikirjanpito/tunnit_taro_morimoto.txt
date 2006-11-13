@@ -59,5 +59,11 @@ Taro Morimoto
 6.11.2006	SUUN	2	Suunnittelua
 7.11.2006	TOTE	1	Koodaamista
 7.11.2006	SUUN	3	Suunnittelua
+9.11.2006	KOKO	1.5	Palaveri
+9.11.2006	SUUN	2	Suunnittelua
+10.11.2006	SUUN	2	Suunnittelua
+13.11.2006	KOKO	1.5	Palaveri
+13.11.2006	SUUN	2	Suunnittelua
+13.11.2006	KALI	1	Kälisuunnittelua
 
 

@@ -136,7 +136,7 @@ function deleteCourse(courseName, courseID) {
 				<%-- TODO: add implementation for statisics and delete buttons --%>
 				<td bgcolor="#FFFFFF"><c:out value="${course.courseID}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${course.name}"/></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Statistics"></td>
+				<td bgcolor="#FFFFFF"><input type="button" value="Statistics" onClick="Javascript: goTo('showStatistics.jsp?courseID=<c:out value="${course.courseID}"/>');"></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="Javascript:deleteCourse('<c:out value="${course.name}"/>', '<c:out value="${course.courseID}"/>');"></td>
 			</tr>
 		</c:forEach>	
@@ -144,7 +144,7 @@ function deleteCourse(courseName, courseID) {
 	<form name="create_course_form" action="teacherTaskList.jsp" method="POST">
 	<input type="hidden" name="action" value="create_course">
 		<tr>
-			<td bgcolor="#FFFFFF">id dummy</td>
+			<td bgcolor="#FFFFFF" align="right">Course name</td>
 			<td bgcolor="#FFFFFF"><input type="text" name="new_course"></td>
 			<td bgcolor="#FFFFFF" colspan=2><input type="submit" name="create_course_button" value="Create new course"></td>
 		</tr>
@@ -162,10 +162,12 @@ function deleteCourse(courseName, courseID) {
 <p>
 <table border="0">
 	<tr>
-		<td><font size="+2"><b>Courses</b></font></td>
+		<td><font size="+2"><b>Tasks</b></font></td>
+		<!--
 		<td width="100">&nbsp;</td>
 		<td><input type="button" value="Create task" onclick="location.href = 'composer.jsp?task_id=EN_TEMPLATE&save_type=new'">
 		<td><input type="button" value="Create task in finnish" onclick="location.href = 'composer.jsp?task_id=FI_TEMPLATE&save_type=new'">
+		-->
 	</tr>
 </table>
 </p>
