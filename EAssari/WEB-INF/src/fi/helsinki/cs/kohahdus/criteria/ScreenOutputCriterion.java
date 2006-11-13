@@ -1,5 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.ResourceBundle;
+
 public class ScreenOutputCriterion extends Criterion {
 	private String expectedOutput = "";
 
@@ -10,6 +12,9 @@ public class ScreenOutputCriterion extends Criterion {
 		super(id, usesSecretInput);
 	}
 
+	@Override public String getName(ResourceBundle languageBundle) {
+		return languageBundle.getString(this.getId());
+	}	
 
 	@Override public boolean hasAcceptanceTest(boolean usingModelAnswer) {
 		return !expectedOutput.equals("");

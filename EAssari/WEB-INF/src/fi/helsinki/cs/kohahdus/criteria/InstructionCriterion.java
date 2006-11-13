@@ -1,5 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.ResourceBundle;
+
 /** Base class for banned and required opcode criteria */
 public abstract class InstructionCriterion extends Criterion {
 	private String opcodes = "";
@@ -11,6 +13,10 @@ public abstract class InstructionCriterion extends Criterion {
 	public InstructionCriterion(String id, boolean usesSecretInput) {
 		super(id, usesSecretInput);
 	}
+	
+	@Override public String getName(ResourceBundle languageBundle) {
+		return languageBundle.getString(this.getId());
+	}	
 
 	@Override public boolean hasAcceptanceTest(boolean usingModelAnswer) {
 		return !opcodes.equals("");
