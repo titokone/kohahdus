@@ -1,5 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.ResourceBundle;
+
 /** Concrete criterion class for register values */  
 public class RegisterCriterion extends VariableCriterion {
 	private int registerNumber;
@@ -15,6 +17,9 @@ public class RegisterCriterion extends VariableCriterion {
 		registerNumber = register;
 	}
 	
+	@Override public String getName(ResourceBundle languageBundle) {
+		return languageBundle.getString("REG") + " " + "R" + registerNumber;
+	}
 
 	@Override protected long getCriterionValue(TitoState answer) {
 		return answer.getRegister(registerNumber);

@@ -1,5 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.ResourceBundle;
+
 /** Base class for criteria that measure runtime or compile time values of the student's answer.
  * These can be used as pass-fail criteria and/or as quality evaluators.
  * @author mkinnune
@@ -16,6 +18,11 @@ public abstract class MeasuredCriterion extends Criterion {
 	public MeasuredCriterion(String id, boolean usesSecretInput) {
 		super(id, usesSecretInput);
 	}
+	
+	@Override public String getName(ResourceBundle languageBundle) {
+		return languageBundle.getString(this.getId());
+	}
+	
 
 	
 	@Override public boolean hasAcceptanceTest(boolean usingModelAnswer) {

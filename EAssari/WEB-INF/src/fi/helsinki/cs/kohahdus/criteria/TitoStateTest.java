@@ -21,7 +21,7 @@ public class TitoStateTest extends TestCase {
 		tito = new TitoState();
 		
 		String compileError = tito.compile(source);
-		String runError = tito.run(500);
+		String runError = tito.execute("", 500);
 		if ((compileError != null) || (runError != null)) {
 			System.out.println("Failed: " + compileError + runError);			
 		}		

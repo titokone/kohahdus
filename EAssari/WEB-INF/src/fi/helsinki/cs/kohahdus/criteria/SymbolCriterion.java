@@ -1,6 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 /** Concrete criterion class for symbol values */  
 public class SymbolCriterion extends VariableCriterion {
@@ -11,6 +12,10 @@ public class SymbolCriterion extends VariableCriterion {
 
 	public SymbolCriterion(String id, boolean usesSecretInput) {
 		super(id, usesSecretInput);
+	}
+
+	@Override public String getName(ResourceBundle languageBundle) {
+		return languageBundle.getString("SYM") + " " + symbolName;
 	}
 
 	

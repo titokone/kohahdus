@@ -6,9 +6,6 @@ import fi.helsinki.cs.kohahdus.criteria.TitoState;
 
 public class TitoAnalyzer {
 
-	public TitoAnalyzer() {
-	}
-	
 	
 	
 	public TitoFeedback Analyze(Task task, String programCode, String keyboardInput) {

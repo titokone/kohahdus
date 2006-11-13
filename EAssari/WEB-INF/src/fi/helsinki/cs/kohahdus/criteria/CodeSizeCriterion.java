@@ -1,5 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.ResourceBundle;
+
 /** Concrete criterion class for code size */  
 public class CodeSizeCriterion extends MeasuredCriterion {
 	

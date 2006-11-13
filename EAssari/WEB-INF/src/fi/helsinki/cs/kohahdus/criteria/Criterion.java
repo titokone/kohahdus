@@ -1,5 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.ResourceBundle;
+
 
 /** Base class for all criterion types. The many different types of criteria in
  * TitoTrainer are all used via the interface defined here. The analyzer component
@@ -79,6 +81,9 @@ public abstract class Criterion {
 		return id;
 	}
 
+	/** Return human-readable name of this criterion
+	 * @param languageBundle Language dependant parts of criterion names */
+	public abstract String getName(ResourceBundle languageBundle);	
 	
 	/** Return true if this criterion is to be used with secret input */
 	public boolean isSecretInputCriterion() {
