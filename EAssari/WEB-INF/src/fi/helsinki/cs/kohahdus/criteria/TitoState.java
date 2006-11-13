@@ -54,7 +54,7 @@ public class TitoState {
 	 * @param maxExecutionSteps maximum number instruction to execute (prevent inifinite loops)
 	 * @return runtime error message, <code>null</code> if no errors
 	 */
-	public String run(String keyboardInput, int maxExecutionSteps) {
+	public String execute(String keyboardInput, int maxExecutionSteps) {
 		try {
 			app.setKbd(keyboardInput);
 			controller.run(app, maxExecutionSteps);
@@ -88,9 +88,7 @@ public class TitoState {
 		return mem.getValue(address);
 	}
 	
-	/** Return memory address of specified symbol
-	 * @param symbolName Name of the symbol 
-	 * @return address or -1 if symbolName does not exist in the symbol table
+	/** Return symbol table that maps symbol names to symbol value addresses
 	 */
 	HashMap getSymbolTable() {
 		return mem.getSymbolTable();

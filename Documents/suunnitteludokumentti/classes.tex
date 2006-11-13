@@ -573,7 +573,20 @@ public class TitoState
 
 {\bf Capsulates the end-state of single run of TitoKone.
 
-This class will provide methods for querying the TitoKone end state.}\\
+This class will provide methods for exuting TTK91 programs and 
+querying the resulting TitoKone end state.}\\
+
+{\tt	public String compile(String sourceCode)}\\
+Compiles given source code. Returns compile time error message, or null if compilation succeeded 
+withour errors. If this method executes successfully (returns null), the program may be run with
+the run() method.\\
+@param sourceCode TKK91 program source code as single string\\
+
+{\tt	public String execute(String keyboardInput, int maxExecutionSteps)}\\
+Runs previously compiled program. Returns runtime error message, or null if the program
+ran to completion without errors.
+@param keyboardInput keyboard input for the program, as [ \n\r\t\f,.:;] separated list of numbers
+@param maxExecutionSteps maximum number instruction to execute (prevent inifinite loops)
 
 {\tt	int getRegister(int num)} \\
 Return contents of register Num (0 for "R0", etc)\\
@@ -581,8 +594,8 @@ Return contents of register Num (0 for "R0", etc)\\
 {\tt	int getMemoryLocation(int address)} \\
 Return contents of specified memory address\\
 	
-{\tt	int getSymbolAddress(String symbolName)} \\
-Return memory address of specified symbol\\
+{\tt	Map getSymbolTable()} \\
+Return symbol table that maps symbol names to symbol value addresses\\
 	
 {\tt	String getScreenOutput()} \\
 Return TitoKone output as String in format "1234, 1234, 1234". The returned string may be empty, but it is never null.\\
@@ -603,6 +616,7 @@ Return number of words in program's data-area\\
 Return number memory references made during program run. This number includes references caused by both data and instruction fetches\\
 	
 {\tt	String[] getUsedOpcodes()} \\
+TODO: rajapinta vielä miettimättä
 
 
 
