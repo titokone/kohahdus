@@ -546,13 +546,61 @@ Return name and id of this course as one String\\
 
 
 
+
+
 \subsection{TitoAnalyzer}
-public class TitoAnalyzer implements AnalyzerInterface
+public class TitoAnalyzer
 
-{\bf Class for analyzing tasks, required by eAssari. 
+{\bf Class for running TitoKone and analyzing student's answer.
 
-Designed and implemented in 2nd development iteration. }\\
+{\tt    public TitoFeedback Analyze(Task task, String programCode, String keyboardInput)} \\
+Analyzes student's answercode. Returns feedback from analysis.\\
 
+
+
+
+\subsection{TitoFeedback}
+public interface TitoFeedback
+
+{\bf Interface for feedback data.
+
+{\tt    public TitoState getTitoState()} \\
+Return the end-state of TitoKone run\\
+
+{\tt    public String getOverallFeedback()} \\
+Return the overall task feedback\\
+
+{\tt    public String getCompileError()} \\
+Return compile-time error message (null if no errors)\\
+
+{\tt    public String getRunError()} \\
+Return run-time error message (null if no errors)\\
+
+{\tt    public boolean wasSuccessful()} \\
+Return true if program was compiled and executed successfully, and all acceptance crietia were met\\
+
+{\tt    public java.util.List<TitoCriterionFeedback> getCriteriaFeedback()} \\
+Return a list criteria feedbacks\\
+
+
+
+
+\subsection{TitoCriterionFeedback}
+public class TitoCriterionFeedback
+
+{\bf Class for criterion feedback information.
+
+{\tt    public TitoCriterionFeedback(String name, String feedback, boolean success)} \\
+Creates a new instance of TitoCriterionFeedback.\\
+
+{\tt    public String getName()} \\
+Return criterion name.\\
+
+{\tt    public String getFeedback()} \\
+Return feedback of this criterion.\\
+
+{\tt    public boolean passedAcceptanceTest()} \\
+Return true if this criterion meets passing requirements.\\
 
 
 
@@ -563,7 +611,6 @@ public class TitoDisplayer implements DisplayerInterface
 {\bf Class for displaying tasks, required by eAssari. 
 
 Designed and implemented in 2nd development iteration. }\\
-
 
 
 

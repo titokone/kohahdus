@@ -4,12 +4,11 @@ import java.util.List;
 
 import fi.helsinki.cs.kohahdus.criteria.TitoState;
 
-public class TitoAnalyzer {
 
-	public TitoAnalyzer() {
-	}
+/** Class for running TitoKone and analyzing student's answer. */
+public class TitoAnalyzer {
 	
-	
+	/** Analyzes student's answercode. Returns feedback from analysis. */
 	public TitoFeedback Analyze(Task task, String programCode, String keyboardInput) {
 		TitoState state=new TitoState();
 		state.
