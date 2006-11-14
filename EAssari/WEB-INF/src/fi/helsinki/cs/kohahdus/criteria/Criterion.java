@@ -81,9 +81,15 @@ public abstract class Criterion {
 		return id;
 	}
 
-	/** Return human-readable name of this criterion
+	/** Return human-readable name of this criterion. The name will be retreived from
+	 * languageBundle, using Criterion ID as key. 
+	 * @see SymbolCriterion#getName(ResourceBundle)
+	 * @see RegisterCriterion#getName(ResourceBundle)
 	 * @param languageBundle Language dependant parts of criterion names */
-	public abstract String getName(ResourceBundle languageBundle);	
+	public String getName(ResourceBundle languageBundle) {
+		return languageBundle.getString(this.getId());		
+	}
+	
 	
 	/** Return true if this criterion is to be used with secret input */
 	public boolean isSecretInputCriterion() {

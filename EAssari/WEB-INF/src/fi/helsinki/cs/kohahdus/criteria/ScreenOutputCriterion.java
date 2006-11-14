@@ -12,10 +12,6 @@ public class ScreenOutputCriterion extends Criterion {
 		super(id, usesSecretInput);
 	}
 
-	@Override public String getName(ResourceBundle languageBundle) {
-		return languageBundle.getString(this.getId());
-	}	
-
 	@Override public boolean hasAcceptanceTest(boolean usingModelAnswer) {
 		return !expectedOutput.equals("");
 	}

@@ -25,6 +25,7 @@ toXML(String, boolean)						1/1				1/1
 parseXMLLong(String, String)				5/5				1/1
 parseXMLString(String, String)				7/7				0/0
 parseXMLBoolean(String, String)				2/2				1/1
+getName(ResourceBundle)						-/-				-/-
 
 
 MeasuredCriterion
@@ -104,6 +105,7 @@ RegisterCriterion(String, boolean, int)
 getCriterionValue(TitoState)
 serializeSubClass()							2/2				0/0
 initSubClass(String)						2/2				0/0
+getName(ResourceBundle)						-/-				-/-
 
 SymbolCriterion
 -----------------
@@ -114,6 +116,7 @@ getSymbolName()								1/1				0/0
 getCriterionValue(TitoState)				
 serializeSubClass()							2/2				0/0
 initSubClass(String)						2/2				0/0
+getName(ResourceBundle)						-/-				-/-
 
 
 InstructionCriterion

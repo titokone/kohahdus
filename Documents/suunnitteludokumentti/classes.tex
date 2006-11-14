@@ -475,8 +475,6 @@ Set password of this user to Pass\\
 {\tt	public void setLanguage(String lang)} \\ 
 Set the preferred language of this user. The language is either "EN" or "FI\\
 
-
-
 {\tt	public String getUserID()} \\ 
 Return userID of this user\\
 
@@ -525,7 +523,7 @@ Return false if str is null or empty "" string\\
 
 
 \subsection{Course}
-public class Course {
+public class Course
 
 {\bf Simple class for holding basic course information}\\
 
@@ -551,7 +549,7 @@ Return name and id of this course as one String\\
 \subsection{TitoAnalyzer}
 public class TitoAnalyzer
 
-{\bf Class for running TitoKone and analyzing student's answer.
+{\bf Class for running TitoKone and analyzing student's answer}\\
 
 {\tt    public TitoFeedback Analyze(Task task, String programCode, String keyboardInput)} \\
 Analyzes student's answercode. Returns feedback from analysis.\\
@@ -562,7 +560,7 @@ Analyzes student's answercode. Returns feedback from analysis.\\
 \subsection{TitoFeedback}
 public interface TitoFeedback
 
-{\bf Interface for feedback data.
+{\bf Interface for feedback data}\\
 
 {\tt    public TitoState getTitoState()} \\
 Return the end-state of TitoKone run\\
@@ -588,19 +586,19 @@ Return a list criteria feedbacks\\
 \subsection{TitoCriterionFeedback}
 public class TitoCriterionFeedback
 
-{\bf Class for criterion feedback information.
+{\bf Class for criterion feedback information}\\
 
 {\tt    public TitoCriterionFeedback(String name, String feedback, boolean success)} \\
 Creates a new instance of TitoCriterionFeedback.\\
 
 {\tt    public String getName()} \\
-Return criterion name.\\
+Return criterion name\\
 
 {\tt    public String getFeedback()} \\
-Return feedback of this criterion.\\
+Return feedback of this criterion\\
 
 {\tt    public boolean passedAcceptanceTest()} \\
-Return true if this criterion meets passing requirements.\\
+Return true if this criterion meets passing requirements\\
 
 
 
@@ -621,7 +619,7 @@ public class TitoState
 {\bf Capsulates the end-state of single run of TitoKone.
 
 This class will provide methods for exuting TTK91 programs and 
-querying the resulting TitoKone end state.}\\
+querying the resulting TitoKone end state}\\
 
 {\tt	public String compile(String sourceCode)}\\
 Compiles given source code. Returns compile time error message, or null if compilation succeeded 
@@ -631,12 +629,13 @@ the run() method.\\
 
 {\tt	public String execute(String keyboardInput, int maxExecutionSteps)}\\
 Runs previously compiled program. Returns runtime error message, or null if the program
-ran to completion without errors.
-@param keyboardInput keyboard input for the program, as [ \n\r\t\f,.:;] separated list of numbers
-@param maxExecutionSteps maximum number instruction to execute (prevent inifinite loops)
+ran to completion without errors.\\
+@param keyboardInput keyboard input for the program, as [ $\backslash$n$\backslash$r$\backslash$t$\backslash$f,.:;] separated list of numbers\\
+@param maxExecutionSteps maximum number instruction to execute (prevent inifinite loops)\\
 
-{\tt	int getRegister(int num)} \\
-Return contents of register Num (0 for "R0", etc)\\
+{\tt	int getRegister(int registerCode)} \\
+Return contents of register\\
+@param registerCode TKK91Cpu.REG\_*\\
 
 {\tt	int getMemoryLocation(int address)} \\
 Return contents of specified memory address\\

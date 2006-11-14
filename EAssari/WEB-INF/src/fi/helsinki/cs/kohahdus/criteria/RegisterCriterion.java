@@ -16,7 +16,11 @@ public class RegisterCriterion extends VariableCriterion {
 		}		
 		registerNumber = register;
 	}
-	
+
+	/** Return human-readable name of this criterion. Unlike other Criterion types, 
+	 * this does not lookup the languageBundle with it's ID, but with a constant
+	 * String "REG". Space and register number are appended to the string returned
+	 * by the bundle. */
 	@Override public String getName(ResourceBundle languageBundle) {
 		return languageBundle.getString("REG") + " " + "R" + registerNumber;
 	}
