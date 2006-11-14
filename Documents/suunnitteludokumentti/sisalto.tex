@@ -114,7 +114,12 @@ lisäksi näytetään palautetta ratkaisun onnistumisesta/epäonnistumisesta.
 
 Tehtävään vastaaminen toteutetaan toisessa kehitysiteraatiossa.
 
+\subsection{Monikielisyys}
+Opiskelijan käyttöliittymä toteutetaan suomen- ja englanninkielisenä. Opiskelija
+valitsee rekisteröitymisen yhteydessä järjestelmän oletuskielen. Kirjautuessaan 
+järjestelmään opiskelija voi halutessaan vaihtaa kielen toiseksi.
 
+Opettajan käyttöliittymä toteutetaan ainoastaan englanniksi.  
 
 
 
@@ -230,9 +235,64 @@ taululle mitään käyttöä, joten se jää täysin käyttämättä.
 \subsection{Pluginparamattributes}
 Kuten pluginparameters, jää käyttämättä.
 
+\section{Monikielisyys}
+Järjestelmän monikielisyys toteutetaan helposti ylläpidettävien xml-tiedostojen avulla.
+Järjestelmää käynnistettäessä ladataan automaattisesti kaikki kieliriipuvaiset resurssit,
+jolloin ne ovat jsp-sivujen käytettävissä yksinkertaisen rajapinnan kautta. Toteutuksessa
+pyritään mahdollistamaan uusien kielivaihtoehtojen lisääminen vähällä vaivalla.
 
+\subsection{xml-tiedostot}
+Järjestelmä käyttää yksittäistä xml-tiedostoa yhden jsp-sivun sisältämän kieliriippuvaisen
+datan tallentamiseen. Sivukohtaisen tiedoston rakenne on seuraava:
 
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment></comment>
+	<entry key="kentänNimi_KIELI">resurssin sisältö kielellä 1</entry>
+	<entry key="kentänNimi_KIELI2">resurssin sisältö kielellä 2</entry>
+</properties>
+\end{verbatim}
 
+Kielikohtainen data lisätään <entry> tagien avulla. Key arvoksi asetetaan resurssin nimi ja 
+suffiksiksi kieli (\_FI, \_EN). JSP sivulla näkyvä sisältö kirjoitetaan tagien väliin.
+
+Sivukohtaisten tiedostojen hallinnointi keskitetään xml-muotoiseen konfiguraatiotiedostoon.
+Tässä tiedostossa määritellään järjestelmää käynnistettäessä ladattavat resurssit.
+Konfiguraatiotiedoston rakenne on seuraava:
+
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment></comment>
+	<entry key="jsp-sivu1">/tiedosto/polku/tdsto_nimi.xml</entry>
+	<entry key="jsp-sivu2">/tiedosto/polku/tdsto_nimi.xml</entry>
+</properties>
+\end{verbatim}
+
+\subsection{Monikielisyyden hallinnointi}
+Kielipakettien hallinnointiin luodaan luokka LanguageManager. Luokka lukee järjestelmän
+käynnistymisen yhteydessä ylläkuvatun xml-konfiguraatiotiedoston ja alustaa siinä määritellyt 
+kielipaketit. Lisäksi luokka tarjoaa rajapinnan kielipakettien hakuun.
+
+Yksittäisen kielipaketin toteuttaa luokka TitoBundle, joka periytyy java.util.ResourceBundle
+luokasta. ResourceBundle luokkaa ei tosin käytetä täysin API:n mukaisesti, koska kielipakettien
+lataaminen hoidetaan sen sijasta LanguageManager luokan avulla. TitoBundle luokka säilöö yksittäisen 
+xml-tiedoston sisällön hajautustauluun java.util.Properties luokan avulla. 
+
+\subsection{Monikielisyyden käyttö jsp-sivulta}
+Kielivaihtoehtojen lisääminen jsp-sivuille hoituu seuraavasti. Sivua ladattaessa tarkistetaan 
+sessiosta haluttu kieli ja pyydetään LanguageManager luokalta kielipakettia getTextResource metodilla.
+Parametreina välitetään kieli ja jsp-sivun nimi. Metodin palauttaman kielipaketin metodilla
+getString voidaan hakea tarvittava kieliriippuvainen data.
+
+\begin{figure}[ht]
+	\includegraphics[width=15cm] {sekvenssikaaviot/Kielen_haku_jspsivulta.eps}
+	\caption{Kielipaketin käyttö jsp-sivulta}
+\end{figure}
+\newpage
 
 \section{Luokat}
 \input{classes}
@@ -254,27 +314,27 @@ kirjautumislomakkeeseen katkaisee kuvatun sekvenssin ja palauttaa käyttäjälle
 virheilmoituksen. 
 
 
-\subsection{Signup.jsp}
+\subsection{Register.jsp}
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Käyttäjän_luominen.eps}
 	\caption{Käyttäjän rekisteröityminen}
 \end{figure}
-\newpage
 
-\subsection{ModifyUser.jsp}
+\newpage
+\subsection{Modify\_user.jsp}
 \begin{figure}[h!]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Käyttäjätietojen_muokkaaminen.eps}
 	\caption{Käyttäjätietojen muokkaaminen}
 \end{figure}
-\newpage
 
+\newpage
 \subsection{Login.jsp}
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Login.eps}
 	\caption{Kirjautuminen}
 \end{figure}
-\newpage
 
+\newpage
 \subsection{TeacherTaskList.jsp}
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Kurssinluonti.eps}
@@ -282,66 +342,59 @@ virheilmoituksen.
 \end{figure}
 
 
+
 \subsection{StudentTaskList.jsp}
 Ei kaaviota. Sisältää vain opiskelijan tehtävälistauksen. 
-\newpage
 
-
-\subsection{CourseStatistics.jsp}
-\begin{figure}[ht]
-	\includegraphics[width=15cm] {muut_kaaviot/statistiikka_course_tasks.eps}
-	\caption{Kurssin suoritustilastot opettajalle}
-\end{figure}
-\newpage
-
+\subsection{Report.jsp}
+Toteutetaan ja suunnitellaan toisessa iteraatiossa
 
 \subsection{UserInfo.jsp}
-\begin{figure}[ht]
-	\includegraphics[width=15cm] {muut_kaaviot/statistiikka_user_info.eps}
-	\caption{statistiikka user info}
-\end{figure}
+Toteutetaan ja suunnitellaan toisessa iteraatiossa
+
+
 \newpage
-%\begin{figure}[ht]
-%	\includegraphics[width=15cm] {muut_kaaviot/statistiikka_sivut.eps}
-%	\caption{statistiikka sivut}
-%\end{figure}
-%\newpage
-
-
-\subsection{SearchUsers.jsp}
-\begin{figure}[ht]
-	\includegraphics[width=15cm] {muut_kaaviot/statistiikka_search_users.eps}
-	\caption{Käyttäjähaku opettajalle}
-\end{figure}
-\newpage
-
-
 \subsection{Composer.jsp}
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Taskinluonti.eps}
 	\caption{Tehtävän luominen}
 \end{figure}
 \newpage
-
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Taskin_muokkaaminen.eps}
 	\caption{Tehtävän muokkaaminen}
 \end{figure}
+
+
 \newpage
-
-
 \subsection{Answer-servlet}
 Toteutetaan ja suunnitellaan toisessa iteraatiossa
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Tehtävän_tarkistus.eps}
 	\caption{Kriteerin tarkistus ja palautteen määräytyminen}
 \end{figure}
-\newpage
 
 
 
 
 
+
+\begin{figure}[ht]
+	\includegraphics[width=15cm] {muut_kaaviot/statistiikka_course_tasks.eps}
+	\caption{statistiikka course tasks}
+\end{figure}
+\begin{figure}[ht]
+	\includegraphics[width=15cm] {muut_kaaviot/statistiikka_search_users.eps}
+	\caption{statistiikka search users}
+\end{figure}
+\begin{figure}[ht]
+	\includegraphics[width=15cm] {muut_kaaviot/statistiikka_sivut.eps}
+	\caption{statistiikka sivut}
+\end{figure}
+\begin{figure}[ht]
+	\includegraphics[width=15cm] {muut_kaaviot/statistiikka_user_info.eps}
+	\caption{statistiikka user info}
+\end{figure}
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {muut_kaaviot/yleiskuva1.eps}
 	\caption{yleiskuva1}
