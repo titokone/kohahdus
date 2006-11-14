@@ -19,8 +19,8 @@ import java.sql.*;
 
 /**
  * This servlet is called from student's task answer jsp-page.
- * It receives the answer and the task id in the request.
- * The task and the criteria are fetched from the database.
+ * It receives the answer in the request.
+ * The task and the criteria are fetched from the session.
  * Student's answer is then analyzed by the Analyzer and the 
  * result is stored into database. Finally the execution is redirected
  * to the student's task answer jsp-page.  

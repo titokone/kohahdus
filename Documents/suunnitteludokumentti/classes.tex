@@ -247,6 +247,9 @@ Add new user to user database. Does not check weather the user already exists in
 {\tt	public boolean updateUser(User user)} \\
 Update existing user to DB with userID. Does not check weather the user exists or not.\\
 
+{\tt 	public void removeStudentAnswers(String userID)} \\
+Removes all student's answers from database (studentmodel and storedanswer).\\
+
 {\tt	public String[][] getAnswerStatistics(String courseID)} \\
 Returns a two dimensional matrix of stored answers (table studentmodel) 
 of tasks and student names.\\
@@ -264,6 +267,7 @@ a hashtable with columns as entries.\\
 									   String lang, Feedback feedback) throws SQLException } \\
 Stores the answer of the student into database table storedanswer. 
 Also stores the state of the student's answered task into table studentmodel.\\
+
 
 
 
