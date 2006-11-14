@@ -10,8 +10,10 @@ public class TitoAnalyzer {
 	
 	/** Analyzes student's answercode. Returns feedback from analysis. */
 	public TitoFeedback Analyze(Task task, String programCode, String keyboardInput) {
+		int maxInstructions=task.getMaximumNumberOfInstructions();
 		TitoState state=new TitoState();
-		//state.
+		state.compile(programCode);
+		state.execute(keyboardInput, maxInstructions);
 		
 		return new TitoAnalyzerFeedback();
 	}
