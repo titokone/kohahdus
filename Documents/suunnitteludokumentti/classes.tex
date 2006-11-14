@@ -247,8 +247,8 @@ Add new user to user database. Does not check weather the user already exists in
 {\tt	public boolean updateUser(User user)} \\
 Update existing user to DB with userID. Does not check weather the user exists or not.\\
 
-{\tt 	public void removeStudentAnswers(String userID)} \\
-Removes all student's answers from database (studentmodel and storedanswer).\\
+{\tt 	public void removeUser(String userID)} \\
+Removes all student's answers and records from database (studentmodel, storedanswer and eauser).\\
 
 {\tt	public String[][] getAnswerStatistics(String courseID)} \\
 Returns a two dimensional matrix of stored answers (table studentmodel) 

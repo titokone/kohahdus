@@ -12,6 +12,8 @@
 
 <h2>Pekka Pekkala</h2>
 
+<a href="#">Poista käyttäjä</a><br>
+
 <h3>Henkilötiedot</h3>
 <ul>
 <li>Henkilötunnus: 9813475-1242
