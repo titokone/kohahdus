@@ -10,8 +10,7 @@
 
 <script language="Javascript">
 
-/* Function to check the validity of form inputs that can be checked client-side - called on submit event. */
-
+	/* Function to check the validity of form inputs that can be checked client-side - called on submit event. */
 	function checkForm() {
 	
 		var form = document.modify_user_form;
@@ -68,12 +67,19 @@
 		}
 
 		// student number of wrong format
-		if((form.student_number.value != '') && (form.student_number.value.length != 9 || !stringContainsOnlyNumbers(form.student_number.value))) {
+		if((form.student_number.value != '') && (!studentNumberValid(form.student_number.value))) {
 			var elem = document.getElementById("student_number_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Your student number is either of wrong length or contains non-numeric characters.</b></font>';
+			elem.innerHTML = '<font color="#FF0000"><b>Your student number is of wrong format.</b></font>';
 			returnvalue = false;
 		}
 
+		// social security number of wrong format
+		if((form.social_security_number.value != '') && (!socialSecurityNumberValid(form.social_security_number.value))) {
+			var elem = document.getElementById("ssn_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Social security number must be of Finnish format.</b></font>';
+			returnvalue = false;
+		}
+		
 		// e-mail address of wrong format
 		if((form.email.value != '') && (!emailExp.test(form.email.value))) {
 			var elem = document.getElementById("email_error_msg_space");
@@ -92,16 +98,85 @@
 		return returnvalue;
 	}
 
-	/* Function to check if the string given as a parameter contains only numeric characters. */
-  function stringContainsOnlyNumbers(aString) {
+	/* Function to check if student number is of valid format. */
+	function studentNumberValid(numberString) {
+		var weights = new Array(7, 3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1);
+		var numberLength = numberString.length - 1;
+		var sum = 0;
+		var checkSymbol = numberString.charAt(numberLength);
 
-		for (var charCounter = 0; charCounter < aString.length; charCounter++) {
-			if(isNaN(aString.charAt(charCounter)) || aString.charAt(charCounter) == ' '.charAt(0)) {	// JS interprets white space as numeric
+		if((checkSymbol <'0') || (checkSymbol > '9')) {
+			return false;
+		}
+
+		var checkNumber = Number(checkSymbol);
+
+		numberLength--;
+
+		// check that student number contains only digits and sum for calculating correct checkNumber
+		for (var counter = 0; counter <= numberLength; counter++) {
+			var singleDigit = numberString.charAt(numberLength - counter);
+			if((singleDigit <'0') || (singleDigit > '9')) {
+				return false;
+			}
+			sum += weights[counter] * Number(singleDigit);
+		}
+
+		var last = sum % 10;
+
+		var correctCheck = 0;
+
+		if(last == 0) {
+			correctCheck = 0;
+		} else {
+			correctCheck = 10 - last;
+		}
+
+		if(correctCheck != checkNumber) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/* Function to check if social security number is of valid format. */
+	function socialSecurityNumberValid(ssn) {
+		ssn = ssn.toUpperCase();
+		var checkSymbolArray = "0123456789ABCDEFHJKLMNPRSTUVWXY";
+
+		// wrong length
+		if(ssn.length != 11) {
+			return false;
+		}
+
+		// Finnish social security number is of format ddmmyyNxxxS, in which ddmmyy is birthday, N separator character, 
+		// xxx individual number and S checking symbol.
+		var separator = ssn.charAt(6);
+
+		// - for those born in 20th century and A for those born in 21st
+		if((separator == '-') || (separator == 'A')) {
+       			ssnWithoutSeparatorAndCheck = ssn.substring(0, 6) + ssn.substring(7, ssn.length-1);
+		} else {
+			return false;
+		}
+
+		// Must contain only numbers
+		for (var counter = 0; counter < h.length; counter++) { 
+			if ((ssnWithoutSeparatorAndCheck.charAt(counter) < '0') || (ssnWithoutSeparatorAndCheck.charAt(counter)>'9')) {
 				return false;
 			}
 		}
 
-		return true;
+		// check symbol is calculated by treating everything else as a 9-digit number and taking a modulo 31
+		var numberToDivide = Number(ssnWithoutSeparatorAndCheck);
+		var checkSymbol = ssn.charAt(ssn.length-1);
+		var mod31= numberToDivide % 31;
+
+		if(checkSymbol != checkSymbolArray.charAt(mod31)){
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 </script>
