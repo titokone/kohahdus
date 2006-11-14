@@ -161,7 +161,7 @@
 		}
 
 		// Must contain only numbers
-		for (var counter = 0; counter < h.length; counter++) { 
+		for (var counter = 0; counter < ssnWithoutSeparatorAndCheck.length; counter++) { 
 			if ((ssnWithoutSeparatorAndCheck.charAt(counter) < '0') || (ssnWithoutSeparatorAndCheck.charAt(counter)>'9')) {
 				return false;
 			}
