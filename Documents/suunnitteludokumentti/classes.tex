@@ -683,11 +683,43 @@ Return number of words in program's data-area\\
 Return number memory references made during program run. This number includes references caused by both data and instruction fetches\\
 	
 {\tt	String[] getUsedOpcodes()} \\
-TODO: rajapinta vielä miettimättä
+TODO: rajapinta vielä miettimättä \\
+
+\subsection{LanguageManager}
+public class LanguageManager
+
+{\tt	private static HashMap<String, ResourceBundle> bundles } \\
+Stores all initialized ResourceBundles. \\	
+	 
+{\tt	public static synchronized void loadTextResources(String propertiesFile) }\\
+Initializes all resources specified in parameter file, which contains filenames of 
+all resources to be loaded in XML format. \\
+	
+{\tt	public static ResourceBundle getTextResource(String lang, String page) }\\
+Returns a ResourceBundle object containing all language specific data 
+on a single JSP page. \\
 
 
 
+\subsection{TitoBundle}
+public class TitoBundle extends ResourceBundle 
 
+{\tt	private Properties xmlData} \\
+Stores data from xml-file \\
+
+{\tt	private String language} \\
+Language of returned data \\
+	
+
+{\tt	public TitoBundle(Properties data, String lang) }\\	
+Initalize a new TitoBundle, which returns data from Properties object in a given language \\
+
+{\tt	protected Object handleGetObject(String key)}\\
+Returns an object, which matches the key, from xmlData. It's preferable to 
+use getString method from parent class instead \\
+
+{\tt	public Enumeration<String> getKeys()} \\
+Returns all available key values \\
 
 
 
