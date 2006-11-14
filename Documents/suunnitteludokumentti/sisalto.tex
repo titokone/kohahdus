@@ -93,9 +93,12 @@ Kurssin statistiikka toteutetaan toisessa kehitysiteraatiossa.
 
 \subsection{Käyttäjän tiedot (opettaja)}
 Käyttäjän statistiikkasivulla opettajalle näytetään opiskelijan tarkemmat tiedot.
-Listassa näkyy salasanaa lukuunottamatta kaikki rekisteröintitiedot.
+Henkilötiedoissa näytetään salasanaa lukuunottamatta kaikki rekisteröintitiedot.
+Sivu sisältää myös napin, jota käyttämällä opettaja voi poistaa käyttäjän järjestelmästä.
 
-Käyttäjän tiedot toteutetaan toisessa kehitysiteraatiossa.
+\subsection{Käyttäjien haku (opettaja)}
+Hakusivulla opettaja voi etsiä nimen perustella käyttäjiä, ja siirtyä käyttäjätietosivulle
+tarkastelemaan käyttäjän tarkempia tietoja.
 
 \subsection{Tehtävien valinta (opiskelija)}
 Kirjautumisen jälkeen opiskelijalle näytetään tehtävälista, josta opiskelija voi valita
@@ -337,17 +340,18 @@ virheilmoituksen.
 	\includegraphics[width=15cm] {sekvenssikaaviot/Login.eps}
 	\caption{Kirjautuminen}
 \end{figure}
+
+
+\subsection{StudentTaskList.jsp}
+Ei kaaviota. Sisältää vain opiskelijan tehtävälistauksen. 
+
 \newpage
 
 \subsection{TeacherTaskList.jsp}
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Kurssinluonti.eps}
-	\caption{Kurssin luominen}
+	\caption{Kurssin luominen ja tehtävien lisääminen luotuun kurssiin}
 \end{figure}
-
-
-\subsection{StudentTaskList.jsp}
-Ei kaaviota. Sisältää vain opiskelijan tehtävälistauksen. 
 \newpage
 
 
@@ -367,7 +371,7 @@ Ei kaaviota. Sisältää vain opiskelijan tehtävälistauksen.
 \newpage
 %\begin{figure}[ht]
 %	\includegraphics[width=15cm] {muut_kaaviot/statistiikka_sivut.eps}
-%	\caption{statistiikka sivut}
+%	\caption{statistiikka sivut (rikkoo layoutin!}
 %\end{figure}
 %\newpage
 
