@@ -11,7 +11,7 @@ public class TitoAnalyzer {
 	/** Analyzes student's answercode. Returns feedback from analysis. */
 	public TitoFeedback Analyze(Task task, String programCode, String keyboardInput) {
 		TitoState state=new TitoState();
-		state.
+		//state.
 		
 		return new TitoAnalyzerFeedback();
 	}
