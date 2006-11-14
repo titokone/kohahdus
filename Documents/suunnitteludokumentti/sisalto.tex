@@ -25,15 +25,14 @@ Explorer-selaimilla.
 
 
 
-
+\newpage
 \section{Sanasto}
-
 \input{termit}
 
 
 
 
-
+\newpage
 \section{Toiminnot}
 
 Tämä luku kuvaa järjestelmän HTML-sivut ja sen, mitä toimintoja ne tarjoavät käyttäjälle.
@@ -122,7 +121,7 @@ järjestelmään opiskelija voi halutessaan vaihtaa kielen toiseksi.
 Opettajan käyttöliittymä toteutetaan ainoastaan englanniksi.  
 
 
-
+\newpage
 \section{Arkkitehtuurisuunnitelma}
 
 Järjestelmä on jaettu kahteen osajärjestelmään, Titokone ja eAssari/TitoTrainer. Ideaalitapaus
@@ -149,7 +148,7 @@ asioiksi.
 
 
 
-
+\newpage
 \section{Tietokanta}
 
 \begin{figure}[ht]
@@ -157,7 +156,7 @@ asioiksi.
 	\caption{Tietokantakaavio}
 \end{figure}
 
-Tietokannan rakenteen määrää eAssari kehys. Rakenne on kuvattu liitteessä 1. Ajanpuutteesta johtuen
+Tietokannan rakenteen määrää eAssari kehys. Rakenne on kuvattu kuvassa 1. Ajanpuutteesta johtuen
 module-tietokantataulua ei tulla käyttämään sen mahdollistamassa laajuudessa. Kyseisestä taulusta
 luodaan vain yksi rivi kantaan, johon sitten viitataan muista tauluista. Lisäksi jokainen tehtävä
 sisältyy jokaiseen kurssiin. Eli kun tehtävä luodaan, niin se liitetään jokaiseen kurssiin. Lisäksi 
@@ -235,6 +234,9 @@ taululle mitään käyttöä, joten se jää täysin käyttämättä.
 \subsection{Pluginparamattributes}
 Kuten pluginparameters, jää käyttämättä.
 
+
+
+\newpage
 \section{Monikielisyys}
 Järjestelmän monikielisyys toteutetaan helposti ylläpidettävien xml-tiedostojen avulla.
 Järjestelmää käynnistettäessä ladataan automaattisesti kaikki kieliriipuvaiset resurssit,
@@ -250,8 +252,8 @@ datan tallentamiseen. Sivukohtaisen tiedoston rakenne on seuraava:
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment></comment>
-	<entry key="kentänNimi_KIELI">resurssin sisältö kielellä 1</entry>
-	<entry key="kentänNimi_KIELI2">resurssin sisältö kielellä 2</entry>
+	<entry key="kentänNimi_EN">kentän sisältö englannin kielellä</entry>
+	<entry key="kentänNimi_FI">kentän sisältö suomen kielellä</entry>
 </properties>
 \end{verbatim}
 
@@ -292,8 +294,10 @@ getString voidaan hakea tarvittava kieliriippuvainen data.
 	\includegraphics[width=15cm] {sekvenssikaaviot/Kielen_haku_jspsivulta.eps}
 	\caption{Kielipaketin käyttö jsp-sivulta}
 \end{figure}
-\newpage
 
+
+
+\newpage
 \section{Luokat}
 \input{classes}
 
