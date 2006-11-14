@@ -259,6 +259,12 @@ with first or lastname in the eauser table.\\
 Returns a list of tasks that student has answered. Each task on the list is 
 a hashtable with columns as entries.\\
 
+{\tt	public String storeStateAndAnswer(boolean shouldStore, User student, String courseId, 
+									   String taskID, String[] answers, boolean accepted,
+									   String lang, Feedback feedback) throws SQLException } \\
+Stores the answer of the student into database table storedanswer. 
+Also stores the state of the student's answered task into table studentmodel.\\
+
 
 
 
