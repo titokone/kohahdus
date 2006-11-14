@@ -15,36 +15,114 @@ import fi.helsinki.cs.kohahdus.criteria.*;
 /** Class for running TitoKone and analyzing student's answer. */
 public class TitoAnalyzer {
 	private TitoState state;
+	private TitoState stateTeacherPublic;
+	private TitoState stateTeacherSecret;
 	
-	//KONSTRUKTORI
+	//CONSTRUCTOR
 	public TitoAnalyzer() {
 	}
 	
-	//METODI
+	//METHOD
 	/** Analyzes student's answercode. Returns feedback from analysis. */
 	public TitoFeedback Analyze(Task task, List<Criterion> criteria, String programCode, String keyboardInput) {
 		
-		//Create general data
+		//Create general data.
 		int maxInstructions=task.getMaximumNumberOfInstructions();
-		state=new TitoState();
 		TitoAnalyzerFeedback feedback=new TitoAnalyzerFeedback();
 		
-		//compile the code, check if errors
+		//TEACHER
+		//Check if task is validated by model answer
+		//if so, creates new TitoState for teacher
+		if (task.isValidateByModel()) {
+			
+			//First let's set the program code
+			String programCodeTeacher;
+			//Check if task is fill-in or programming task.
+			if (task.isFillInTask()) {
+				programCodeTeacher=task.getFillInPreCode();
+				programCodeTeacher+=task.getModelAnswer();
+				programCodeTeacher+=task.getFillinPostCode();
+			} else {
+				programCodeTeacher=task.getModelAnswer();
+			}
+			
+			//First public let's run the code with public input
+			stateTeacherPublic=new TitoState();
+			//Compile the code, check if errors.
+			String compileResult=stateTeacherPublic.compile(programCodeTeacher); //compile program with TitoKone
+			if (!compileResult.equals(null)) {
+				feedback.setCompileError(compileResult);
+				return feedback;
+			}
+			//Execute the successfully compiled code.
+			String runResult=stateTeacherPublic.execute(task.getPublicInput(), maxInstructions); //run the compiled program in TitoKone
+			if (!runResult.equals(null)) {
+				feedback.setRunError(runResult);
+				return feedback;
+			}
+			
+			//Let's check if task has secret input
+			if (!(task.getSecretInput().equals("")||task.getSecretInput().equals(null))) {
+				stateTeacherSecret=new TitoState();
+				//Compile the code, check if errors.
+				String compileResult=stateTeacherSecret.compile(programCodeTeacher); //compile program with TitoKone
+				if (!compileResult.equals(null)) {
+					feedback.setCompileError(compileResult);
+					return feedback;
+				}
+				//Execute the successfully compiled code.
+				String runResult=stateTeacherSecret.execute(task.getSecretInput(), maxInstructions); //run the compiled program in TitoKone
+				if (!runResult.equals(null)) {
+					feedback.setRunError(runResult);
+					return feedback;
+				} //end if
+			} //end if
+			
+		} //end if task.isValidateByModel()
+		
+		
+		
+		//STUDENT
+		state=new TitoState();
+		
+		//Check if task is fill-in or programming task.
+		if (task.isFillInTask()) {
+			String help=programCode;
+			programCode=task.getFillInPreCode();
+			programCode+=help;
+			programCode+=task.getFillinPostCode();
+		}
+		
+		//Compile the student's code, check if errors.
 		String compileResult=state.compile(programCode); //compile program with TitoKone
 		if (!compileResult.equals(null)) {
 			feedback.setCompileError(compileResult);
 			return feedback;
 		}
 		
-		//execute the successfully compiled code
+		//Execute the successfully compiled code.
 		String runResult=state.execute(keyboardInput, maxInstructions); //run the compiled program in TitoKone
 		if (!runResult.equals(null)) {
 			feedback.setRunError(runResult);
 			return feedback;
 		}
 		
-		//criterion check
-		int dfgsd=state.getRegister(int registerCode);
+		
+		
+		
+		//Criterion check.
+		//registers
+
+		for (Criterion c : criteria) {
+
+			if (c.passesAcceptanceTest(state, null)) {
+				
+			}
+		}
+		
+		int r=state.getRegister(int registerCode);
+		
+		
 		int wrerwe=state.getMemoryLocation(int address);
 		HashMap ewrrew=state.getSymbolTable();
 		
@@ -64,7 +142,7 @@ public class TitoAnalyzer {
 	
 
 	
-	/** private class for feedback*/
+	/** Private class for feedback*/
 	private class TitoAnalyzerFeedback implements TitoFeedback {
 		private TitoState titostate;
 		private String overallfeedback;
@@ -113,38 +191,32 @@ public class TitoAnalyzer {
 		
 		/** Return TitoState object */
 		public TitoState getTitoState() {
-			return null;
+			return titostate;
 		}
 		
 		/** Return overall feedback of this TitoAnalyzerFeedback */
 		public String getOverallFeedback() {
-			// TODO Auto-generated method stub
-			return null;
+			return overallfeedback;
 		}
 
 		/** Return true if task was completed successfully */
 		public boolean wasSuccessful() {
-			// TODO Auto-generated method stub
-			return false;
+			return wassuccess;
 		}
 		
 		/** Return list of CriterionFeedback objects */
 		public List<TitoCriterionFeedback> getCriteriaFeedback() {
-			// TODO Auto-generated method stub
-			return null;
+			return criterionfeedback;
 		}
 		
 		/** Return compile error */
 		public String getCompileError() {
-			// TODO Auto-generated method stub
-			return null;
+			return compileerror;
 		}
 		
 		/** Return run error. */
 		public String getRunError() {
-			// TODO Auto-generated method stub
-			return null;
+			return runerror;
 		}		
-	}
-	
+	}	
 }
