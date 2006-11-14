@@ -137,14 +137,14 @@ ajatellen. Käytännössä eAssarista tehdään siis ns. code fork, eli synnytetään tä
 TitoTrainer-spesifinen eAssari-versio, jonka ei taata olevan yhteensopiva geneerisen eAssarin kanssa.
 
 Ainoa osuus eAssarista jota pyritään käyttämään sen alkuperäisen arkkitehtuurin mukaan,
-on tehtävien tarkistus eli Answer-servlet ja Analyzer sekä Feedback rajapinnat. Tietokannan
-rakennetta ei myöskään muuteta, mutta kaikkia tauluja ei käytetä (kts. tämän dokumentin
-luku Tietokanta).
+on tietokanta. Tietokannan rakennetta ei muuteta, mutta kaikkia tauluja ei käytetä
+(kts. tämän dokumentin luku Tietokanta).
 
-Titokonetta käytetään sen TTK91-rajapintojen kautta, joita muokataan tarpeen mukaan jotta
-vaatimuksissa esitetyt tehtävien tarkistukset ja suorituksenaikaiset tilastot saadaan 
-toteutettua. Titokoneen käytön ja muokkauksen yksityiskohdat jätetään toisen iteraation
-asioiksi.
+TitoKonetta käytetään erikseen luotavan TitoState luokan kautta, jotta yhteys TitoKoneeseen
+saadaan mahdollimman kevyeksi. TitoState käyttää suoraan TitoKoneen konkreettisia luokkia,
+joita myös tarpeen tullen muokataan kaikkien suoritustietojen saamiseksi. Koska muokkauksien
+tarvetta ja laajuutta on vaikea arvioida etukäteen, niiden yksityiskohdat jätetään täysin
+TitoState luokan implementoijan vastuulle.
 
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {muut_kaaviot/yleiskuva1.eps}
