@@ -56,7 +56,7 @@ public class TitoState {
 	 */
 	public String execute(String keyboardInput, int maxExecutionSteps) {
 		try {
-			app.setKbd(keyboardInput);
+			app.setKbd(keyboardInput + ","); // TitoKone does not accept empty string
 			controller.run(app, maxExecutionSteps);
 			cpu = controller.getCpu();
 			mem = controller.getMemory();
