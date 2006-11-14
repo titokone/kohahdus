@@ -5,12 +5,12 @@
 
 <html>
 <head>
-<title>Tehtävät ajalta ...</title>
+<title>Kurssin Syksy 2006 tehdyt tehtävät</title>
 </head>
 
 <body>
 
-<h1 align="center">Tehtävät ajalta ...</h1>
+<h1 align="center">Kurssin Syksy 2006 tehdyt tehtävät</h1>
 
 <p align="center">
 <table border="1">
@@ -23,23 +23,23 @@
 </tr>
 <tr>
 <td><a href="pekan_tehtavat.html">Molli, Pekka</a></td>
-<td><img src="positiivinen.gif"></td>
+<td><img src="positive.gif"></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
 <tr>
 <td><a href="#">Niemi, Riitta</a></td>
-<td><img src="positiivinen.gif"></td>
+<td><img src="positive.gif"></td>
 <td>&nbsp;</td>
-<td><img src="negatiivinen.gif"></td>
+<td><img src="negative.gif"></td>
 <td>&nbsp;</td>
 </tr>
 <tr>
 <td><a href="pekan_tehtavat.html">Pakkala, Pekka</a></td>
 <td>&nbsp;</td>
-<td><img src="negatiivinen.gif"></td>
-<td><img src="positiivinen.gif"></td>
+<td><img src="negative.gif"></td>
+<td><img src="positive.gif"></td>
 <td>&nbsp;</td>
 </tr>
 <tr>
@@ -54,14 +54,14 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><img src="positiivinen.gif"></td>
+<td><img src="positive.gif"></td>
 </tr>
 <tr>
 <td><a href="#">Virtanen, Reijo</a></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><img src="negatiivinen.gif"></td>
-<td><img src="negatiivinen.gif"></td>
+<td><img src="negative.gif"></td>
+<td><img src="negative.gif"></td>
 </tr>
 </table></p>
 

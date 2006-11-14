@@ -247,6 +247,17 @@ Add new user to user database. Does not check weather the user already exists in
 {\tt	public boolean updateUser(User user)} \\
 Update existing user to DB with userID. Does not check weather the user exists or not.\\
 
+{\tt	public String[][] getAnswerStatistics(String courseID)} \\
+Returns a two dimensional matrix of stored answers (table studentmodel) 
+of tasks and student names.\\
+
+{\tt	public User[] searchStudent(String name)} \\
+Returns a list of students (Users) that matches the param name 
+with first or lastname in the eauser table.\\
+
+{\tt	public LinkedList getStudentAnswers(String userID)} \\
+Returns a list of tasks that student has answered. Each task on the list is 
+a hashtable with columns as entries.\\
 
 
 

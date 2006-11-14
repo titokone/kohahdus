@@ -136,7 +136,7 @@ function deleteCourse(courseName, courseID) {
 				<%-- TODO: add implementation for statisics and delete buttons --%>
 				<td bgcolor="#FFFFFF"><c:out value="${course.courseID}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${course.name}"/></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Statistics" onClick="Javascript: goTo('showStatistics.jsp?courseID=<c:out value="${course.courseID}"/>');"></td>
+				<td bgcolor="#FFFFFF"><input type="button" value="Statistics" onClick="Javascript:location.href='showStatistics.jsp?courseID=<c:out value="${course.courseID}"/>';"></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="Javascript:deleteCourse('<c:out value="${course.name}"/>', '<c:out value="${course.courseID}"/>');"></td>
 			</tr>
 		</c:forEach>	

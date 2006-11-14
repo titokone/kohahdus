@@ -10,12 +10,14 @@
 
 <body>
 
-<h2>Statistiikka - Pekka ...</h2>
+<h2>Pekka Pekkala</h2>
 
 <h3>Henkilötiedot</h3>
 <ul>
 <li>Henkilötunnus: 9813475-1242
 <li>Opiskelijanumero: 09385903185
+<li>Tähän kaikki opiskelijan tiedot
+<li>...
 </ul>
 
 <h3>Tehtävät</h3>
@@ -29,7 +31,7 @@
 <td><b>Viimeisin pvm</b></td>
 </tr>
 <tr>
-<td><img src="positiivinen.gif"></td>
+<td><img src="positive.gif"></td>
 <td>Tehtävä 1</td>
 <td>Täydennystehtävä</td>
 <td align="center">5</td>
@@ -43,14 +45,14 @@
 <td>-</td>
 </tr>
 <tr>
-<td><img src="positiivinen.gif"></td>
+<td><img src="positive.gif"></td>
 <td>Tehtävä 3</td>
 <td>Staattinen tehtävä</td>
 <td align="center">1</td>
 <td>27.4.2006</td>
 </tr>
 <tr>
-<td><img src="negatiivinen.gif"></td>
+<td><img src="negative.gif"></td>
 <td>Tehtävä 4</td>
 <td>Täydennystehtävä</td>
 <td align="center">2</td>
