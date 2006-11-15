@@ -56,7 +56,7 @@ tehtävälistaus. Jos kirjautuminen epäonnistuu, käyttäjä palautetaan kirjautumiss
 
 \subsection{Kurssien ja tehtävien valinta (opettaja)}
 Kirjautumisen jälkeen opettajalle näytetään kurssilistaus josta opettaja voi siirtyä
-kurssin statistiikka-sivulle. Kurssilistauksesen alla on myös lomake uuden kurssin
+kurssin statistiikka-sivulle. Kurssilistauksen alla on myös lomake uuden kurssin
 luomista varten.
 
 Samalla sivulla näytetään myös tehtävälista. Listassa näytetään tehtävän kieli, aihepiiri
@@ -75,11 +75,9 @@ sekä onnistuneesti ratkaistujen tehtävien määrä. Lista on helposti tulostettavas
 
 Listassa opiskelijan nimi toimii linkkinä ko. opiskelijan käyttäjätietosivulle.
 
-Kurssin statistiikka toteutetaan toisessa kehitysiteraatiossa.
-
 \subsection{Käyttäjän tiedot (opettaja)}
 Käyttäjän statistiikkasivulla opettajalle näytetään opiskelijan tarkemmat tiedot.
-Henkilötiedoissa näytetään salasanaa lukuunottamatta kaikki rekisteröintitiedot.
+Henkilötiedoista näytetään salasanaa lukuunottamatta kaikki rekisteröintitiedot.
 Sivu sisältää myös napin, jota käyttämällä opettaja voi poistaa käyttäjän järjestelmästä.
 
 \subsection{Käyttäjien haku (opettaja)}
@@ -96,11 +94,9 @@ Opiskelijan ratkaistavaksi valitsemasta tehtävästä näytetään nimi ja tehtävänant
 mahdollinen valmis koodi mikäli kyseessä on täyttötehtävä, sekä tekstialue johon
 opiskelija kirjoittaa vastauksensa. Lisäksi on linkki jolla pääsee takaisin tehtävälistaukseen.
 
-Kun opiskelija on kirjoittanut vastauksensa, hän painaa "Suorita"-nappia joka vie
+Kun opiskelija on kirjoittanut vastauksensa, hän painaa "Suorita" -nappia joka vie
 takaisin tehtävävastaussivulle. Sivulla näytetään samat tiedot kuin alussa, mutta
 lisäksi näytetään palautetta ratkaisun onnistumisesta/epäonnistumisesta.
-
-Tehtävään vastaaminen toteutetaan toisessa kehitysiteraatiossa.
 
 \subsection{Monikielisyys}
 Opiskelijan käyttöliittymä toteutetaan suomen- ja englanninkielisenä. Opiskelija
@@ -150,11 +146,9 @@ TitoState luokan implementoijan vastuulle.
 \end{figure}
 
 Tietokannan rakenteen määrää eAssari kehys. Rakenne on kuvattu kuvassa 1. Ajanpuutteesta johtuen
-module-tietokantataulua ei tulla käyttämään sen mahdollistamassa laajuudessa. Kyseisestä taulusta
-luodaan vain yksi rivi kantaan, johon sitten viitataan muista tauluista. Lisäksi jokainen tehtävä
-sisältyy jokaiseen kurssiin. Eli kun tehtävä luodaan, niin se liitetään jokaiseen kurssiin. Lisäksi 
-kun kurssi luodaan, niin jokainen tehtävä lisätään kyseiseen uuteen kurssiin. Tämä linkitys tapahtuu
-"taskinmodule"-tietokantataulussa. 
+module-tietokantataulua ei tulla käyttämään sen mahdollistamassa laajuudessa. Sen sijaan että
+kursseille luotaisiin useita moduuleja, luodaan jokaiselle kurssille vain yksi moduuli ja lisätään
+kaikki tehtävät sinne. Näin vältetään tarve erilliselle moduulienhallinta toiminnolle ja käyttöliittymälle.
 
 Tietokantaa käytetään aina DBHandler-nimisen singleton-luokan kautta, joka piilottaa tietokantarakenteen
 yksityiskohdat. SQL-lauseita tulee siis vain DBHandler luokkaan eikä muualle koodiin. DBHandler-luokasta
@@ -168,15 +162,16 @@ tehtävätyyppikohtaista tietoa, mutta ainakaan ensimmäisen iteraation kohdalla tä
 näkyvissä tarvetta.
 
 \subsection{Task}
-Task määrittelee tehtävän. Itse task-tauluun tallennetaan lähinnä tehtävän nimi ja luojan nimi.
-Tehtävän kriteerit, kuvaus, palautteet yms lisätään yleiskäyttöiseen attributevalues-tauluun.
+Task määrittelee tehtävän. Task-tauluun tallennetaan kriteerietä lukuunottamatta tehtävän kaikki tiedot.
+Tunniste, nimi ja muokkaustiedoille on olemassa valmiit sarakkeet, muut tiedot tallennetaan XML-muodossa
+taskmetadata sarakakkeeseen.
 
 \subsection{Course}
 Määrittelee kurssin nimen ja tunnisteen. Tähän tauluun viitataan useista muista tauluista,
 jotta esimerkikisi opiskelijoiden suoritukset voidaan kirjata tietylle kurssille.
 
 \subsection{Module}
-Luotuja tehtäviä ei liitetä suoraan kursseihin, vaan moduuleihin ja moduulit liitetään
+EAssarin tehtäviä ei liitetä suoraan kursseihin, vaan moduuleihin ja moduulit liitetään
 kursseihin. Kurssiin voi liittää useita moduuleja, mutta yhtä moduulia ei voi lisätä
 useaan kurssiin. TitoTrainer ei käytä moduuleja siinä laajuudessa kuin tietokannan
 rakenne mahdollistaisi, vaan toteutuksen ja käyttöliittymien yksinkertaistamiseksi
@@ -189,14 +184,12 @@ jonkin kurssin johonkin moduulin luomalla rivi taskinmodule-tauluun.
 TitoTrainerin tapauksessa on määritelty, että kaikki tehtävät kuuluvat kaikkiin kursseihin,
 joten kun opettaja luo tehtävän, TitoTrainer luo automaattisesti yhtä monta taskinmodule riviä
 kuin on kursseja. Samoin kun luodaan uusi kurssi, sille luodaan automaattisesti moduuli ja
-kaikki olemassa olevat tehtävät lisätään ko. moduuliin. Näin ollen aina pitää paikkansa,
-että Taskinmodule rivien määrä = Task rivien määrä * Course rivien määrä.
+kaikki olemassa olevat tehtävät lisätään ko. moduuliin. Näin ollen Taskinmodule rivien määrä 
+on aina Task rivien määrä * Course rivien määrä.
 
 \subsection{Attributevalues}
 Yleiskäyttöinen varasto jonne voi tallentaa mitä tahansa lisätietoa koskien mitä tahansa
-muuta taulua. Tänne tallennetaan tehtävien kriteerit, palautteet, aihepiiri, esimerkkiratkaisu,
-ja lähes kaikki muu tieto tehtävästä nimeä lukuunottamatta. Lisäksi voidaan tallentaa esimerkiksi
-lisätietoja kursseista jos tarvetta ilmenee.
+muuta taulua. Tänne tallennetaan tehtävien kriteerit.
 
 \subsection{EAuser}
 Taulu kaikkien käyttäjätietojen tallentamiseen. Sekä oppilaat ja opettajat tallennetaan
@@ -210,7 +203,7 @@ tähän tauluun.
 Jokaista tehtävän vastausyritystä kohden luodaan storedanswer-tauluun yksi rivi.
 Studentmodel-taluun tallennetaan yksi rivi per tehtävä, vaikka vastausyrityksiä olisi
 useampia. Rivillle tallennetaan tieto siitä, onko tehtävä suoritettu onnistuneesti
-ja kuinka monta yritystä tehtävään on käytetty. Nämä tiedot olisi mahdollista päätellä
+ja kuinka monta yritystä tehtävään on käytetty. Nämä tiedot olisi mahdollista päätellä SQL:n
 koostefunktioden avulla storedanswer-taulusta, mutta ilmeisesti tehokkuuden parantamisksi
 on luotu erillinen koostetaulu.
 
@@ -245,8 +238,8 @@ datan tallentamiseen. Sivukohtaisen tiedoston rakenne on seuraava:
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment></comment>
-	<entry key="kentänNimi_EN">kentän sisältö englannin kielellä</entry>
 	<entry key="kentänNimi_FI">kentän sisältö suomen kielellä</entry>
+	<entry key="kentänNimi_EN">field content in english</entry>
 </properties>
 \end{verbatim}
 
