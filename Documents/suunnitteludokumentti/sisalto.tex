@@ -124,6 +124,21 @@ lisäksi näytetään palautetta ratkaisun onnistumisesta/epäonnistumisesta.
 Täyttää vaatimukset: 9,10,26,27,28,52
 
 
+\subsection{Tehtävien aihepiiri (opettaja)}
+Tehtäville voidaan määritellä aihepiiri (category). Tämä yksittäiseen taskiin liittyvä tieto 
+tallennetaan task tauluun taskmetadata-kenttään xml-muodossa muiden attribuuttien mukana. 
+Aihepiirilista tallennetaan attributevalues-tauluun objecttype arvolla "Q".
+Tehtävän luomisessa aihepiiri valitaan aihepiirilistasta, joka on HTML-sivulla esitettynä
+pudotusvalikkona. Pudotusvalikon viimeinen valinta on uuden aihepiirin luonti, jonka valitsemalla
+kutsutaan AJAX-tyyppisesti uutta JSP-sivua, joka luo uuden aihepiirin kantaan (käyttäen DBHandleria).
+Tämä uusi aihepiiri lisätään myös aukiolevan tehtävänluontisivun aihepiirilistapudotusvalikkoon.
+
+Aihepiirien hallinta on toteutettu erillisellä JSP-sivulla, jossa on lista aihepiireistä. 
+Näitä aihepiirejä voi poistaa, muokata ja lisätä painamalla vastaavia HTML-linkkejä.
+
+Täyttää vaatimukset: 53, 54, 55, 56
+
+
 \subsection{Monikielisyys}
 Opiskelijan käyttöliittymä toteutetaan suomen- ja englanninkielisenä. Opiskelija
 valitsee rekisteröitymisen yhteydessä järjestelmän oletuskielen. Kirjautuessaan 
