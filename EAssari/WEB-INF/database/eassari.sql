@@ -175,12 +175,14 @@ create table attributevalues (
                                                 C= course  
                                                 D= displayer
                                                 E= general error message
-                                                T= task  */
+                                                T= task  
+                                                Q= category  */
   objectid   varchar(40),                    /* Identifier of the object 
                                                 A,D: class name
                                                 C: course identifier
                                                 T: taskid
-                                                E: errorname */
+                                                E: errorname 
+                                                Q: name of a category */
   attributename varchar(40),                 /* Name of the attribute */
   language varchar(3),                       /* language of the attribute value,  currently FI,EN,ALL */
   valuetype char,                            /* type of the value C=character, N=number */

@@ -65,5 +65,6 @@ Taro Morimoto
 13.11.2006	KOKO	1.5	Palaveri
 13.11.2006	SUUN	2	Suunnittelua
 13.11.2006	KALI	1	Kälisuunnittelua
+14.11.2006	SUUN	3.5	Suunnittelua
 
 
