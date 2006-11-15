@@ -431,19 +431,24 @@ Ei kaaviota. Sis‰lt‰‰ vain opiskelijan teht‰v‰listauksen.
 \end{figure}
 \newpage
 
-
 \subsection{AnswerTask.jsp}
-Toteutetaan ja suunnitellaan toisessa iteraatiossa
+N‰ytt‰‰ teht‰v‰vastauslomakkeen opiskelijalle.
+\begin{figure}[ht]
+	\includegraphics[width=15cm] {muut_kaaviot/answer_servletti.eps}
+	\caption{Teht‰v‰vastauksen toimintavuo}
+\end{figure}
 \newpage
 
-
 \subsection{Answer-servlet}
-K‰sittelee opiskelijan vastausyritykset sek‰ tallentaa niiden tiedot tietokantaan.
+Tarkastaa opiskelijan vastausyrityksen TitoAnalyzer luokan avulla ja tallentaa tuloksen
+tietokantaan, sek‰ sessioon jotta AnswerTask.jsp voi n‰ytt‰‰ palautetta opiskelijalle.
 \begin{figure}[ht]
 	\includegraphics[width=15cm] {sekvenssikaaviot/Teht‰v‰n_tarkistus.eps}
 	\caption{Kriteerin tarkistus ja palautteen m‰‰r‰ytyminen}
 \end{figure}
 \newpage
+
+
 
 
 
