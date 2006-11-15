@@ -16,8 +16,8 @@ This class and all sub-classes shall provide following quarantees:
 \item getters always return Strings, regardless of the field type
 \item getters never return null, but they may return empty strings
 \item setters always take Strings, regarless of the field type. Invalid strings, (eg. non-numeric
-      string for numeric field), empty strings, and null values are acceptable and will clear the
-      field OR set the field to some default value.
+      string for numeric field), empty strings, and null values are acceptable and will either clear
+      the field or set the field to some default value.
 \item neither getter nor setters will ever throw exceptions
 \item Criterion objects are never in an invalid state. This is done by setting and validating
       mandatory fields in the constructor. However, Criterion object deserialized from the database
@@ -28,9 +28,9 @@ For sake of brevity, Criterion subclasses are not described in this document.}
 
 {\tt	protected static final long UNDEFINED = Long.MIN\_VALUE;}\\
 Special case for signaling undefined numeric value. Criteria that deal with numeric
-types (such as RegisterCriterium) need all 32-bits of int, but we also need a way
-to represent undefined (null) values. Best-but-still-ugly solution is to use
-longs for all numeric types and use a special signal value for undef.
+types (such as RegisterCriterium) need all 32-bits of integer, but we also need a way
+to represent undefined (ie. null) values. Best-but-still-ugly solution is to use
+longs for all numeric types and use a special signal value for null.
 
 {\tt	protected Criterion()}\\
 Empty constructor for deserialization\\	
@@ -45,28 +45,29 @@ Return the identifier of this Criterion\\
 
 {\tt	public abstract String getName(ResourceBundle languageBundle)}\\
 Return human-readable name of this criterion\\
-{\tt@param languageBundle} Language dependant parts of crierion names\\
+{\tt@param languageBundle} Bundle containing language-dependant parts of crierion names\\
 
 {\tt 	public boolean isSecretInputCriterion()} \\
 Return true if this criterion is to be used with secret input \\
 
-{\tt 	public String getAcceptanceFeedback()} \\
-Return the feedback string used for acceptable solution attempts\\
-
 {\tt 	public String getFailureFeedback()} \\
-Return the feedback string used for failed solution attempts\\
+Return feedback string used solution attempts that do not pass the acceptance test\\
+
+{\tt 	public String getAcceptanceFeedback()} \\
+Return feedback string used for solution attempts that pass the acceptance test but not the quality test\\
 
 {\tt	public String getHighQualityFeedback()} \\
-Return the feedback string used for high quality solution attempts\\
-
-{\tt 	public String setAcceptanceFeedback()} \\
-Set the feedback string used for acceptable solution attempts\\
+Return feedback string used for for solution attempts that pass pass the acceptance test, and also
+the quality test if one is defined.\\
 
 {\tt 	public String setFailureFeedback()} \\
-Set the feedback string used for failed solution attempts\\
+Set failure feedback\\
+
+{\tt 	public String setAcceptanceFeedback()} \\
+Set acceptance feedback\\
 
 {\tt	public String setHighQualityFeedback()} \\
-Set the feedback string used for high quality solution attempts\\
+Set high quality feedback\\
 
 {\tt 	public abstract boolean hasAcceptanceTest(boolean usingModelAnswer)}\\
 Return true if this criterion has test for evaluating failure/success of the
@@ -161,7 +162,7 @@ with one call. The atomicity of the operations is quaranteed by using the transa
 provided by the SQL standard.} \\
     
 {\tt	private DBHandler()} \\
-Prevent youside instatiation by giving constructor private scope
+Prevent outside instatiation by giving constructor private scope\\
 
 {\tt	public static DBHandler getInstance()} \\
 Return DBHandler instance\\
