@@ -9,6 +9,7 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Sign up</title>
+<script language="javascript" type="text/javascript" src="js/textValidityFunctions.js"></script>
 <script language="Javascript">
 
 	/* Function to check the validity of form inputs that can be checked client-side - called on submit event. */
@@ -16,6 +17,7 @@
 		var form = document.sign_up_form;
 		var returnvalue = true;
 		var emailExp = /([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;	// name followed by @ followed by domain
+		var userNameExp = /([a-zA-Z0-9])+/;
 
 		// remove old error messages
 		document.getElementById("first_name_error_msg_space").innerHTML = '';
@@ -69,6 +71,34 @@
 			elem.innerHTML = '<font color="#FF0000"><b>Please repeat your chosen password.</b></font>';
 			returnvalue = false;
 		}
+		
+		// first name contains illegal html-characters
+		if(containsHtmlCharacters(form.first_name.value)) {
+			var elem = document.getElementById("first_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Field may not contain characters ", <, >, &.</b></font>';
+			returnvalue = false;
+		}
+		
+		// first name not of valid length
+		if(form.first_name.value.length > 40) {
+			var elem = document.getElementById("first_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>First name must be 1-40 characters long.</b></font>';
+			returnvalue = false;
+		}
+		
+		// last name contains illegal html-characters
+		if(containsHtmlCharacters(form.last_name.value)) {
+			var elem = document.getElementById("last_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Field may not contain characters ", <, >, &.</b></font>';
+			returnvalue = false;
+		}
+		
+		// last name not of valid length
+		if(form.last_name.value.length > 40) {
+			var elem = document.getElementById("last_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Last name must be 1-40 characters long.</b></font>';
+			returnvalue = false;
+		}
 
 		// student number of wrong format
 		if((form.student_number.value != '') && (!studentNumberValid(form.student_number.value))) {
@@ -91,10 +121,45 @@
 			returnvalue = false;
 		}
 
+		// e-mail address contains illegal html-characters
+		if(containsHtmlCharacters(form.email.value)) {
+			var elem = document.getElementById("email_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Field may not contain characters ", <, >, &.</b></font>';
+			returnvalue = false;
+		}
+
+		// e-mail address not of valid length
+		if(form.email.value.length > 80) {
+			var elem = document.getElementById("email_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>E-mail address may contain only up to 80 characters.</b></font>';
+			returnvalue = false;
+		}
+
+		// user name contains illegal characters
+		if((form.user_name.value != '') && (!userNameExp.test(form.user_name.value))) {
+			var elem = document.getElementById("user_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>User name may only contain characters a-z, A-Z and 0-9.</b></font>';
+			returnvalue = false;
+		}
+		
+		// user name not of valid length
+		if((form.user_name.value != '') && ((form.user_name.value.length < 3) || (form.user_name.value.length > 20))) {
+			var elem = document.getElementById("user_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>User name must be 3-20 characters long.</b></font>';
+			returnvalue = false;
+		}
+
 		// "password" and "repeat password" don't match and neither is empty
 		if((form.password.value != '') && (form.repeat_password.value != '') && (form.password.value != form.repeat_password.value)) {
 			var elem = document.getElementById("password_error_msg_space");
 			elem.innerHTML = '<font color="#FF0000"><b>Different values in password fields. Please check your typing.</b></font>';			
+			returnvalue = false;
+		}
+		
+		// password not of valid length
+		if((form.password.value != '') && ((form.password.value.length < 6) || (form.password.value.length > 12))) {
+			var elem = document.getElementById("password_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Password must be 6-12 characters long.</b></font>';
 			returnvalue = false;
 		}
 
@@ -181,6 +246,22 @@
 			return true;
 		}
 	}
+	
+	/* Function to remove leading and trailing white space.  */
+	function trimWhitespace(textElem)
+	{
+		var aString = textElem.value;
+	
+		while (aString.substring(0,1) == ' ') {
+			aString = aString.substring(1, aString.length);
+		}
+		
+		while (aString.substring(aString.length-1, aString.length) == ' ') {
+			aString = aString.substring(0,aString.length-1);
+		}
+
+		textElem.value = aString;
+	}
 
 </script>
 </head>
@@ -263,27 +344,27 @@
 	<table border="0" cellpadding="5">
 		<tr>
 			<td><b>First name </b></td>
-			<td><input type="text" name="first_name" value="<c:out value="${newUser.firstName}"/>"></td>
+			<td><input type="text" name="first_name" value="<c:out value="${newUser.firstName}"/>" onChange="trimWhitespace(this)"></td>
 			<td id="first_name_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td><b>Last name </b></td>
-			<td><input type="text" name="last_name" value="<c:out value="${newUser.lastName}"/>"></td>
+			<td><input type="text" name="last_name" value="<c:out value="${newUser.lastName}"/>" onChange="trimWhitespace(this)"></td>
 			<td id="last_name_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td><b>E-mail: </b></td>
-			<td><input type="text" name="email" value="<c:out value="${newUser.email}"/>"></td>
+			<td><input type="text" name="email" value="<c:out value="${newUser.email}"/>" onChange="trimWhitespace(this)"></td>
 			<td id="email_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td><b>Student number<sup>1</sup> </b></td>
-			<td><input type="text" name="student_number" value="<c:out value="${newUser.studentNumber}"/>"></td>
+			<td><input type="text" name="student_number" value="<c:out value="${newUser.studentNumber}"/>" onChange="trimWhitespace(this)"></td>
 			<td id="student_number_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td><b>Social security number<sup>1</sup> </b></td>
-			<td><input type="text" name="social_security_number" value="<c:out value="${newUser.socialSecurityNumber}"/>"></td>
+			<td><input type="text" name="social_security_number" value="<c:out value="${newUser.socialSecurityNumber}"/>" onChange="trimWhitespace(this)"></td>
 			<td id="ssn_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
@@ -323,17 +404,17 @@
 		</tr>
 		<tr>
 			<td><b>User name </b></td>
-			<td><input type="text" name="user_name" value="<c:out value="${newUser.userID}"/>"></td>
+			<td><input type="text" name="user_name" value="<c:out value="${newUser.userID}"/>" onChange="trimWhitespace(this)"></td>
 			<td id="user_name_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td><b>Password </b></td>
-			<td><input type="password" name="password"></td>
+			<td><input type="password" name="password" onChange="trimWhitespace(this)"></td>
 			<td id="password_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td><b>Password again </b></td>
-			<td><input type="password" name="repeat_password"></td>
+			<td><input type="password" name="repeat_password" onChange="trimWhitespace(this)"></td>
 			<td id="repeat_password_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>

@@ -7,7 +7,7 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Edit Your Profile</title>
-
+<script language="javascript" type="text/javascript" src="../js/textValidityFunctions.js"></script>
 <script language="Javascript">
 
 	/* Function to check the validity of form inputs that can be checked client-side - called on submit event. */
@@ -65,6 +65,34 @@
 			elem.innerHTML = '<font color="#FF0000"><b>Please type your new password.</b></font>';
 			returnvalue = false;
 		}
+		
+		// first name contains illegal html-characters
+		if(containsHtmlCharacters(form.first_name.value)) {
+			var elem = document.getElementById("first_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Field may not contain characters ", <, >, &.</b></font>';
+			returnvalue = false;
+		}
+		
+		// first name not of valid length
+		if(form.first_name.value.length > 40) {
+			var elem = document.getElementById("first_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>First name must be 1-40 characters long.</b></font>';
+			returnvalue = false;
+		}
+		
+		// last name contains illegal html-characters
+		if(containsHtmlCharacters(form.last_name.value)) {
+			var elem = document.getElementById("last_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Field may not contain characters ", <, >, &.</b></font>';
+			returnvalue = false;
+		}
+		
+		// last name not of valid length
+		if(form.last_name.value.length > 40) {
+			var elem = document.getElementById("last_name_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Last name must be 1-40 characters long.</b></font>';
+			returnvalue = false;
+		}
 
 		// student number of wrong format
 		if((form.student_number.value != '') && (!studentNumberValid(form.student_number.value))) {
@@ -86,6 +114,20 @@
 			elem.innerHTML = '<font color="#FF0000"><b>Your e-mail address isn\'t of a valid format. A valid format would be e.g. user@cs.helsinki.fi</b></font>';
 			returnvalue = false;
 		}
+		
+		// e-mail address contains illegal html-characters
+		if(containsHtmlCharacters(form.email.value)) {
+			var elem = document.getElementById("email_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Field may not contain characters ", <, >, &.</b></font>';
+			returnvalue = false;
+		}
+
+		// e-mail address not of valid length
+		if(form.email.value.length > 80) {
+			var elem = document.getElementById("email_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>E-mail address may contain only up to 80 characters.</b></font>';
+			returnvalue = false;
+		}
 
 		// Only if user is trying to change password and "password" and "repeat password" don't match and neither is empty
 		if ((form.new_password.value != '') || (form.repeat_new_password.value != '')) {
@@ -95,6 +137,14 @@
 				returnvalue = false;
 			}
 		}
+		
+		// new password not of valid length
+		if((form.new_password.value != '') && ((form.new_password.value.length < 6) || (form.new_password.value.length > 12))) {
+			var elem = document.getElementById("new_password_error_msg_space");
+			elem.innerHTML = '<font color="#FF0000"><b>Password must be 6-12 characters long.</b></font>';
+			returnvalue = false;
+		}
+		
 		return returnvalue;
 	}
 
