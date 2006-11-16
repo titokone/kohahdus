@@ -10,7 +10,8 @@ import fi.helsinki.cs.kohahdus.criteria.*;
  * http://www.ebaumsworld.com/2006/06/jeopardy.html
  */
 
-
+//VALMIS MUUTEN, paitsi criterion luokan getName tarvitsee ResourceBundlen
+//jota ei anneta analyzerille miss‰‰n.
 /** Class for running TitoKone and analyzing student's answer. */
 public class TitoAnalyzer {
 	private TitoState state;
@@ -128,48 +129,64 @@ public class TitoAnalyzer {
 		
 		//CRITERION CHECK
 		LinkedList<TitoCriterionFeedback> criterfblist=new LinkedList<TitoCriterionFeedback>();
-		boolean passp, passs;
+		boolean passp=true, passs=true;
 		boolean passTask=true; //will stay true until criterion fails
 		
-		//TODO
+		//Checks each criterion
 		for (Criterion c : criteria) {
 			//Criterion feedback object and value fields for it, will be created in the end.
 			TitoCriterionFeedback critfb;
 			String cname="", cfeedback="";
 			Boolean csuccess=true;
 			
-			//if has acceptance test
-			if (c.hasAcceptanceTest(task.isValidateByModel())) {
-				
-				//first with public input
-				passp=c.passesAcceptanceTest(state, stateTeacherPublic);
-				if (passp==false) {
-					passTask=false;
+			//get the name TODO: needs ResourceBundle object as parameter
+			cname=c.getName(null);
+			
+			// if criterion is meant for secret input
+			if (c.isSecretInputCriterion()) {
+				/* It won't be used in any quality tests.
+				   It always has acceptance test. stateTeacherSecret can be null. */
+				passs=c.passesAcceptanceTest(stateSecret, stateTeacherSecret);
+				// criterion requirement is met
+				if (passs) {
+					cfeedback=c.getAcceptanceFeedback();
+				} else { // fails
+					cfeedback=c.getFailureFeedback();					
 					csuccess=false;
+					passTask=false;
 				}
-				
-				//with secret input
-				if (c.isSecretInputCriterion()) {
-					passs=c.passesAcceptanceTest(stateSecret, stateTeacherSecret);
-					if (passs==false) {
-						passTask=false;
-						csuccess=false;
+			}
+			// if criterion is meant for public input
+			else {
+				// Check if criterion has quality test
+				boolean passedQuality=false; // to check if it passed quality test
+				if (c.hasQualityTest(task.isValidateByModel())) {
+					// it has, let's check it out. stateTeacherPublic can be null.
+					passp=c.passesQualityTest(state, stateTeacherPublic);
+					if (passp) {
+						cfeedback=c.getHighQualityFeedback();
+						passedQuality=true;
 					}
 				}
-				
-			}
-			
-			//if has quality test
-			if (c.hasQualityTest(task.isValidateByModel())) {
-				
-				
-				
-			}
+				/* Check if criterion has acceptace test
+				   won't be checked if it passed the quality test */
+				if (c.hasAcceptanceTest(task.isValidateByModel()) && passedQuality==false) {
+					//it has, let's check it out. stateTeacherPublic can be null.
+					passp=c.passesAcceptanceTest(state, stateTeacherPublic);
+					if (passp) { //student passes
+						cfeedback=c.getAcceptanceFeedback();
+					} else {  //student fails
+						cfeedback=c.getFailureFeedback();
+						csuccess=false;
+						passTask=false;
+					}
+				}
+			} // end else, for public input
 			
 			//create criterion feedback object and add it to list
 			critfb=new TitoCriterionFeedback(cname, cfeedback, csuccess);
 			criterfblist.add(critfb);
-		} //TODO
+		}
 		
 		//Criterions checked, lets create the feedback
 		feedback.setTitoState(state);
@@ -183,22 +200,6 @@ public class TitoAnalyzer {
 		
 		//feedback object created, return it
 		return feedback;
-		
-		/*
-		int r=state.getRegister(int registerCode);
-		int wrerwe=state.getMemoryLocation(int address);
-		HashMap ewrrew=state.getSymbolTable();
-		
-		//allowed/forbidden instructions check
-		String usedInstructions[]=state.getUsedOpcodes();
-		
-		//quality criterion check
-		int ererw=state.getStackMaxSize();
-		int sdsdf=state.getExecutionSteps();
-		int sdfs=state.getCodeSize();
-		int sdfsd=state.getDataSize();
-		int sadfs=state.getMemoryAccessCount();
-		*/
 	}
 	
 
