@@ -1,10 +1,27 @@
 <html>
 <head>
 <title>TitoTrainer - Answer task</title>
+<style>
+	span.helpButton {padding: 2px 4px; border-style: outset; background-color: #B0C4DE; border-color: #6495ED; color: #000000; text-decoration: none;}
+</style>
 <script language="javascript" type="text/javascript" src="visibilityFunctions.js"></script>
 <script language="Javascript">
 
 var titokoneVisible = false;
+
+function helpWindow(topic) {
+
+	var helpWin = window.open('', 'helpWin', 'width=300,height=200,toolbar=0,status=0');
+
+	var helpHtml = '';
+
+	if(topic == 'input_keyboard') {
+		helpHtml = '<p>Please type in the integers separated by commas. Whitespace between integers does not matter. E.g. 1, 2,3. TitoTrainer will interpret these integers as keyboard input during program simulation.</p>';
+	}
+
+	helpWin.document.write(helpHtml);
+	helpWin.document.close();
+}
 
 function showhideTitokoneReport() {
 	if(titokoneVisible == false) {
@@ -37,13 +54,21 @@ function showhideTitokoneReport() {
 <br>
 
 <form name="answerform">
-	<table border="1">
+	<table border="0">
 		<tr>
-			<td colspan="2" align="center" bgcolor="#6495ED"><b>Simulator input</b></td>
-		</tr>
-		<tr>
-			<td width="80"><b>Keyboard&nbsp;</b></td>
-			<td><input name="input_keyboard" type="text" size="90" value=""></td>
+			<td>
+				<table border="1">
+					<tr>
+						<td colspan="2" align="center" bgcolor="#6495ED"><b>Simulator input</b></td>
+					</tr>
+					<tr>
+						<td width="80"><b>Keyboard&nbsp;</b></td>
+						<td><input name="input_keyboard" type="text" size="90" value=""></td>
+					</tr>
+				</table>
+			</td>
+			<td>&nbsp;&nbsp;</td>
+			<td><a href="javascript:helpWindow('input_keyboard')"><span class="helpButton"><b>?</b></span></a></td>
 		</tr>
 	</table>
 
