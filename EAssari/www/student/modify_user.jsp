@@ -228,6 +228,22 @@
 			return true;
 		}
 	}
+	
+		/* Function to remove leading and trailing white space.  */
+	function trimWhitespace(textElem)
+	{
+		var aString = textElem.value;
+	
+		while (aString.substring(0,1) == ' ') {
+			aString = aString.substring(1, aString.length);
+		}
+		
+		while (aString.substring(aString.length-1, aString.length) == ' ') {
+			aString = aString.substring(0,aString.length-1);
+		}
+
+		textElem.value = aString;
+	}
 
 </script>
 </head>
@@ -295,28 +311,28 @@
                 </tr>
                 <tr>
                         <td><b>First name </b></td>
-                        <td><input type="text" name="first_name" value="<c:out value="${user.firstName}"/>">    </td>
+                        <td><input type="text" name="first_name" value="<c:out value="${user.firstName}"/>" oncChange="trimWhitespace(this)">    </td>
                         <td id="first_name_error_msg_space">&nbsp;</td>                        
                 </tr>
                 <tr>
                         <td><b>Last name </b></td>
-                        <td><input type="text" name="last_name" value="<c:out value="${user.lastName}"/>"></td>
+                        <td><input type="text" name="last_name" value="<c:out value="${user.lastName}"/>" oncChange="trimWhitespace(this)"></td>
                         <td id="last_name_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>E-mail: </b></td>
-                        <td><input type="text" name="email" value="<c:out value="${user.email}"/>"></td>
+                        <td><input type="text" name="email" value="<c:out value="${user.email}"/>" oncChange="trimWhitespace(this)"></td>
                         <td id="email_error_msg_space">&nbsp;</td>
                 </tr>
     
                 <tr>
                         <td><b>Student number* </b></td>
-                        <td><input type="text" name="student_number" value="<c:out value="${user.studentNumber}"/>"> </td>
+                        <td><input type="text" name="student_number" value="<c:out value="${user.studentNumber}"/>" oncChange="trimWhitespace(this)"> </td>
                         <td id="student_number_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>Social security number* </b></td>
-                        <td><input type="text" name="social_security_number" value="<c:out value="${user.socialSecurityNumber}"/>"> </td>
+                        <td><input type="text" name="social_security_number" value="<c:out value="${user.socialSecurityNumber}"/>" oncChange="trimWhitespace(this)"> </td>
                         <td id="ssn_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
@@ -332,12 +348,12 @@
                 </tr>
                 <tr>
                         <td><b>New password </b></td>
-                        <td><input type="password" name="new_password"></td>
+                        <td><input type="password" name="new_password" oncChange="trimWhitespace(this)"></td>
                          <td id="new_password_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b>New password again </b></td>
-                        <td><input type="password" name="repeat_new_password"></td>
+                        <td><input type="password" name="repeat_new_password" oncChange="trimWhitespace(this)"></td>
                         <td id="repeat_new_password_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
