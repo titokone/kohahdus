@@ -228,23 +228,6 @@
 			return true;
 		}
 	}
-	
-		/* Function to remove leading and trailing white space.  */
-	function trimWhitespace(textElem)
-	{
-		var aString = textElem.value;
-	
-		while (aString.substring(0,1) == ' ') {
-			aString = aString.substring(1, aString.length);
-		}
-		
-		while (aString.substring(aString.length-1, aString.length) == ' ') {
-			aString = aString.substring(0,aString.length-1);
-		}
-
-		textElem.value = aString;
-	}
-
 </script>
 </head>
 

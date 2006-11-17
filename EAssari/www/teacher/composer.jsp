@@ -50,6 +50,7 @@
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Create Task</title>
 <script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
+<script language="javascript" type="text/javascript" src="../js/textValidityFunctions.js"></script>
 <script language="Javascript">
 
 //alert("criteriaCount2:"+<%= ((CriterionMap)pageContext.getAttribute("criteria")).getCriterionCount() %>);
@@ -71,6 +72,8 @@ var instructionStatus;
 var REQUIRED_STATUS = 1;
 var FORBIDDEN_STATUS = -1;
 var NEUTRAL_STATUS = 0;
+
+var integerExp = /^((\+|-)\d)?\d*/;
 
 // initialize TTK-91 instruction arrays and switch to initial view
 function initTaskCreation()
@@ -272,6 +275,93 @@ function ttkInstructionOnClick(instruction) {
 function onFormSubmit() {
 	instructionRequirementsIntoText();
 	document.task_creation_form.symbol_criterion_count.value = variableCounter;
+	
+	// trim white space
+	var textareas = document.getElementsByTagName('textarea');
+	for (var i = 0; i < textareas.length; i++) {
+		trimWhitespace(textareas[i]);
+	}
+	
+	var inputs = document.getElementsByTagName('input');
+	for (var i = 0; i < inputs.length; i++){
+		if (inputs[i].type == 'text'){
+			trimWhitespace(inputs[i]);
+		}
+	}
+	
+	// find and report errors
+	var alertText = 'Your form contains the following errors. Please fix them before resubmitting.\n';
+	var alertCounter = 0;
+
+	if(document.task_creation_form.task_name.value.length > 40) {
+		alertCounter++;
+		alertText += '\n' + alertCounter + '. Task name may only be up to 40 characters long.';
+	}
+	
+	if(containsHtmlCharacters(document.task_creation_form.task_name.value)) {
+		alertCounter++;
+		alertText += '\n' + alertCounter + '. Task name may not contain characters ", <, > and &.';
+	}
+	
+	var numberOfPublicInputs = 0;
+	var numberOfSecretInputs = 0;
+	
+	if(document.task_creation_form.public_input.value != '') {
+		var splitExp = / *\, */;
+		
+		var inputInts = document.task_creation_form.public_input.value.split(splitExp);
+		
+		numberOfPublicInputs = inputInts.length;
+		
+		for(var i = 0; i < inputInts.length; i++) {
+			if(!integerExp.test(inputInts[i])) {
+				alertCounter++;
+				alertText += '\n' + alertCounter + '. Public input must be integers separated by commas with optional spaces.';
+				break;
+			}
+		}
+	}	
+	
+	if(document.task_creation_form.secret_input.value != '') {
+		var splitExp = / *\, */;
+		
+		var inputInts = document.task_creation_form.secret_input.value.split(splitExp);
+		
+		numberOfSecretInputs = inputInts.length;
+		
+		for(var i = 0; i < inputInts.length; i++) {
+			if(!integerExp.test(inputInts[i])) {
+				alertCounter++;
+				alertText += '\n' + alertCounter + '. Secret input must be integers separated by commas with optional spaces.';
+				break;
+			}
+		}
+	}	
+	
+	if(numberOfPublicInputs != numberOfSecretInputs) {
+		alertCounter++;
+		alertText += '\n' + alertCounter + '. A task must have the same number of public and secret inputs.';	
+	}
+	
+	if((document.task_creation_form.maximum_number_of_executed_instructions.value == '') ||
+	(!integerExp.test(document.task_creation_form.maximum_number_of_executed_instructions.value)) ||
+	(Number(document.task_creation_form.maximum_number_of_executed_instructions.value) <= 0)) {
+		alertCounter++;
+		alertText += '\n' + alertCounter + '. Maximum number of executed instructions must be a number greater than 0.';
+	}
+	
+	if(alertCounter == 0) {
+		if(Number(document.task_creation_form.maximum_number_of_executed_instructions.value) > 100000) {
+			return confirm('Are you sure you want the maximum number of executed instructions to be ' + document.task_creation_form.maximum_number_of_executed_instructions.value + '?');
+		} else {
+			return true;
+		}
+	}
+	else {
+		alert(alertText);
+	
+		return false;
+	}
 }
 
 function switchToPrintableView(){
@@ -343,7 +433,7 @@ function instructionRequirementsIntoText() {
 
 <h1 align="center">Create Task</h1>
 
-<form name="task_creation_form" method="POST" action="save_task.jsp" onSubmit="onFormSubmit()">
+<form name="task_creation_form" method="POST" action="save_task.jsp" onSubmit="return onFormSubmit()">
 
 <c:set var="reqopcodes" value="${criteria['REQOPCODES']}"/>
 <c:set var="banopcodes" value="${criteria['BANOPCODES']}"/>

@@ -13,6 +13,7 @@
 <html>
 <head>
 <title>Task listing</title>
+<script language="javascript" type="text/javascript" src="../js/textValidityFunctions.js"></script>
 <script language="Javascript">
 
 function deleteTask(taskName, taskID) {
@@ -27,6 +28,24 @@ function deleteCourse(courseName, courseID) {
 	}
 }
 
+function checkNewCourseInputValidity() {
+	trimWhitespace(document.create_course_form.new_course);
+
+	var courseName = document.create_course_form.new_course.value;
+	var feedbackElem = document.getElementById('new_course_creation_feedback');
+	
+	if(containsHtmlCharacters(courseName)) {
+		feedbackElem.innertText = 'Field may not contain characters ", <, >, &.';
+		return false;
+	}
+	
+	if((courseName.length < 1) || (courseName.length > 40)) {
+		feedbackElem.innertText = 'Course name must be 1-40 characters long.';
+		return false;
+	}
+	
+	return true;
+}
 </script>
 
 </head>
@@ -133,7 +152,7 @@ function deleteCourse(courseName, courseID) {
 		</c:if>	
 		<c:forEach var="course" items="${pageScope.courses}">	
 			<tr>
-				<%-- TODO: add implementation for statisics and delete buttons --%>
+				<%-- TODO: add implementation for statistics and delete buttons --%>
 				<td bgcolor="#FFFFFF"><c:out value="${course.courseID}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${course.name}"/></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Statistics" onClick="Javascript:location.href='showStatistics.jsp?courseID=<c:out value="${course.courseID}"/>';"></td>
@@ -141,7 +160,7 @@ function deleteCourse(courseName, courseID) {
 			</tr>
 		</c:forEach>	
 	</c:if>
-	<form name="create_course_form" action="teacherTaskList.jsp" method="POST">
+	<form name="create_course_form" action="teacherTaskList.jsp" method="POST" onSubmit="return checkNewCourseInputValidity()">
 	<input type="hidden" name="action" value="create_course">
 		<tr>
 			<td bgcolor="#FFFFFF" align="right">Course name</td>
@@ -150,7 +169,7 @@ function deleteCourse(courseName, courseID) {
 		</tr>
 	</form>
 </table>
-		
+<p id="new_course_creation_feedback"></p>		
 
 
 
