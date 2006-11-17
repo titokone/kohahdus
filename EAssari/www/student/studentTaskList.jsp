@@ -2,8 +2,22 @@
 <%@ page import="java.util.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.languages.*" %>
 
+<%-- check that user is logged in --%>
+<c:if test="${empty user}">
+	<%--Not logged in - redirecting to login --%>
+	<c:redirect url="../login.jsp"/>	
+</c:if>
+<c:if test="${empty course}">
+	<%--Course not selected - redirecting to login/error? --%>
+	<c:redirect url="../login.jsp"/>
+</c:if>	
 
+<%
+	String lang = (String)session.getAttribute("language");
+	ResourceBundle rb = LanguageManager.getTextResource(lang , "studentTaskList");
+%>
 
 
 
@@ -14,15 +28,7 @@
 
 <body>
 
-<%-- check that user is logged in --%>
-<c:if test="${empty user}">
-	Not logged in - redirecting to login
-	<c:redirect url="../login.jsp"/>	
-</c:if>
-<c:if test="${empty course}">
-	Course not selected - redirecting to login/error?
-	<c:redirect url="../login.jsp"/>
-</c:if>	
+
 
 <jsp:include page="../menu.jsp"/>
 
@@ -32,8 +38,8 @@
 <p>Kurssi: <c:out value="${course}"/>
 <p>Kieli: <c:out value="${language}"/>
 
-
-<h1 align="center">Tasks</h1>
+<%-- DEBUG --%>
+<h1 align="center"><%=rb.getString("testi")%></h1>
 
 <p>
 <tr>

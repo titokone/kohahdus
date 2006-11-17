@@ -15,8 +15,12 @@ public class TitoBundle extends ResourceBundle {
 	 */
 	public TitoBundle(Properties data, String lang) {
 		//TODO: parameter check
+		if (data == null || lang == null || !(lang.equals("EN") || lang.equals("FI"))) {
+			System.out.println("TitoBundle constructor failed");
+			throw new IllegalArgumentException("Invalid data for TitoBundle: lang "+lang+" data "+data);
+		}
 		this.xmlData = data;
-		this.language = lang;
+		this.language = "_"+lang;
 	}
 	
 	/**
