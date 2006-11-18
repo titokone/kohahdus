@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment></comment>
+	<entry key="answerTitle_EN">Answer task</entry>
+	<entry key="answerTitle_FI">Vastaa tehtävään</entry>
+	<entry key="instructions_EN">Instructions</entry>
+	<entry key="instructions_FI">Tehtävänanto</entry>
+	<entry key="input_EN">Simulator input</entry>
+	<entry key="input_FI">Simulaattorin syöte</entry>
+	<entry key="keyboardInput_EN">Keyboard</entry>
+	<entry key="keyboardInput_FI">Näppäimistö</entry>
+	<entry key="keyboardInputHelpMsg_EN">Please type in the integers separated by commas. Whitespace between integers does not matter. E.g. 1, 2,3. TitoTrainer will interpret these integers as keyboard input during program simulation.</entry>
+	<entry key="keyboardInputHelpMsg_FI">Syöte annetaan kokonaislukuina, joita erottavat pilkut. Välilyöntien käyttö on sallittua, muttei pakollista. Esim. 1, 2,3. Vain kokonaisluvut ovat hyväksyttäviä.</entry>
+	<entry key="programCode_EN">Program code</entry>
+	<entry key="programCode_FI">Ohjelman koodi</entry>
+	<entry key="executeButtonValue_EN">Execute</entry>
+	<entry key="executeButtonValue_FI">Suorita</entry>
+	<entry key="showTitokoneReportButtonValue_EN">Show Titokone Report</entry>
+	<entry key="showTitokoneReportButtonValue_FI">Näytä Titokoneen raportti</entry>
+	<entry key="hideTitokoneReportButtonValue_EN">Hide Titokone Report</entry>
+	<entry key="hideTitokoneReportButtonValue_FI">Piilota Titokoneen raportti</entry>
+	<entry key="titokoneReportTitle_EN">Titokone Report</entry>
+	<entry key="titokoneReportTitle_FI">Titokoneen raportti</entry>
+	<entry key="gradingTitle_EN">Grading</entry>
+	<entry key="gradingTitle_FI">Arvostelu</entry>
+	<entry key="gradeText_EN">Grade</entry>
+	<entry key="gradeText_FI">Arvosana</entry>
+	<entry key="commentsText_EN">Comments</entry>
+	<entry key="commentsText_FI">Kommentit</entry>
+	<entry key="criteriaText_EN">Criteria</entry>
+	<entry key="criteriaText_FI">Kriteerit</entry>
+</properties>

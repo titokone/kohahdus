@@ -23,7 +23,7 @@
 
 <html>
 <head>
-<title>Tasks</title>
+<title>TitoTrainer - <%=rb.getString("tasksTitle")%></title>
 </head>
 
 <body>
@@ -46,8 +46,8 @@
 <td>
 <table border="0">
 	<tr>
-		<td style="padding: 6px; border: solid 2px #000000"><img src="positiivinen.gif" style="vertical-align:middle"> Accomplished<br>
-			<img src="negatiivinen.gif" style="vertical-align:middle"> Unfinished</td>
+		<td style="padding: 6px; border: solid 2px #000000"><img src="positiivinen.gif" style="vertical-align:middle"> <%=rb.getString("acceptedText")%><br>
+			<img src="negatiivinen.gif" style="vertical-align:middle"> <%=rb.getString("unfinishedText")%></td>
 		</td>
 	</tr>
 </table>
@@ -56,11 +56,11 @@
 <p>
 <table border="1" cellpadding="4">
 	<tr>
-		<td>&nbsp;<a href="studentTaskList.jsp?sortTasks=5">Status</a></td>
-		<td><a href="studentTaskList.jsp?sortTasks=0"><b>Name</b></a></td>
-		<td><a href="studentTaskList.jsp?sortTasks=1"><b>Type</b></a></td>
-		<td><a href="studentTaskList.jsp?sortTasks=2"><b>Category</b></a></td>
-		<td><a href="studentTaskList.jsp?sortTasks=6"><b>Tries</b></a></td>
+		<td>&nbsp;<a href="studentTaskList.jsp?sortTasks=5"><%=rb.getString("statusText")%></a></td>
+		<td><a href="studentTaskList.jsp?sortTasks=0"><b><%=rb.getString("nameText")%></b></a></td>
+		<td><a href="studentTaskList.jsp?sortTasks=1"><b><%=rb.getString("typeText")%></b></a></td>
+		<td><a href="studentTaskList.jsp?sortTasks=2"><b><%=rb.getString("categoryText")%></b></a></td>
+		<td><a href="studentTaskList.jsp?sortTasks=6"><b><%=rb.getString("triesText")%></b></a></td>
 	</tr>
 	
 	<%-- get all tasks from db and store them in page context --%>
@@ -82,7 +82,7 @@
 
 	<c:if test="${empty tasks}">
 		<tr>
-			<td bgcolor="#FFFFFF" colspan="4">No available tasks.</td>
+			<td bgcolor="#FFFFFF" colspan="4"><%=rb.getString("noTasksText")%></td>
 		</tr>
 	</c:if>
 	<c:if test="${not empty tasks}">
@@ -131,11 +131,11 @@
 </table>
 </p>
 
-<p><b>Total completed tasks:</b><br>
+<p><b><%=rb.getString("totalTasksTitle")%>:</b><br>
 
 <%-- TODO: get status info --%>
-<c:out value="${accepted}"/> accepted<br>
-<c:out value="${unfinished}"/> unfinished</p>
+<c:out value="${accepted}"/> <%=rb.getString("acceptedText")%><br>
+<c:out value="${unfinished}"/> <%=rb.getString("unfinishedText")%></p>
 
 </body>
 </html>

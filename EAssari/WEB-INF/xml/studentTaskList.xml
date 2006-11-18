@@ -4,4 +4,24 @@
 	<comment></comment>
 	<entry key="testi_EN">englantia</entry>
 	<entry key="testi_FI">suomea</entry>
+	<entry key="tasksTitle_EN">Tasks</entry>
+	<entry key="tasksTitle_FI">Tehtävät</entry>
+	<entry key="acceptedText_EN">accepted</entry>
+	<entry key="acceptedText_FI">hyväksytty</entry>
+	<entry key="unfinishedText_EN">unfinished</entry>
+	<entry key="unfinishedText_FI">kesken</entry>
+	<entry key="statusText_EN">Status</entry>
+	<entry key="statusText_FI">Tila</entry>
+	<entry key="nameText_EN">Name</entry>
+	<entry key="nameText_FI">Nimi</entry>
+	<entry key="typeText_EN">Type</entry>
+	<entry key="typeText_FI">Tyyppi</entry>
+	<entry key="categoryText_EN">Category</entry>
+	<entry key="categoryText_FI">Kategoria</entry>
+	<entry key="triesText_EN">Tries</entry>
+	<entry key="triesText_FI">Yrityskerrat</entry>
+	<entry key="noTasksText_EN">No available tasks.</entry>
+	<entry key="noTasksText_FI">Ei tehtäviä saatavilla.</entry>
+	<entry key="totalTasksTitle_EN">Total completed tasks</entry>
+	<entry key="totalTasksTitle_FI">Suoritettuja tehtäviä yhteensä</entry>
 </properties>

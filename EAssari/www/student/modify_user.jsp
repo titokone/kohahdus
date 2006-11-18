@@ -2,11 +2,22 @@
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
+<%-- check that user is logged in --%>
+<c:if test="${empty user}">
+	Not logged in - redirecting to login
+	<c:redirect url="../login.jsp"/>	
+</c:if>
+
+<%
+	String lang = (String)session.getAttribute("language");
+	ResourceBundle rb = LanguageManager.getTextResource(lang , "studentTaskList");
+%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
-<title>TitoTrainer - Edit Your Profile</title>
+<title>TitoTrainer - <%=rb.getString("editTitle")%></title>
 <script language="javascript" type="text/javascript" src="../js/textValidityFunctions.js"></script>
 <script language="Javascript">
 
@@ -235,12 +246,6 @@
 
 <body>
 
-<%-- check that user is logged in --%>
-<c:if test="${empty user}">
-	Not logged in - redirecting to login
-	<c:redirect url="../login.jsp"/>	
-</c:if>
-
 <jsp:include page="../menu.jsp"/>
 
 <c:if test="${param.action=='modify'}">
@@ -274,7 +279,7 @@
 </c:if>
 
 
-<h2>Edit Your Profile</h2>
+<h2><%=rb.getString("editTitle")%></h2>
 
 
 
@@ -289,37 +294,37 @@
 <div>
         <table border="0" cellpadding="5">
                 <tr>
-                        <td><b>User name </b></td>
+                        <td><b><%=rb.getString("userName")%> </b></td>
                         <td><c:out value="${user.userID}"/></td>
                 </tr>
                 <tr>
-                        <td><b>First name </b></td>
+                        <td><b><%=rb.getString("firstName")%> </b></td>
                         <td><input type="text" name="first_name" value="<c:out value="${user.firstName}"/>" oncChange="trimWhitespace(this)">    </td>
                         <td id="first_name_error_msg_space">&nbsp;</td>                        
                 </tr>
                 <tr>
-                        <td><b>Last name </b></td>
+                        <td><b><%=rb.getString("lastName")%> </b></td>
                         <td><input type="text" name="last_name" value="<c:out value="${user.lastName}"/>" oncChange="trimWhitespace(this)"></td>
                         <td id="last_name_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
-                        <td><b>E-mail: </b></td>
+                        <td><b><%=rb.getString("email")%> </b></td>
                         <td><input type="text" name="email" value="<c:out value="${user.email}"/>" oncChange="trimWhitespace(this)"></td>
                         <td id="email_error_msg_space">&nbsp;</td>
                 </tr>
     
                 <tr>
-                        <td><b>Student number* </b></td>
+                        <td><b><%=rb.getString("studentNumber")%>* </b></td>
                         <td><input type="text" name="student_number" value="<c:out value="${user.studentNumber}"/>" oncChange="trimWhitespace(this)"> </td>
                         <td id="student_number_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
-                        <td><b>Social security number* </b></td>
+                        <td><b><%=rb.getString("ssn")%>* </b></td>
                         <td><input type="text" name="social_security_number" value="<c:out value="${user.socialSecurityNumber}"/>" oncChange="trimWhitespace(this)"> </td>
                         <td id="ssn_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
-                        <td colspan="2"><small>* either student number or social security number is required</small></td>
+                        <td colspan="2"><small>* <%=rb.getString("studentNumberOrSsnRequired")%></small></td>
                         <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -327,20 +332,20 @@
                         <td>&nbsp;</td>
                 </tr>
                 <tr>
-                        <td colspan="2"><b><i>Change password</i></b></td>
+                        <td colspan="2"><b><i><%=rb.getString("changePasswordTitle")%></i></b></td>
                 </tr>
                 <tr>
-                        <td><b>New password </b></td>
+                        <td><b><%=rb.getString("newPassword")%> </b></td>
                         <td><input type="password" name="new_password" oncChange="trimWhitespace(this)"></td>
                          <td id="new_password_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
-                        <td><b>New password again </b></td>
+                        <td><b><%=rb.getString("newPasswordAgain")%> </b></td>
                         <td><input type="password" name="repeat_new_password" oncChange="trimWhitespace(this)"></td>
                         <td id="repeat_new_password_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
-                        <td colspan="2" align="right"><input type="submit" name="save_button" value="Save"></td>
+                        <td colspan="2" align="right"><input type="submit" name="save_button" value="<%=rb.getString("saveButtonValue")%>"></td>
                 </tr>
         </table>
 </div>

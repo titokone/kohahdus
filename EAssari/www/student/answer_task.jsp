@@ -1,2 +1,153 @@
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ page import="java.util.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.languages.*" %>
 
+<%-- check that user is logged in --%>
+<c:if test="${empty user}">
+	<%--Not logged in - redirecting to login --%>
+	<c:redirect url="../login.jsp"/>	
+</c:if>
+<c:if test="${empty course}">
+	<%--Course not selected - redirecting to login/error? --%>
+	<c:redirect url="../login.jsp"/>
+</c:if>	
+
+<%
+	String lang = (String)session.getAttribute("language");
+	ResourceBundle rb = LanguageManager.getTextResource(lang , "studentTaskList");
+%>
+
+<html>
+<head>
+<title>TitoTrainer - <%=rb.getString("answerTitle")%></title>
+<style>
+	span.helpButton {padding: 2px 4px; border-style: outset; background-color: #B0C4DE; border-color: #6495ED; color: #000000; text-decoration: none;}
+</style>
+<script language="Javascript" type="text/javascript" src="visibilityFunctions.js"></script>
+<script language="Javascript">
+
+var titokoneVisible = false;
+
+function helpWindow(topic) {
+
+	var helpWin = window.open('', 'helpWin', 'width=300,height=200,toolbar=0,status=0');
+
+	var helpHtml = '';
+
+	if(topic == 'input_keyboard') {
+		helpHtml = '<p><%=rb.getString("keyboardInputHelpMsg")%></p>';
+	}
+
+	helpWin.document.write(helpHtml);
+	helpWin.document.close();
+}
+
+function showhideTitokoneReport() {
+	if(titokoneVisible == false) {
+		showElementById('titokone_report');
+		document.answerform.titokone_report_button.value = "<%=rb.getString("hideTitokoneReportButtonValue")%>";
+		titokoneVisible = true;
+	} else {
+		hideElementById('titokone_report');
+		document.answerform.titokone_report_button.value = "<%=rb.getString("showTitokoneReportButtonValue")%>";
+		titokoneVisible = false;
+	}
+}
+
+</script>
+</head>
+
+<body>
+
+<h2>"Task name"</h2>
+
+<table border="1" width="750" cellpadding="2">
+	<tr>
+		<td align="center" bgcolor="#6495ED"><b><%=rb.getString("instructions")%></b></td>
+	</tr>
+	<tr>
+		<td>"Blah blah, blah, blah..."<br><br><br><br><br><br><br></td>
+	</tr>
+</table>
+
+<br>
+
+<form name="answerform">
+	<table border="0">
+		<tr>
+			<td>
+				<table border="1">
+					<tr>
+						<td colspan="2" align="center" bgcolor="#6495ED"><b><%=rb.getString("input")%></b></td>
+					</tr>
+					<tr>
+						<td width="80"><b><%=rb.getString("keyboardInput")%>&nbsp;</b></td>
+						<td><input name="input_keyboard" type="text" size="90" value=""></td>
+					</tr>
+				</table>
+			</td>
+			<td>&nbsp;&nbsp;</td>
+			<td><a href="javascript:helpWindow('input_keyboard')"><span class="helpButton"><b>?</b></span></a></td>
+		</tr>
+	</table>
+
+	<br>
+
+	<table border="1" width="750" cellpadding="2">
+		<tr>
+			<td align="center" bgcolor="#6495ED"><b><%=rb.getString("programCode")%></b></td>
+		</tr>
+		<tr>
+			<td>
+				<div><b>"First part of a partial program."</b><br><br></div>
+				<textarea name="code" cols="90" rows="40"></textarea>
+				<div><br><b>"Second part of a partial program."</b></div>
+			</td>
+		</tr>
+	</table>
+
+	<br>
+
+	<input type="submit" value="<%=rb.getString("executeButtonValue")%>"> <input type="button" name="titokone_report_button" value="<%=rb.getString("showTitokoneReportButtonValue")%>" onclick="showhideTitokoneReport()">
+
+</form>
+
+<div id="titokone_report" style="display: none"><hr><b><%=rb.getString("titokoneReportTitle")%></b><br><br>..........</div>
+
+<hr>
+
+<table border="1" width="750" cellpadding="2">
+	<tr>
+		<td colspan="2" align="center" bgcolor="#6495ED"><b><%=rb.getString("gradingTitle")%></b></td>
+	</tr>
+	<tr>
+		<td width="10%"><b><%=rb.getString("gradeText")%></b></td>
+		<td width="90%">0% / 100% (?) Passed/Failed (?)</td>
+	</tr>
+	<tr>
+		<td width="10%"><b><%=rb.getString("commentsText")%>&nbsp;</b></td>
+		<td width="90%">"Blaaaaaaaaaaah."</td>
+	</tr>
+</table>
+
+<br>
+
+<table border="1" width="750" cellpadding="2">
+	<tr>
+		<td colspan="2" align="center" bgcolor="#6495ED"><b><%=rb.getString("criteriaText")%></b></td>
+	</tr>
+	<tr>
+		<td width="10%"><b>Name</b></td>
+		<td width="90%">Comments</td>
+	</tr>
+	<tr>
+		<td width="10%"><b>Name</b></td>
+		<td width="90%">Comments</td>
+	</tr>
+</table>
+
+</body>
+</html>
 

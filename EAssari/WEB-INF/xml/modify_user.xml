@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment></comment>
+	<entry key="editTitle_EN">Edit Your Profile</entry>
+	<entry key="editTitle_FI">Muokkaa tietojasi</entry>
+	<entry key="userName_EN">User name</entry>
+	<entry key="userName_FI">Käyttäjätunnus</entry>
+	<entry key="firstName_EN">First name</entry>
+	<entry key="firstName_FI">Etunimi</entry>
+	<entry key="lastName_EN">Last name</entry>
+	<entry key="lastName_FI">Sukunimi</entry>
+	<entry key="email_EN">E-mail</entry>
+	<entry key="email_FI">Sähköposti</entry>
+	<entry key="studentNumber_EN">Student number</entry>
+	<entry key="studentNumber_FI">Opiskelijanumero</entry>
+	<entry key="ssn_EN">Social security number</entry>
+	<entry key="ssn_FI">Henkilötunnus</entry>
+	<entry key="studentNumberOrSsnRequired_EN">either student number or social security number is required</entry>
+	<entry key="studentNumberOrSsnRequired_FI">joko opiskelijanumero tai henkilötunnus on pakollinen</entry>	
+	<entry key="changePasswordTitle_EN">Change password</entry>
+	<entry key="changePasswordTitle_FI">Vaihda salasana</entry>
+	<entry key="newPassword_EN">New password</entry>
+	<entry key="newPassword_FI">Uusi salasana</entry>
+	<entry key="newPasswordAgain_EN">New password again</entry>
+	<entry key="newPasswordAgain_FI">Vahvista uusi salasana</entry>
+	<entry key="saveButtonValue_EN">Save</entry>
+	<entry key="saveButtonValue_FI">Tallenna</entry>
+</properties>
