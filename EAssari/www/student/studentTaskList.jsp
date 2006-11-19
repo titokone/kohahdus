@@ -46,8 +46,8 @@
 <td>
 <table border="0">
 	<tr>
-		<td style="padding: 6px; border: solid 2px #000000"><img src="positiivinen.gif" style="vertical-align:middle"> <%=rb.getString("acceptedText")%><br>
-			<img src="negatiivinen.gif" style="vertical-align:middle"> <%=rb.getString("unfinishedText")%></td>
+		<td style="padding: 6px; border: solid 2px #000000"><img src="positive.gif" style="vertical-align:middle"> <%=rb.getString("acceptedText")%><br>
+			<img src="negative.gif" style="vertical-align:middle"> <%=rb.getString("unfinishedText")%></td>
 		</td>
 	</tr>
 </table>
@@ -109,14 +109,14 @@
 				<td>
 					<c:choose>
 						<c:when test="${task.hasSucceeded}">
-							<img src="positiivinen.gif">
+							<img src="positive.gif">
 							<c:set var="accepted" value="${accepted + 1}"/>
 						</c:when>
 						<c:when test="${task.noOfTries == 0}">
-							<img src="neutraali.gif">
+							<img src="blank.gif">
 						</c:when>
 						<c:otherwise>
-							<img src="negatiivinen.gif">
+							<img src="negative.gif">
 							<c:set var="unfinished" value="${unfinished + 1}"/>
 						</c:otherwise>
 					</c:choose>				
