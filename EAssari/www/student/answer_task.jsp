@@ -73,6 +73,8 @@ function showhideTitokoneReport() {
 
 <body>
 
+<jsp:include page="../menu.jsp"/>
+
 <h2><c:out value="${task.name}"/></h2>
 
 <table border="1" width="750" cellpadding="2">
