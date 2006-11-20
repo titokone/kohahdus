@@ -14,17 +14,24 @@
 
 <html>
 <head>
-<title><c:out value="${user.lastName}"/>, <c:out value="${user.firstName}"/></title>
+<title>User information</title>
 </head>
 
 <body>
 
-<h2></h2>
+<h2>User information</h2>
+
+<c:if test="${param.action=='remove'}">
+  <c:redirect url="../teacher/teacherTaskList.jsp"/>
+</c:if>
+
+<form name="removeUser_form" action="showUser.jsp" method="POST">
+	<input type="hidden" name="action" value="remove">
+	<input type="submit" value="Remove user" onclick="">
+</form>
 
 
-<a href="">Remove user</a><br>
 
-<h3>User information</h3>
 <ul>
 	<li>First name: <c:out value="${user.firstName}"/></li>
 	<li>Last name: <c:out value="${user.lastName}"/></li>
