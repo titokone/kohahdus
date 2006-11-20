@@ -19,6 +19,18 @@
 	ResourceBundle rb = LanguageManager.getTextResource(lang , "answer_task");
 %>
 
+<%	
+	//Get task from DB
+	Task task = DBHandler.getInstance().getTask(request.getParameter("task_id"));	
+	if (task != null) {
+		session.setAttribute("task", task);
+	    // Get all criteria from the database
+		CriterionMap criteria = DBHandler.getInstance().getCriteriaMap(task);
+		if (!criteria.isEmpty()) session.setAttribute("criteria", criteria);
+	} 
+%>
+
+
 <html>
 <head>
 <title>TitoTrainer - <%=rb.getString("answerTitle")%></title>
@@ -61,14 +73,14 @@ function showhideTitokoneReport() {
 
 <body>
 
-<h2>"Task name"</h2>
+<h2><c:out value="${task.name}"/></h2>
 
 <table border="1" width="750" cellpadding="2">
 	<tr>
 		<td align="center" bgcolor="#6495ED"><b><%=rb.getString("instructions")%></b></td>
 	</tr>
 	<tr>
-		<td>"Blah blah, blah, blah..."<br><br><br><br><br><br><br></td>
+		<td><c:out value="${task.description}"/></td>
 	</tr>
 </table>
 
@@ -101,9 +113,9 @@ function showhideTitokoneReport() {
 		</tr>
 		<tr>
 			<td>
-				<div><b>"First part of a partial program."</b><br><br></div>
+				<div><b><c:out value="${task.fillInPreCode}"/></b><br><br></div>
 				<textarea name="code" cols="90" rows="40"></textarea>
-				<div><br><b>"Second part of a partial program."</b></div>
+				<div><br><b><c:out value="${task.fillInPostCode}"/></b></div>
 			</td>
 		</tr>
 	</table>
@@ -114,39 +126,39 @@ function showhideTitokoneReport() {
 
 </form>
 
-<div id="titokone_report" style="display: none"><hr><b><%=rb.getString("titokoneReportTitle")%></b><br><br>..........</div>
-
-<hr>
-
-<table border="1" width="750" cellpadding="2">
-	<tr>
-		<td colspan="2" align="center" bgcolor="#6495ED"><b><%=rb.getString("gradingTitle")%></b></td>
-	</tr>
-	<tr>
-		<td width="10%"><b><%=rb.getString("gradeText")%></b></td>
-		<td width="90%">0% / 100% (?) Passed/Failed (?)</td>
-	</tr>
-	<tr>
-		<td width="10%"><b><%=rb.getString("commentsText")%>&nbsp;</b></td>
-		<td width="90%">"Blaaaaaaaaaaah."</td>
-	</tr>
-</table>
-
-<br>
-
-<table border="1" width="750" cellpadding="2">
-	<tr>
-		<td colspan="2" align="center" bgcolor="#6495ED"><b><%=rb.getString("criteriaText")%></b></td>
-	</tr>
-	<tr>
-		<td width="10%"><b>Name</b></td>
-		<td width="90%">Comments</td>
-	</tr>
-	<tr>
-		<td width="10%"><b>Name</b></td>
-		<td width="90%">Comments</td>
-	</tr>
-</table>
+<c:if test="${param.analyzed == 'true'}">
+	<div id="titokone_report" style="display: none">
+		<hr><b><%=rb.getString("titokoneReportTitle")%></b>
+		<c:out value="${feedback.titoState}"/>
+	</div>
+	<hr>
+	<table border="1" width="750" cellpadding="2">
+		<tr>
+			<td colspan="2" align="center" bgcolor="#6495ED"><b><%=rb.getString("gradingTitle")%></b></td>
+		</tr>
+		<tr>
+			<td width="10%"><b><%=rb.getString("gradeText")%></b></td>
+			<td width="90%">0% / 100% (?) Passed/Failed (?)</td>
+		</tr>
+		<tr>
+			<td width="10%"><b><%=rb.getString("commentsText")%>&nbsp;</b></td>
+			<td width="90%"><c:out value="${feedback.overallFeedback}"/></td>
+		</tr>
+	</table>
+	<br>
+	<table border="1" width="750" cellpadding="2">
+		<tr>
+			<td colspan="3" align="center" bgcolor="#6495ED"><b><%=rb.getString("criteriaText")%></b></td>
+		</tr>
+		<c:forEach var="criterionFeedback" items="${feedback.criteriaFeedback}">
+			<tr>
+				<td width="10%"><b><c:out value="${criterionFeedback.passedAcceptanceTest}"/></b></td>
+				<td width="10%"><b><c:out value="${criterionFeedback.name}"/></b></td>
+				<td width="80%"><c:out value="${criterionFeedback.feedback}"/></td>
+			</tr>
+		</c:if>
+	</table>
+</c:if>
 
 </body>
 </html>

@@ -25,7 +25,7 @@ public class TitoCriterionFeedback {
 	}
 	
 	/** Return true if this criterion meets passing requirements */
-	public boolean passedAcceptanceTest() {
+	public boolean isPassedAcceptanceTest() {
 		return success;
 	}
 }

@@ -66,5 +66,9 @@ Taro Morimoto
 13.11.2006	SUUN	2	Suunnittelua
 13.11.2006	KALI	1	Kälisuunnittelua
 14.11.2006	SUUN	3.5	Suunnittelua
+15.11.2006	SUUN	3	Suunnittelua
+16.11.2006	KOKO	1.5	Tarkastustilaisuus
+20.11.2006	KOKO	1	Seurantapalaveri
+20.11.2006	SUUN	3	Suunnittelua
 
 
