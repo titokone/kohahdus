@@ -834,32 +834,36 @@ public class DBHandler {
 	} 	
 		
 	/** Return user identified by name or a fragment of a name (lastname or firstname) */
-	public LinkedList getUsers(String name) throws SQLException {
+	public LinkedList<User> getUsers(String query) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
-		LinkedList users = new LinkedList();
+		LinkedList<User> users = new LinkedList<User>();
 		try {
 			st = conn.prepareStatement("select * from eauser where firstname like ? or lastname like ?");
-			st.setString(1, "%"+name+"%");
-			st.setString(2, "%"+name+"%");
-			st.executeQuery();
-			ResultSet rs = st.getResultSet();
-			while (rs.next()){
-				User user = new User(rs.getString("userid"));
-				user.setEmail(rs.getString("email"));
-				user.setFirstName(rs.getString("firstname"));
-				user.setLastName(rs.getString("lastname"));
-				user.setLanguage(rs.getString("lpref"));
-				user.setPassword(rs.getString("password"));
-				user.setStudentNumber(rs.getString("extid"));
-				user.setSocialSecurityNumber(rs.getString("extid2"));
-				user.setStatus(rs.getString("status"));
-				users.add(user);
-			} 
-			rs.close();
+			StringTokenizer names = new StringTokenizer(query);
+			while (names.hasMoreTokens()) {
+				String name = names.nextToken();
+				st.setString(1, "%"+name+"%");
+				st.setString(2, "%"+name+"%");
+				st.executeQuery();
+				ResultSet rs = st.getResultSet();
+				while (rs.next()){
+					User user = new User(rs.getString("userid"));
+					user.setEmail(rs.getString("email"));
+					user.setFirstName(rs.getString("firstname"));
+					user.setLastName(rs.getString("lastname"));
+					user.setLanguage(rs.getString("lpref"));
+					user.setPassword(rs.getString("password"));
+					user.setStudentNumber(rs.getString("extid"));
+					user.setSocialSecurityNumber(rs.getString("extid2"));
+					user.setStatus(rs.getString("status"));
+					users.add(user);
+				} 
+				rs.close();
+			}
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to get users with name "+name+". " +e);
+			Log.write("DBHandler: Failed to get users with query "+query+". " +e);
 			throw e;
 		} finally {
 			release(conn);
