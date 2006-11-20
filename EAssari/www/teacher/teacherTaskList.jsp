@@ -65,8 +65,6 @@ function checkNewCourseInputValidity() {
 <jsp:include page="../menu.jsp"/>
 
 <c:if test="${param.action=='deleteTask'}">
-	<%-- FIXME: Remove this when not needed --%>
-	Deleting task <c:out value="${param.taskID}"/>
 	<%
 		Task task = DBHandler.getInstance().getTask(request.getParameter("taskID"));
 		if (task != null) DBHandler.getInstance().removeTask(task);
@@ -74,23 +72,12 @@ function checkNewCourseInputValidity() {
 </c:if>
 
 <c:if test="${param.action=='deleteCourse'}">
-	<%-- FIXME: Remove this when not needed --%>
-	Deleting course <c:out value="${param.courseID}"/>
 	<%
-		try {
-			DBHandler.getInstance().removeCourse(request.getParameter("courseID"));
-		} catch(SQLException e) {
-			//DBHandler has already logged this event
-			
-			//TODO: should we redirect to error page or notify about it here
-		}
+		DBHandler.getInstance().removeCourse(request.getParameter("courseID"));
 	%>
 </c:if>
 
-<c:if test="${param.action=='create_course'}">
-	<%-- FIXME: Remove this when not needed --%>
-	<p>CREATING COURSE <c:out value="${param.new_course}"/>
-	
+<c:if test="${param.action=='create_course'}">	
 	<% 	
 		String s = request.getParameter("new_course");
 						
@@ -111,8 +98,12 @@ function checkNewCourseInputValidity() {
 			DBHandler.getInstance().createCourse(newCourse);
 			Log.write("New course "+newCourse.getName()+" inserted in DB.");		
 		} else {
-			//FIXME: Handle error condition more gracefully
-			out.print("ERROR: Duplicate course");
+			//out.print("ERROR: Duplicate course");
+	%>		
+			<c:redirect url="../error.jsp">
+				<c:param name="errorMsg" value="Duplicate course!"/>
+			</c:redirect>
+	<%		
 		}		
 	%>
 </c:if>
@@ -172,12 +163,6 @@ function checkNewCourseInputValidity() {
 <p id="new_course_creation_feedback"></p>		
 
 
-
-<% //FIXME: allaolevan taulukon nappuloiden paikkaa ja tarpeellisuutta voi miettiä
-   //ehkä pelkkä tasks otsikko riittää. Toisaalta, jos kursseja on paljon, joudutaan create_task
-   //nappulaa haettaessa scrollaamaan ihan sivun alkuun
-%>    
-
 <p>
 <table border="0">
 	<tr>
@@ -224,6 +209,11 @@ function checkNewCourseInputValidity() {
 					tc = new TaskComparator(sort);
 				} catch (NumberFormatException e) {
 					Log.write("TeacherTaskList: Invalid sort parameter");
+			%>		
+					<c:redirect url="../error.jsp">
+						<c:param name="errorMsg" value="Invalid sort parameter!"/>
+					</c:redirect>
+			<%		
 				}
 				if (tc != null) {
 					Collections.sort(tasks, tc);
@@ -232,10 +222,7 @@ function checkNewCourseInputValidity() {
 		</c:if>
 	
 		<c:forEach var="task" items="${pageScope.tasks}"> 
-			<tr>
-			
-				<%-- TODO: add implementation for modify, modify as new and delete --%>
-			
+			<tr>					
 				<td bgcolor="#FFFFFF"><c:out value="${task.taskID}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.name}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.titoTaskType}"/></td>

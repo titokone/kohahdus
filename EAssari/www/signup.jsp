@@ -271,16 +271,7 @@
 		<c:set target="${newUser}" property="studentNumber" value="${param.student_number}"/>
 		<c:set target="${newUser}" property="email" value="${param.email}"/>
 		<c:set target="${newUser}" property="password" value="${param.password}"/>
-		
-		<%-- DEBUG INFO prints collected data --%>		
-		<p>ID <c:out value="${newUser.userID}"/>
-		<p>FN <c:out value="${newUser.firstName}"/>
-		<p>LN <c:out value="${newUser.lastName}"/>
-		<p>SSN <c:out value="${newUser.socialSecurityNumber}"/>
-		<p>STN <c:out value="${newUser.studentNumber}"/>
-		<p>EM <c:out value="${newUser.email}"/>
-		<p>PW <c:out value="${newUser.password}"/>   
-				
+						
 	<% 	//Check DB for existing users with same id
 		//FIXME: is there a possibility that username would be null
 	   	User oldUser = DBHandler.getInstance().getUser(request.getParameter("user_name"));
@@ -292,9 +283,7 @@
 			<%-- TODO: display a proper error msg --%>
 			<p>User name invalid or already in use. Please pick another.
 		</c:when>
-		<c:otherwise>		
-			<p>ADDING TO DATABASE...
-					
+		<c:otherwise>			
 			<%
 				if (!newUser.isValid()) {
 					//TODO: ohjaus erroriin
@@ -303,11 +292,10 @@
 				} else {
 					//Add new user to db and set up session
 					DBHandler.getInstance().createUser(newUser);
-					out.print("USER CREATED -- FORWARDING TO LOGIN");
 					pageContext.setAttribute("user", newUser, PageContext.SESSION_SCOPE);
 					pageContext.setAttribute("course", request.getParameter("course"), PageContext.SESSION_SCOPE);
+					pageContext.setAttribute("language", request.getParameter("language"), PageContext.SESSION_SCOPE);
 					Log.write("Signup: new user created");
-					//TODO: forwardointi
 			%>		
 					<c:redirect url="student/studentTaskList.jsp"/>
 			<%		

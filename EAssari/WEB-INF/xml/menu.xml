@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment></comment>
+	<entry key="logout_EN">Logout</entry>
+	<entry key="logout_FI">Kirjaudu ulos</entry>
+	<entry key="modify_EN">Personal information</entry>
+	<entry key="modify_FI">Omat tiedot</entry>
+	<entry key="taskList_EN">Task list</entry>
+	<entry key="taskList_FI">Tehtävät</entry>
+</properties>

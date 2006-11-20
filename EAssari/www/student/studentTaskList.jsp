@@ -32,15 +32,6 @@
 
 <jsp:include page="../menu.jsp"/>
 
-
-<%-- DEBUG --%>
-<p>Logged in as <c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/>
-<p>Kurssi: <c:out value="${course}"/>
-<p>Kieli: <c:out value="${language}"/>
-
-<%-- DEBUG --%>
-<h1 align="center"><%=rb.getString("testi")%></h1>
-
 <p>
 <tr>
 <td>
@@ -65,13 +56,15 @@
 	
 	<%-- get all tasks from db and store them in page context --%>
 	<%
-		List<MockTask> tasks = MockTask.getTasks();
+		//List<MockTask> tasks = MockTask.getTasks();
+		
 		/*
 		String courseID = (String) session.getAttribute("course");
 		User u = (User) session.getAttribute("user");
 		
 		List<Task> tasks = DBHandler.getInstance().getTasks(courseID, u.getUserID());
 		*/
+		List<Task> tasks = DBHandler.getInstance().getTasks();		
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 	%>
 	
@@ -96,6 +89,11 @@
 					tc = new TaskComparator(sort);
 				} catch (NumberFormatException e) {
 					Log.write("TeacherTaskList: Invalid sort parameter");
+			%>		
+					<c:redirect url="../error.jsp">
+						<c:param name="errorMsg" value="Invalid sort criteria!"/>
+					</c:redirect>
+			<%		
 				}
 				if (tc != null) {
 					Collections.sort(tasks, tc);
@@ -121,7 +119,7 @@
 						</c:otherwise>
 					</c:choose>				
 				</td>
-				<td><a href="#"><c:out value="${task.name}"/></a></td>
+				<td><a href="answer_task.jsp?task_id=<c:out value="${task.taskID}"/>"><c:out value="${task.name}"/></a></td>
 				<td><c:out value="${task.titoTaskType}"/></td>
 				<td><c:out value="${task.category}"/></td>
 				<td align="center"><c:out value="${task.noOfTries}"/></td>

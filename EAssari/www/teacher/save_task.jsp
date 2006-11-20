@@ -26,48 +26,25 @@
 
 <h2>Task saved</h2>
 
-
 <%
 	TaskMaker tm = new TaskMaker(request);
 	User user = (User)session.getAttribute("user");
 	Task t = tm.getTask();
-	t.setAuthor(user.getLastName());
-	
-	//DEBUG	
-	/*
-	List<Criterion> crits = tm.getCriteria();
-	
-	for (Criterion c : crits) {
-		out.print(c.serializeToXML());
-		out.print("<br>");
-	}	
-
-	
-	
-	out.print("<p><pre>Task name: "+t.getName()+"</pre>");
-	out.print("<p><pre>Author: "+t.getAuthor()+"</pre>");
-	out.print("<p><pre>Category: "+t.getCategory()+"</pre>");
-	out.print("<p><pre>Instructions: "+t.getDescription()+"</pre>");
-	out.print("<p><pre>Pub input: "+t.getPublicInput()+"</pre>");
-	out.print("<p><pre>Sec input: "+t.getSecretInput()+"</pre>");
-	*/
-	//END	
+	t.setAuthor(user.getLastName() + user.getFirstName());	
 %>
+
 <c:if test="${param.save_type=='new'}">	
 <%	
-	//Task saved
 	DBHandler.getInstance().createTask(tm.getTask(), tm.getCriteria());
 %>
 </c:if>
 <c:if test="${param.save_type=='update'}">
-<%
-	
+<%	
 	Task task = tm.getTask();
 	task.setTaskID(request.getParameter("task_id"));
 	DBHandler.getInstance().updateTask(task, tm.getCriteria());		
 %>
 </c:if>
-
 
 <br>
 
@@ -81,7 +58,6 @@ Request parameters:<br>
 	<br>
 </c:forEach>
 --!>
-
 
 </body>
 </html>
