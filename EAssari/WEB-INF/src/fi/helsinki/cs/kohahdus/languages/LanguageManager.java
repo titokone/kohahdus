@@ -26,7 +26,7 @@ public class LanguageManager {
 	static {
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//Toimii vain db:llä - HUOM konteksti
-		loadTextResources("tomcat/webapps/mkivila/WEB-INF/xml/properties.xml");
+		loadTextResources("tomcat/webapps/paula/WEB-INF/xml/properties.xml");
 		
 		//Toimii vain workspacessa
 		//loadTextResources("EAssari/WEB-INF/xml/testProperties.xml");

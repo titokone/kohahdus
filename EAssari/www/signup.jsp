@@ -380,8 +380,8 @@
 			<td><b>Language</b></td>
 			<td>
 				<select name="language">
-					<option value="english">English</option>
-					<option value="finnish">Finnish</option>
+					<option value="EN">English</option>
+					<option value="FI">Finnish</option>
 				</select>
 			</td>
 		</tr>

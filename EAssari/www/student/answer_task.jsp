@@ -16,7 +16,7 @@
 
 <%
 	String lang = (String)session.getAttribute("language");
-	ResourceBundle rb = LanguageManager.getTextResource(lang , "studentTaskList");
+	ResourceBundle rb = LanguageManager.getTextResource(lang , "answer_task");
 %>
 
 <html>

@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ page import="java.util.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.languages.*" %>
 
 <%-- check that user is logged in --%>
 <c:if test="${empty user}">
@@ -10,7 +12,7 @@
 
 <%
 	String lang = (String)session.getAttribute("language");
-	ResourceBundle rb = LanguageManager.getTextResource(lang , "studentTaskList");
+	ResourceBundle rb = LanguageManager.getTextResource(lang , "modify_user");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
