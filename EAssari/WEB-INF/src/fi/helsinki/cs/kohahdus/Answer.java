@@ -1,20 +1,16 @@
 package fi.helsinki.cs.kohahdus;
 
-import java.io.*;
-import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.LinkedList;
 
-import fi.helsinki.cs.kohahdus.trainer.AnalyserInterface;
-import fi.helsinki.cs.kohahdus.trainer.CacheException;
-import fi.helsinki.cs.kohahdus.trainer.DisplayerInterface;
-import fi.helsinki.cs.kohahdus.trainer.Feedback;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import fi.helsinki.cs.kohahdus.criteria.Criterion;
 import fi.helsinki.cs.kohahdus.trainer.Task;
-import fi.helsinki.cs.kohahdus.trainer.Tasktype;
-import fi.helsinki.cs.kohahdus.trainer.TrainerParameters;
+import fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer;
+import fi.helsinki.cs.kohahdus.trainer.TitoFeedback;
 import fi.helsinki.cs.kohahdus.trainer.TrainerServlet;
-import fi.helsinki.cs.kohahdus.trainer.User;
-
-import java.util.*;
-import java.sql.*;
 
 
 /**
@@ -29,145 +25,32 @@ import java.sql.*;
  */
 public class Answer extends TrainerServlet {
 
-
 	/**
 	 * Handles the incoming request described in this class's description.
 	 */
 	public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
+		// Get the task in question from the session
+		Task task = (Task)req.getSession().getAttribute("task");
+		LinkedList<Criterion> criteria = (LinkedList<Criterion>)req.getSession().getAttribute("criteria");
+		
+		// Get the student's answer from the request
+		String programCode = req.getParameter("programCode");
+		String keyboardInput = req.getParameter("keyboardInput");
+		
+		// Use the analyzer to process the answer
+		TitoAnalyzer analyser = new TitoAnalyzer();
+		TitoFeedback feedback = analyser.Analyze(task, criteria, programCode, keyboardInput);
+		
+		// Store the answer and the result to database
+		// TODO: DBHandler.storeStateAndAnswer(task, criteria, feedback)
+		
+		// Store the result for later use on the jsp-page
+		req.getSession().setAttribute("feedback", feedback);
+		
+		// Forward the request to the answer jsp page
+		res.sendRedirect(req.getContextPath()+"www/student/answer_task.jsp?analyzed=true");
 	}
 	
-	/**
-	 * Stores the answer of the student into database table storedanswer. 
-	 * Also stores the state of the student's answered task into table studentmodel.
-	 * 
-	 * @param shouldStore
-	 * @param student
-	 * @param courseId
-	 * @param taskID
-	 * @param answers
-	 * @param accepted
-	 * @param lang
-	 * @param feedback
-	 * @return
-	 * @throws SQLException
-	 */
-	private String storeStateAndAnswer(boolean shouldStore, User student, String courseId, 
-									   String taskID, String[] answers, boolean accepted,
-									   String lang, Feedback feedback) throws SQLException {
-	    String insertStatus=
-	            "insert into studentmodel values (?,?,?,?,?,1,?,?,?)";
-	    String updateStatus=
-	         "update studentmodel set "+
-	          "  lasttrynumber=?, "+
-	          "  currentresult=?, "+
-	          "  hassucceeded=?, "+
-	          "  wascreditedintime=? "+
-	          "  where studentid=? and" +
-	            "courseid=? and " +
-	            "moduleid=? and" +
-	            "seqno=?";
-	    String insertanswer= "insert into answer values (" +
-	            "?,?,?,?,?,?,?,?,?,?)";
-	     
-	    Connection connection=null;
-	    PreparedStatement ps1=null;
-	    PreparedStatement ps2=null;
-	    String done=null;
-	
-	    
-	     try {
-	        connection =getConnection();
-	        if (connection!=null) {
-	            int answercount= student.getAttempts(fullTaskID);
-	            int cc=student.getCurrentCredit(fullTaskID);
-	            String stval= student.getState(fullTaskID);
-	            String studentId= student.getUserid();
-	                    
-	            if (answercount==1) {
-	                ps1=connection.prepareStatement(insertStatus);
-	                ps1.setString(1,studentId);
-	                ps1.setString(2,courseId);
-	                ps1.setString(3,moduleID);
-	                ps1.setInt(4,taskNo);
-	                ps1.setString(5,params);
-	                ps1.setInt(6,cc);
-	                if (stval.equals("YES")) {
-	                    ps1.setString(7,"Y");
-	                    ps1.setString(8,"Y");
-	                }
-	                else {
-	                    if (stval.equals("LATE")) {
-	                        ps1.setString(7,"Y");
-	                        ps1.setString(8,"N");
-	                    }    
-	                    else {
-	                        ps1.setString(7,"N");
-	                        ps1.setString(8,"N");
-	                    }                      
-	                }    
-	                ps1.executeUpdate();                 
-	            }
-	            else {
-	                ps1=connection.prepareStatement(insertStatus);
-	                ps1.setInt(1,answercount);
-	                ps1.setInt(2,cc);
-	                if (stval.equals("YES")) {
-	                    ps1.setString(3,"Y");
-	                    ps1.setString(4,"Y");
-	                }
-	                else {
-	                    if (stval.equals("LATE")) {
-	                        ps1.setString(3,"Y");
-	                        ps1.setString(4,"N");
-	                    }    
-	                    else {
-	                        ps1.setString(3,"N");
-	                        ps1.setString(4,"N");
-	                    }                      
-	                }    
-	                
-	                ps1.setString(5,studentId);
-	                ps1.setString(6,courseId);
-	                ps1.setString(6,moduleID);
-	                ps1.setInt(8,taskNo);
-	                ps1.executeUpdate();                 
-	            }
-	            
-	            
-	            if (shouldStore) {
-	                String packedanswer = pack(answers);
-	                ps2=connection.prepareStatement(insertanswer);
-	                ps2.setString(1,studentId);
-	                ps2.setString(2,courseId);
-	                ps2.setString(3,moduleID);
-	                ps2.setInt(4,taskNo);
-	                ps2.setInt(5,answercount);
-	                ps2.setInt(6,feedback.getEvaluation());
-	                ps2.setTimestamp(7,when);
-	                ps2.setString(8,packedanswer);
-	                ps2.setString(9,lang);
-	                ps2.setString(10,feedback.toString()); 
-	                ps2.executeUpdate();    
-	            }
-	        }
-	        else {
-	            String em1= taskBase.getAttribute("E","DATABASEERROR","MESSAGE",lang); 
-	            done =fatalErrorNotification(fullTaskID, em1);
-	        }
-	    }
-	    catch (SQLException e) {
-	          String em2= taskBase.getAttribute("E","DATABASEERROR","MESSAGE",lang)+ e.getMessage(); 
-	          done= fatalErrorNotification(fullTaskID, em2);
-	    }  
-	    finally {
-	           try {
-	             if (ps1!=null) ps1.close();
-	             if (ps2!=null) ps2.close();
-	             connection.close();
-	           }  
-	             catch (SQLException fex) {}      
-	    }
-	    return done;
-	}
 }
 
