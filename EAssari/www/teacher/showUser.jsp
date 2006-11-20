@@ -15,6 +15,15 @@
 <html>
 <head>
 <title>User information</title>
+
+<script language="Javascript">
+
+function removeUser(userID) {
+	return window.confirm('Do you really want to remove user '+userID+'?');
+}
+
+</script>
+
 </head>
 
 <body>
@@ -22,12 +31,13 @@
 <h2>User information</h2>
 
 <c:if test="${param.action=='remove'}">
-  <c:redirect url="../teacher/teacherTaskList.jsp"/>
+  <c:redirect url="../teacher/removed.jsp"/>
 </c:if>
 
-<form name="removeUser_form" action="showUser.jsp" method="POST">
+<form name="removeUser_form" onSubmit="return removeUser('<c:out value="${user.userID}"/>')" action="showUser.jsp?action=remove&userID=<c:out value=${user.userID}" method="POST">
 	<input type="hidden" name="action" value="remove">
 	<input type="submit" value="Remove user" onclick="">
+	<small>Will remove user account and all user information</small>
 </form>
 
 
