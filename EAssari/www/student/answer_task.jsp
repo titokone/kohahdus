@@ -19,17 +19,18 @@
 	ResourceBundle rb = LanguageManager.getTextResource(lang , "answer_task");
 %>
 
-<%	
-	//Get task from DB
-	Task task = DBHandler.getInstance().getTask(request.getParameter("task_id"));	
-	if (task != null) {
-		session.setAttribute("task", task);
-	    // Get all criteria from the database
-		CriterionMap criteria = DBHandler.getInstance().getCriteriaMap(task);
-		if (!criteria.isEmpty()) session.setAttribute("criteria", criteria);
-	} 
-%>
-
+<c:if test="${empty param.analyzed}">
+	<%	
+		// Get task from DB if execute button has not been pushed 
+		Task task = DBHandler.getInstance().getTask(request.getParameter("task_id"));	
+		if (task != null) {
+			session.setAttribute("task", task);
+		    // Get all criteria from the database
+			CriterionMap criteria = DBHandler.getInstance().getCriteriaMap(task);
+			if (!criteria.isEmpty()) session.setAttribute("criteria", criteria);
+		} 
+	%>
+</c:if>
 
 <html>
 <head>
