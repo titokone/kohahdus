@@ -21,6 +21,10 @@
 	<c:remove var="user" scope="session"/>
 </c:if>
 
+<c:if test="${param.action=='login' && not empty user}">
+	<c:remove var="user" scope="session"/>
+</c:if>
+
 <c:if test="${param.action=='login'}">
 	<%
 	User user = DBHandler.getInstance().getUser(request.getParameter("username"), request.getParameter("password"));
