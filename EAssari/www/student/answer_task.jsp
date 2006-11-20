@@ -3,6 +3,7 @@
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.languages.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.criteria.*" %>
 
 <%-- check that user is logged in --%>
 <c:if test="${empty user}">
@@ -83,7 +84,7 @@ function showhideTitokoneReport() {
 		<td align="center" bgcolor="#6495ED"><b><%=rb.getString("instructions")%></b></td>
 	</tr>
 	<tr>
-		<td><c:out value="${task.description}"/></td>
+		<td><pre><c:out value="${task.description}"/></pre></td>
 	</tr>
 </table>
 
@@ -116,9 +117,9 @@ function showhideTitokoneReport() {
 		</tr>
 		<tr>
 			<td>
-				<div><b><c:out value="${task.fillInPreCode}"/></b><br><br></div>
+				<div><b><pre><c:out value="${task.fillInPreCode}"/></pre></b><br><br></div>
 				<textarea name="code" cols="90" rows="40"></textarea>
-				<div><br><b><c:out value="${task.fillInPostCode}"/></b></div>
+				<div><br><b><pre><c:out value="${task.fillInPostCode}"/></pre></b></div>
 			</td>
 		</tr>
 	</table>
@@ -159,7 +160,7 @@ function showhideTitokoneReport() {
 				<td width="10%"><b><c:out value="${criterionFeedback.name}"/></b></td>
 				<td width="80%"><c:out value="${criterionFeedback.feedback}"/></td>
 			</tr>
-		</c:if>
+		</c:forEach>
 	</table>
 </c:if>
 
