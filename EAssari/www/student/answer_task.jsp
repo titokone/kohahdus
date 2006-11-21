@@ -84,13 +84,14 @@ function showhideTitokoneReport() {
 		<td align="center" bgcolor="#6495ED"><b><%=rb.getString("instructions")%></b></td>
 	</tr>
 	<tr>
-		<td><pre><c:out value="${task.description}"/></pre></td>
+		<%--<td><pre><c:out value="${task.description}"/></pre></td>--%>
+		<td><textarea readonly cols="100" rows="20"><c:out value="${task.description}"/></textarea></td>
 	</tr>
 </table>
 
 <br>
 
-<form name="answerform">
+<form name="answerform" action="../../servlet/Answer" method="POST">
 	<table border="0">
 		<tr>
 			<td>
@@ -100,7 +101,7 @@ function showhideTitokoneReport() {
 					</tr>
 					<tr>
 						<td width="80"><b><%=rb.getString("keyboardInput")%>&nbsp;</b></td>
-						<td><input name="input_keyboard" type="text" size="90" value=""></td>
+						<td><input name="keyboardInput" type="text" size="90" value="<c:out value="${param.keyboardInput}"/>"></td>
 					</tr>
 				</table>
 			</td>
@@ -118,7 +119,7 @@ function showhideTitokoneReport() {
 		<tr>
 			<td>
 				<div><b><pre><c:out value="${task.fillInPreCode}"/></pre></b><br><br></div>
-				<textarea name="code" cols="90" rows="40"></textarea>
+				<textarea name="programCode" cols="90" rows="40"><c:out value="${param.programCode}"/></textarea>
 				<div><br><b><pre><c:out value="${task.fillInPostCode}"/></pre></b></div>
 			</td>
 		</tr>
@@ -126,7 +127,8 @@ function showhideTitokoneReport() {
 
 	<br>
 
-	<input type="submit" value="<%=rb.getString("executeButtonValue")%>"> <input type="button" name="titokone_report_button" value="<%=rb.getString("showTitokoneReportButtonValue")%>" onclick="showhideTitokoneReport()">
+	<input type="submit" value="<%=rb.getString("executeButtonValue")%>"> 
+	<input type="button" name="titokone_report_button" value="<%=rb.getString("showTitokoneReportButtonValue")%>" onclick="showhideTitokoneReport()">
 
 </form>
 
