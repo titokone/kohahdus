@@ -835,27 +835,27 @@ public class DBHandler {
 		
 	
 	/** Remove selected user */
-	public void removeUser(User user) throws SQLException{
+	public void removeUser(String userID) throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("delete eauser where userid=?"); 
-			st.setString(1, user.getUserID());
+			st.setString(1, userID);
 			st.executeUpdate();
 			if (st != null) st.close();			
 			
 			st = conn.prepareStatement("delete storedanswer where sid=?"); 
-			st.setString(1, user.getUserID());
+			st.setString(1, userID);
 			st.executeUpdate();
 			
 			st = conn.prepareStatement("delete studentmodel where sid=?"); 
-			st.setString(1, user.getUserID());
+			st.setString(1, userID);
 			st.executeUpdate();
 			
-			Log.write("DBHandler: User " +user.getUserID()+ " removed from database ");
+			Log.write("DBHandler: User " +userID+ " removed from database ");
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to remove user "+user.getUserID()+". " +e);
+			Log.write("DBHandler: Failed to remove user "+userID+". " +e);
 			throw e;
 		} finally {
 			release(conn);
