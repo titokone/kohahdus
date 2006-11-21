@@ -1,10 +1,14 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.HashSet;
+
 
 /** Base class for banned and required opcode criteria */
 public abstract class InstructionCriterion extends Criterion {
-	private String opcodes = "";
+	protected Set<String> opcodes = new HashSet<String>();
 	
 	/** Empty constructor for deserialization */
 	protected InstructionCriterion() {	}
@@ -15,36 +19,28 @@ public abstract class InstructionCriterion extends Criterion {
 	}
 	
 	@Override public boolean hasAcceptanceTest(boolean usingModelAnswer) {
-		return !opcodes.equals("");
+		return !opcodes.isEmpty();
 	}
 
 	@Override public String getAcceptanceTestValue() {
-		return opcodes;
+		String codes = opcodes.toString(); // Formated: [CODE1, CODE2, CODE3] 
+		return codes.substring(1, codes.length() - 2);
 	}
 	
 	@Override public void setAcceptanceTestValue(String test) {
-		if (test == null) {		
-			opcodes = "";
-		} else {
-			// reformat test as "NOP, MUL, DIV"
+		opcodes = new HashSet<String>();
+		if (test != null) {
 			String[] instructions = test.split("[ \t\r\f\n,;]+");
-			StringBuffer buffer = new StringBuffer();
-			for (int i=0; i<instructions.length; i++) {
-				buffer.append(instructions[i]);
-				if (i < instructions.length-1) {
-					buffer.append(", ");
-				}
-			}
-			opcodes = buffer.toString();
+			opcodes.addAll(Arrays.asList(instructions));
 		}
 	}
 
 
 	@Override protected String serializeSubClass() {
-		return toXML("opcodes", opcodes);
+		return toXML("opcodes", getAcceptanceTestValue());
 	}
 	
 	@Override protected void initSubClass(String serializedXML) {
-		opcodes = parseXMLString(serializedXML, "opcodes");
+		setAcceptanceTestValue(parseXMLString(serializedXML, "opcodes"));
 	}
 }

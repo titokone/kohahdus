@@ -1,5 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.Set;
+
 /** Concrete criterion class for required opcodes */
 public class RequiredInstructionsCriterion extends InstructionCriterion {
 
@@ -11,7 +13,9 @@ public class RequiredInstructionsCriterion extends InstructionCriterion {
 	}
 
 	@Override public boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer) {
-		return false;
+		Set<String> usedOps = studentAnswer.getUsedOpcodes();
+		Set<String> reqOps  = opcodes;
+		return usedOps.containsAll(reqOps);
 	}
 
 }

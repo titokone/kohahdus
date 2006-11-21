@@ -1,6 +1,7 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /** Concrete criterion class for banned opcodes */
 public class ForbiddenInstructionsCriterion extends InstructionCriterion {
@@ -13,6 +14,8 @@ public class ForbiddenInstructionsCriterion extends InstructionCriterion {
 	}
 
 	@Override public boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer) {
-		return false;
+		Set<String> usedOps = studentAnswer.getUsedOpcodes();
+		Set<String> banOps  = opcodes;
+		return banOps.removeAll(usedOps);
 	}
 }

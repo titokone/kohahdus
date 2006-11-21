@@ -161,12 +161,12 @@ public class TitoState {
 
 	    BinaryInterpreter interp = new BinaryInterpreter();
 	    for(MemoryLine line : code) {
-		String fullInstruction = interp.binaryToString(line.getBinary());
-		if (fullInstruction.indexOf(' ') == -1) {
-		    opcodes.add(fullInstruction);		    		    
-		} else {
-		    opcodes.add(fullInstruction.substring(0, fullInstruction.indexOf(' ')));
-		}		
+	    	String fullInstruction = interp.binaryToString(line.getBinary());
+	    	if (fullInstruction.indexOf(' ') == -1) {
+	    		opcodes.add(fullInstruction);		    		    
+	    	} else {
+	    		opcodes.add(fullInstruction.substring(0, fullInstruction.indexOf(' ')));
+	    	}		
 	    }
 	    return opcodes;
 	}
