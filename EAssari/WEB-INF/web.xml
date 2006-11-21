@@ -17,26 +17,39 @@
     </description>
   </context-param>
 
-<servlet>
-  <servlet-name>TestServlet</servlet-name> 
-  <servlet-class>TestServlet</servlet-class> 
-</servlet>
-
-<servlet>
-  <servlet-name>Answer</servlet-name> 
-  <servlet-class>fi.helsinki.cs.kohahdus.Answer</servlet-class> 
-</servlet>
-
-<servlet-mapping>
-  <servlet-name>Answer</servlet-name> 
-  <url-pattern>/Answer</url-pattern> 
-</servlet-mapping>
-
-<servlet-mapping>
-  <servlet-name>invoker</servlet-name> 
-  <url-pattern>/servlet/*</url-pattern> 
-</servlet-mapping>
-
+	<filter>
+        <filter-name>TitoInitializer</filter-name>
+        <filter-class>fi.helsinki.cs.kohahdus.TitoInitializer</filter-class>
+		<init-param>
+			<param-name>language-properties</param-name>
+			<param-value>/home/tkt_koha/tomcat/webapps/morimoto/WEB-INF/xml/properties.xml</param-value>
+		</init-param>
+    </filter>
+     <filter-mapping>
+        <filter-name>TitoInitializer</filter-name>
+		<url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+	<servlet>
+	  <servlet-name>TestServlet</servlet-name> 
+	  <servlet-class>TestServlet</servlet-class> 
+	</servlet>
+	
+	<servlet>
+	  <servlet-name>Answer</servlet-name> 
+	  <servlet-class>fi.helsinki.cs.kohahdus.Answer</servlet-class> 
+	</servlet>
+	
+	<servlet-mapping>
+	  <servlet-name>Answer</servlet-name> 
+	  <url-pattern>/Answer</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	  <servlet-name>invoker</servlet-name> 
+	  <url-pattern>/servlet/*</url-pattern> 
+	</servlet-mapping>
+	
 
   <taglib>
     <taglib-uri>http://java.sun.com/jstl/fmt</taglib-uri>

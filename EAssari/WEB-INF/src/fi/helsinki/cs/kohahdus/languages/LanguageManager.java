@@ -23,6 +23,7 @@ public class LanguageManager {
 	/**
 	 * Ensure that all bundles are loaded when this class is referenced
 	 */
+	/*
 	static {
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//Toimii vain db:llä - HUOM konteksti
@@ -31,24 +32,25 @@ public class LanguageManager {
 		//Toimii vain workspacessa
 		//loadTextResources("EAssari/WEB-INF/xml/testProperties.xml");
 	}
+	*/
 		
 	/**
-	 * Initializes all resources specified in parameter file.
+	 * Initializes all resources specified in parameter file. This method is now called from
+	 * a filter named TitoInitializer.
 	 * @param propertiesFile Contains filenames of all resources to be loaded in XML format.
 	 */
-	private static synchronized void loadTextResources(String propertiesFile) {
+	public static synchronized void loadTextResources(String propertiesFile) {
 		if (bundles != null)
 			return;
 
-		File path = new File(".");
-		Log.write("LanguageManager: path = " + path.getAbsolutePath());
+		Log.write("LanguageManager: loading from " +propertiesFile);
 		
-		File properties = new File(propertiesFile);
 		InputStream in;
 		
 		try {
+			File properties = new File(propertiesFile);
 			in = new FileInputStream(properties);
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			Log.write("LanguageManager: failed to load properties file " + propertiesFile + ". " + e);
 			return;
 		}
