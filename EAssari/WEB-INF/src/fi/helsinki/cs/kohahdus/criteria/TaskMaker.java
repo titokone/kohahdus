@@ -57,12 +57,14 @@ public class TaskMaker {
 	private static final String MAX_INSTRUCTIONS = "maximum_number_of_executed_instructions";
 	
 	
-	public static final String TASK_NAME = "task_name";
-	public static final String LANGUAGE = "language";
-	public static final String CATEGORY = "category";
-	public static final String INSTRUCTIONS = "instructions";
-	public static final String SECRET_INPUT = "secret_input";
-	public static final String PUBLIC_INPUT = "public_input";
+	private static final String TASK_NAME = "task_name";
+	private static final String LANGUAGE = "language";
+	private static final String CATEGORY = "category";
+	private static final String INSTRUCTIONS = "instructions";
+	private static final String SECRET_INPUT = "secret_input";
+	private static final String PUBLIC_INPUT = "public_input";
+	private static final String PASS_FEEDBACK = "feedback_pass";
+	private static final String FAIL_FEEDBACK = "feedback_fail";
 	
 	private static final int DEFAULT_CUTOFF = 100;
 		
@@ -123,7 +125,8 @@ public class TaskMaker {
 		task.setDescription(req.getParameter(INSTRUCTIONS));
 		task.setSecretInput(req.getParameter(SECRET_INPUT));
 		task.setPublicInput(req.getParameter(PUBLIC_INPUT));
-					
+		task.setPassFeedBack(req.getParameter(PASS_FEEDBACK));			
+		task.setFailFeedBack(req.getParameter(FAIL_FEEDBACK));		
 		task.setFillInPostCode(req.getParameter(POST_CODE));
 		task.setFillInPreCode(req.getParameter(PRE_CODE));
 		task.setModelAnswer(req.getParameter(EX_CODE));
