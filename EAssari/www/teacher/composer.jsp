@@ -73,8 +73,6 @@ var REQUIRED_STATUS = 1;
 var FORBIDDEN_STATUS = -1;
 var NEUTRAL_STATUS = 0;
 
-var integerExp = /^((\+|-)\d)?\d*/;
-
 // initialize TTK-91 instruction arrays and switch to initial view
 function initTaskCreation()
 {
@@ -171,7 +169,7 @@ function switchToCriteriaView(){
 		hideElementById('exampleTable');
 	}
 
-	inputs = document.getElementsByTagName('input');
+	var inputs = document.getElementsByTagName('input');
 	for (i=0; i<inputs.length; i++){
 		if (inputs[i].name.indexOf("_checked") != -1){
 			inputs[i].style.display = "none";
@@ -182,7 +180,7 @@ function switchToCriteriaView(){
 		}
 	}
 
-	textareas = document.getElementsByTagName('textarea');
+	var textareas = document.getElementsByTagName('textarea');
 	for (i=0; i<textareas.length; i++){
 		if (textareas[i].name.indexOf("output_value_") != -1){
 			textareas[i].style.display = "block";
@@ -303,6 +301,7 @@ function onFormSubmit() {
 		alertText += '\n' + alertCounter + '. Task name may not contain characters ", <, > and &.';
 	}
 	
+	// inputs
 	var numberOfPublicInputs = 0;
 	var numberOfSecretInputs = 0;
 	
@@ -314,7 +313,7 @@ function onFormSubmit() {
 		numberOfPublicInputs = inputInts.length;
 		
 		for(var i = 0; i < inputInts.length; i++) {
-			if(!integerExp.test(inputInts[i])) {
+			if(!isInteger(inputInts[i])) {
 				alertCounter++;
 				alertText += '\n' + alertCounter + '. Public input must be integers separated by commas with optional spaces.';
 				break;
@@ -322,7 +321,7 @@ function onFormSubmit() {
 		}
 	}	
 	
-	if(document.task_creation_form.secret_input.value != '') {
+	if(document.task_creation_form.secret_input.value != "") {
 		var splitExp = / *\, */;
 		
 		var inputInts = document.task_creation_form.secret_input.value.split(splitExp);
@@ -330,7 +329,7 @@ function onFormSubmit() {
 		numberOfSecretInputs = inputInts.length;
 		
 		for(var i = 0; i < inputInts.length; i++) {
-			if(!integerExp.test(inputInts[i])) {
+			if(!isInteger(inputInts[i])) {
 				alertCounter++;
 				alertText += '\n' + alertCounter + '. Secret input must be integers separated by commas with optional spaces.';
 				break;
@@ -343,8 +342,74 @@ function onFormSubmit() {
 		alertText += '\n' + alertCounter + '. A task must have the same number of public and secret inputs.';	
 	}
 	
+	// registers and variables (only if correctness is determined by predefined values
+	if(document.task_creation_form.correctness_by.value == "predefined_values") {
+		for (i=0; i<inputs.length; i++) {
+			if ((inputs[i].name.indexOf("REG") != -1) || (inputs[i].name.indexOf("SYM") != -1)) {
+				if((inputs[i].value != "") && (!isInteger(inputs[i].value))) {
+					alertCounter++;
+					alertText += '\n' + alertCounter + '. Register and variable values must be integers.';
+					break;
+				}
+			}
+		}
+	}
+	
+	// outputs
+	var numberOfPublicOutputs = 0;
+	var numberOfSecretOutputs = 0;
+	
+	if(document.task_creation_form.<c:out value="${pub.id}"/>output_value.value != "") {
+		var splitExp = / *\, */;
+		
+		var outputInts = document.task_creation_form.<c:out value="${pub.id}"/>output_value.value.split(splitExp);
+		
+		numberOfPublicOutputs = outputInts.length;
+		
+		for(var i = 0; i < outputInts.length; i++) {
+			if(!isInteger(outputInts[i])) {
+				alertCounter++;
+				alertText += '\n' + alertCounter + '. Simulator output with public input must be integers separated by commas with optional spaces.';
+				break;
+			}
+		}
+	}	
+	
+	if(document.task_creation_form.<c:out value="${sec.id}"/>output_value.value != '') {
+		var splitExp = / *\, */;
+		
+		var outputInts = document.task_creation_form.<c:out value="${sec.id}"/>output_value.value.split(splitExp);
+		
+		numberOfSecretOutputs = outputInts.length;
+		
+		for(var i = 0; i < outputInts.length; i++) {
+			if(!isInteger(outputInts[i])) {
+				alertCounter++;
+				alertText += '\n' + alertCounter + '. Simulator output with secret input must be integers separated by commas with optional spaces.';
+				break;
+			}
+		}
+	}	
+	
+	if(numberOfPublicOutputs != numberOfSecretOutputs) {
+		alertCounter++;
+		alertText += '\n' + alertCounter + '. A task must have the same number of outputs with public and secret inputs.';	
+	}
+	
+	// quality criteria
+	for (i=0; i<inputs.length; i++) {
+		if ((inputs[i].name.indexOf("_acceptance_limit") != -1) || (inputs[i].name.indexOf("_quality_limit") != -1)) {
+			if((inputs[i].value != "") && (!isInteger(inputs[i].value))) {
+				alertCounter++;
+				alertText += '\n' + alertCounter + '. Acceptance and quality limits of quality criteria may only be integers.';
+				break;
+			}
+		}
+	}
+	
+	// endless loop prevention
 	if((document.task_creation_form.maximum_number_of_executed_instructions.value == '') ||
-	(!integerExp.test(document.task_creation_form.maximum_number_of_executed_instructions.value)) ||
+	(!isInteger(document.task_creation_form.maximum_number_of_executed_instructions.value)) ||
 	(Number(document.task_creation_form.maximum_number_of_executed_instructions.value) <= 0)) {
 		alertCounter++;
 		alertText += '\n' + alertCounter + '. Maximum number of executed instructions must be a number greater than 0.';
@@ -421,6 +486,13 @@ function instructionRequirementsIntoText() {
 
 	document.task_creation_form.REQOPCODES_instructions.value = requiredInstructions;
 	document.task_creation_form.BANOPCODES_instructions.value = forbiddenInstructions;
+}
+
+function isInteger(variable)
+{
+	var integerExp = /^((\+|-)\d)?\d*/;
+	
+	return integerExp.test(variable);
 }
 
 </script>
