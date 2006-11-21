@@ -20,6 +20,8 @@
 	<entry key="categoryText_FI">Kategoria</entry>
 	<entry key="triesText_EN">Tries</entry>
 	<entry key="triesText_FI">Yrityskerrat</entry>
+	<entry key="languageText_EN">Language</entry>
+	<entry key="languageText_FI">Kieli</entry>
 	<entry key="noTasksText_EN">No available tasks.</entry>
 	<entry key="noTasksText_FI">Ei tehtäviä saatavilla.</entry>
 	<entry key="totalTasksTitle_EN">Total completed tasks</entry>
