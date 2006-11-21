@@ -23,8 +23,8 @@ public abstract class InstructionCriterion extends Criterion {
 	}
 
 	@Override public String getAcceptanceTestValue() {
-		String codes = opcodes.toString(); // Formated: [CODE1, CODE2, CODE3] 
-		return codes.substring(1, codes.length() - 2);
+		String codes = opcodes.toString(); // Formated: [CODE1, CODE2, CODE3]
+		return codes.substring(1, codes.length() - 1);
 	}
 	
 	@Override public void setAcceptanceTestValue(String test) {
