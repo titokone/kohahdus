@@ -1,10 +1,15 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
 import java.util.ResourceBundle;
+import static fi.hu.cs.ttk91.TTK91Cpu.*;
 
 /** Concrete criterion class for register values */  
 public class RegisterCriterion extends VariableCriterion {
 	private int registerNumber;
+	
+	/** Maps register number to TitoKone register constant (eg. 5 -> REG_R5) */
+	private static int registerCodes[] = { REG_R0, REG_R1, REG_R2, REG_R3, REG_R4, REG_R5, REG_R6, REG_R7};
+
 	
 	/** Empty constructor for deserialization */
 	protected RegisterCriterion() { }
@@ -26,7 +31,7 @@ public class RegisterCriterion extends VariableCriterion {
 	}
 
 	@Override protected long getCriterionValue(TitoState answer) {
-		return answer.getRegister(registerNumber);
+		return answer.getRegister(registerCodes[registerNumber]);
 	}
 	
 	@Override protected String serializeSubClass() {
