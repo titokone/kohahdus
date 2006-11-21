@@ -1,16 +1,13 @@
 package fi.helsinki.cs.kohahdus;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fi.helsinki.cs.kohahdus.criteria.Criterion;
-import fi.helsinki.cs.kohahdus.trainer.Task;
-import fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer;
-import fi.helsinki.cs.kohahdus.trainer.TitoFeedback;
-import fi.helsinki.cs.kohahdus.trainer.TrainerServlet;
+import fi.helsinki.cs.kohahdus.criteria.*;
+import fi.helsinki.cs.kohahdus.trainer.*;
 
 
 /**
@@ -29,10 +26,12 @@ public class Answer extends TrainerServlet {
 	 * Handles the incoming request described in this class's description.
 	 */
 	public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		
+				
 		// Get the task in question from the session
 		Task task = (Task)req.getSession().getAttribute("task");
-		LinkedList<Criterion> criteria = (LinkedList<Criterion>)req.getSession().getAttribute("criteria");
+		CriterionMap criteriaMap = (CriterionMap)req.getSession().getAttribute("criteria");
+		List<Criterion> criteria = criteriaMap.getList();
+		
 		
 		// Get the student's answer from the request
 		String programCode = req.getParameter("programCode");
@@ -49,7 +48,8 @@ public class Answer extends TrainerServlet {
 		req.getSession().setAttribute("feedback", feedback);
 		
 		// Forward the request to the answer jsp page
-		res.sendRedirect(req.getContextPath()+"www/student/answer_task.jsp?analyzed=true");
+		res.sendRedirect(req.getContextPath()+"www/student/answer_task.jsp?analyzed=true&keyboardInput="+keyboardInput+
+				         "&programCode="+programCode);
 	}
 	
 }
