@@ -52,6 +52,7 @@
 		<td><a href="studentTaskList.jsp?sortTasks=1"><b><%=rb.getString("typeText")%></b></a></td>
 		<td><a href="studentTaskList.jsp?sortTasks=2"><b><%=rb.getString("categoryText")%></b></a></td>
 		<td><a href="studentTaskList.jsp?sortTasks=6"><b><%=rb.getString("triesText")%></b></a></td>
+		<td><b><%=rb.getString("languageText")%></b></a></td>
 	</tr>
 	
 	<%-- get all tasks from db and store them in page context --%>
@@ -62,7 +63,7 @@
 		String courseID = (String) session.getAttribute("course");
 		User u = (User) session.getAttribute("user");
 		
-		List<Task> tasks = DBHandler.getInstance().getTasks(courseID, u.getUserID());
+		List<Task> tasks = DBHandler.getInstance().getTasksTest(courseID, u.getUserID());
 		*/
 		List<Task> tasks = DBHandler.getInstance().getTasks();		
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
@@ -123,6 +124,7 @@
 				<td><c:out value="${task.titoTaskType}"/></td>
 				<td><c:out value="${task.category}"/></td>
 				<td align="center"><c:out value="${task.noOfTries}"/></td>
+				<td><c:out value="${task.language}"/></td>
 			</tr>
 		</c:forEach>
 	</c:if>		
