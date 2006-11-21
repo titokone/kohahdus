@@ -2,19 +2,28 @@ package fi.helsinki.cs.kohahdus.criteria;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import fi.hu.cs.ttk91.*;
-import fi.hu.cs.titokone.Control;
+import fi.hu.cs.titokone.*;
 
 /** Capsulates the end-state of single run of TitoKone.
  *  
  * Tämä luokka toteutetaan toisessa iteraatiossa */
 public class TitoState {
 	private Control controller = new Control(new File("/dev/null"), new File("/dev/tty"));
-	private TTK91Application app;
-	private TTK91Cpu cpu;
-	private TTK91Memory mem;
+	private Application app;
+	private Processor cpu;
+	private RandomAccessMemory mem;
+	
+	/** Memory reference count. Saved after execution so TitoState.getMemoryLocation(..)
+	 * will not affect the counts. */
+	private int memRef = 0;
 
+	/** Compiled program code. Stored here after compilation, before exectution 
+	 * (has implications on the opcodes seen in programs using self modifying code). */
+	private MemoryLine code[];
 	
 	
 	/** Silly String wrapper-class required by TitoKone */
@@ -38,7 +47,8 @@ public class TitoState {
 	public String compile(String sourceCode) {
 		TTK91CompileSource src = new Source(sourceCode);
 		try {
-			this.app = controller.compile(src);
+			app = (Application)(controller.compile(src));
+			code = app.getCode();
 		} catch (TTK91CompileException e) {
 			return e.getMessage();
 		} catch (TTK91Exception e) { 		// APIdoc indicates this can never happen, and initial  
@@ -58,8 +68,9 @@ public class TitoState {
 		try {
 			app.setKbd(keyboardInput + ","); // TitoKone does not accept empty string
 			controller.run(app, maxExecutionSteps);
-			cpu = controller.getCpu();
-			mem = controller.getMemory();
+			cpu = (Processor)(controller.getCpu());
+			mem = (RandomAccessMemory)(controller.getMemory());
+			memRef = mem.getMemoryReferences() - mem.getCodeAreaSize() - mem.getDataAreaSize();
 		} catch (TTK91RuntimeException e) {
 			return e.getMessage();
 		} catch (TTK91Exception e) {		// APIdoc indicates this can never happen
@@ -76,8 +87,7 @@ public class TitoState {
 	 * @see fi.hu.cs.ttk91.TTK91Cpu#REG_R0 */
 	int getRegister(int registerCode) {
 		return cpu.getValueOf(registerCode);
-	}
-	
+	}	
 	
 	
 
@@ -88,47 +98,76 @@ public class TitoState {
 		return mem.getValue(address);
 	}
 	
+	
 	/** Return symbol table that maps symbol names to symbol value addresses
 	 */
 	HashMap getSymbolTable() {
-		return mem.getSymbolTable();
+		return app.getSymbolTable().toHashMap();
 	}
 	
-	/** Return TitoKone screen output as String in format "1234, 1234, 1234". Returns and
+	
+	/** Return TitoKone screen output as String in format "1234, 1234, 1234". Returns an
 	 * emptry String "" if the program produced no screen ouput. */
 	String getScreenOutput() {
-		return app.readCrt();
+		String outputs[] = app.readCrt().split("\n");
+
+		// Reformat output as "124, 4242, 2335, 3535, 35325"
+		StringBuffer buffer = new StringBuffer();
+		for (int i=0; i<outputs.length; i++) {
+			buffer.append(outputs[i]);
+			if (i < outputs.length-1) {
+				buffer.append(", ");
+			}
+		}	
+		return buffer.toString();
 	}
+	
+	
+	
+	
 	
 	/** Return maximum size of stack reached during program execution.
 	 * @return stack size, measured in 32-bit words
 	 */ 
 	int getStackMaxSize() {
-		return 0;
+		return cpu.giveStackMaxSize();
 	}
 
 	/** Return number of executed instructions. */
 	int getExecutionSteps() {
-		return 0;		
+		return cpu.giveCommAmount();		
 	}
 	
 	/** Return number of instruction words in the program code */
 	int getCodeSize() {
-		return 0;		
+		return mem.getCodeAreaSize();		
 	}
 	
 	/** Return number of words in program's data-area */
 	int getDataSize() {
-		return 0;
+		return mem.getDataAreaSize();
 	}
 	
 	/** Return number memory references executed during program run. This number
 	 * includes references caused by both data and instruction fetches. */
 	int getMemoryAccessCount() {
-		return 0;
+		return memRef;
 	}
 	
-	String[] getUsedOpcodes() {
-		return null;
-	}	
+	/** Return used opcodes in set of Strings. This does not include instructions
+	 * DC, DS and EQU.  */
+	Set<String> getUsedOpcodes() {
+	    Set<String> opcodes = new HashSet<String>();
+
+	    BinaryInterpreter interp = new BinaryInterpreter();
+	    for(MemoryLine line : code) {
+		String fullInstruction = interp.binaryToString(line.getBinary());
+		if (fullInstruction.indexOf(' ') == -1) {
+		    opcodes.add(fullInstruction);		    		    
+		} else {
+		    opcodes.add(fullInstruction.substring(0, fullInstruction.indexOf(' ')));
+		}		
+	    }
+	    return opcodes;
+	}
 }

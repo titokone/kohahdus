@@ -1,38 +1,59 @@
 \select@language {finnish}
 \contentsline {section}{\numberline {1}Johdanto}{1}
-\contentsline {section}{\numberline {2}Sanasto}{1}
-\contentsline {section}{\numberline {3}Toiminnot}{2}
-\contentsline {subsection}{\numberline {3.1}Rekister\"oityminen}{2}
-\contentsline {subsection}{\numberline {3.2}K\"aytt\"aj\"atietojen muokkaaminen}{2}
-\contentsline {subsection}{\numberline {3.3}Kirjautuminen}{2}
-\contentsline {subsection}{\numberline {3.4}Kurssien ja teht\"avien valinta (opettaja)}{2}
-\contentsline {subsection}{\numberline {3.5}Teht\"av\"an m\"a\"arittely (opettaja)}{3}
-\contentsline {subsection}{\numberline {3.6}Kurssin statistiikka (opettaja)}{3}
-\contentsline {subsection}{\numberline {3.7}K\"aytt\"aj\"an tiedot (opettaja)}{3}
-\contentsline {subsection}{\numberline {3.8}Teht\"avien valinta (opiskelija)}{3}
-\contentsline {subsection}{\numberline {3.9}Teht\"av\"a\"an vastaaminen (opiskelija)}{3}
-\contentsline {section}{\numberline {4}Arkkitehtuurisuunnitelma}{4}
-\contentsline {section}{\numberline {5}Tietokanta}{4}
-\contentsline {subsection}{\numberline {5.1}tasktype}{4}
-\contentsline {subsection}{\numberline {5.2}task}{5}
-\contentsline {subsection}{\numberline {5.3}course}{5}
-\contentsline {subsection}{\numberline {5.4}module}{6}
-\contentsline {subsection}{\numberline {5.5}taskinmodule}{6}
-\contentsline {subsection}{\numberline {5.6}attributevalues}{6}
-\contentsline {subsection}{\numberline {5.7}eauser}{6}
-\contentsline {subsection}{\numberline {5.8}storedanswer}{6}
-\contentsline {subsection}{\numberline {5.9}studentmodel}{6}
-\contentsline {subsection}{\numberline {5.10}taskattributes}{7}
-\contentsline {subsection}{\numberline {5.11}pluginparameters}{7}
-\contentsline {subsection}{\numberline {5.12}pluginparamattributes}{7}
-\contentsline {section}{\numberline {6}Luokat}{7}
-\contentsline {section}{\numberline {7}JSP sivujen sekvenssikaaviot}{7}
-\contentsline {subsection}{\numberline {7.1}Register.jsp}{8}
-\contentsline {subsection}{\numberline {7.2}Login.jsp}{8}
-\contentsline {subsection}{\numberline {7.3}TeacherTaskList.jsp}{8}
-\contentsline {subsection}{\numberline {7.4}TaskList.jsp}{8}
-\contentsline {subsection}{\numberline {7.5}Report.jsp}{8}
-\contentsline {subsection}{\numberline {7.6}UserInfo.jsp}{8}
-\contentsline {subsection}{\numberline {7.7}Composer.jsp}{9}
-\contentsline {subsection}{\numberline {7.8}TeacherTaskList.jsp}{9}
-\contentsline {subsection}{\numberline {7.9}Answer-servlet}{9}
+\contentsline {section}{\numberline {2}Sanasto}{2}
+\contentsline {section}{\numberline {3}Toiminnot}{3}
+\contentsline {subsection}{\numberline {3.1}Rekister\"oityminen}{3}
+\contentsline {subsection}{\numberline {3.2}K\"aytt\"aj\"atietojen muokkaaminen}{3}
+\contentsline {subsection}{\numberline {3.3}Kirjautuminen}{3}
+\contentsline {subsection}{\numberline {3.4}Kurssien ja teht\"avien valinta (opettaja)}{3}
+\contentsline {subsection}{\numberline {3.5}Teht\"av\"an m\"a\"arittely (opettaja)}{4}
+\contentsline {subsection}{\numberline {3.6}Kurssin statistiikka (opettaja)}{4}
+\contentsline {subsection}{\numberline {3.7}K\"aytt\"aj\"an tiedot (opettaja)}{4}
+\contentsline {subsection}{\numberline {3.8}K\"aytt\"ajien haku (opettaja)}{4}
+\contentsline {subsection}{\numberline {3.9}Teht\"avien valinta (opiskelija)}{4}
+\contentsline {subsection}{\numberline {3.10}Teht\"av\"a\"an vastaaminen (opiskelija)}{4}
+\contentsline {subsection}{\numberline {3.11}Teht\"avien aihepiiri (opettaja)}{5}
+\contentsline {subsection}{\numberline {3.12}Monikielisyys}{5}
+\contentsline {section}{\numberline {4}Arkkitehtuurisuunnitelma}{6}
+\contentsline {section}{\numberline {5}Tietokanta}{7}
+\contentsline {subsection}{\numberline {5.1}Tasktype}{7}
+\contentsline {subsection}{\numberline {5.2}Task}{7}
+\contentsline {subsection}{\numberline {5.3}Course}{8}
+\contentsline {subsection}{\numberline {5.4}Module}{8}
+\contentsline {subsection}{\numberline {5.5}Taskinmodule}{8}
+\contentsline {subsection}{\numberline {5.6}Attributevalues}{8}
+\contentsline {subsection}{\numberline {5.7}EAuser}{8}
+\contentsline {subsection}{\numberline {5.8}Storedanswer}{8}
+\contentsline {subsection}{\numberline {5.9}Studentmodel}{9}
+\contentsline {subsection}{\numberline {5.10}Taskattributes}{9}
+\contentsline {subsection}{\numberline {5.11}Pluginparameters}{9}
+\contentsline {subsection}{\numberline {5.12}Pluginparamattributes}{9}
+\contentsline {section}{\numberline {6}Monikielisyys}{10}
+\contentsline {subsection}{\numberline {6.1}xml-tiedostot}{10}
+\contentsline {subsection}{\numberline {6.2}Monikielisyyden hallinnointi}{10}
+\contentsline {subsection}{\numberline {6.3}Monikielisyyden k\"aytt\"o jsp-sivulta}{11}
+\contentsline {section}{\numberline {7}Luokat}{12}
+\contentsline {subsection}{\numberline {7.1}Criterion}{12}
+\contentsline {subsection}{\numberline {7.2}DBHandler}{15}
+\contentsline {subsection}{\numberline {7.3}Task}{18}
+\contentsline {subsection}{\numberline {7.4}User}{23}
+\contentsline {subsection}{\numberline {7.5}Course}{25}
+\contentsline {subsection}{\numberline {7.6}TitoAnalyzer}{25}
+\contentsline {subsection}{\numberline {7.7}TitoFeedback}{26}
+\contentsline {subsection}{\numberline {7.8}TitoCriterionFeedback}{26}
+\contentsline {subsection}{\numberline {7.9}TitoDisplayer}{27}
+\contentsline {subsection}{\numberline {7.10}TitoState}{27}
+\contentsline {subsection}{\numberline {7.11}LanguageManager}{28}
+\contentsline {subsection}{\numberline {7.12}TitoBundle}{29}
+\contentsline {section}{\numberline {8}JSP sivujen sekvenssikaaviot}{30}
+\contentsline {subsection}{\numberline {8.1}Signup.jsp}{30}
+\contentsline {subsection}{\numberline {8.2}ModifyUser.jsp}{31}
+\contentsline {subsection}{\numberline {8.3}Login.jsp}{32}
+\contentsline {subsection}{\numberline {8.4}StudentTaskList.jsp}{32}
+\contentsline {subsection}{\numberline {8.5}TeacherTaskList.jsp}{33}
+\contentsline {subsection}{\numberline {8.6}CourseStatistics.jsp}{34}
+\contentsline {subsection}{\numberline {8.7}UserInfo.jsp}{35}
+\contentsline {subsection}{\numberline {8.8}SearchUsers.jsp}{36}
+\contentsline {subsection}{\numberline {8.9}Composer.jsp}{37}
+\contentsline {subsection}{\numberline {8.10}AnswerTask.jsp}{39}
+\contentsline {subsection}{\numberline {8.11}Answer-servlet}{40}

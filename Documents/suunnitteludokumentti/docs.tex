@@ -3,16 +3,14 @@
 \label{fi.helsinki.cs.kohahdus}\hbox to \hsize{\it Package Contents\hfil Page}
 \vskip .13in
 \hbox{\bf Classes}
-\entityintro{Answer}{fi.helsinki.cs.kohahdus.Answer}{}
-\entityintro{Course}{fi.helsinki.cs.kohahdus.Course}{}
-\entityintro{Criterion}{fi.helsinki.cs.kohahdus.Criterion}{}
+\entityintro{Answer}{fi.helsinki.cs.kohahdus.Answer}{This servlet is called from student's task answer jsp-page.}
 \entityintro{DBHandler}{fi.helsinki.cs.kohahdus.DBHandler}{Singleton class used for database interactions.}
-\entityintro{Task}{fi.helsinki.cs.kohahdus.Task}{}
-\entityintro{User}{fi.helsinki.cs.kohahdus.User}{}
+\entityintro{Log}{fi.helsinki.cs.kohahdus.Log}{}
 \vskip .1in
 \vskip .1in
 \subsection{\label{fi.helsinki.cs.kohahdus.Answer}\index{Answer}Class Answer}{
 \vskip .1in 
+This servlet is called from student's task answer jsp-page. It receives the answer in the request. The task and the criteria are fetched from the session. Student's answer is then analyzed by the Analyzer and the result is stored into database. Finally the execution is redirected to the student's task answer jsp-page. Author Kohahdus, Taro Morimoto\vskip .1in 
 \subsubsection{Declaration}{
 \small public class Answer
 \\ {\bf extends} TrainerServlet
@@ -24,8 +22,7 @@
 }
 \subsubsection{Method summary}{
 \begin{verse}
-{\bf doGet(HttpServletRequest, HttpServletResponse)} \\
-{\bf doPost(HttpServletRequest, HttpServletResponse)} \\
+{\bf service(HttpServletRequest, HttpServletResponse)} Handles the incoming request described in this class's description.\\
 \end{verse}
 }
 \subsubsection{Constructors}{
@@ -43,86 +40,21 @@
 \vskip -2em
 \begin{itemize}
  \item{ 
-\index{doGet(HttpServletRequest, HttpServletResponse)}
-{\bf doGet}\\
-{\tt public void\ {\bf doGet}( {\tt HttpServletRequest} {\bf req},
+\index{service(HttpServletRequest, HttpServletResponse)}
+{\bf service}\\
+{\tt public void\ {\bf service}( {\tt HttpServletRequest} {\bf req},
 {\tt HttpServletResponse} {\bf res} ) throws java.io.IOException
-\label{fi.helsinki.cs.kohahdus.Answer.doGet(HttpServletRequest, HttpServletResponse)}}%end signature
-}%end item
- \item{ 
-\index{doPost(HttpServletRequest, HttpServletResponse)}
-{\bf doPost}\\
-{\tt public void\ {\bf doPost}( {\tt HttpServletRequest} {\bf req},
-{\tt HttpServletResponse} {\bf res} ) throws java.io.IOException
-\label{fi.helsinki.cs.kohahdus.Answer.doPost(HttpServletRequest, HttpServletResponse)}}%end signature
-}%end item
-\end{itemize}
-}
-}
-\subsection{\label{fi.helsinki.cs.kohahdus.Course}\index{Course}Class Course}{
-\vskip .1in 
-\subsubsection{Declaration}{
-\small public class Course
-\\ {\bf extends} java.lang.Object
-\refdefined{java.lang.Object}}
-\subsubsection{Method summary}{
-\begin{verse}
-{\bf getName()} Return name of this course\\
-{\bf getUsersDB()} Return all users who have solved or have tried to solve tasks from this course\\
-{\bf setName(String)} Set name of this course\\
-\end{verse}
-}
-\subsubsection{Methods}{
-\vskip -2em
-\begin{itemize}
- \item{ 
-\index{getName()}
-{\bf getName}\\
-{\tt public java.lang.String\ {\bf getName}(  )
-\label{fi.helsinki.cs.kohahdus.Course.getName()}}%end signature
+\label{fi.helsinki.cs.kohahdus.Answer.service(HttpServletRequest, HttpServletResponse)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
 
-Return name of this course
-}
-\end{itemize}
-}%end item
- \item{ 
-\index{getUsersDB()}
-{\bf getUsersDB}\\
-{\tt public User\lbrack \rbrack \ {\bf getUsersDB}(  )
-\label{fi.helsinki.cs.kohahdus.Course.getUsersDB()}}%end signature
-\begin{itemize}
-\item{
-{\bf Description}
-
-Return all users who have solved or have tried to solve tasks from this course
-}
-\end{itemize}
-}%end item
- \item{ 
-\index{setName(String)}
-{\bf setName}\\
-{\tt public java.lang.String\ {\bf setName}( {\tt java.lang.String} {\bf name} )
-\label{fi.helsinki.cs.kohahdus.Course.setName(java.lang.String)}}%end signature
-\begin{itemize}
-\item{
-{\bf Description}
-
-Set name of this course
+Handles the incoming request described in this class's description.
 }
 \end{itemize}
 }%end item
 \end{itemize}
 }
-}
-\subsection{\label{fi.helsinki.cs.kohahdus.Criterion}\index{Criterion}Class Criterion}{
-\vskip .1in 
-\subsubsection{Declaration}{
-\small public class Criterion
-\\ {\bf extends} java.lang.Object
-\refdefined{java.lang.Object}}
 }
 \subsection{\label{fi.helsinki.cs.kohahdus.DBHandler}\index{DBHandler}Class DBHandler}{
 \vskip .1in 
@@ -133,65 +65,132 @@ Singleton class used for database interactions. Each public method of DBHandler 
 \refdefined{java.lang.Object}}
 \subsubsection{Method summary}{
 \begin{verse}
-{\bf createTask(Task, Criterion\lbrack \rbrack )} Add new task to task database.\\
-{\bf createUser(User)} Add new user to user database\\
+{\bf addTask(Task)} Adds a task to DB without any linkage to courses and modules\\
+{\bf createCourse(Course)} \\
+{\bf createTask(Task, List)} Adds a new task to task database.\\
+{\bf createUser(User)} Add new user to user database.\\
 {\bf getConnection()} \\
+{\bf getCourses()} Return all courses\\
+{\bf getCriteria(Task)} Return the criteria of a task\\
+{\bf getCriteriaMap(Task)} Return the criteria of a task in a map\\
 {\bf getInstance()} \\
 {\bf getTask(String)} Return task identified by taskID\\
-{\bf getTasks(Course)} Return all tasks of Course c\\
+{\bf getTasks()} Return all tasks\\
+{\bf getTasks(String, String)} Return all tasks\\
 {\bf getUser(String)} Return user identified by userID\\
+{\bf getUser(String, String)} Return user identified by userID and password (login)\\
 {\bf getUsers(Course)} Return all users who have attempted to solve at least one task of Course c\\
+{\bf release(Connection)} \\
+{\bf removeCourse(String)} Remove course from database (and thus all refering taskinmodules).\\
 {\bf removeTask(Task)} Remove task from task database (and thus all courses).\\
-{\bf updateTask(Task, Criterion\lbrack \rbrack )} Update existing task.\\
-{\bf updateUser(User)} Update existing user\\
+{\bf updateTask(Task, List)} Update existing task.\\
+{\bf updateUser(User)} Update existing user to DB with userID.\\
 \end{verse}
 }
 \subsubsection{Methods}{
 \vskip -2em
 \begin{itemize}
  \item{ 
-\index{createTask(Task, Criterion\lbrack \rbrack )}
-{\bf createTask}\\
-{\tt public void\ {\bf createTask}( {\tt Task} {\bf task},
-{\tt Criterion\lbrack \rbrack } {\bf criteria} )
-\label{fi.helsinki.cs.kohahdus.DBHandler.createTask(fi.helsinki.cs.kohahdus.Task, fi.helsinki.cs.kohahdus.Criterion[])}}%end signature
+\index{addTask(Task)}
+{\bf addTask}\\
+{\tt public boolean\ {\bf addTask}( {\tt trainer.Task} {\bf task} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.addTask(fi.helsinki.cs.kohahdus.trainer.Task)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
 
-Add new task to task database. The insert will affect all courses. This operation will also create the criteria for the task
+Adds a task to DB without any linkage to courses and modules
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{createCourse(Course)}
+{\bf createCourse}\\
+{\tt public synchronized boolean\ {\bf createCourse}( {\tt trainer.Course} {\bf course} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.createCourse(fi.helsinki.cs.kohahdus.trainer.Course)}}%end signature
+}%end item
+ \item{ 
+\index{createTask(Task, List)}
+{\bf createTask}\\
+{\tt public synchronized boolean\ {\bf createTask}( {\tt trainer.Task} {\bf task},
+{\tt java.util.List} {\bf criteria} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.createTask(fi.helsinki.cs.kohahdus.trainer.Task, java.util.List)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Adds a new task to task database. The insert will affect all courses. This operation also adds all the criteria for the task to database
 }
 \end{itemize}
 }%end item
  \item{ 
 \index{createUser(User)}
 {\bf createUser}\\
-{\tt public void\ {\bf createUser}( {\tt User} {\bf user} )
-\label{fi.helsinki.cs.kohahdus.DBHandler.createUser(fi.helsinki.cs.kohahdus.User)}}%end signature
+{\tt public boolean\ {\bf createUser}( {\tt trainer.User} {\bf user} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.createUser(fi.helsinki.cs.kohahdus.trainer.User)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
 
-Add new user to user database
+Add new user to user database. Does not check weather the user already exists in the DB.
 }
 \end{itemize}
 }%end item
  \item{ 
 \index{getConnection()}
 {\bf getConnection}\\
-{\tt protected java.sql.Connection\ {\bf getConnection}(  ) throws DatabaseException
+{\tt protected java.sql.Connection\ {\bf getConnection}(  ) throws java.sql.SQLException
 \label{fi.helsinki.cs.kohahdus.DBHandler.getConnection()}}%end signature
+}%end item
+ \item{ 
+\index{getCourses()}
+{\bf getCourses}\\
+{\tt public java.util.LinkedList\ {\bf getCourses}(  ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.getCourses()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return all courses
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getCriteria(Task)}
+{\bf getCriteria}\\
+{\tt public java.util.LinkedList\ {\bf getCriteria}( {\tt trainer.Task} {\bf task} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.getCriteria(fi.helsinki.cs.kohahdus.trainer.Task)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the criteria of a task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getCriteriaMap(Task)}
+{\bf getCriteriaMap}\\
+{\tt public CriterionMap\ {\bf getCriteriaMap}( {\tt trainer.Task} {\bf task} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.getCriteriaMap(fi.helsinki.cs.kohahdus.trainer.Task)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the criteria of a task in a map
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{getInstance()}
 {\bf getInstance}\\
-{\tt public static synchronized DBHandler\ {\bf getInstance}(  )
+{\tt public static DBHandler\ {\bf getInstance}(  )
 \label{fi.helsinki.cs.kohahdus.DBHandler.getInstance()}}%end signature
 }%end item
  \item{ 
 \index{getTask(String)}
 {\bf getTask}\\
-{\tt public Task\ {\bf getTask}( {\tt java.lang.String} {\bf taskID} )
+{\tt public trainer.Task\ {\bf getTask}( {\tt java.lang.String} {\bf taskID} ) throws java.sql.SQLException
 \label{fi.helsinki.cs.kohahdus.DBHandler.getTask(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
@@ -202,22 +201,36 @@ Return task identified by taskID
 \end{itemize}
 }%end item
  \item{ 
-\index{getTasks(Course)}
+\index{getTasks()}
 {\bf getTasks}\\
-{\tt public Task\lbrack \rbrack \ {\bf getTasks}( {\tt Course} {\bf c} )
-\label{fi.helsinki.cs.kohahdus.DBHandler.getTasks(fi.helsinki.cs.kohahdus.Course)}}%end signature
+{\tt public java.util.LinkedList\ {\bf getTasks}(  ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.getTasks()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
 
-Return all tasks of Course c
+Return all tasks
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getTasks(String, String)}
+{\bf getTasks}\\
+{\tt public java.util.LinkedList\ {\bf getTasks}( {\tt java.lang.String} {\bf courseID},
+{\tt java.lang.String} {\bf userID} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.getTasks(java.lang.String, java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return all tasks
 }
 \end{itemize}
 }%end item
  \item{ 
 \index{getUser(String)}
 {\bf getUser}\\
-{\tt public User\ {\bf getUser}( {\tt java.lang.String} {\bf userID} )
+{\tt public trainer.User\ {\bf getUser}( {\tt java.lang.String} {\bf userID} ) throws java.sql.SQLException
 \label{fi.helsinki.cs.kohahdus.DBHandler.getUser(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
@@ -228,10 +241,24 @@ Return user identified by userID
 \end{itemize}
 }%end item
  \item{ 
+\index{getUser(String, String)}
+{\bf getUser}\\
+{\tt public trainer.User\ {\bf getUser}( {\tt java.lang.String} {\bf userID},
+{\tt java.lang.String} {\bf password} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.getUser(java.lang.String, java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return user identified by userID and password (login)
+}
+\end{itemize}
+}%end item
+ \item{ 
 \index{getUsers(Course)}
 {\bf getUsers}\\
-{\tt public User\lbrack \rbrack \ {\bf getUsers}( {\tt Course} {\bf c} )
-\label{fi.helsinki.cs.kohahdus.DBHandler.getUsers(fi.helsinki.cs.kohahdus.Course)}}%end signature
+{\tt public trainer.User\lbrack \rbrack \ {\bf getUsers}( {\tt trainer.Course} {\bf c} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.getUsers(fi.helsinki.cs.kohahdus.trainer.Course)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -241,10 +268,29 @@ Return all users who have attempted to solve at least one task of Course c
 \end{itemize}
 }%end item
  \item{ 
+\index{release(Connection)}
+{\bf release}\\
+{\tt protected void\ {\bf release}( {\tt java.sql.Connection} {\bf conn} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.release(java.sql.Connection)}}%end signature
+}%end item
+ \item{ 
+\index{removeCourse(String)}
+{\bf removeCourse}\\
+{\tt public boolean\ {\bf removeCourse}( {\tt java.lang.String} {\bf courseID} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.removeCourse(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Remove course from database (and thus all refering taskinmodules).
+}
+\end{itemize}
+}%end item
+ \item{ 
 \index{removeTask(Task)}
 {\bf removeTask}\\
-{\tt public void\ {\bf removeTask}( {\tt Task} {\bf task} )
-\label{fi.helsinki.cs.kohahdus.DBHandler.removeTask(fi.helsinki.cs.kohahdus.Task)}}%end signature
+{\tt public boolean\ {\bf removeTask}( {\tt trainer.Task} {\bf task} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.removeTask(fi.helsinki.cs.kohahdus.trainer.Task)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -254,56 +300,403 @@ Remove task from task database (and thus all courses). This will also remove all
 \end{itemize}
 }%end item
  \item{ 
-\index{updateTask(Task, Criterion\lbrack \rbrack )}
+\index{updateTask(Task, List)}
 {\bf updateTask}\\
-{\tt public void\ {\bf updateTask}( {\tt Task} {\bf task},
-{\tt Criterion\lbrack \rbrack } {\bf criteria} )
-\label{fi.helsinki.cs.kohahdus.DBHandler.updateTask(fi.helsinki.cs.kohahdus.Task, fi.helsinki.cs.kohahdus.Criterion[])}}%end signature
+{\tt public boolean\ {\bf updateTask}( {\tt trainer.Task} {\bf task},
+{\tt java.util.List} {\bf criteria} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.updateTask(fi.helsinki.cs.kohahdus.trainer.Task, java.util.List)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
 
-Update existing task. The update will affect all courses This operation will also update the criteria for the task
+Update existing task. The update will affect all courses. This operation will also update the criteria for the task
 }
 \end{itemize}
 }%end item
  \item{ 
 \index{updateUser(User)}
 {\bf updateUser}\\
-{\tt public void\ {\bf updateUser}( {\tt User} {\bf user} )
-\label{fi.helsinki.cs.kohahdus.DBHandler.updateUser(fi.helsinki.cs.kohahdus.User)}}%end signature
+{\tt public boolean\ {\bf updateUser}( {\tt trainer.User} {\bf user} ) throws java.sql.SQLException
+\label{fi.helsinki.cs.kohahdus.DBHandler.updateUser(fi.helsinki.cs.kohahdus.trainer.User)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
 
-Update existing user
+Update existing user to DB with userID. Does not check weather the user exists or not.
 }
 \end{itemize}
 }%end item
 \end{itemize}
 }
 }
-\subsection{\label{fi.helsinki.cs.kohahdus.Task}\index{Task}Class Task}{
+\subsection{\label{fi.helsinki.cs.kohahdus.Log}\index{Log}Class Log}{
+\vskip .1in 
+\subsubsection{Declaration}{
+\small public class Log
+\\ {\bf extends} java.lang.Object
+\refdefined{java.lang.Object}}
+\subsubsection{Constructor summary}{
+\begin{verse}
+{\bf Log()} \\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+{\bf write(String)} \\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+ \item{ 
+\index{Log()}
+{\bf Log}\\
+{\tt public\ {\bf Log}(  )
+\label{fi.helsinki.cs.kohahdus.Log()}}%end signature
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+ \item{ 
+\index{write(String)}
+{\bf write}\\
+{\tt public static void\ {\bf write}( {\tt java.lang.String} {\bf data} )
+\label{fi.helsinki.cs.kohahdus.Log.write(java.lang.String)}}%end signature
+}%end item
+\end{itemize}
+}
+}
+}
+\section{Package fi.helsinki.cs.kohahdus.trainer}{
+\label{fi.helsinki.cs.kohahdus.trainer}\hbox to \hsize{\it Package Contents\hfil Page}
+\vskip .13in
+\hbox{\bf Classes}
+\entityintro{Course}{fi.helsinki.cs.kohahdus.trainer.Course}{}
+\entityintro{Task}{fi.helsinki.cs.kohahdus.trainer.Task}{}
+\entityintro{User}{fi.helsinki.cs.kohahdus.trainer.User}{}
+\vskip .1in
+\vskip .1in
+\subsection{\label{fi.helsinki.cs.kohahdus.trainer.Course}\index{Course}Class Course}{
+\vskip .1in 
+\subsubsection{Declaration}{
+\small public class Course
+\\ {\bf extends} java.lang.Object
+\refdefined{java.lang.Object}}
+\subsubsection{Constructor summary}{
+\begin{verse}
+{\bf Course()} Construct unitialized Course object\\
+{\bf Course(int, String, String, String)} Creates a new instance of Course\\
+{\bf Course(String, String)} Create new Course instance using the specified name and ID\\
+\end{verse}
+}
+\subsubsection{Method summary}{
+\begin{verse}
+{\bf getCourseID()} \\
+{\bf getCourseLogo()} \\
+{\bf getCourseMetadata()} \\
+{\bf getCourseName()} \\
+{\bf getCourseStyle()} \\
+{\bf getCourseType()} \\
+{\bf getID()} Return course ID of this course\\
+{\bf getModules()} \\
+{\bf getName()} Return name of this course\\
+{\bf setCourseID(String)} \\
+{\bf setCourseLogo(String)} \\
+{\bf setCourseMetadata(String)} \\
+{\bf setCourseName(String)} \\
+{\bf setCourseStyle(String)} \\
+{\bf setName(String)} Set name of this course\\
+{\bf toString()} Return name and id of this course as one String\\
+\end{verse}
+}
+\subsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+ \item{ 
+\index{Course()}
+{\bf Course}\\
+{\tt public\ {\bf Course}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Construct unitialized Course object
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{Course(int, String, String, String)}
+{\bf Course}\\
+{\tt public\ {\bf Course}( {\tt int} {\bf modules},
+{\tt java.lang.String} {\bf courseID},
+{\tt java.lang.String} {\bf coursetype},
+{\tt java.lang.String} {\bf courseStyle} )
+\label{fi.helsinki.cs.kohahdus.trainer.Course(int, java.lang.String, java.lang.String, java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Creates a new instance of Course
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{Course(String, String)}
+{\bf Course}\\
+{\tt public\ {\bf Course}( {\tt java.lang.String} {\bf name},
+{\tt java.lang.String} {\bf id} )
+\label{fi.helsinki.cs.kohahdus.trainer.Course(java.lang.String, java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Create new Course instance using the specified name and ID
+}
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\subsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+ \item{ 
+\index{getCourseID()}
+{\bf getCourseID}\\
+{\tt public java.lang.String\ {\bf getCourseID}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.getCourseID()}}%end signature
+}%end item
+ \item{ 
+\index{getCourseLogo()}
+{\bf getCourseLogo}\\
+{\tt public java.lang.String\ {\bf getCourseLogo}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.getCourseLogo()}}%end signature
+}%end item
+ \item{ 
+\index{getCourseMetadata()}
+{\bf getCourseMetadata}\\
+{\tt public java.lang.String\ {\bf getCourseMetadata}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.getCourseMetadata()}}%end signature
+}%end item
+ \item{ 
+\index{getCourseName()}
+{\bf getCourseName}\\
+{\tt public java.lang.String\ {\bf getCourseName}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.getCourseName()}}%end signature
+}%end item
+ \item{ 
+\index{getCourseStyle()}
+{\bf getCourseStyle}\\
+{\tt public java.lang.String\ {\bf getCourseStyle}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.getCourseStyle()}}%end signature
+}%end item
+ \item{ 
+\index{getCourseType()}
+{\bf getCourseType}\\
+{\tt public java.lang.String\ {\bf getCourseType}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.getCourseType()}}%end signature
+}%end item
+ \item{ 
+\index{getID()}
+{\bf getID}\\
+{\tt public java.lang.String\ {\bf getID}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.getID()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return course ID of this course
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getModules()}
+{\bf getModules}\\
+{\tt public int\ {\bf getModules}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.getModules()}}%end signature
+}%end item
+ \item{ 
+\index{getName()}
+{\bf getName}\\
+{\tt public java.lang.String\ {\bf getName}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.getName()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return name of this course
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setCourseID(String)}
+{\bf setCourseID}\\
+{\tt public void\ {\bf setCourseID}( {\tt java.lang.String} {\bf courseID} )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.setCourseID(java.lang.String)}}%end signature
+}%end item
+ \item{ 
+\index{setCourseLogo(String)}
+{\bf setCourseLogo}\\
+{\tt public void\ {\bf setCourseLogo}( {\tt java.lang.String} {\bf courseLogo} )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.setCourseLogo(java.lang.String)}}%end signature
+}%end item
+ \item{ 
+\index{setCourseMetadata(String)}
+{\bf setCourseMetadata}\\
+{\tt public void\ {\bf setCourseMetadata}( {\tt java.lang.String} {\bf courseMetadata} )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.setCourseMetadata(java.lang.String)}}%end signature
+}%end item
+ \item{ 
+\index{setCourseName(String)}
+{\bf setCourseName}\\
+{\tt public void\ {\bf setCourseName}( {\tt java.lang.String} {\bf courseName} )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.setCourseName(java.lang.String)}}%end signature
+}%end item
+ \item{ 
+\index{setCourseStyle(String)}
+{\bf setCourseStyle}\\
+{\tt public void\ {\bf setCourseStyle}( {\tt java.lang.String} {\bf courseStyle} )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.setCourseStyle(java.lang.String)}}%end signature
+}%end item
+ \item{ 
+\index{setName(String)}
+{\bf setName}\\
+{\tt public void\ {\bf setName}( {\tt java.lang.String} {\bf name} )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.setName(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set name of this course
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{toString()}
+{\bf toString}\\
+{\tt public java.lang.String\ {\bf toString}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Course.toString()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return name and id of this course as one String
+}
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\subsection{\label{fi.helsinki.cs.kohahdus.trainer.Task}\index{Task}Class Task}{
 \vskip .1in 
 \subsubsection{Declaration}{
 \small public class Task
 \\ {\bf extends} java.lang.Object
 \refdefined{java.lang.Object}}
+\subsubsection{Field summary}{
+\begin{verse}
+{\bf TYPE\_FILL} \\
+{\bf TYPE\_FULL} \\
+\end{verse}
+}
 \subsubsection{Constructor summary}{
 \begin{verse}
-{\bf Task()} \\
+{\bf Task()} Creates a new instance of Task\\
+{\bf Task(String)} Creates a new instance of Task\\
+{\bf Task(String, String, String, String, int, Timestamp, boolean, boolean, boolean, boolean, int, int, Tasktype)} \\
+{\bf Task(String, String, String, String, String, String, String, String, String, String, String, boolean, boolean, int, String, String)} Creates a new instance of Task\\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
+{\bf deserializeFromXML(String)} Instantiate the Task class's parameters using the serialized form XML.\\
+{\bf getAnalyser(String)} \\
 {\bf getAuthor()} Return name of the last person who has modified this task\\
-{\bf getCriteriaDB(Task)} \\
+{\bf getCategory()} Return the task category of this task\\
+{\bf getCourseID()} \\
+{\bf getCutoffvalue()} \\
+{\bf getDateAsString()} Returns String of the date and time\\
+{\bf getDescription()} Return the description (tehtävänanto) of this task\\
+{\bf getDisplayer(String)} \\
+{\bf getFailFeedBack()} Return feedback if student fails the task\\
+{\bf getFillInPostCode()} Return the code that is appended to student's code in a fill-in task\\
+{\bf getFillInPreCode()} Return the code that is prepended before student's code in a fill-in task\\
+{\bf getLanguage()} Return the language of this task\\
+{\bf getMaximumNumberOfInstructions()} Returns loop prevention value\\
+{\bf getModelAnswer()} Return code of the model answer provided by teacher\\
 {\bf getModificationDate()} Return the date and time this task was last modified\\
 {\bf getName()} Return the name of this task\\
-{\bf setAuthor(String)} Set "last task modification by" attribute to Name\\
-{\bf setCriteriaDB(Task, Criterion\lbrack \rbrack )} \\
+{\bf getNoOfTries()} Return the number of tries student has tried to make this task\\
+{\bf getPassFeedBack()} Return feedback if student passes the task\\
+{\bf getPublicInput()} Return the public input as String of this task\\
+{\bf getSecretInput()} Return the secret input as String of this task\\
+{\bf getStyle()} \\
+{\bf getTaskID()} Return id of this task\\
+{\bf getTasktype()} \\
+{\bf getTitoTaskType()} Return the task type of this task\\
+{\bf isFillInTask()} Return true if this is a fill-in task\\
+{\bf isHasSucceeded()} Return true if student has made the task, false if she/he hasn't\\
+{\bf isInTime(Timestamp)} \\
+{\bf isProgrammingTask()} Return true if this is a programming task\\
+{\bf isShouldEvaluate()} \\
+{\bf isShouldKnow()} \\
+{\bf isShouldRegister()} \\
+{\bf isShouldStore()} \\
+{\bf isValidateByModel()} Return true if this task is to be validated by comparing results of the student's answer to results of teacher's answer\\
+{\bf parseXMLBoolean(String, String)} Deserialize boolean value from XML string.\\
+{\bf parseXMLint(String, String)} Deserialize int value from XML string.\\
+{\bf parseXMLString(String, String)} Deserialize String value from XML string.\\
+{\bf serializeToXML()} Return a serialized this Task class into XML-format\\
+{\bf setAuthor(String)} Set "last task modification by" attribute to Name, set last-modification-timestamp to current data and time\\
+{\bf setCategory(String)} Set task category of this task\\
+{\bf setCourseID(String)} \\
+{\bf setCutoffvalue(int)} \\
+{\bf setDescription(String)} Set description (tehtävänanto) of this task\\
+{\bf setFailFeedBack(String)} Set return feedback if student fails the task\\
+{\bf setFillInPostCode(String)} Set the code that is appended to student's code in a fill-in task\\
+{\bf setFillInPreCode(String)} Set the code that is prepended before student's code in a fill-in task\\
+{\bf setFillInTask(boolean)} Set this task as fill-in or create-full-program\\
+{\bf setHasSucceeded(boolean)} Set the hasSucceeded true or false depending the student has passed the task\\
+{\bf setLanguage(String)} Set the preferred language of this user.\\
+{\bf setMaximumNumberOfInstructions(int)} Endless loop prevention\\
+{\bf setMaximumNumberOfInstructions(String)} Endless loop prevention\\
+{\bf setModelAnswer(String)} Set model answer code\\
+{\bf setModificationDate()} Set the date and time this task was last modified\\
 {\bf setName(String)} Set the name of this task\\
+{\bf setNoOfTries(int)} Sets number of tries for student\\
+{\bf setPassFeedBack(String)} Set return feedback if student passes the task\\
+{\bf setPublicInput(String)} Set the public input as String of this task\\
+{\bf setSecretInput(String)} Set the secret input as String of this task\\
+{\bf setShouldEvaluate(boolean)} \\
+{\bf setShouldKnow(boolean)} \\
+{\bf setShouldRegister(boolean)} \\
+{\bf setShouldStore(boolean)} \\
+{\bf setTaskID(String)} Set ID for this task\\
+{\bf setTasktype(Tasktype)} \\
+{\bf setTitoTaskType(String)} Set task type of this task\\
+{\bf setValidateByModel(boolean)} Set the validation method of this task\\
+{\bf shouldAllowRetry(int)} \\
+{\bf shouldBeAnalysed()} \\
+{\bf shouldRegisterTry()} \\
+{\bf shouldStoreAnswer()} \\
+{\bf toString()} Returns String from the task\\
+{\bf toXML(String, boolean)} Serialize boolean value to XML string.\\
+{\bf toXML(String, int)} Serialize long value to XML string.\\
+{\bf toXML(String, String)} Serialize String value to XML string.\\
+{\bf wasSuccess(int)} \\
 \end{verse}
+}
+\subsubsection{Fields}{
+\begin{itemize}
+\item{
+\index{TYPE\_FULL}
+\label{fi.helsinki.cs.kohahdus.trainer.Task.TYPE_FULL}public static final java.lang.String {\bf TYPE\_FULL}}
+\item{
+\index{TYPE\_FILL}
+\label{fi.helsinki.cs.kohahdus.trainer.Task.TYPE_FILL}public static final java.lang.String {\bf TYPE\_FILL}}
+\end{itemize}
 }
 \subsubsection{Constructors}{
 \vskip -2em
@@ -312,7 +705,73 @@ Update existing user
 \index{Task()}
 {\bf Task}\\
 {\tt public\ {\bf Task}(  )
-\label{fi.helsinki.cs.kohahdus.Task()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.Task()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Creates a new instance of Task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{Task(String)}
+{\bf Task}\\
+{\tt public\ {\bf Task}( {\tt java.lang.String} {\bf taskID} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Creates a new instance of Task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{Task(String, String, String, String, int, Timestamp, boolean, boolean, boolean, boolean, int, int, Tasktype)}
+{\bf Task}\\
+{\tt public\ {\bf Task}( {\tt java.lang.String} {\bf taskid},
+{\tt java.lang.String} {\bf courseid},
+{\tt java.lang.String} {\bf moduleid},
+{\tt java.lang.String} {\bf tasktypeid},
+{\tt int} {\bf seqno},
+{\tt java.sql.Timestamp} {\bf deadline},
+{\tt boolean} {\bf shouldstore},
+{\tt boolean} {\bf shouldregister},
+{\tt boolean} {\bf shouldknowstudent},
+{\tt boolean} {\bf shouldevaluate},
+{\tt int} {\bf cvalue},
+{\tt int} {\bf nooftries},
+{\tt Tasktype} {\bf tType} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, java.sql.Timestamp, boolean, boolean, boolean, boolean, int, int, Tasktype)}}%end signature
+}%end item
+ \item{ 
+\index{Task(String, String, String, String, String, String, String, String, String, String, String, boolean, boolean, int, String, String)}
+{\bf Task}\\
+{\tt public\ {\bf Task}( {\tt java.lang.String} {\bf language},
+{\tt java.lang.String} {\bf taskname},
+{\tt java.lang.String} {\bf auth},
+{\tt java.lang.String} {\bf desc},
+{\tt java.lang.String} {\bf pinput},
+{\tt java.lang.String} {\bf sinput},
+{\tt java.lang.String} {\bf modelanswer},
+{\tt java.lang.String} {\bf categ},
+{\tt java.lang.String} {\bf type},
+{\tt java.lang.String} {\bf fillInPre},
+{\tt java.lang.String} {\bf fillInPost},
+{\tt boolean} {\bf useModel},
+{\tt boolean} {\bf succeed},
+{\tt int} {\bf tries},
+{\tt java.lang.String} {\bf passFeedBack},
+{\tt java.lang.String} {\bf failFeedBack} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, boolean, int, java.lang.String, java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Creates a new instance of Task
+}
+\end{itemize}
 }%end item
 \end{itemize}
 }
@@ -320,10 +779,34 @@ Update existing user
 \vskip -2em
 \begin{itemize}
  \item{ 
+\index{deserializeFromXML(String)}
+{\bf deserializeFromXML}\\
+{\tt public void\ {\bf deserializeFromXML}( {\tt java.lang.String} {\bf xml} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.deserializeFromXML(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Instantiate the Task class's parameters using the serialized form XML.
+}
+\item{{\bf Throws}
+  \begin{itemize}
+   \item{\vskip -.6ex{\tt java.lang.RuntimeException} -- exceptions in the deserialization are caught and rethrown as uncheckced exception.}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+ \item{ 
+\index{getAnalyser(String)}
+{\bf getAnalyser}\\
+{\tt public AnalyserInterface\ {\bf getAnalyser}( {\tt java.lang.String} {\bf language} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getAnalyser(java.lang.String)}}%end signature
+}%end item
+ \item{ 
 \index{getAuthor()}
 {\bf getAuthor}\\
 {\tt public java.lang.String\ {\bf getAuthor}(  )
-\label{fi.helsinki.cs.kohahdus.Task.getAuthor()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getAuthor()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -333,16 +816,145 @@ Return name of the last person who has modified this task
 \end{itemize}
 }%end item
  \item{ 
-\index{getCriteriaDB(Task)}
-{\bf getCriteriaDB}\\
-{\tt public Criterion\lbrack \rbrack \ {\bf getCriteriaDB}( {\tt Task} {\bf task} )
-\label{fi.helsinki.cs.kohahdus.Task.getCriteriaDB(fi.helsinki.cs.kohahdus.Task)}}%end signature
+\index{getCategory()}
+{\bf getCategory}\\
+{\tt public java.lang.String\ {\bf getCategory}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getCategory()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the task category of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getCourseID()}
+{\bf getCourseID}\\
+{\tt public java.lang.String\ {\bf getCourseID}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getCourseID()}}%end signature
+}%end item
+ \item{ 
+\index{getCutoffvalue()}
+{\bf getCutoffvalue}\\
+{\tt public int\ {\bf getCutoffvalue}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getCutoffvalue()}}%end signature
+}%end item
+ \item{ 
+\index{getDateAsString()}
+{\bf getDateAsString}\\
+{\tt public java.lang.String\ {\bf getDateAsString}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getDateAsString()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Returns String of the date and time
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getDescription()}
+{\bf getDescription}\\
+{\tt public java.lang.String\ {\bf getDescription}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getDescription()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the description (tehtävänanto) of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getDisplayer(String)}
+{\bf getDisplayer}\\
+{\tt public DisplayerInterface\ {\bf getDisplayer}( {\tt java.lang.String} {\bf language} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getDisplayer(java.lang.String)}}%end signature
+}%end item
+ \item{ 
+\index{getFailFeedBack()}
+{\bf getFailFeedBack}\\
+{\tt public java.lang.String\ {\bf getFailFeedBack}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getFailFeedBack()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return feedback if student fails the task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getFillInPostCode()}
+{\bf getFillInPostCode}\\
+{\tt public java.lang.String\ {\bf getFillInPostCode}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getFillInPostCode()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the code that is appended to student's code in a fill-in task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getFillInPreCode()}
+{\bf getFillInPreCode}\\
+{\tt public java.lang.String\ {\bf getFillInPreCode}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getFillInPreCode()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the code that is prepended before student's code in a fill-in task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getLanguage()}
+{\bf getLanguage}\\
+{\tt public java.lang.String\ {\bf getLanguage}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getLanguage()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the language of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getMaximumNumberOfInstructions()}
+{\bf getMaximumNumberOfInstructions}\\
+{\tt public int\ {\bf getMaximumNumberOfInstructions}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getMaximumNumberOfInstructions()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Returns loop prevention value
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getModelAnswer()}
+{\bf getModelAnswer}\\
+{\tt public java.lang.String\ {\bf getModelAnswer}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getModelAnswer()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return code of the model answer provided by teacher
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{getModificationDate()}
 {\bf getModificationDate}\\
 {\tt public java.util.Date\ {\bf getModificationDate}(  )
-\label{fi.helsinki.cs.kohahdus.Task.getModificationDate()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getModificationDate()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -355,7 +967,7 @@ Return the date and time this task was last modified
 \index{getName()}
 {\bf getName}\\
 {\tt public java.lang.String\ {\bf getName}(  )
-\label{fi.helsinki.cs.kohahdus.Task.getName()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getName()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -365,30 +977,428 @@ Return the name of this task
 \end{itemize}
 }%end item
  \item{ 
-\index{setAuthor(String)}
-{\bf setAuthor}\\
-{\tt public void\ {\bf setAuthor}( {\tt java.lang.String} {\bf name} )
-\label{fi.helsinki.cs.kohahdus.Task.setAuthor(java.lang.String)}}%end signature
+\index{getNoOfTries()}
+{\bf getNoOfTries}\\
+{\tt public int\ {\bf getNoOfTries}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getNoOfTries()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
 
-Set "last task modification by" attribute to Name
+Return the number of tries student has tried to make this task
 }
 \end{itemize}
 }%end item
  \item{ 
-\index{setCriteriaDB(Task, Criterion\lbrack \rbrack )}
-{\bf setCriteriaDB}\\
-{\tt public void\ {\bf setCriteriaDB}( {\tt Task} {\bf task},
-{\tt Criterion\lbrack \rbrack } {\bf criteria} )
-\label{fi.helsinki.cs.kohahdus.Task.setCriteriaDB(fi.helsinki.cs.kohahdus.Task, fi.helsinki.cs.kohahdus.Criterion[])}}%end signature
+\index{getPassFeedBack()}
+{\bf getPassFeedBack}\\
+{\tt public java.lang.String\ {\bf getPassFeedBack}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getPassFeedBack()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return feedback if student passes the task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getPublicInput()}
+{\bf getPublicInput}\\
+{\tt public java.lang.String\ {\bf getPublicInput}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getPublicInput()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the public input as String of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getSecretInput()}
+{\bf getSecretInput}\\
+{\tt public java.lang.String\ {\bf getSecretInput}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getSecretInput()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the secret input as String of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getStyle()}
+{\bf getStyle}\\
+{\tt public java.lang.String\ {\bf getStyle}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getStyle()}}%end signature
+}%end item
+ \item{ 
+\index{getTaskID()}
+{\bf getTaskID}\\
+{\tt public java.lang.String\ {\bf getTaskID}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getTaskID()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return id of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{getTasktype()}
+{\bf getTasktype}\\
+{\tt public Tasktype\ {\bf getTasktype}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getTasktype()}}%end signature
+}%end item
+ \item{ 
+\index{getTitoTaskType()}
+{\bf getTitoTaskType}\\
+{\tt public java.lang.String\ {\bf getTitoTaskType}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.getTitoTaskType()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the task type of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{isFillInTask()}
+{\bf isFillInTask}\\
+{\tt public boolean\ {\bf isFillInTask}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.isFillInTask()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return true if this is a fill-in task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{isHasSucceeded()}
+{\bf isHasSucceeded}\\
+{\tt public boolean\ {\bf isHasSucceeded}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.isHasSucceeded()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return true if student has made the task, false if she/he hasn't
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{isInTime(Timestamp)}
+{\bf isInTime}\\
+{\tt public boolean\ {\bf isInTime}( {\tt java.sql.Timestamp} {\bf when} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.isInTime(java.sql.Timestamp)}}%end signature
+}%end item
+ \item{ 
+\index{isProgrammingTask()}
+{\bf isProgrammingTask}\\
+{\tt public boolean\ {\bf isProgrammingTask}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.isProgrammingTask()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return true if this is a programming task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{isShouldEvaluate()}
+{\bf isShouldEvaluate}\\
+{\tt public boolean\ {\bf isShouldEvaluate}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.isShouldEvaluate()}}%end signature
+}%end item
+ \item{ 
+\index{isShouldKnow()}
+{\bf isShouldKnow}\\
+{\tt public boolean\ {\bf isShouldKnow}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.isShouldKnow()}}%end signature
+}%end item
+ \item{ 
+\index{isShouldRegister()}
+{\bf isShouldRegister}\\
+{\tt public boolean\ {\bf isShouldRegister}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.isShouldRegister()}}%end signature
+}%end item
+ \item{ 
+\index{isShouldStore()}
+{\bf isShouldStore}\\
+{\tt public boolean\ {\bf isShouldStore}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.isShouldStore()}}%end signature
+}%end item
+ \item{ 
+\index{isValidateByModel()}
+{\bf isValidateByModel}\\
+{\tt public boolean\ {\bf isValidateByModel}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.isValidateByModel()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return true if this task is to be validated by comparing results of the student's answer to results of teacher's answer
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{parseXMLBoolean(String, String)}
+{\bf parseXMLBoolean}\\
+{\tt protected static boolean\ {\bf parseXMLBoolean}( {\tt java.lang.String} {\bf XML},
+{\tt java.lang.String} {\bf tagname} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.parseXMLBoolean(java.lang.String, java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Deserialize boolean value from XML string. Helper function for initSubClass()
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{parseXMLint(String, String)}
+{\bf parseXMLint}\\
+{\tt protected static int\ {\bf parseXMLint}( {\tt java.lang.String} {\bf XML},
+{\tt java.lang.String} {\bf tagname} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.parseXMLint(java.lang.String, java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Deserialize int value from XML string. Helper function for initSubClass()
+}
+\item{{\bf Returns} -- 
+value or 0 
+}%end item
+\end{itemize}
+}%end item
+ \item{ 
+\index{parseXMLString(String, String)}
+{\bf parseXMLString}\\
+{\tt protected static java.lang.String\ {\bf parseXMLString}( {\tt java.lang.String} {\bf XML},
+{\tt java.lang.String} {\bf tagname} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.parseXMLString(java.lang.String, java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Deserialize String value from XML string. Helper function for initSubClass()
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{serializeToXML()}
+{\bf serializeToXML}\\
+{\tt public java.lang.String\ {\bf serializeToXML}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.serializeToXML()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return a serialized this Task class into XML-format
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setAuthor(String)}
+{\bf setAuthor}\\
+{\tt public void\ {\bf setAuthor}( {\tt java.lang.String} {\bf name} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setAuthor(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set "last task modification by" attribute to Name, set last-modification-timestamp to current data and time
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setCategory(String)}
+{\bf setCategory}\\
+{\tt public void\ {\bf setCategory}( {\tt java.lang.String} {\bf categ} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setCategory(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set task category of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setCourseID(String)}
+{\bf setCourseID}\\
+{\tt public void\ {\bf setCourseID}( {\tt java.lang.String} {\bf courseID} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setCourseID(java.lang.String)}}%end signature
+}%end item
+ \item{ 
+\index{setCutoffvalue(int)}
+{\bf setCutoffvalue}\\
+{\tt public void\ {\bf setCutoffvalue}( {\tt int} {\bf cutoffvalue} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setCutoffvalue(int)}}%end signature
+}%end item
+ \item{ 
+\index{setDescription(String)}
+{\bf setDescription}\\
+{\tt public void\ {\bf setDescription}( {\tt java.lang.String} {\bf desc} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setDescription(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set description (tehtävänanto) of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setFailFeedBack(String)}
+{\bf setFailFeedBack}\\
+{\tt public void\ {\bf setFailFeedBack}( {\tt java.lang.String} {\bf fail} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setFailFeedBack(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set return feedback if student fails the task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setFillInPostCode(String)}
+{\bf setFillInPostCode}\\
+{\tt public void\ {\bf setFillInPostCode}( {\tt java.lang.String} {\bf code} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setFillInPostCode(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set the code that is appended to student's code in a fill-in task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setFillInPreCode(String)}
+{\bf setFillInPreCode}\\
+{\tt public void\ {\bf setFillInPreCode}( {\tt java.lang.String} {\bf code} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setFillInPreCode(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set the code that is prepended before student's code in a fill-in task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setFillInTask(boolean)}
+{\bf setFillInTask}\\
+{\tt public void\ {\bf setFillInTask}( {\tt boolean} {\bf fillIn} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setFillInTask(boolean)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set this task as fill-in or create-full-program
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setHasSucceeded(boolean)}
+{\bf setHasSucceeded}\\
+{\tt public void\ {\bf setHasSucceeded}( {\tt boolean} {\bf hasSucceeded} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setHasSucceeded(boolean)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set the hasSucceeded true or false depending the student has passed the task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setLanguage(String)}
+{\bf setLanguage}\\
+{\tt public void\ {\bf setLanguage}( {\tt java.lang.String} {\bf lang} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setLanguage(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set the preferred language of this user. The language is either "EN" or "FI
+}
+\item{
+{\bf Parameters}
+  \begin{itemize}
+   \item{
+{\tt lang} -- either "FI" or "EN"}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+ \item{ 
+\index{setMaximumNumberOfInstructions(int)}
+{\bf setMaximumNumberOfInstructions}\\
+{\tt public void\ {\bf setMaximumNumberOfInstructions}( {\tt int} {\bf num} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setMaximumNumberOfInstructions(int)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Endless loop prevention
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setMaximumNumberOfInstructions(String)}
+{\bf setMaximumNumberOfInstructions}\\
+{\tt public void\ {\bf setMaximumNumberOfInstructions}( {\tt java.lang.String} {\bf num} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setMaximumNumberOfInstructions(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Endless loop prevention
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setModelAnswer(String)}
+{\bf setModelAnswer}\\
+{\tt public void\ {\bf setModelAnswer}( {\tt java.lang.String} {\bf code} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setModelAnswer(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set model answer code
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setModificationDate()}
+{\bf setModificationDate}\\
+{\tt public void\ {\bf setModificationDate}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setModificationDate()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set the date and time this task was last modified
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{setName(String)}
 {\bf setName}\\
 {\tt public void\ {\bf setName}( {\tt java.lang.String} {\bf name} )
-\label{fi.helsinki.cs.kohahdus.Task.setName(java.lang.String)}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setName(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -397,10 +1407,216 @@ Set the name of this task
 }
 \end{itemize}
 }%end item
+ \item{ 
+\index{setNoOfTries(int)}
+{\bf setNoOfTries}\\
+{\tt public void\ {\bf setNoOfTries}( {\tt int} {\bf noOfTries} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setNoOfTries(int)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Sets number of tries for student
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setPassFeedBack(String)}
+{\bf setPassFeedBack}\\
+{\tt public void\ {\bf setPassFeedBack}( {\tt java.lang.String} {\bf pass} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setPassFeedBack(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set return feedback if student passes the task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setPublicInput(String)}
+{\bf setPublicInput}\\
+{\tt public void\ {\bf setPublicInput}( {\tt java.lang.String} {\bf input} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setPublicInput(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set the public input as String of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setSecretInput(String)}
+{\bf setSecretInput}\\
+{\tt public void\ {\bf setSecretInput}( {\tt java.lang.String} {\bf input} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setSecretInput(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set the secret input as String of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setShouldEvaluate(boolean)}
+{\bf setShouldEvaluate}\\
+{\tt public void\ {\bf setShouldEvaluate}( {\tt boolean} {\bf shouldEvaluate} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setShouldEvaluate(boolean)}}%end signature
+}%end item
+ \item{ 
+\index{setShouldKnow(boolean)}
+{\bf setShouldKnow}\\
+{\tt public void\ {\bf setShouldKnow}( {\tt boolean} {\bf shouldKnow} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setShouldKnow(boolean)}}%end signature
+}%end item
+ \item{ 
+\index{setShouldRegister(boolean)}
+{\bf setShouldRegister}\\
+{\tt public void\ {\bf setShouldRegister}( {\tt boolean} {\bf shouldRegister} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setShouldRegister(boolean)}}%end signature
+}%end item
+ \item{ 
+\index{setShouldStore(boolean)}
+{\bf setShouldStore}\\
+{\tt public void\ {\bf setShouldStore}( {\tt boolean} {\bf shouldStore} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setShouldStore(boolean)}}%end signature
+}%end item
+ \item{ 
+\index{setTaskID(String)}
+{\bf setTaskID}\\
+{\tt public void\ {\bf setTaskID}( {\tt java.lang.String} {\bf taskID} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setTaskID(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set ID for this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setTasktype(Tasktype)}
+{\bf setTasktype}\\
+{\tt public void\ {\bf setTasktype}( {\tt Tasktype} {\bf tasktype} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setTasktype(Tasktype)}}%end signature
+}%end item
+ \item{ 
+\index{setTitoTaskType(String)}
+{\bf setTitoTaskType}\\
+{\tt public void\ {\bf setTitoTaskType}( {\tt java.lang.String} {\bf type} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setTitoTaskType(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set task type of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setValidateByModel(boolean)}
+{\bf setValidateByModel}\\
+{\tt public void\ {\bf setValidateByModel}( {\tt boolean} {\bf useModel} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.setValidateByModel(boolean)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set the validation method of this task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{shouldAllowRetry(int)}
+{\bf shouldAllowRetry}\\
+{\tt public boolean\ {\bf shouldAllowRetry}( {\tt int} {\bf triesSoFar} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.shouldAllowRetry(int)}}%end signature
+}%end item
+ \item{ 
+\index{shouldBeAnalysed()}
+{\bf shouldBeAnalysed}\\
+{\tt public boolean\ {\bf shouldBeAnalysed}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.shouldBeAnalysed()}}%end signature
+}%end item
+ \item{ 
+\index{shouldRegisterTry()}
+{\bf shouldRegisterTry}\\
+{\tt public boolean\ {\bf shouldRegisterTry}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.shouldRegisterTry()}}%end signature
+}%end item
+ \item{ 
+\index{shouldStoreAnswer()}
+{\bf shouldStoreAnswer}\\
+{\tt public boolean\ {\bf shouldStoreAnswer}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.shouldStoreAnswer()}}%end signature
+}%end item
+ \item{ 
+\index{toString()}
+{\bf toString}\\
+{\tt public java.lang.String\ {\bf toString}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.toString()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Returns String from the task
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{toXML(String, boolean)}
+{\bf toXML}\\
+{\tt protected static java.lang.String\ {\bf toXML}( {\tt java.lang.String} {\bf tagname},
+{\tt boolean} {\bf value} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.toXML(java.lang.String, boolean)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Serialize boolean value to XML string. Helper function for serializeSubClass()
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{toXML(String, int)}
+{\bf toXML}\\
+{\tt protected static java.lang.String\ {\bf toXML}( {\tt java.lang.String} {\bf tagname},
+{\tt int} {\bf value} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.toXML(java.lang.String, int)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Serialize long value to XML string. Helper function for serializeSubClass()
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{toXML(String, String)}
+{\bf toXML}\\
+{\tt protected static java.lang.String\ {\bf toXML}( {\tt java.lang.String} {\bf tagname},
+{\tt java.lang.String} {\bf value} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.toXML(java.lang.String, java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Serialize String value to XML string. Helper function for serializeSubClass()
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{wasSuccess(int)}
+{\bf wasSuccess}\\
+{\tt public boolean\ {\bf wasSuccess}( {\tt int} {\bf points} )
+\label{fi.helsinki.cs.kohahdus.trainer.Task.wasSuccess(int)}}%end signature
+}%end item
 \end{itemize}
 }
 }
-\subsection{\label{fi.helsinki.cs.kohahdus.User}\index{User}Class User}{
+\subsection{\label{fi.helsinki.cs.kohahdus.trainer.User}\index{User}Class User}{
 \vskip .1in 
 \subsubsection{Declaration}{
 \small public class User
@@ -416,45 +1632,56 @@ Set the name of this task
 }
 \subsubsection{Constructor summary}{
 \begin{verse}
-{\bf User()} \\
-{\bf User(String)} Retrieve user identified by userID from the user database\\
-{\bf User(String, String, String, String, String, String, String, String, String, Timestamp)} \\
+{\bf User()} Construct unitialized User object\\
+{\bf User(String)} Construct unitialized User object with userid\\
+{\bf User(String, String, String, String, String, String, String, String, String)} Creates a new instance of User\\
+{\bf User(String, String, String, String, String, String, String, String, String, Timestamp)} Creates a new instance of User\\
 \end{verse}
 }
 \subsubsection{Method summary}{
 \begin{verse}
+{\bf getAttempts(String)} \\
+{\bf getCurrentCredit(String)} \\
 {\bf getEmail()} Return email address of this user\\
 {\bf getFirstName()} Return first name of this user\\
-{\bf getLanguage()} Return the preferred language of this user as String.\\
 {\bf getLastName()} Return last name of this user\\
+{\bf getLpref()} Return the preferred language of this user as String.\\
 {\bf getPassword()} Return plaintext password of this user\\
 {\bf getSocialSecurityNumber()} Return social security number of this user.\\
-{\bf getStatus()} Return access level of this user - see static STATUS\_* constants\\
+{\bf getState(String)} \\
+{\bf getStatus()} Returns status of the user\\
 {\bf getStudentNumber()} Return student number of this user.\\
+{\bf getUserID()} Return userID of this user\\
+{\bf isAdmin()} Return true of this user has admin privelidges\\
+{\bf isStudent()} Return true of this user has student privelidges\\
 {\bf isTeacher()} Return true of this user has the privelidges to add/remove/modify tasks and browse user statistics\\
+{\bf isValid()} Test validity of this user object.\\
+{\bf registerTry(String, boolean, boolean, int)} \\
 {\bf setEmail(String)} Set email address of this user\\
 {\bf setFirstName(String)} Set first name of this user\\
 {\bf setLanguage(String)} Set the preferred language of this user.\\
 {\bf setLastName(String)} Set last name of this user\\
 {\bf setPassword(String)} Set password of this user to Pass\\
 {\bf setSocialSecurityNumber(String)} Set social security number of this user\\
+{\bf setStatus(String)} Set user status (teacher / student)\\
 {\bf setStudentNumber(String)} Set student number of of this user\\
+{\bf setUserID(String)} Set userID of this user\\
 \end{verse}
 }
 \subsubsection{Fields}{
 \begin{itemize}
 \item{
 \index{STATUS\_STUDENT}
-\label{fi.helsinki.cs.kohahdus.User.STATUS_STUDENT}public static final int {\bf STATUS\_STUDENT}}
-\item{
-\index{STATUS\_PRIVLEDGED}
-\label{fi.helsinki.cs.kohahdus.User.STATUS_PRIVLEDGED}public static final int {\bf STATUS\_PRIVLEDGED}}
+\label{fi.helsinki.cs.kohahdus.trainer.User.STATUS_STUDENT}public static final java.lang.String {\bf STATUS\_STUDENT}}
 \item{
 \index{STATUS\_TEACHER}
-\label{fi.helsinki.cs.kohahdus.User.STATUS_TEACHER}public static final int {\bf STATUS\_TEACHER}}
+\label{fi.helsinki.cs.kohahdus.trainer.User.STATUS_TEACHER}public static final java.lang.String {\bf STATUS\_TEACHER}}
 \item{
 \index{STATUS\_ADMIN}
-\label{fi.helsinki.cs.kohahdus.User.STATUS_ADMIN}public static final int {\bf STATUS\_ADMIN}}
+\label{fi.helsinki.cs.kohahdus.trainer.User.STATUS_ADMIN}public static final java.lang.String {\bf STATUS\_ADMIN}}
+\item{
+\index{STATUS\_PRIVLEDGED}
+\label{fi.helsinki.cs.kohahdus.trainer.User.STATUS_PRIVLEDGED}public static final java.lang.String {\bf STATUS\_PRIVLEDGED}}
 \end{itemize}
 }
 \subsubsection{Constructors}{
@@ -464,18 +1691,46 @@ Set the name of this task
 \index{User()}
 {\bf User}\\
 {\tt public\ {\bf User}(  )
-\label{fi.helsinki.cs.kohahdus.User()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Construct unitialized User object
+}
+\end{itemize}
 }%end item
  \item{ 
 \index{User(String)}
 {\bf User}\\
 {\tt public\ {\bf User}( {\tt java.lang.String} {\bf userID} )
-\label{fi.helsinki.cs.kohahdus.User(java.lang.String)}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
 
-Retrieve user identified by userID from the user database
+Construct unitialized User object with userid
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{User(String, String, String, String, String, String, String, String, String)}
+{\bf User}\\
+{\tt public\ {\bf User}( {\tt java.lang.String} {\bf uid},
+{\tt java.lang.String} {\bf lname},
+{\tt java.lang.String} {\bf fname},
+{\tt java.lang.String} {\bf email},
+{\tt java.lang.String} {\bf status},
+{\tt java.lang.String} {\bf extid},
+{\tt java.lang.String} {\bf extid2},
+{\tt java.lang.String} {\bf psw},
+{\tt java.lang.String} {\bf language} )
+\label{fi.helsinki.cs.kohahdus.trainer.User(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Creates a new instance of User
 }
 \end{itemize}
 }%end item
@@ -492,7 +1747,14 @@ Retrieve user identified by userID from the user database
 {\tt java.lang.String} {\bf psw},
 {\tt java.lang.String} {\bf lpref},
 {\tt java.sql.Timestamp} {\bf lastvisit} )
-\label{fi.helsinki.cs.kohahdus.User(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.sql.Timestamp)}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.sql.Timestamp)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Creates a new instance of User
+}
+\end{itemize}
 }%end item
 \end{itemize}
 }
@@ -500,10 +1762,22 @@ Retrieve user identified by userID from the user database
 \vskip -2em
 \begin{itemize}
  \item{ 
+\index{getAttempts(String)}
+{\bf getAttempts}\\
+{\tt public int\ {\bf getAttempts}( {\tt java.lang.String} {\bf target} )
+\label{fi.helsinki.cs.kohahdus.trainer.User.getAttempts(java.lang.String)}}%end signature
+}%end item
+ \item{ 
+\index{getCurrentCredit(String)}
+{\bf getCurrentCredit}\\
+{\tt public int\ {\bf getCurrentCredit}( {\tt java.lang.String} {\bf target} )
+\label{fi.helsinki.cs.kohahdus.trainer.User.getCurrentCredit(java.lang.String)}}%end signature
+}%end item
+ \item{ 
 \index{getEmail()}
 {\bf getEmail}\\
 {\tt public java.lang.String\ {\bf getEmail}(  )
-\label{fi.helsinki.cs.kohahdus.User.getEmail()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.getEmail()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -516,7 +1790,7 @@ Return email address of this user
 \index{getFirstName()}
 {\bf getFirstName}\\
 {\tt public java.lang.String\ {\bf getFirstName}(  )
-\label{fi.helsinki.cs.kohahdus.User.getFirstName()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.getFirstName()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -526,23 +1800,10 @@ Return first name of this user
 \end{itemize}
 }%end item
  \item{ 
-\index{getLanguage()}
-{\bf getLanguage}\\
-{\tt public java.lang.String\ {\bf getLanguage}(  )
-\label{fi.helsinki.cs.kohahdus.User.getLanguage()}}%end signature
-\begin{itemize}
-\item{
-{\bf Description}
-
-Return the preferred language of this user as String. The language is either "EN" or "FI"
-}
-\end{itemize}
-}%end item
- \item{ 
 \index{getLastName()}
 {\bf getLastName}\\
 {\tt public java.lang.String\ {\bf getLastName}(  )
-\label{fi.helsinki.cs.kohahdus.User.getLastName()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.getLastName()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -552,10 +1813,23 @@ Return last name of this user
 \end{itemize}
 }%end item
  \item{ 
+\index{getLpref()}
+{\bf getLpref}\\
+{\tt public java.lang.String\ {\bf getLpref}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.User.getLpref()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return the preferred language of this user as String. The language is either "EN" or "FI"
+}
+\end{itemize}
+}%end item
+ \item{ 
 \index{getPassword()}
 {\bf getPassword}\\
 {\tt public java.lang.String\ {\bf getPassword}(  )
-\label{fi.helsinki.cs.kohahdus.User.getPassword()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.getPassword()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -568,7 +1842,7 @@ Return plaintext password of this user
 \index{getSocialSecurityNumber()}
 {\bf getSocialSecurityNumber}\\
 {\tt public java.lang.String\ {\bf getSocialSecurityNumber}(  )
-\label{fi.helsinki.cs.kohahdus.User.getSocialSecurityNumber()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.getSocialSecurityNumber()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -578,15 +1852,21 @@ Return social security number of this user. This identifier maps to {\tt\small a
 \end{itemize}
 }%end item
  \item{ 
+\index{getState(String)}
+{\bf getState}\\
+{\tt public java.lang.String\ {\bf getState}( {\tt java.lang.String} {\bf target} )
+\label{fi.helsinki.cs.kohahdus.trainer.User.getState(java.lang.String)}}%end signature
+}%end item
+ \item{ 
 \index{getStatus()}
 {\bf getStatus}\\
-{\tt public int\ {\bf getStatus}(  )
-\label{fi.helsinki.cs.kohahdus.User.getStatus()}}%end signature
+{\tt public java.lang.String\ {\bf getStatus}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.User.getStatus()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
 
-Return access level of this user - see static STATUS\_* constants
+Returns status of the user
 }
 \end{itemize}
 }%end item
@@ -594,7 +1874,7 @@ Return access level of this user - see static STATUS\_* constants
 \index{getStudentNumber()}
 {\bf getStudentNumber}\\
 {\tt public java.lang.String\ {\bf getStudentNumber}(  )
-\label{fi.helsinki.cs.kohahdus.User.getStudentNumber()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.getStudentNumber()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -604,10 +1884,49 @@ Return student number of this user. This identifier maps to {\tt\small aeuser.ex
 \end{itemize}
 }%end item
  \item{ 
+\index{getUserID()}
+{\bf getUserID}\\
+{\tt public java.lang.String\ {\bf getUserID}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.User.getUserID()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return userID of this user
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{isAdmin()}
+{\bf isAdmin}\\
+{\tt public boolean\ {\bf isAdmin}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.User.isAdmin()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return true of this user has admin privelidges
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{isStudent()}
+{\bf isStudent}\\
+{\tt public boolean\ {\bf isStudent}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.User.isStudent()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Return true of this user has student privelidges
+}
+\end{itemize}
+}%end item
+ \item{ 
 \index{isTeacher()}
 {\bf isTeacher}\\
 {\tt public boolean\ {\bf isTeacher}(  )
-\label{fi.helsinki.cs.kohahdus.User.isTeacher()}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.isTeacher()}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -617,10 +1936,35 @@ Return true of this user has the privelidges to add/remove/modify tasks and brow
 \end{itemize}
 }%end item
  \item{ 
+\index{isValid()}
+{\bf isValid}\\
+{\tt public boolean\ {\bf isValid}(  )
+\label{fi.helsinki.cs.kohahdus.trainer.User.isValid()}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Test validity of this user object. The object is considered valid if all data members are set with non-empty values.
+}
+\item{{\bf Returns} -- 
+true if all fields are initialized with non-empty values, false otherwise 
+}%end item
+\end{itemize}
+}%end item
+ \item{ 
+\index{registerTry(String, boolean, boolean, int)}
+{\bf registerTry}\\
+{\tt public int\ {\bf registerTry}( {\tt java.lang.String} {\bf target},
+{\tt boolean} {\bf wassuccess},
+{\tt boolean} {\bf wasintime},
+{\tt int} {\bf currentcredit} )
+\label{fi.helsinki.cs.kohahdus.trainer.User.registerTry(java.lang.String, boolean, boolean, int)}}%end signature
+}%end item
+ \item{ 
 \index{setEmail(String)}
 {\bf setEmail}\\
-{\tt public void\ {\bf setEmail}( {\tt java.lang.String} {\bf addr} )
-\label{fi.helsinki.cs.kohahdus.User.setEmail(java.lang.String)}}%end signature
+{\tt public void\ {\bf setEmail}( {\tt java.lang.String} {\bf email} )
+\label{fi.helsinki.cs.kohahdus.trainer.User.setEmail(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -632,8 +1976,8 @@ Set email address of this user
  \item{ 
 \index{setFirstName(String)}
 {\bf setFirstName}\\
-{\tt public void\ {\bf setFirstName}( {\tt java.lang.String} {\bf name} )
-\label{fi.helsinki.cs.kohahdus.User.setFirstName(java.lang.String)}}%end signature
+{\tt public void\ {\bf setFirstName}( {\tt java.lang.String} {\bf firstname} )
+\label{fi.helsinki.cs.kohahdus.trainer.User.setFirstName(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -646,7 +1990,7 @@ Set first name of this user
 \index{setLanguage(String)}
 {\bf setLanguage}\\
 {\tt public void\ {\bf setLanguage}( {\tt java.lang.String} {\bf lang} )
-\label{fi.helsinki.cs.kohahdus.User.setLanguage(java.lang.String)}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.setLanguage(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -665,8 +2009,8 @@ Set the preferred language of this user. The language is either "EN" or "FI
  \item{ 
 \index{setLastName(String)}
 {\bf setLastName}\\
-{\tt public void\ {\bf setLastName}( {\tt java.lang.String} {\bf name} )
-\label{fi.helsinki.cs.kohahdus.User.setLastName(java.lang.String)}}%end signature
+{\tt public void\ {\bf setLastName}( {\tt java.lang.String} {\bf lastname} )
+\label{fi.helsinki.cs.kohahdus.trainer.User.setLastName(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -679,7 +2023,7 @@ Set last name of this user
 \index{setPassword(String)}
 {\bf setPassword}\\
 {\tt public void\ {\bf setPassword}( {\tt java.lang.String} {\bf pass} )
-\label{fi.helsinki.cs.kohahdus.User.setPassword(java.lang.String)}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.setPassword(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -692,7 +2036,7 @@ Set password of this user to Pass
 \index{setSocialSecurityNumber(String)}
 {\bf setSocialSecurityNumber}\\
 {\tt public void\ {\bf setSocialSecurityNumber}( {\tt java.lang.String} {\bf ssn} )
-\label{fi.helsinki.cs.kohahdus.User.setSocialSecurityNumber(java.lang.String)}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.setSocialSecurityNumber(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
@@ -702,15 +2046,53 @@ Set social security number of this user
 \end{itemize}
 }%end item
  \item{ 
+\index{setStatus(String)}
+{\bf setStatus}\\
+{\tt public void\ {\bf setStatus}( {\tt java.lang.String} {\bf status} )
+\label{fi.helsinki.cs.kohahdus.trainer.User.setStatus(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set user status (teacher / student)
+}
+\item{
+{\bf Parameters}
+  \begin{itemize}
+   \item{
+{\tt status} -- }
+  \end{itemize}
+}%end item
+\item{{\bf Throws}
+  \begin{itemize}
+   \item{\vskip -.6ex{\tt java.lang.IllegalArgumentException} -- if Status is not a valid Status string}
+  \end{itemize}
+}%end item
+\end{itemize}
+}%end item
+ \item{ 
 \index{setStudentNumber(String)}
 {\bf setStudentNumber}\\
 {\tt public void\ {\bf setStudentNumber}( {\tt java.lang.String} {\bf studentnum} )
-\label{fi.helsinki.cs.kohahdus.User.setStudentNumber(java.lang.String)}}%end signature
+\label{fi.helsinki.cs.kohahdus.trainer.User.setStudentNumber(java.lang.String)}}%end signature
 \begin{itemize}
 \item{
 {\bf Description}
 
 Set student number of of this user
+}
+\end{itemize}
+}%end item
+ \item{ 
+\index{setUserID(String)}
+{\bf setUserID}\\
+{\tt public void\ {\bf setUserID}( {\tt java.lang.String} {\bf userID} )
+\label{fi.helsinki.cs.kohahdus.trainer.User.setUserID(java.lang.String)}}%end signature
+\begin{itemize}
+\item{
+{\bf Description}
+
+Set userID of this user
 }
 \end{itemize}
 }%end item
