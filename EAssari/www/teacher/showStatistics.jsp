@@ -10,6 +10,7 @@
 
 <body>
 
+
 <h1 align="center">Kurssin Syksy 2006 tehdyt tehtävät</h1>
 
 <p align="center">
@@ -22,7 +23,7 @@
 <td>T4</td>
 </tr>
 <tr>
-<td><a href="pekan_tehtavat.html">Molli, Pekka</a></td>
+<td><a href="../teacher/showUser.jsp?userID=mjk">Kivilä, Markus</a></td>
 <td><img src="positive.gif"></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>

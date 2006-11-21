@@ -833,6 +833,39 @@ public class DBHandler {
 		return false;
 	} 	
 		
+	
+	/** Remove selected user */
+	public void removeUser(User user) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("delete eauser where userid=?"); 
+			st.setString(1, user.getUserID());
+			st.executeUpdate();
+			if (st != null) st.close();			
+			
+			st = conn.prepareStatement("delete storedanswer where sid=?"); 
+			st.setString(1, user.getUserID());
+			st.executeUpdate();
+			
+			st = conn.prepareStatement("delete studentmodel where sid=?"); 
+			st.setString(1, user.getUserID());
+			st.executeUpdate();
+			
+			Log.write("DBHandler: User " +user.getUserID()+ " removed from database ");
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to remove user "+user.getUserID()+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+	} 	
+	
+	
+	
+	
 	/** Return user identified by name or a fragment of a name (lastname or firstname) */
 	public LinkedList<User> getUsers(String query) throws SQLException {
 		Connection conn = getConnection();

@@ -31,10 +31,11 @@ function removeUser(userID) {
 <h2>User information</h2>
 
 <c:if test="${param.action=='remove'}">
-  <c:redirect url="../teacher/removed.jsp"/>
+	DBHandler.getInstance().removeUser(<c:out value="${param.userID}"/>));
+	<c:redirect url="../teacher/removed.jsp"/>
 </c:if>
 
-<form name="removeUser_form" onSubmit="return removeUser('<c:out value="${user.userID}"/>')" action="showUser.jsp?action=remove&userID=<c:out value=${user.userID}" method="POST">
+<form name="removeUser_form" onSubmit="return removeUser('<c:out value="${user.userID}"/>')" action="showUser.jsp?action=remove&userID=<c:out value="${user.userID}"/>" method="POST">
 	<input type="hidden" name="action" value="remove">
 	<input type="submit" value="Remove user" onclick="">
 	<small>Will remove user account and all user information</small>
