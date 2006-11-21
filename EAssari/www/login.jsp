@@ -9,6 +9,21 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Sign in</title>
+
+<script language="Javascript" type="text/javascript" src="js/common.js"></script>
+<script language="Javascript">
+
+	// Test for javascript support
+	setCookie("testi", "true");
+	if (getCookie("testi") != "true"){
+		window.location = "error.jsp?errorMsg=Cookie support is needed to access this site.";
+	}
+
+</script>
+<noscript>
+	<h2>Your browser does not support JavaScript or you have switched off the JavaScript support.</h2>
+	<p><b>Switch on JavaScript support or upgrade to a browser that supports JavaScript.<b></p>
+</noscript>
 </head>
 
 <body>
@@ -53,7 +68,7 @@
 </c:if>
 
 
-<form action="login.jsp" method="POST">
+<form name="f" action="login.jsp" method="POST">
 <input type="hidden" name="action" value="login">
 
 <div>
@@ -103,7 +118,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="3" align="right"><br><input type="submit" value="Sign in"></td>
+			<td colspan="3" align="right"><br><input type="button" value="Sign in" onClick="javascript:document.f.submit();"></td>
 		</tr>
 	</table>
 </div>
