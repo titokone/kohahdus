@@ -49,7 +49,7 @@ function removeUser(userID) {
 	<li>Email: <c:out value="${user.email}"/></li>
 	<li>Social security number: <c:out value="${user.socialSecurityNumber}"/></li>
 	<li>Student number: <c:out value="${user.studentNumber}"/></li>
-	<li>Student number: <c:out value="${user.studentNumber}"/></li>
+	<li>Status: <c:out value="${user.status}"/></li>
 </ul>
 
 <h3>Tasks</h3>
