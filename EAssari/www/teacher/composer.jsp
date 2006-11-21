@@ -564,6 +564,14 @@ function isInteger(variable)
 			<td>Secret input </td>
 			<td><input name="secret_input" type="text" size="60" value="<c:out value="${task.secretInput}"/>"></td>
 		</tr>
+		<tr>
+			<td valign="top">Feedback on success </td>
+			<td valign="top"><textarea name="feedback_pass" cols="90" rows="5"><c:out value="${task.passFeedBack}"/></textarea></td>
+		</tr>
+		<tr>
+			<td valign="top">Feedback on failure </td>
+			<td valign="top"><textarea name="feedback_fail" cols="90" rows="5"><c:out value="${task.failFeedBack}"/></textarea></td>
+		</tr>
 	</table>
 
 	<br><br><br>
@@ -807,9 +815,13 @@ function isInteger(variable)
 										<br>
 										<a href="#" onClick="return ttkInstructionOnClick('nop')"><img id="nop_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> NOP<br>
 										<br>
+										
+										<%--
 										<a href="#" onClick="return ttkInstructionOnClick('equ')"><img id="equ_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> EQU<br>
 										<a href="#" onClick="return ttkInstructionOnClick('dc')"><img id="dc_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> DC<br>
 										<a href="#" onClick="return ttkInstructionOnClick('ds')"><img id="ds_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> DS<br>
+										--%>
+										
 									</td>
 								</tr>
 							</table>
