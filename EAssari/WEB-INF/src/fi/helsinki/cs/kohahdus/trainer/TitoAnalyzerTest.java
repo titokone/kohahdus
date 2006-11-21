@@ -12,6 +12,7 @@ import fi.helsinki.cs.kohahdus.criteria.*;
 
 
 /**Test class for TitoAnalyzer */
+//VAIHEISSA
 public class TitoAnalyzerTest extends TestCase {
 	Task task1, task2;
 	LinkedList<Criterion> criteria1, criteria2;
