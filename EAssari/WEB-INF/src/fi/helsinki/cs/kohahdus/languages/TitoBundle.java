@@ -2,6 +2,8 @@ package fi.helsinki.cs.kohahdus.languages;
 
 import java.util.*;
 
+import fi.helsinki.cs.kohahdus.Log;
+
 public class TitoBundle extends ResourceBundle {
 
 	private Properties xmlData;
@@ -14,9 +16,8 @@ public class TitoBundle extends ResourceBundle {
 	 * @param lang
 	 */
 	public TitoBundle(Properties data, String lang) {
-		//TODO: parameter check
 		if (data == null || lang == null || !(lang.equals("EN") || lang.equals("FI"))) {
-			System.out.println("TitoBundle constructor failed");
+			Log.write("TitoBundle: Constructor failed");
 			throw new IllegalArgumentException("Invalid data for TitoBundle: lang "+lang+" data "+data);
 		}
 		this.xmlData = data;
@@ -39,6 +40,7 @@ public class TitoBundle extends ResourceBundle {
 	@Override
 	public Enumeration<String> getKeys() {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 }

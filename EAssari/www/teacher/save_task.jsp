@@ -30,7 +30,7 @@
 	TaskMaker tm = new TaskMaker(request);
 	User user = (User)session.getAttribute("user");
 	Task t = tm.getTask();
-	t.setAuthor(user.getLastName() + user.getFirstName());	
+	t.setAuthor(user.getLastName() + " " + user.getFirstName());	
 %>
 
 <c:if test="${param.save_type=='new'}">	
