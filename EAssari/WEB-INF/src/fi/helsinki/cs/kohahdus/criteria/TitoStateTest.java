@@ -1,5 +1,8 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import junit.framework.TestCase;
 import static fi.hu.cs.ttk91.TTK91Cpu.*;
 
@@ -105,30 +108,24 @@ public class TitoStateTest extends TestCase {
 	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getMemoryLocation(int)'
 	 */
 	public void testGetMemoryLocation() {
-
+		int xLocation = code.split("\n").length;
+		assertEquals(42, tito.getMemoryLocation(xLocation));
 	}
 	
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getSymbolAddress(String)'
-	 */
-	public void testGetSymbolAddress() {
-
-	}
-
 
 	/*
 	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getStackMaxSize()'
 	 */
 	public void testGetStackMaxSize() {
-
+		// TODO: Add stack code to test program
+		assertEquals(0, tito.getStackMaxSize()); 
 	}
 
 	/*
 	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getExecutionSteps()'
 	 */
 	public void testGetExecutionSteps() {
-
+		assertEquals(24, tito.getExecutionSteps());
 	}
 
 	/*
@@ -142,7 +139,13 @@ public class TitoStateTest extends TestCase {
 	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getUsedOpcodes()'
 	 */
 	public void testGetUsedOpcodes() {
-
+		Set<String> expectedOpcodes = new HashSet<String>();
+		expectedOpcodes.add("LOAD");
+		expectedOpcodes.add("STORE");
+		expectedOpcodes.add("ADD");
+		expectedOpcodes.add("OUT");
+		expectedOpcodes.add("SVC");
+		assertEquals(expectedOpcodes, tito.getUsedOpcodes());
 	}
 
 }
