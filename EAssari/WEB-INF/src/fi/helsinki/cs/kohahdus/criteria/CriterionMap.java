@@ -41,5 +41,8 @@ public class CriterionMap extends HashMap<String,Criterion> {
 		return count;
 	}
 	
+	public List<Criterion> getList() {
+		return new LinkedList<Criterion>(this.values());
+	}
 	
 }
