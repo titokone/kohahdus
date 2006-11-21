@@ -214,7 +214,7 @@ public class CriterionTest extends TestCase {
 			c.setAcceptanceTestValue("NOP, MUL,  ADD,,XOR;DIV ; SUB,");
 			assertTrue(c.hasAcceptanceTest(true));
 			assertTrue(c.hasAcceptanceTest(false));
-			assertEquals(c.getAcceptanceTestValue(), "NOP, MUL, ADD, XOR, DIV, SUB");		
+			assertEquals("MUL, DIV, SUB, ADD, NOP, XOR", c.getAcceptanceTestValue());		
 
 			c.setAcceptanceTestValue("");
 			assertFalse(c.hasAcceptanceTest(true));
