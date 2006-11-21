@@ -118,7 +118,11 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="3" align="right"><br><input type="button" value="Sign in" onClick="javascript:document.f.submit();"></td>
+			<td colspan="3" align="right">
+				<br>
+				<!--<input type="button" value="Sign in" onClick="javascript:document.f.submit();">-->
+				<input type="submit" value="Sign in">
+			</td>
 		</tr>
 	</table>
 </div>

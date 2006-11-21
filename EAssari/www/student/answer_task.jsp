@@ -39,7 +39,7 @@
 <style>
 	span.helpButton {padding: 2px 4px; border-style: outset; background-color: #B0C4DE; border-color: #6495ED; color: #000000; text-decoration: none;}
 </style>
-<script language="Javascript" type="text/javascript" src="visibilityFunctions.js"></script>
+<script language="Javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
 <script language="Javascript">
 
 var titokoneVisible = false;
