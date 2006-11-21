@@ -573,7 +573,7 @@ public class TitoAnalyzer
 
 {\bf Class for running TitoKone and analyzing student's answer}\\
 
-{\tt    public TitoFeedback Analyze(Task task, String programCode, String keyboardInput)} \\
+{\tt    public TitoFeedback Analyze(Task task, List<Criterion> criteria, String programCode, String keyboardInput)} \\
 Analyzes student's answercode. Returns feedback from analysis.\\
 
 
@@ -625,20 +625,12 @@ Return true if this criterion meets passing requirements\\
 
 
 
-\subsection{TitoDisplayer}
-public class TitoDisplayer implements DisplayerInterface
-
-{\bf Class for displaying tasks, required by eAssari. 
-
-Designed and implemented in 2nd development iteration. }\\
-
-
-
 
 \subsection{TitoState}
 public class TitoState
 
-{\bf Capsulates the end-state of single run of TitoKone.
+{\bf Capsulates the end-state of single run of TitoKone and hides 
+implementation details of TitoKone behind a single class interface.
 
 This class will provide methods for exuting TTK91 programs and 
 querying the resulting TitoKone end state}\\
@@ -655,36 +647,37 @@ ran to completion without errors.\\
 @param keyboardInput keyboard input for the program, as [ $\backslash$n$\backslash$r$\backslash$t$\backslash$f,.:;] separated list of numbers\\
 @param maxExecutionSteps maximum number instruction to execute (prevent inifinite loops)\\
 
-{\tt	int getRegister(int registerCode)} \\
+{\tt	public int getRegister(int registerCode)} \\
 Return contents of register\\
-@param registerCode TKK91Cpu.REG\_*\\
+@param registerCode one of REG\_* constants defined in fi.hu.cs.ttk91.TTK91Cpu*\\
 
-{\tt	int getMemoryLocation(int address)} \\
+
+{\tt	public int getMemoryLocation(int address)} \\
 Return contents of specified memory address\\
 	
-{\tt	Map getSymbolTable()} \\
+{\tt	public Map getSymbolTable()} \\
 Return symbol table that maps symbol names to symbol value addresses\\
 	
-{\tt	String getScreenOutput()} \\
+{\tt	public String getScreenOutput()} \\
 Return TitoKone output as String in format "1234, 1234, 1234". The returned string may be empty, but it is never null.\\
 
-{\tt	int getStackMaxSize()} \\
+{\tt	public int getStackMaxSize()} \\
 Return maximum stack size reached during program execution\\
 
-{\tt	int getExecutionSteps()} \\
+{\tt	public int getExecutionSteps()} \\
 Return number of executed instructions\\
 	
-{\tt	int getCodeSize()} \\
+{\tt	public int getCodeSize()} \\
 Return number of instruction words in the program code\\
 
-{\tt	int getDataSize()} \\
+{\tt	public int getDataSize()} \\
 Return number of words in program's data-area\\
 	
-{\tt	int getMemoryAccessCount()} \\
+{\tt	public int getMemoryAccessCount()} \\
 Return number memory references made during program run. This number includes references caused by both data and instruction fetches\\
 	
-{\tt	String[] getUsedOpcodes()} \\
-TODO: rajapinta vielä miettimättä \\
+{\tt	public Set<String> getUsedOpcodes()} \\
+Return used opcodes in Set of Strings\\
 
 \subsection{LanguageManager}
 public class LanguageManager
