@@ -186,6 +186,7 @@ function checkNewCourseInputValidity() {
 		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=2"><b>Category</b></a></td>
 		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=3"><b>Language</b></a></td>
 		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=4"><b>Author</b></a></td>
+		<td bgcolor="#CECECE"><b>Modification date</b></a></td>
 		<td bgcolor="#CECECE" colspan="3"><b></b></td>
 	</tr>
 	
@@ -229,6 +230,7 @@ function checkNewCourseInputValidity() {
 				<td bgcolor="#FFFFFF"><c:out value="${task.category}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.language}"/></td>
 				<td bgcolor="#FFFFFF"><c:out value="${task.author}"/></td>
+				<td bgcolor="#FFFFFF"><c:out value="${task.modificationDate}"/></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Modify" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=update'"></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Modify as new" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=new'"></td>
 				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="Javascript:deleteTask('<c:out value="${task.name}"/>', '<c:out value="${task.taskID}"/>');"></td>
