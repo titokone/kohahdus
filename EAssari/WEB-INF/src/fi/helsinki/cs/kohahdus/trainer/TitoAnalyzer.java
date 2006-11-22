@@ -30,7 +30,7 @@ public class TitoAnalyzer {
 		//Create general data.
 		int maxInstructions=task.getMaximumNumberOfInstructions();
 		TitoAnalyzerFeedback feedback=new TitoAnalyzerFeedback();
-		boolean hasSecretInput=!(task.getSecretInput().equals("")||task.getSecretInput().equals(null));
+		boolean hasSecretInput = !(task.getSecretInput() == null ||task.getSecretInput().equals(""));
 		
 		//TEACHER
 		//Check if task is validated by model answer
@@ -52,13 +52,13 @@ public class TitoAnalyzer {
 			stateTeacherPublic=new TitoState();
 			//Compile the code, check if errors.
 			String compileResult=stateTeacherPublic.compile(programCodeTeacher); //compile program with TitoKone
-			if (!compileResult.equals(null)) {
+			if (compileResult != null) {
 				feedback.setCompileError(compileResult);
 				return feedback;
 			}
 			//Execute the successfully compiled code.
 			String runResult=stateTeacherPublic.execute(task.getPublicInput(), maxInstructions); //run the compiled program in TitoKone
-			if (!runResult.equals(null)) {
+			if (runResult != null) {
 				feedback.setRunError(runResult);
 				return feedback;
 			}
@@ -68,13 +68,13 @@ public class TitoAnalyzer {
 				stateTeacherSecret=new TitoState();
 				//Compile the code, check if errors.
 				compileResult=stateTeacherSecret.compile(programCodeTeacher); //compile program with TitoKone
-				if (!compileResult.equals(null)) {
+				if (compileResult != null) {
 					feedback.setCompileError(compileResult);
 					return feedback;
 				}
 				//Execute the successfully compiled code.
 				runResult=stateTeacherSecret.execute(task.getSecretInput(), maxInstructions); //run the compiled program in TitoKone
-				if (!runResult.equals(null)) {
+				if (runResult != null) {
 					feedback.setRunError(runResult);
 					return feedback;
 				} //end if
@@ -97,14 +97,14 @@ public class TitoAnalyzer {
 		
 		//Compile the student's code, check if errors.
 		String compileResult=state.compile(programCode); //compile program with TitoKone
-		if (!compileResult.equals(null)) {
+		if (compileResult != null) {
 			feedback.setCompileError(compileResult);
 			return feedback;
 		}
 		
 		//Execute the successfully compiled code.
 		String runResult=state.execute(keyboardInput, maxInstructions); //run the compiled program in TitoKone
-		if (!runResult.equals(null)) {
+		if (runResult != null) {
 			feedback.setRunError(runResult);
 			return feedback;
 		}
@@ -113,13 +113,13 @@ public class TitoAnalyzer {
 		if (hasSecretInput) {
 			stateSecret=new TitoState();
 			compileResult=stateSecret.compile(programCode); //compile program with TitoKone
-			if (!compileResult.equals(null)) {
+			if (compileResult != null) {
 				feedback.setCompileError(compileResult);
 				return feedback;
 			}
 			//Execute the successfully compiled code.
 			runResult=stateSecret.execute(task.getSecretInput(), maxInstructions); //run the compiled program in TitoKone
-			if (!runResult.equals(null)) {
+			if (runResult != null) {
 				feedback.setRunError(runResult);
 				return feedback;
 			} //end if
