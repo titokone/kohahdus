@@ -31,7 +31,7 @@ public class DBHandler {
 	private static final String ATTRIBUTE_VALUE_TYPE_CHARACTER = "C";	// Character value 
 	private static final String ATTRIBUTE_VALUE_TYPE_NUMERIC = "N";		// Numeric value 
 	
-	private static DBHandler instance = new DBHandler();
+	private static DBHandler instance = null;
 	private String dbDriver = "oracle.jdbc.OracleDriver";
 	private String dbServer = "jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test";
 	private String dbLogin  = "kohahdus";
@@ -39,20 +39,30 @@ public class DBHandler {
     
    
 	private DBHandler(){
-		init();	
 	}
 	
 	public static DBHandler getInstance(){
 		return instance;		
 	}
 	
-	private boolean init(){
+	public static boolean initialize(String connectionString, String username, String password){
+		if (instance != null){
+			Log.write("Failed to initialize. DBHandler already initialized.");
+			return false;
+		}
+		instance = new DBHandler();
+		return instance.init(connectionString, username, password);
+	}
+	
+	private boolean init(String connectionString, String username, String password){
 		dbDriver = "oracle.jdbc.OracleDriver";
-		dbServer = "jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test";
-		dbLogin  = "kohahdus";
-		dbPassword = "b1tt1"; 
+		dbServer = connectionString;
+		dbLogin  = username;
+		dbPassword = password; 
         
 		// TODO: initialize db connection pool
+		
+		Log.write("DBHandler initialized.");
 		return true;
 	}
 	
