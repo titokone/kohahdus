@@ -15,14 +15,6 @@ import fi.helsinki.cs.kohahdus.criteria.*;
  * @author 
  */
 
-/* Lisäsin pari huomautusta tähän luokkaan ja ne saa poistaa kun olet lukaissut ne.
-   Opiskelijan tehtävälistausta säädettäessä haluttiin merkata ne tehtävät, jotka on jo
-   tehty/yritetty. Tällä hetkellä ei ole minkäänlaista keinoa kaivaa suoritustietoja
-   kannasta. Task/User olioihin tätä tietoa ei kannattane lisätä, joten onnistuisikohan
-   esim. metodi joka ottaa parametrikseen kurssin ja opiskelijan ja palauttaa jonkinlaisen 
-   listan tai Map:in suorituksista.  
-*/
-
 public class DBHandler {
 	private static final String DEFAULT_TASKTYPE = "titotask"; 
 	private static final String DEFAULT_MODULE_ID = "0"; 
@@ -32,7 +24,7 @@ public class DBHandler {
 	private static final String ATTRIBUTE_VALUE_TYPE_NUMERIC = "N";		// Numeric value 
 	
 	private static DBHandler instance = null;
-	private String dbDriver = "oracle.jdbc.OracleDriver";
+	private String dbDriver;
 	private String dbServer;
 	private String dbLogin;
 	private String dbPassword; 
@@ -55,6 +47,7 @@ public class DBHandler {
 	}
 	
 	private boolean init(String connectionString, String username, String password){
+		dbDriver = "oracle.jdbc.OracleDriver";
 		dbServer = connectionString;
 		dbLogin  = username;
 		dbPassword = password; 
@@ -121,10 +114,9 @@ public class DBHandler {
 		return courses;
 	}
 	
-	/* Tämä ei ole ihan näin simppeli tapaus vaan uusi kurssi olisi hyvä saattaa käyttövalmiiseen
-	   tilaan. Eli kaikki muillakin kursseilla esiintyvät tehtävät tulisi linkittää myös
-	   tähän uuteen kurssiin.	
-	*/
+	/**
+	 * Adds a new course to database and linkes the course to all tasks.
+	 */
 	public synchronized boolean createCourse(Course course) throws SQLException {
 		if (!addCourse(course)) return false;
 		
@@ -142,7 +134,9 @@ public class DBHandler {
 		return true;
 	}
 
-	/** Add new course to database. Does not check weather the course already exists in the DB. */
+	/** 
+	 * Add new course to database. Does not check weather the course already exists in the DB. 
+	 */
 	private boolean addCourse(Course course) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
@@ -421,9 +415,6 @@ public class DBHandler {
 	}
 
 	/** Adds a task to DB without any linkage to courses and modules */
-	//TODO: add TitoTrainer specific data somehere
-	//At least these fields from Task:
-	//description; pinput; sinput; modelAnswer; category; taskType; fillInPreCode; fillInPostCode; useModel; passFeedBack; failFeedBack;
 	public boolean addTask(Task task) throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st1 = null;
@@ -435,7 +426,7 @@ public class DBHandler {
 			st1.setString(2, task.getAuthor());
 			st1.setInt(3, task.getCutoffvalue());
 			st1.setString(4, DBHandler.DEFAULT_TASKTYPE);
-			st1.setString(5, task.serializeToXML());
+			st1.setString(5, task.serializeToXML()); // Contains TitoTrainer specific data
 			//Log.write("DBHandler: Executing insert...");			
 			if (st1.executeUpdate() > 0){
 				Log.write("DBHandler: Task added to DB: "+task);
@@ -477,7 +468,6 @@ public class DBHandler {
 	}
 
 	/** Updates a task to DB without modifying any courses or modules */
-	//TODO: päivitetään myös ne kentät jotka tarvitsee lisätä createTask metodiin 
 	private boolean updateTask(Task task) throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st = null;
@@ -675,8 +665,6 @@ public class DBHandler {
 									   "where objecttype=? and objectid=?");
 			st.setString(1, DBHandler.ATTRIBUTE_TYPE_TASK);
 			st.setString(2, task.getTaskID());
-			// TODO: Kysytään, että käytetäänkö taskeissa monenkielisiä criteereitä...
-			//st.setString(3, task.getLanguage());
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			while (rs.next()){
