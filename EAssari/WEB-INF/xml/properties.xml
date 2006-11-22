@@ -6,4 +6,5 @@
 	<entry key="answer_task">WEB-INF/xml/answer_task.xml</entry>
 	<entry key="modify_user">WEB-INF/xml/modify_user.xml</entry>
 	<entry key="menu">WEB-INF/xml/menu.xml</entry>
+	<entry key="criterion">WEB-INF/xml/criterion.xml</entry>
 </properties>

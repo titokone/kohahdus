@@ -2,5 +2,32 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment></comment>
-	<entry key=""></entry>
+	<entry key="PUBREG_EN">Register</entry>
+	<entry key="PUBREG_FI">Rekisteri</entry>
+	<entry key="SECREG_EN">Register</entry>
+	<entry key="SECREG_FI">Rekisteri</entry>
+	<entry key="PUBSYM_EN">Symbol</entry>
+	<entry key="PUBSYM_FI">Symboli</entry>
+	<entry key="SECSYM_EN">Symbol</entry>
+	<entry key="SECSYM_FI">Symboli</entry>
+	<entry key="PUBOUT_EN">Output</entry>
+	<entry key="PUBOUT_FI">Tuloste</entry>
+	<entry key="SECOUT_EN">Output</entry>
+	<entry key="SECOUT_FI">Tuloste</entry>
+	<entry key="REQOPCODES_EN">Required opcodes</entry>
+	<entry key="REQOPCODES_FI">Vaaditut käskyt</entry>
+	<entry key="BANOPCODES_EN">Banned opcodes</entry>
+	<entry key="BANOPCODES_FI">Kielletyt käskyt</entry>
+	<entry key="CODESIZE_EN">Code size</entry>
+	<entry key="CODESIZE_FI">Koodin koko</entry>
+	<entry key="DATASIZE_EN">Data area size</entry>
+	<entry key="DATASIZE_FI">Data-alueen koko</entry>
+	<entry key="STACKSIZE_EN">Stack size</entry>
+	<entry key="STACKSIZE_FI">Pinon koko</entry>
+	<entry key="STEPS_EN">Execution steps</entry>
+	<entry key="STEPS_FI">Suoritettujen käskyjen määrä</entry>
+	<entry key="MEMREF_EN">Memory references</entry>
+	<entry key="MEMREF_FI">Muistiviitteiden määrä</entry>
+	<entry key="DATAREF_EN">Data references</entry>
+	<entry key="DATAREF_FI">Dataviitteiden määrä</entry>	
 </properties>
