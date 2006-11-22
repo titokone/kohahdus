@@ -3,6 +3,7 @@ package fi.helsinki.cs.kohahdus.trainer;
 import java.util.*;
 
 import fi.helsinki.cs.kohahdus.criteria.*;
+import fi.helsinki.cs.kohahdus.languages.LanguageManager;
 
 /**
  * 
@@ -139,8 +140,8 @@ public class TitoAnalyzer {
 			String cname="", cfeedback="";
 			Boolean csuccess=true;
 			
-			//get the name TODO: needs ResourceBundle object as parameter
-			cname=c.getName(null);
+			//get the name TODO: done?
+			cname=c.getName(LanguageManager.getTextResource(task.getLanguage() ,"criterion"));
 			
 			// if criterion is meant for secret input
 			if (c.isSecretInputCriterion()) {
