@@ -39,13 +39,15 @@ public class LanguageManager {
 	 * a filter named TitoInitializer.
 	 * @param propertiesFile Contains filenames of all resources to be loaded in XML format.
 	 */
-	public static synchronized void loadTextResources(String propertiesFile) {
+	public static synchronized void loadTextResources(String contextPath, String propertiesFilePath) {
 		if (bundles != null)
 			return;
 
-		Log.write("LanguageManager: loading from " +propertiesFile);
+		Log.write("LanguageManager: loading from " + contextPath +propertiesFilePath);
 		
 		InputStream in;
+		
+		String propertiesFile = contextPath + propertiesFilePath;
 		
 		try {
 			File properties = new File(propertiesFile);
@@ -74,7 +76,7 @@ public class LanguageManager {
 			//TODO: casting error?
 			String pageName = (String) pages.nextElement();
 			String xmlFile = fileList.getProperty(pageName);
-			loadBundle(pageName, xmlFile);
+			loadBundle(pageName, contextPath + xmlFile);
 		}		
 	}
 	
