@@ -2,8 +2,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment></comment>
-	<entry key="studentTaskList">tomcat/webapps/mkivila/WEB-INF/xml/studentTaskList.xml</entry>
-	<entry key="answer_task">tomcat/webapps/mkivila/WEB-INF/xml/answer_task.xml</entry>
-	<entry key="modify_user">tomcat/webapps/mkivila/WEB-INF/xml/modify_user.xml</entry>
-	<entry key="menu">tomcat/webapps/mkivila/WEB-INF/xml/menu.xml</entry>
+	<entry key="studentTaskList">tomcat/webapps/paula/WEB-INF/xml/studentTaskList.xml</entry>
+	<entry key="answer_task">tomcat/webapps/paula/WEB-INF/xml/answer_task.xml</entry>
+	<entry key="modify_user">tomcat/webapps/paula/WEB-INF/xml/modify_user.xml</entry>
+	<entry key="menu">tomcat/webapps/paula/WEB-INF/xml/menu.xml</entry>
 </properties>
