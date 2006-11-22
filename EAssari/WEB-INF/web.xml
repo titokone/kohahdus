@@ -28,6 +28,18 @@
 			<param-name>language-properties</param-name>
 			<param-value>WEB-INF/xml/properties.xml</param-value>
 		</init-param>
+		<init-param>
+			<param-name>db-string</param-name>
+			<param-value>jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test</param-value>
+		</init-param>
+		<init-param>
+			<param-name>db-username</param-name>
+			<param-value>kohahdus</param-value>
+		</init-param>
+		<init-param>
+			<param-name>db-password</param-name>
+			<param-value>b1tt1</param-value>
+		</init-param>
     </filter>
      <filter-mapping>
         <filter-name>TitoInitializer</filter-name>

@@ -33,9 +33,9 @@ public class DBHandler {
 	
 	private static DBHandler instance = null;
 	private String dbDriver = "oracle.jdbc.OracleDriver";
-	private String dbServer = "jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test";
-	private String dbLogin  = "kohahdus";
-	private String dbPassword = "b1tt1"; 
+	private String dbServer;
+	private String dbLogin;
+	private String dbPassword; 
     
    
 	private DBHandler(){
@@ -55,7 +55,6 @@ public class DBHandler {
 	}
 	
 	private boolean init(String connectionString, String username, String password){
-		dbDriver = "oracle.jdbc.OracleDriver";
 		dbServer = connectionString;
 		dbLogin  = username;
 		dbPassword = password; 
