@@ -18,7 +18,7 @@ public interface TitoFeedback {
 	public String getRunError();
 	
 	/** Return true if program was compiled and executed successfully, and all acceptance crietia were met */ 
-	public boolean wasSuccessful();
+	public boolean isSuccessful();
 	
 	/** Return a list criteria feedbacks */ 
 	public java.util.List<TitoCriterionFeedback> getCriteriaFeedback();	

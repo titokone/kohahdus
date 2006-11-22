@@ -263,7 +263,7 @@ public class TitoAnalyzer {
 		}
 
 		/** Return true if task was completed successfully */
-		public boolean wasSuccessful() {
+		public boolean isSuccessful() {
 			return wassuccess;
 		}
 		

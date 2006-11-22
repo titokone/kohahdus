@@ -148,7 +148,16 @@ function showhideTitokoneReport() {
 		</tr>
 		<tr>
 			<td width="10%"><b><%=rb.getString("gradeText")%></b></td>
-			<td width="90%">0% / 100% (?) Passed/Failed (?)</td>
+			<td width="90%">
+				<c:choose>
+					<c:when test="${feedback.successful == 'true'}">
+						Task succeeded
+					</c:when>
+					<c:otherwise>
+						Task failed
+					</c:otherwise>
+				</c:choose>
+			</td>
 		</tr>
 		<tr>
 			<td width="10%"><b><%=rb.getString("commentsText")%>&nbsp;</b></td>
