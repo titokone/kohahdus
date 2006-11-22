@@ -64,11 +64,13 @@ Taro Morimoto
 10.11.2006	SUUN	2	Suunnittelua
 13.11.2006	KOKO	1.5	Palaveri
 13.11.2006	SUUN	2	Suunnittelua
-13.11.2006	KALI	1	Kälisuunnittelua
+13.11.2006	KÄLI	1	Kälisuunnittelua
 14.11.2006	SUUN	3.5	Suunnittelua
 15.11.2006	SUUN	3	Suunnittelua
 16.11.2006	KOKO	1.5	Tarkastustilaisuus
 20.11.2006	KOKO	1	Seurantapalaveri
-20.11.2006	SUUN	3	Suunnittelua
+20.11.2006	TOTE	3	Koodausta
+21.11.2006	TOTE	5	Koodausta
+22.11.2006	TOTE	2.5	Koodausta
 
 

@@ -31,7 +31,8 @@ public final class TitoInitializer implements Filter {
     	Log.write("Initializing servlet context.");
     	
     	String propertiesFile = filterConfig.getInitParameter("language-properties");
-    	LanguageManager.loadTextResources(propertiesFile);
+    	String contextPath = filterConfig.getInitParameter("context-path");
+    	LanguageManager.loadTextResources(contextPath, propertiesFile);
     	
     }
 
