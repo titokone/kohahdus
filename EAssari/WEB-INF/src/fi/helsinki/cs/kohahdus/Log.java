@@ -2,10 +2,14 @@ package fi.helsinki.cs.kohahdus;
 
 
 public class Log {
-	//TODO: Tee tästä oikea loggaus luokka system outin sijasta..
+	private static String context = "";
 	
 	public static void write(String data){
-		System.out.println(data);		
+		System.out.println(context + ": " + data);		
+	}
+	
+	public static void setContext(String context){
+		Log.context = context;		
 	}
 }
 

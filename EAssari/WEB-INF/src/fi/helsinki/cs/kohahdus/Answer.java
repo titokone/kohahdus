@@ -48,7 +48,7 @@ public class Answer extends TrainerServlet {
 		req.getSession().setAttribute("feedback", feedback);
 		
 		// Forward the request to the answer jsp page
-		res.sendRedirect(req.getContextPath()+"www/student/answer_task.jsp?analyzed=true&keyboardInput="+keyboardInput+
+		res.sendRedirect(req.getContextPath()+"/www/student/answer_task.jsp?analyzed=true&keyboardInput="+keyboardInput+
 				         "&programCode="+programCode);
 	}
 	

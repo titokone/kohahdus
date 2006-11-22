@@ -21,6 +21,10 @@
         <filter-name>TitoInitializer</filter-name>
         <filter-class>fi.helsinki.cs.kohahdus.TitoInitializer</filter-class>
 		<init-param>
+			<param-name>context-name</param-name>
+			<param-value>morimoto</param-value>
+		</init-param>
+		<init-param>
 			<param-name>context-path</param-name>
 			<param-value>/home/tkt_koha/tomcat/webapps/morimoto/</param-value>
 		</init-param>

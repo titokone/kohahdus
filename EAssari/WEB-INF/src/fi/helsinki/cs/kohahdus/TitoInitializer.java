@@ -28,6 +28,9 @@ public final class TitoInitializer implements Filter {
      */
     public void init(FilterConfig filterConfig) {
     	this.filterConfig = filterConfig;
+    	Log.setContext(filterConfig.getInitParameter("context-name"));
+
+    	Log.write("");
     	Log.write("*********** Initializing servlet context...");
     	
     	String propertiesFile = filterConfig.getInitParameter("language-properties");
@@ -39,6 +42,7 @@ public final class TitoInitializer implements Filter {
     						 filterConfig.getInitParameter("db-password"));
     	
     	Log.write("*********** Servlet context initialized.");
+    	Log.write("");
     }
 
 
