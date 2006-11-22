@@ -118,9 +118,13 @@ function showhideTitokoneReport() {
 		</tr>
 		<tr>
 			<td>
-				<div><b><pre><c:out value="${task.fillInPreCode}"/></pre></b><br><br></div>
+				<c:if test="${task.fillInTask}">
+					<div><b><pre><c:out value="${task.fillInPreCode}"/></pre></b><br><br></div>
+				</c:if>	
 				<textarea name="programCode" cols="90" rows="40"><c:out value="${param.programCode}"/></textarea>
-				<div><br><b><pre><c:out value="${task.fillInPostCode}"/></pre></b></div>
+				<c:if test="${task.fillInTask}">
+					<div><br><b><pre><c:out value="${task.fillInPostCode}"/></pre></b></div>
+				</c:if>
 			</td>
 		</tr>
 	</table>
