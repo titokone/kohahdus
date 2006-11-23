@@ -20,7 +20,7 @@ public class TitoStateTest extends TestCase {
 						+ "     LOAD  R0, X      \n"
 						+ "     ADD   R0, X      \n"
 						+ "     STORE R0, X      \n"
-						  
+						
 						  
 						// Print numbers 1, 1, 2, 3, 5, 8, 13
 						// code size = 14, exec steps = 14, mem references = 14
@@ -122,7 +122,7 @@ public class TitoStateTest extends TestCase {
 
 	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getExecutionSteps()' */
 	public void testGetExecutionSteps() {
-		assertEquals(24, tito.getExecutionSteps());
+		assertEquals(code.split("\n").length, tito.getExecutionSteps());
 	}
 
 	
