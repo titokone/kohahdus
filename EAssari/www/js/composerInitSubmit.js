@@ -104,7 +104,7 @@ function onFormSubmit() {
 			alertText += '\n' + alertCounter + '. Public input must be integers separated by commas with optional spaces.';
 		}
 	}	
-	
+
 	if(document.task_creation_form.secret_input.value != "") {
 		numberOfSecretInputs = amountOfTitokoneInputOutput(document.task_creation_form.secret_input.value);
 		
@@ -138,7 +138,6 @@ function onFormSubmit() {
 	
 	if(publicOutputField.value != "") {
 		numberOfPublicOutputs = amountOfTitokoneInputOutput(publicOutputField.value);
-		
 		if(numberOfPublicOutputs == -1) {
 			alertCounter++;
 			alertText += '\n' + alertCounter + '. Simulator output with public input must be integers separated by commas with optional spaces.';

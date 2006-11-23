@@ -80,8 +80,8 @@ function composerOnLoad() {
 	requiredInstructionsField = document.task_creation_form.REQOPCODES_instructions;
 	forbiddenInstructionsField = document.task_creation_form.BANOPCODES_instructions;
 	
-	publicOutputField = document.task_creation_form.<c:out value="${pub.id}"/>output_value;
-	secretOutputField = document.task_creation_form.<c:out value="${sec.id}"/>output_value;
+	publicOutputField = document.task_creation_form.PUBOUToutput_value;
+	secretOutputField = document.task_creation_form.SECOUToutput_value;
 
 	initTaskCreation();
 }

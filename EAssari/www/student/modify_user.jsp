@@ -146,7 +146,6 @@
 				var elem = document.getElementById("new_password_error_msg_space");
 				elem.innerHTML = '<font color="#FF0000"><b>Different values in password fields. Please check your typing.</b></font>';			
 				returnvalue = false;
-			}
 		}
 		
 		// new password not of valid length
@@ -219,28 +218,28 @@
                 </tr>
                 <tr>
                         <td><b><%=rb.getString("firstName")%> </b></td>
-                        <td><input type="text" name="first_name" value="<c:out value="${user.firstName}"/>" oncChange="trimWhitespace(this)">    </td>
+                        <td><input type="text" name="first_name" value="<c:out value="${user.firstName}"/>" onChange="trimWhitespace(this)">    </td>
                         <td id="first_name_error_msg_space">&nbsp;</td>                        
                 </tr>
                 <tr>
                         <td><b><%=rb.getString("lastName")%> </b></td>
-                        <td><input type="text" name="last_name" value="<c:out value="${user.lastName}"/>" oncChange="trimWhitespace(this)"></td>
+                        <td><input type="text" name="last_name" value="<c:out value="${user.lastName}"/>" onChange="trimWhitespace(this)"></td>
                         <td id="last_name_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b><%=rb.getString("email")%> </b></td>
-                        <td><input type="text" name="email" value="<c:out value="${user.email}"/>" oncChange="trimWhitespace(this)"></td>
+                        <td><input type="text" name="email" value="<c:out value="${user.email}"/>" onChange="trimWhitespace(this)"></td>
                         <td id="email_error_msg_space">&nbsp;</td>
                 </tr>
     
                 <tr>
                         <td><b><%=rb.getString("studentNumber")%>* </b></td>
-                        <td><input type="text" name="student_number" value="<c:out value="${user.studentNumber}"/>" oncChange="trimWhitespace(this)"> </td>
+                        <td><input type="text" name="student_number" value="<c:out value="${user.studentNumber}"/>" onChange="trimWhitespace(this)"> </td>
                         <td id="student_number_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>
                         <td><b><%=rb.getString("ssn")%>* </b></td>
-                        <td><input type="text" name="social_security_number" value="<c:out value="${user.socialSecurityNumber}"/>" oncChange="trimWhitespace(this)"> </td>
+                        <td><input type="text" name="social_security_number" value="<c:out value="${user.socialSecurityNumber}"/>" onChange="trimWhitespace(this)"> </td>
                         <td id="ssn_error_msg_space">&nbsp;</td>
                 </tr>
                 <tr>

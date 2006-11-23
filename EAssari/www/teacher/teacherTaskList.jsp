@@ -34,13 +34,15 @@ function checkNewCourseInputValidity() {
 	var courseName = document.create_course_form.new_course.value;
 	var feedbackElem = document.getElementById('new_course_creation_feedback');
 	
+	feedbackElem.innerHTML = '';
+	
 	if(containsHtmlCharacters(courseName)) {
-		feedbackElem.innertText = 'Field may not contain characters ", <, >, &.';
+		feedbackElem.innerHTML = '<font color="red">Course name may not contain characters ", <, >, &.</font>';
 		return false;
 	}
 	
 	if((courseName.length < 1) || (courseName.length > 40)) {
-		feedbackElem.innertText = 'Course name must be 1-40 characters long.';
+		feedbackElem.innerHTML = '<font color="red">Course name must be 1-40 characters long.</font>';
 		return false;
 	}
 	
@@ -160,7 +162,7 @@ function checkNewCourseInputValidity() {
 		</tr>
 	</form>
 </table>
-<p id="new_course_creation_feedback"></p>		
+<div id="new_course_creation_feedback"></div>		
 
 
 <p>

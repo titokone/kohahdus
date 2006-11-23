@@ -20,7 +20,7 @@ function containsHtmlCharacters(aString) {
 
 function isInteger(variable)
 {
-	var integerExp = /^((\+|-)\d)?\d*/;
+	var integerExp = /^((\+|-)\d)?\d*$/;
 	
 	return integerExp.test(variable);
 }
@@ -123,7 +123,20 @@ function socialSecurityNumberValid(ssn) {
 	}
 }
 
-function trimWhiteSpace(inputField)
+/* Remove leading and trailing whitespace from a field. */
+function trimWhitespace(inputField)
 {
+	var aString = inputField.value;
 
+	while (aString.substring(0,1) == ' ')
+	{
+		aString = aString.substring(1, aString.length);
+	}
+	
+	while (aString.substring(aString.length-1, aString.length) == ' ')
+	{
+		aString = aString.substring(0, aString.length-1);
+	}
+	
+	inputField.value = aString;
 }
