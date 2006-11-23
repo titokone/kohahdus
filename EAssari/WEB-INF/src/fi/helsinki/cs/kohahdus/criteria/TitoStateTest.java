@@ -21,7 +21,7 @@ public class TitoStateTest extends TestCase {
 	
 	private String code = ""
 						// Call MADD-funtion to calculate A*B+C and store to D (D = 11*3-2 = 31
-						// code size = 7, exec steps = 7, mem data references = 6
+						// code size = 7, exec steps = 7, data references = 10
 						+ "     PUSH  SP, A     \n" // 1st param used also for the return value
 						+ "     PUSH  SP, B     \n"
 						+ "     PUSH  SP, C     \n"
@@ -31,7 +31,7 @@ public class TitoStateTest extends TestCase {
 
 						  
 						// Print numbers 1, 1, 2, 3, 5, 8, 13
-						// code size = 14, exec steps = 14, mem references = 14
+						// code size = 14, exec steps = 14, data references = 0
 						+ "     LOAD  R0, =1     \n"
 						+ "     OUT   R0, =CRT   \n"
 						+ "     LOAD  R0, =1     \n"
@@ -48,7 +48,7 @@ public class TitoStateTest extends TestCase {
 						+ "     OUT   R0, =CRT   \n"
 						
 						// Set registers
-						// code size = 6, exec steps = 6, mem references = 6
+						// code size = 6, exec steps = 6, data references = 0
 						+ "     LOAD  R0, =000   \n"
 						+ "     LOAD  R1, =100   \n"
 						+ "     LOAD  R2, =200   \n"
@@ -57,7 +57,7 @@ public class TitoStateTest extends TestCase {
 						+ "     LOAD  R5, =500   \n"
 
 						// Exit program
-						// code size = 1, exec steps = 1, mem references = 3
+						// code size = 1, exec steps = 1, mem references = 2
 						+ "     SVC   SP, =HALT  \n"
 						
 						// Multiply-accumulate: multiply 1st param by 2nd param, add 3rd param and store back to param 1 location
@@ -140,7 +140,7 @@ public class TitoStateTest extends TestCase {
 
 	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getStackMaxSize()' */
 	public void testGetStackMaxSize() {
-		assertEquals(0, tito.getStackMaxSize()); 
+		assertEquals(6, tito.getStackMaxSize()); 
 	}
 	
 
@@ -152,7 +152,7 @@ public class TitoStateTest extends TestCase {
 	
 	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getMemoryAccessCount()' */
 	public void testGetDataReferenceCount() {
-		assertEquals(0, tito.getDataReferenceCount());
+		assertEquals(20, tito.getDataReferenceCount());
 	}
 
 	

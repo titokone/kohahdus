@@ -4,8 +4,18 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import fi.hu.cs.ttk91.*;
-import fi.hu.cs.titokone.*;
+
+import fi.helsinki.cs.kohahdus.Log;
+import fi.hu.cs.titokone.Application;
+import fi.hu.cs.titokone.BinaryInterpreter;
+import fi.hu.cs.titokone.Control;
+import fi.hu.cs.titokone.MemoryLine;
+import fi.hu.cs.titokone.Processor;
+import fi.hu.cs.titokone.RandomAccessMemory;
+import fi.hu.cs.ttk91.TTK91CompileException;
+import fi.hu.cs.ttk91.TTK91CompileSource;
+import fi.hu.cs.ttk91.TTK91Exception;
+import fi.hu.cs.ttk91.TTK91RuntimeException;
 
 /** Capsulates the end-state of single run of TitoKone.
  *  
@@ -19,6 +29,9 @@ public class TitoState {
 	/** Memory reference count. Saved after execution so TitoState.getMemoryLocation(..)
 	 * will not affect the counts. */
 	private int memRef = 0;
+	
+	/** Program output. Saved after execution because readCrt() is destructive call */
+	private String output ="";
 
 	/** Compiled program code. Stored here after compilation, before exectution 
 	 * (has implications on the opcodes seen in programs using self modifying code). */
@@ -46,9 +59,12 @@ public class TitoState {
 	public String compile(String sourceCode) {
 		TTK91CompileSource src = new Source(sourceCode);
 		try {
+			Log.write("Attempting to compile TTK91 program");
 			app = (Application)(controller.compile(src));
 			code = app.getCode();
 		} catch (TTK91CompileException e) {
+			Log.write("TTK91 program compilation failed");
+			Log.write(e);
 			return e.getMessage();
 		} catch (TTK91Exception e) { 		// APIdoc indicates this can never happen, and initial  
 			throw new RuntimeException(e);  // check of source code seems to confirm it
@@ -65,9 +81,12 @@ public class TitoState {
 	 */
 	public String execute(String keyboardInput, int maxExecutionSteps) {
 		try {
+			Log.write("Attempting to run titokone with input '" + keyboardInput + "'");
 			app.setKbd(keyboardInput + ","); // TitoKone does not accept empty string
 			controller.run(app, maxExecutionSteps);
 		} catch (TTK91RuntimeException e) {
+			Log.write("Failed to run titokone");
+			Log.write(e);
 			return e.getMessage();
 		} catch (TTK91Exception e) {		// APIdoc indicates this can never happen
 			throw new RuntimeException(e);
@@ -75,6 +94,7 @@ public class TitoState {
 			cpu = (Processor)(controller.getCpu());
 			mem = (RandomAccessMemory)(controller.getMemory());
 			memRef = mem.getMemoryReferences();
+			output = app.readCrt();
 		}
 		return null;
 	}
@@ -109,7 +129,7 @@ public class TitoState {
 	/** Return TitoKone screen output as String in format "1234, 1234, 1234". Returns an
 	 * emptry String "" if the program produced no screen ouput. */
 	String getScreenOutput() {
-		String outputs[] = app.readCrt().split("\n");
+		String outputs[] = output.split("\n");
 
 		// Reformat output as "124, 4242, 2335, 3535, 35325"
 		StringBuffer buffer = new StringBuffer();
