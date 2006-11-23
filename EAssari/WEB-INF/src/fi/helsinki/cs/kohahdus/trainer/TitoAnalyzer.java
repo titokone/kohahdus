@@ -104,6 +104,7 @@ public class TitoAnalyzer {
 		}
 		
 		//Execute the successfully compiled code.
+		feedback.setTitoState(state);
 		String runResult=state.execute(keyboardInput, maxInstructions); //run the compiled program in TitoKone
 		if (runResult != null) {
 			feedback.setRunError(runResult);
@@ -190,7 +191,6 @@ public class TitoAnalyzer {
 		}
 		
 		//Criterions checked, lets create the feedback
-		feedback.setTitoState(state);
 		feedback.setWasSuccessful(passTask);
 		if (passTask) {
 			feedback.setOverallFeedback(task.getPassFeedBack());

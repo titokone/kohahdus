@@ -125,7 +125,8 @@ public class TitoAnalyzerTest extends TestCase {
 		criteria1.add(r1);
 		
 		input1="";
-		programcode1="LOAD R1, =2";
+		programcode1 = "LOAD R1, =2\n"
+                     + "SVC SP, =HALT";
 	}
 
 	protected void tearDown() throws Exception {
