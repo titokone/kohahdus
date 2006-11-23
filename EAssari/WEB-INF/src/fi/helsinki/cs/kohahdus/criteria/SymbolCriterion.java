@@ -46,6 +46,10 @@ public class SymbolCriterion extends VariableCriterion {
 	@Override protected long getCriterionValue(TitoState answer) {
 		HashMap symbols = answer.getSymbolTable();
 		Integer addr = (Integer)symbols.get(symbolName);
+		
+		System.out.println(symbols.keySet());
+		System.out.println(answer.getMemoryLocation(addr));		
+		
 		return (addr == null) ? UNDEFINED : answer.getMemoryLocation(addr);
 	}	
 
