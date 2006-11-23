@@ -1,70 +1,68 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ page import="java.util.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.*" %>
+<%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
 <jsp:include page="../menu.jsp"/>
 
 
 <html>
 <head>
-<title>Kurssin Syksy 2006 tehdyt tehtävät</title>
+	<title>Course Autumn 2006 tasks done</title>
 </head>
 
 <body>
 
+<% 	List<Task> tasks = DBHandler.getInstance().getTasks();		
+	if (tasks != null) pageContext.setAttribute("tasks", tasks);
+%>
+
+	<c:set var="total" value="0"/>
 
 <h1 align="center">Kurssin Syksy 2006 tehdyt tehtävät</h1>
 
 <p align="center">
-<table border="1">
-<tr>
-<td>&nbsp;</td>
-<td>T1</td>
-<td>T2</td>
-<td>T3</td>
-<td>T4</td>
-</tr>
-<tr>
-<td><a href="../teacher/showUser.jsp?userID=mjk">Kivilä, Markus</a></td>
-<td><img src="positive.gif"></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><a href="#">Niemi, Riitta</a></td>
-<td><img src="positive.gif"></td>
-<td>&nbsp;</td>
-<td><img src="negative.gif"></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><a href="pekan_tehtavat.html">Pakkala, Pekka</a></td>
-<td>&nbsp;</td>
-<td><img src="negative.gif"></td>
-<td><img src="positive.gif"></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><a href="#">Rantanen, Kaisa</a></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><a href="#">Salminen, Sanna</a></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td><img src="positive.gif"></td>
-</tr>
-<tr>
-<td><a href="#">Virtanen, Reijo</a></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td><img src="negative.gif"></td>
-<td><img src="negative.gif"></td>
-</tr>
+	<table border="1">
+		<tr>
+		<td>&nbsp;</td>
+		
+		<c:forEach var="task" items="${pageScope.tasks}">
+			<td><c:out value="${task.taskID}"/></td>
+		</c:forEach>
+		
+		<td>Total</td>
+		</tr>
+		
+		<c:forEach var="user" items="${pageScope.users}">
+			<c:forEach var="task" items="${pageScope.tasks}">
+	
+			<tr>
+				<td><a href="../teacher/showUser.jsp?userID=<c:out value="${user.userID}"/>"><c:out value="${user.lastName}"</a></td>
+				<td>
+				<c:choose>
+						<c:when test="${task.hasSucceeded}">
+							<img src="positive.gif">
+							<c:set var="total" value="${total + 1}"/>
+						</c:when>
+						<c:when test="${task.noOfTries == 0}">
+							<img src="blank.gif">
+						</c:when>
+						<c:otherwise>
+							<img src="negative.gif">
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				
+			</c:forEach>
+				<td><c:out value="${total}"/></td>
+			</tr>
+		</c:forEach>
+
+
 </table></p>
+
 
 </body>
 </html>
