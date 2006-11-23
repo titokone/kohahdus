@@ -4,8 +4,6 @@
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 <%@ page import="java.util.*" %>
 
-
-
 <c:if test="${empty user}">
 	Not logged in - redirecting to login
 	<c:redirect url="../login.jsp?role=teacher"/>	
@@ -14,7 +12,6 @@
 	Student tried to load a restricted page - redirecting to students tasklisting
 	<c:redirect url="../student/studentTaskList.jsp"/>
 </c:if>
-
 
 <%	
 	//Get task from DB
@@ -51,6 +48,9 @@
 <title>TitoTrainer - Create Task</title>
 <script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
 <script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
+<script language="javascript" type="text/javascript" src="../js/composerViews.js"></script>
+<script language="javascript" type="text/javascript" src="../js/composerTTK91.js"></script>
+<script language="javascript" type="text/javascript" src="../js/composerInitSubmit.js"></script>
 <script language="javascript" type="text/javascript">
 
 var variableCounter = <c:out value="${symbolCriterionCount}"/>;
@@ -68,139 +68,14 @@ var REQUIRED_STATUS = 1;
 var FORBIDDEN_STATUS = -1;
 var NEUTRAL_STATUS = 0;
 
-// initialize TTK-91 instruction arrays and switch to initial view
-function initTaskCreation()
-{
-	// Javascript version of a hash table - location of a instruction name in the array "instructionNames" is the same as the location of the
-	// instruction status in array "instructionStatus".
-	instructionNames = new Array("load", "store", "push", "pop", "pushr", "popr", "in", "out", "add", "sub", "mul", "div", "mod", "not", "and", "or",
-	"xor", "shl", "shr", "comp", "jump", "jneg", "jzer", "jpos", "jnneg", "jnzer", "jnpos", "jles", "jequ", "jgre", "jnle", "jnequ", "jngre", "call",
-	"exit", "svc", "nop", "equ", "dc", "ds");
+var requiredInstructionsField = document.task_creation_form.REQOPCODES_instructions;
+var forbiddenInstructionsField = document.task_creation_form.BANOPCODES_instructions;
 
-	instructionStatus = new Array(instructionNames.length);
+var registerPrefix = "REG";
+var variablePrefix = "SYM";
 
-	for (var counter = 0; counter < instructionStatus.length; counter++) {
-		instructionStatus[counter] = NEUTRAL_STATUS;
-	}
-
-	// parse values already in required and forbidden instructions fields and set symbols in GUI
-	if(document.task_creation_form.REQOPCODES_instructions.value != "") {
-		var requiredInstructions = document.task_creation_form.REQOPCODES_instructions.value.split(", ")
-		var img;
-
-		for (var requiredCounter = 0; requiredCounter < requiredInstructions.length; requiredCounter++) {
-			for (var nameCounter = 0; nameCounter < instructionNames.length; nameCounter++) {
-				if(instructionNames[nameCounter] == requiredInstructions[requiredCounter]) {
-					instructionStatus[nameCounter] = REQUIRED_STATUS;
-					img = document.getElementById(instructionNames[nameCounter] + "_img");
-					img.src = positive.src;
-					break;
-				}
-			}
-		}
-	}
-
-	if(document.task_creation_form.BANOPCODES_instructions.value != "") {
-		var forbiddenInstructions = document.task_creation_form.BANOPCODES_instructions.value.split(", ")
-		var img;
-
-		for (var forbiddenCounter = 0; forbiddenCounter < forbiddenInstructions.length; forbiddenCounter++) {
-			for (var nameCounter = 0; nameCounter < instructionNames.length; nameCounter++) {
-				if(instructionNames[nameCounter] == forbiddenInstructions[forbiddenCounter]) {
-					instructionStatus[nameCounter] = FORBIDDEN_STATUS;
-					img = document.getElementById(instructionNames[nameCounter] + "_img");
-					img.src = negative.src;
-					break;
-				}
-			}
-		}
-	}
-
-	switchToCriteriaView();
-	switchToWholeProgramView();
-	
-	<c:if test="${task.fillInTask}">
-		showElementById('partialProgramDiv1');
-		showElementById('partialProgramDiv2');
-		showElementById('exampleTable');
-	</c:if>
-	<c:if test="${task.validateByModel}">
-		showElementById('exampleCodeDiv');
-		showElementById('exampleTable');
-	</c:if>
-	
-}
-
-// show example code and register checkboxes, hide value fields
-function switchToExampleView(){
-	showElementById('exampleTable');
-	showElementById('exampleCodeDiv');
-	
-	inputs = document.getElementsByTagName('input');
-	for (i=0; i<inputs.length; i++){
-		if (inputs[i].name.indexOf("_checked") != -1){
-			inputs[i].style.display = "block";
-		} else if (inputs[i].name.indexOf("_value_public") != -1){
-			inputs[i].style.display = "none";
-		} else if (inputs[i].name.indexOf("_value_secret") != -1){
-			inputs[i].style.display = "none";
-		}
-	}
-	
-	textareas = document.getElementsByTagName('textarea');
-	for (i=0; i<textareas.length; i++){
-		if (textareas[i].name.indexOf("output_value_") != -1){
-			textareas[i].style.display = "none";
-		}
-	}
-}
-
-// show value fields, hide example code and register checkboxes
-function switchToCriteriaView(){
-
-	hideElementById('exampleCodeDiv');
-
-	if(document.task_creation_form.task_type[0].checked == true) {
-		hideElementById('exampleTable');
-	}
-
-	var inputs = document.getElementsByTagName('input');
-	for (i=0; i<inputs.length; i++){
-		if (inputs[i].name.indexOf("_checked") != -1){
-			inputs[i].style.display = "none";
-		} else if (inputs[i].name.indexOf("_value_public") != -1){
-			inputs[i].style.display = "block";
-		} else if (inputs[i].name.indexOf("_value_secret") != -1){
-			inputs[i].style.display = "block";
-		}
-	}
-
-	var textareas = document.getElementsByTagName('textarea');
-	for (i=0; i<textareas.length; i++){
-		if (textareas[i].name.indexOf("output_value_") != -1){
-			textareas[i].style.display = "block";
-		}
-	}
-}
-
-// hide partial program code snippets, put all code into one box
-function switchToWholeProgramView() {
-	hideElementById('partialProgramDiv1');
-	hideElementById('partialProgramDiv2');
-	document.task_creation_form.example_code.value = document.task_creation_form.partial_code1.value +  document.task_creation_form.example_code.value +  document.task_creation_form.partial_code2.value;
-
-	if(document.task_creation_form.correctness_by[0].checked == true) {
-		hideElementById('exampleTable');
-	}
-}
-
-// show boxes for partial code
-function switchToPartOfProgramView() {
-	showElementById('exampleTable');
-	showElementById('partialProgramDiv1');
-	showElementById('partialProgramDiv2');
-}
-
+var publicOutputField = document.task_creation_form.<c:out value="${pub.id}"/>output_value;
+var secretOutputField = document.task_creation_form.<c:out value="${sec.id}"/>output_value;
 
 // add a new variable field into HTML
 function addVariable() {
@@ -233,234 +108,8 @@ function addVariable() {
 	}
 }
 
-
-// changes TTK-91 instruction status (required/forbidden/neutral)
-function ttkInstructionOnClick(instruction) {
-	var img = document.getElementById(instruction + "_img");
-
-	var instructionIndex = -1;
-
-	for (instructionIndex = 0; instructionIndex < instructionNames.length; instructionIndex++) {
-		if(instructionNames[instructionIndex] == instruction) {
-			break;
-		}
-	}
-
-	if(instructionIndex >= instructionNames.length) {
-		alert("Invalid TTK-91 instruction name.");	// for debugging purposes
-		return false;
-	}
-
-	if(img.src == neutral.src) {
-		img.src = positive.src;
-		instructionStatus[instructionIndex] = REQUIRED_STATUS;
-	} else if(img.src == positive.src) {
-		img.src = negative.src;
-		instructionStatus[instructionIndex] = FORBIDDEN_STATUS;
-	} else {
-		img.src = neutral.src;
-		instructionStatus[instructionIndex] = NEUTRAL_STATUS;
-	}
-
-  return false;
-}
-
-function onFormSubmit() {
-	instructionRequirementsIntoText();
-	document.task_creation_form.symbol_criterion_count.value = variableCounter;
-	
-	// trim white space
-	var textareas = document.getElementsByTagName('textarea');
-	for (var i = 0; i < textareas.length; i++) {
-		trimWhitespace(textareas[i]);
-	}
-	
-	var inputs = document.getElementsByTagName('input');
-	for (var i = 0; i < inputs.length; i++){
-		if (inputs[i].type == 'text'){
-			trimWhitespace(inputs[i]);
-		}
-	}
-	
-	// find and report errors
-	var alertText = 'Your form contains the following errors. Please fix them before resubmitting.\n';
-	var alertCounter = 0;
-
-	if(document.task_creation_form.task_name.value.length > 40) {
-		alertCounter++;
-		alertText += '\n' + alertCounter + '. Task name may only be up to 40 characters long.';
-	}
-	
-	if(containsHtmlCharacters(document.task_creation_form.task_name.value)) {
-		alertCounter++;
-		alertText += '\n' + alertCounter + '. Task name may not contain characters ", <, > and &.';
-	}
-	
-	// inputs
-	var numberOfPublicInputs = 0;
-	var numberOfSecretInputs = 0;
-	
-	if(document.task_creation_form.public_input.value != '') {
-		numberOfPublicInputs = amountOfTitokoneInputOutput(document.task_creation_form.public_input.value);
-		
-		if(numberOfPublicInputs == -1) {
-			alertCounter++;
-			alertText += '\n' + alertCounter + '. Public input must be integers separated by commas with optional spaces.';
-			break;
-		}
-	}	
-	
-	if(document.task_creation_form.secret_input.value != "") {
-		numberOfSecretInputs = amountOfTitokoneInputOutput(document.task_creation_form.secret_input.value);
-		
-		if(numberOfSecretInputs == -1) {
-			alertCounter++;
-			alertText += '\n' + alertCounter + '. Secret input must be integers separated by commas with optional spaces.';
-			break;
-		}
-	}	
-	
-	if(numberOfPublicInputs != numberOfSecretInputs) {
-		alertCounter++;
-		alertText += '\n' + alertCounter + '. A task must have the same number of public and secret inputs.';	
-	}
-	
-	// registers and variables (only if correctness is determined by predefined values
-	if(document.task_creation_form.correctness_by.value == "predefined_values") {
-		for (i=0; i<inputs.length; i++) {
-			if ((inputs[i].name.indexOf("REG") != -1) || (inputs[i].name.indexOf("SYM") != -1)) {
-				if((inputs[i].value != "") && (!isInteger(inputs[i].value))) {
-					alertCounter++;
-					alertText += '\n' + alertCounter + '. Register and variable values must be integers.';
-					break;
-				}
-			}
-		}
-	}
-	
-	// outputs
-	var numberOfPublicOutputs = 0;
-	var numberOfSecretOutputs = 0;
-	
-	if(document.task_creation_form.<c:out value="${pub.id}"/>output_value.value != "") {
-		numberOfPublicOutputs = amountOfTitokoneInputOutput(document.task_creation_form.<c:out value="${pub.id}"/>output_value.value);
-		
-		if(numberOfPublicOutputs == -1) {
-			alertCounter++;
-			alertText += '\n' + alertCounter + '. Simulator output with public input must be integers separated by commas with optional spaces.';
-			break;
-		}
-	}	
-	
-	if(document.task_creation_form.<c:out value="${sec.id}"/>output_value.value != '') {
-			numberOfSecretOutputs = amountOfTitokoneInputOutput(document.task_creation_form.<c:out value="${sec.id}"/>output_value.value);
-		
-		if(numberOfSecretOutputs == -1) {
-			alertCounter++;
-			alertText += '\n' + alertCounter + '. Simulator output with secret input must be integers separated by commas with optional spaces.';
-			break;
-		}
-	}	
-	
-	if(numberOfPublicOutputs != numberOfSecretOutputs) {
-		alertCounter++;
-		alertText += '\n' + alertCounter + '. A task must have the same number of outputs with public and secret inputs.';	
-	}
-	
-	// quality criteria
-	for (i=0; i<inputs.length; i++) {
-		if ((inputs[i].name.indexOf("_acceptance_limit") != -1) || (inputs[i].name.indexOf("_quality_limit") != -1)) {
-			if((inputs[i].value != "") && (!isInteger(inputs[i].value))) {
-				alertCounter++;
-				alertText += '\n' + alertCounter + '. Acceptance and quality limits of quality criteria may only be integers.';
-				break;
-			}
-		}
-	}
-	
-	// endless loop prevention
-	if((document.task_creation_form.maximum_number_of_executed_instructions.value == '') ||
-	(!isInteger(document.task_creation_form.maximum_number_of_executed_instructions.value)) ||
-	(Number(document.task_creation_form.maximum_number_of_executed_instructions.value) <= 0)) {
-		alertCounter++;
-		alertText += '\n' + alertCounter + '. Maximum number of executed instructions must be a number greater than 0.';
-	}
-	
-	if(alertCounter == 0) {
-		if(Number(document.task_creation_form.maximum_number_of_executed_instructions.value) > 100000) {
-			return confirm('Are you sure you want the maximum number of executed instructions to be ' + document.task_creation_form.maximum_number_of_executed_instructions.value + '?');
-		} else {
-			return true;
-		}
-	}
-	else {
-		alert(alertText);
-	
-		return false;
-	}
-}
-
-function switchToPrintableView(){
-	elems = document.getElementsByTagName('textarea');
-	for (i=0; i<elems.length; i++){
-		var area = elems[i];
-		var newElement = document.getElementById(area.name + "_printable_element");
-		if (newElement == null) {
-			newElement = document.createElement('P');
-			newElement.innerHTML = area.value;
-			newElement.id = area.name + "_printable_element";
-			area.parentNode.insertBefore(newElement, area);
-		}
-		newElement.style.display = "block";
-		area.style.display = "none";
-	}
-}
-
-function switchPrintableViewOff(){
-	elems = document.getElementsByTagName('textarea');
-	for (i=0; i<elems.length; i++){
-		var area = elems[i];
-		var pElement = document.getElementById(area.name + "_printable_element");
-		pElement.style.display = "none";
-		area.style.display = "block";
-	}
-}
-
-
-// collect TTK-91 instruction requirements into text fields
-function instructionRequirementsIntoText() {
-	var requiredInstructions = '';
-	var forbiddenInstructions = '';
-	var firstRequired = true;
-	var firstForbidden = true;
-
-	for (var instructionIndex = 0; instructionIndex < instructionStatus.length; instructionIndex++) {
-		if(instructionStatus[instructionIndex] == REQUIRED_STATUS) {
-			if(firstRequired == true) {
-				firstRequired = false;
-			}
-			else {
-				requiredInstructions += ', ';
-			}
-			requiredInstructions += instructionNames[instructionIndex];
-		}
-		if(instructionStatus[instructionIndex] == FORBIDDEN_STATUS) {
-			if(firstForbidden == true) {
-				firstForbidden = false;
-			}
-			else {
-				forbiddenInstructions += ', ';
-			}
-			forbiddenInstructions += instructionNames[instructionIndex];
-		}
-	}
-
-	document.task_creation_form.REQOPCODES_instructions.value = requiredInstructions;
-	document.task_creation_form.BANOPCODES_instructions.value = forbiddenInstructions;
-}
 </script>
 </head>
-
 
 <body onLoad="initTaskCreation();">
 
