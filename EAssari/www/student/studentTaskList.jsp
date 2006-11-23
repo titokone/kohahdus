@@ -57,15 +57,13 @@
 	
 	<%-- get all tasks from db and store them in page context --%>
 	<%
-		//List<MockTask> tasks = MockTask.getTasks();
 		
-		/*
+		
 		String courseID = (String) session.getAttribute("course");
 		User u = (User) session.getAttribute("user");
 		
-		List<Task> tasks = DBHandler.getInstance().getTasksTest(courseID, u.getUserID());
-		*/
-		List<Task> tasks = DBHandler.getInstance().getTasks();		
+		List<Task> tasks = DBHandler.getInstance().getTasks(courseID, u.getUserID());
+			
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 	%>
 	
@@ -135,7 +133,7 @@
 
 <%-- TODO: get status info --%>
 <c:out value="${accepted}"/> <%=rb.getString("acceptedText")%><br>
-<c:out value="${unfinished}"/> <%=rb.getString("unfinishedText")%></p>
+<c:out value="${unfinished}"/> <%=rb.getString("unfinishedText")%><br>
 
 </body>
 </html>
