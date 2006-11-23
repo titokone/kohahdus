@@ -32,7 +32,7 @@ public class TitoAnalyzer {
 		int maxInstructions=task.getMaximumNumberOfInstructions();
 		TitoAnalyzerFeedback feedback=new TitoAnalyzerFeedback();
 		boolean hasSecretInput = !(task.getSecretInput() == null ||task.getSecretInput().equals(""));
-		
+		feedback.setOverallFeedback(task.getFailFeedBack());
 		//TEACHER
 		//Check if task is validated by model answer
 		//if so, creates new TitoState for teacher

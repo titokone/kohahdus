@@ -31,10 +31,41 @@ public class TitoAnalyzerTest extends TestCase {
 		task1.setPassFeedBack("Good game.");
 		task1.setMaximumNumberOfInstructions(1000);
 		
+		
+		criteria1=new LinkedList<Criterion>();
+		
+		/*
+		//Create criteria
+		//registers
+		RegisterCriterion r1=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 0, false, 1);
+		r1.setAcceptanceTestValue("4");
+		criteria1.add(r1);
+		//symbols
+		SymbolCriterion s1=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 0, false);
+		s1.setSymbolName("X");
+		s1.setAcceptanceTestValue("3");
+		SymbolCriterion s2=new SymbolCriterion(ID_SECRET_SYMBOL_PREFIX + 0, false);
+		s2.setSymbolName("Y");
+		s2.setAcceptanceTestValue("5");
+		criteria1.add(s1);
+		criteria1.add(s2);
+		//instructions
+		InstructionCriterion i1=new RequiredInstructionsCriterion(ID_REQUIRED_INSTRUCTIONS, false);
+		InstructionCriterion i2=new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false);
+		i1.setAcceptanceTestValue("STORE, ADD, SUB, DIV, DC");
+		i2.setAcceptanceTestValue("");
+		criteria1.add(i1);
+		criteria1.add(i2);
+		*/
+		/*
 		//criterions for task1
 		//register criterions
 		Set<RegisterCriterion> registerCriteria1=new HashSet<RegisterCriterion>();
-		registerCriteria1.add(new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 1, false, 4));
+		registerCriteria1.add(new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 0, false, 1));
+		for (RegisterCriterion c : registerCriteria1) {
+			// Valid value, Model = true
+			c.setAcceptanceTestValue("4");
+		}
 		//symbol criterions
 		Set<SymbolCriterion> symbolCriteria1;
 		symbolCriteria1 = new HashSet<SymbolCriterion>();
@@ -53,37 +84,54 @@ public class TitoAnalyzerTest extends TestCase {
 			i++;
 		}
 		//instruction criterions
-		Set<InstructionCriterion> instructionCriteria;
-		instructionCriteria = new HashSet<InstructionCriterion>();
-		instructionCriteria.add(new RequiredInstructionsCriterion(ID_REQUIRED_INSTRUCTIONS, false));
-		instructionCriteria.add(new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false));
+		Set<InstructionCriterion> instructionCriteria1;
+		instructionCriteria1 = new HashSet<InstructionCriterion>();
+		instructionCriteria1.add(new RequiredInstructionsCriterion(ID_REQUIRED_INSTRUCTIONS, false));
+		instructionCriteria1.add(new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false));
 		i=1;
-		for (InstructionCriterion c : instructionCriteria) {		
+		for (InstructionCriterion c : instructionCriteria1) {		
 			if (i==1)
 				c.setAcceptanceTestValue("STORE, ADD, SUB, DIV, DC");
 			if (i==2)
 				c.setAcceptanceTestValue("");
 			i++;
 		}
+		//compile the criteria together to one table
+		criteria1.addAll(registerCriteria1);
+		criteria1.addAll(symbolCriteria1);
+		criteria1.addAll(instructionCriteria1);
+		
+		
+		
 		//no input
 		input1="";
-		programcode1="DC X\n" +
-			"DC Y\n" +
-			"LOAD R0, =2\n" +
-			"ADD R0, =2\n" +
-			"STORE R0, R1\n" +
-			"LOAD R0, =8\n" +
-			"SUB R0, =5\n" +
-			"STORE R0, X\n" +
-			"LOAD R0, =10\n" +
-			"DIV R0, =5\n" +
-			"STORE R0, Y";
+		programcode1="DC X 0\n" +
+			"DC Y 0\n" +
+			"LOAD R2, =2\n" +
+			"ADD R2, =2\n" +
+			"STORE R2, R1\n" +
+			"LOAD R2, 8\n" +
+			"SUB R2, 5\n" +
+			"STORE R2, X\n" +
+			"LOAD R2, =10\n" +
+			"DIV R2, =5\n" +
+			"STORE R2, Y";
+			
+			*/
+		
+		RegisterCriterion r1=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 0, false, 1);
+		r1.setAcceptanceTestValue("2");
+		
+		criteria1.add(r1);
+		
+		input1="";
+		programcode1="LOAD R1, =2";
 	}
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-
+/*
 	/*
 	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer.TitoAnalyzer()'
 	 */
@@ -96,9 +144,17 @@ public class TitoAnalyzerTest extends TestCase {
 	public void testAnalyze() {
 		TitoAnalyzer analys1=new TitoAnalyzer();
 		TitoFeedback feed=analys1.Analyze(task1, criteria1, programcode1, input1);
+		System.out.println(feed.isSuccessful());
+		System.out.println(feed.getOverallFeedback());
+		System.out.println(feed.getCompileError());
+		System.out.println(feed.getRunError());
 		
-		
-		
+		List<TitoCriterionFeedback>  criteriafeed=feed.getCriteriaFeedback();
+		for (TitoCriterionFeedback c : criteriafeed) {
+			System.out.print(c.getName());
+			System.out.print("    "+c.isPassedAcceptanceTest());
+			System.out.println("    "+c.getFeedback());
+		}
 	}
 
 }
