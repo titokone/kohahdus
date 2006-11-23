@@ -13,7 +13,7 @@ public class DataReferencesCriterion extends MeasuredCriterion {
 	}
 
 	@Override protected int getCriterionValue(TitoState studentAnswer) {
-		return studentAnswer.getMemoryAccessCount() - studentAnswer.getExecutionSteps();
+		return studentAnswer.getDataReferenceCount();
 	}
 
 }

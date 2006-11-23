@@ -14,7 +14,7 @@ public class MemReferencesCriterion extends MeasuredCriterion {
 	}
 
 	@Override protected int getCriterionValue(TitoState studentAnswer) {
-		return studentAnswer.getMemoryAccessCount();
+		return studentAnswer.getDataReferenceCount() + studentAnswer.getExecutionSteps();
 	}
 
 }

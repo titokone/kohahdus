@@ -11,16 +11,24 @@ public class TitoStateTest extends TestCase {
 	private TitoState tito;
 	
 	private String defs = ""
-						// Define symbol X
-						+ "     X DC 21\n";
+						// Define symbols A B C D
+						+ "     A DC 11 \n"
+						+ "     B DC 3 \n"
+						+ "     C DC -2 \n"
+						+ "     D DC 1337 \n"
+						;
 	
-	private String code = ""		
-						// Create symbol X and set it value 42
-						// code size = 3, exec steps = 3, mem references = 6
-						+ "     LOAD  R0, X      \n"
-						+ "     ADD   R0, X      \n"
-						+ "     STORE R0, X      \n"
-						
+	
+	private String code = ""
+						// Call MADD-funtion to calculate A*B+C and store to D (D = 11*3-2 = 31
+						// code size = 7, exec steps = 7, mem data references = 6
+						+ "     PUSH  SP, A     \n" // 1st param used also for the return value
+						+ "     PUSH  SP, B     \n"
+						+ "     PUSH  SP, C     \n"
+						+ "     CALL  SP, madd  \n"
+						+ "     POP   SP, R0    \n"						
+						+ "     STORE R0, D     \n"
+
 						  
 						// Print numbers 1, 1, 2, 3, 5, 8, 13
 						// code size = 14, exec steps = 14, mem references = 14
@@ -47,10 +55,21 @@ public class TitoStateTest extends TestCase {
 						+ "     LOAD  R3, =300   \n"
 						+ "     LOAD  R4, =400   \n"
 						+ "     LOAD  R5, =500   \n"
-	
+
 						// Exit program
 						// code size = 1, exec steps = 1, mem references = 3
-						+ "     SVC   SP, =HALT  \n";
+						+ "     SVC   SP, =HALT  \n"
+						
+						// Multiply-accumulate: multiply 1st param by 2nd param, add 3rd param and store back to param 1 location
+						// code size = 7, exec steps = 7, mem references = 
+						+ "madd PUSH  SP, R1     \n" // Save R1
+						+ "     LOAD  R1, -4(FP) \n"
+						+ "     MUL   R1, -3(FP) \n"
+						+ "     ADD   R1, -2(FP) \n "
+						+ "     STORE R1, -4(FP) \n"
+						+ "     POP   SP, R1     \n" // Restore R1
+						+ "     EXIT  SP, =2     \n" // Nuke 3rd and 2nd paramn, retain 1st 						
+						;
 	
 	
 	
@@ -100,22 +119,27 @@ public class TitoStateTest extends TestCase {
 	
 	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getMemoryLocation(int)' */
 	public void testGetMemoryLocation() {
-		int xLocation = code.split("\n").length;
-		assertEquals(42, tito.getMemoryLocation(xLocation));
+		int dLocation = defs.split("\n").length + code.split("\n").length - 1;
+		assertEquals(31, tito.getMemoryLocation(dLocation));
 	}
 	
 	
 	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getSymbolTable()' */
 	public void testGetSymbolTable() {
-		int xLocation = code.split("\n").length;
+		int aLocation = defs.split("\n").length + code.split("\n").length - 4;
+		int bLocation = defs.split("\n").length + code.split("\n").length - 3;
+		int cLocation = defs.split("\n").length + code.split("\n").length - 2;
+		int dLocation = defs.split("\n").length + code.split("\n").length - 1;
 		HashMap symbols = tito.getSymbolTable();
-		assertEquals(xLocation, symbols.get("x"));		
+		assertEquals(aLocation, symbols.get("a"));		
+		assertEquals(bLocation, symbols.get("b"));		
+		assertEquals(cLocation, symbols.get("c"));		
+		assertEquals(dLocation, symbols.get("d"));		
 	}
 	
 
 	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getStackMaxSize()' */
 	public void testGetStackMaxSize() {
-		// TODO: Add stack code to test program
 		assertEquals(0, tito.getStackMaxSize()); 
 	}
 	
@@ -127,8 +151,8 @@ public class TitoStateTest extends TestCase {
 
 	
 	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getMemoryAccessCount()' */
-	public void testGetMemoryAccessCount() {
-		assertEquals(code.split("\n").length + 3 + 2, tito.getMemoryAccessCount());
+	public void testGetDataReferenceCount() {
+		assertEquals(0, tito.getDataReferenceCount());
 	}
 
 	
@@ -139,6 +163,11 @@ public class TitoStateTest extends TestCase {
 		expectedOpcodes.add("STORE");
 		expectedOpcodes.add("ADD");
 		expectedOpcodes.add("OUT");
+		expectedOpcodes.add("MUL");
+		expectedOpcodes.add("PUSH");
+		expectedOpcodes.add("CALL");
+		expectedOpcodes.add("EXIT");
+		expectedOpcodes.add("POP");
 		expectedOpcodes.add("SVC");
 		assertEquals(expectedOpcodes, tito.getUsedOpcodes());
 	}

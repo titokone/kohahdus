@@ -148,10 +148,11 @@ public class TitoState {
 		return mem.getDataAreaSize();
 	}
 	
-	/** Return number memory references executed during program run. The number
-	 * includes references caused by both data reads and writes, and instruction fetches. */
-	int getMemoryAccessCount() {
-		return memRef + getExecutionSteps();
+	/** Return number data references executed during program run. The number includes
+	 * memory references caused by both data reads and writes, but not memory reference
+	 * caused by instruction fetches. */
+	int getDataReferenceCount() {
+		return memRef;
 	}
 	
 	/** Return used opcodes in set of Strings. This does not include instructions
