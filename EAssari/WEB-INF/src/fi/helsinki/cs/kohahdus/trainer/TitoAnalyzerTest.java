@@ -34,29 +34,45 @@ public class TitoAnalyzerTest extends TestCase {
 		
 		criteria1=new LinkedList<Criterion>();
 		
-		/*
+		
 		//Create criteria
 		//registers
-		RegisterCriterion r1=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 0, false, 1);
+		RegisterCriterion r1=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 12, false, 1);
 		r1.setAcceptanceTestValue("4");
+		r1.setAcceptanceFeedback("Rekisteri 1 on oikein.");
+		r1.setFailureFeedback("R1 vituiks.");
 		criteria1.add(r1);
+		RegisterCriterion r0=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 123, false, 0);
+		r0.setAcceptanceTestValue("3");
+		r0.setAcceptanceFeedback("Rekisteri 0 on oikein.");
+		r0.setFailureFeedback("R0 vituiks.");
+		criteria1.add(r0);
 		//symbols
-		SymbolCriterion s1=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 0, false);
-		s1.setSymbolName("X");
+		SymbolCriterion s1=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 36, false);
+		s1.setAcceptanceFeedback("Symboli X on oikein.");
+		s1.setFailureFeedback("Symboli X vituillaan.");
+		s1.setSymbolName("x");
 		s1.setAcceptanceTestValue("3");
-		SymbolCriterion s2=new SymbolCriterion(ID_SECRET_SYMBOL_PREFIX + 0, false);
-		s2.setSymbolName("Y");
-		s2.setAcceptanceTestValue("5");
+		SymbolCriterion s2=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 78, false);
+		s2.setSymbolName("y");
+		s2.setAcceptanceTestValue("2");
+		s2.setAcceptanceFeedback("Symboli Y on oikein.");
+		s2.setFailureFeedback("Symboli Y vituillaan.");
 		criteria1.add(s1);
 		criteria1.add(s2);
 		//instructions
 		InstructionCriterion i1=new RequiredInstructionsCriterion(ID_REQUIRED_INSTRUCTIONS, false);
 		InstructionCriterion i2=new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false);
-		i1.setAcceptanceTestValue("STORE, ADD, SUB, DIV, DC");
+		i1.setAcceptanceTestValue("STORE, ADD, SUB, DIV");
+		i1.setAcceptanceFeedback("Vaaditut käskyt täytetty.");
+		i1.setFailureFeedback("Vaaditut käskyt vituillaan.");
 		i2.setAcceptanceTestValue("");
+		i2.setAcceptanceFeedback("Kielletyt käskyt täytetty.");
+		i2.setFailureFeedback("Kielletyt käskyt vituillaan.");
+		System.out.println(i2.hasAcceptanceTest(false));
 		criteria1.add(i1);
 		criteria1.add(i2);
-		*/
+		
 		/*
 		//criterions for task1
 		//register criterions
@@ -100,24 +116,25 @@ public class TitoAnalyzerTest extends TestCase {
 		criteria1.addAll(registerCriteria1);
 		criteria1.addAll(symbolCriteria1);
 		criteria1.addAll(instructionCriteria1);
-		
+		*/
 		
 		
 		//no input
 		input1="";
-		programcode1="DC X 0\n" +
-			"DC Y 0\n" +
-			"LOAD R2, =2\n" +
-			"ADD R2, =2\n" +
-			"STORE R2, R1\n" +
-			"LOAD R2, 8\n" +
-			"SUB R2, 5\n" +
-			"STORE R2, X\n" +
-			"LOAD R2, =10\n" +
-			"DIV R2, =5\n" +
-			"STORE R2, Y";
+		programcode1="X DC 0\n" +
+			"Y DC 0\n" +
+			"LOAD R1, =2\n" +
+			"ADD R1, =2\n" +
+			"LOAD R0, =8\n" +
+			"SUB R0, =5\n" +
+			"STORE R0, X\n" +
+			"LOAD R0, =10\n" +
+			"DIV R0, =5\n" +
+			"STORE R0, Y\n" +
+			"LOAD R0, =3\n" +
+			"SVC SP, =HALT";
 			
-			*/
+		/*
 		
 		RegisterCriterion r1=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 0, false, 1);
 		r1.setAcceptanceTestValue("2");
@@ -127,6 +144,7 @@ public class TitoAnalyzerTest extends TestCase {
 		input1="";
 		programcode1 = "LOAD R1, =2\n"
                      + "SVC SP, =HALT";
+                     */
 	}
 
 	protected void tearDown() throws Exception {

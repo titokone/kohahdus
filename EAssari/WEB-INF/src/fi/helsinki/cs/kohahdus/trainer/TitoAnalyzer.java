@@ -142,7 +142,8 @@ public class TitoAnalyzer {
 			Boolean csuccess=true;
 			
 			//get the name TODO: done?
-			cname=c.getName(LanguageManager.getTextResource(task.getLanguage() ,"criterion"));
+			//cname=c.getName(LanguageManager.getTextResource(task.getLanguage() ,"criterion"));
+			cname="TESTINIMI";
 			
 			// if criterion is meant for secret input
 			if (c.isSecretInputCriterion()) {
@@ -185,9 +186,12 @@ public class TitoAnalyzer {
 				}
 			} // end else, for public input
 			
-			//create criterion feedback object and add it to list
-			critfb=new TitoCriterionFeedback(cname, cfeedback, csuccess);
-			criterfblist.add(critfb);
+			//create criterion feedback object and add it to list if it had tests
+			if (c.hasQualityTest(task.isValidateByModel()) ||
+				c.hasAcceptanceTest(task.isValidateByModel())) {
+				critfb=new TitoCriterionFeedback(cname, cfeedback, csuccess);
+				criterfblist.add(critfb);
+			}
 		}
 		
 		//Criterions checked, lets create the feedback
