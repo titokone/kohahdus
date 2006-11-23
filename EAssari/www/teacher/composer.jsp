@@ -40,7 +40,6 @@
 	</c:redirect>
 </c:if>
 
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
@@ -51,7 +50,7 @@
 <script language="javascript" type="text/javascript" src="../js/composerViews.js"></script>
 <script language="javascript" type="text/javascript" src="../js/composerTTK91.js"></script>
 <script language="javascript" type="text/javascript" src="../js/composerInitSubmit.js"></script>
-<script language="javascript" type="text/javascript">
+<script language="javascript">
 
 var variableCounter = <c:out value="${symbolCriterionCount}"/>;
 
@@ -68,14 +67,24 @@ var REQUIRED_STATUS = 1;
 var FORBIDDEN_STATUS = -1;
 var NEUTRAL_STATUS = 0;
 
-var requiredInstructionsField = document.task_creation_form.REQOPCODES_instructions;
-var forbiddenInstructionsField = document.task_creation_form.BANOPCODES_instructions;
-
 var registerPrefix = "REG";
 var variablePrefix = "SYM";
 
-var publicOutputField = document.task_creation_form.<c:out value="${pub.id}"/>output_value;
-var secretOutputField = document.task_creation_form.<c:out value="${sec.id}"/>output_value;
+var requiredInstructionsField;
+var forbiddenInstructionsField;
+
+var publicOutputField;
+var secretOutputField;
+
+function composerOnLoad() {
+	requiredInstructionsField = document.task_creation_form.REQOPCODES_instructions;
+	forbiddenInstructionsField = document.task_creation_form.BANOPCODES_instructions;
+	
+	publicOutputField = document.task_creation_form.<c:out value="${pub.id}"/>output_value;
+	secretOutputField = document.task_creation_form.<c:out value="${sec.id}"/>output_value;
+
+	initTaskCreation();
+}
 
 // add a new variable field into HTML
 function addVariable() {
@@ -86,7 +95,8 @@ function addVariable() {
 	var beginhtml = html.substring(0, (html.length - 16));
 	var endhtml = html.substring(html.length - 16)
 
-	beginhtml += '<tr><td><input name="SYM' + variableCounter + '_name" type="text" size="4"></td>';
+	beginhtml += '<tr><td><input type="checkbox" name="SYM' + variableCounter + '_checked"></td>';
+	beginhtml += '<td><input name="SYM' + variableCounter + '_name" type="text" size="4"></td>';
 	beginhtml += '<td><select name="PUBSYM' + variableCounter + '_comparison_op"><option>=</option><option>!=</option><option><</option><option>></option><option><=</option><option>>=</option></select></td>';
 	beginhtml += '<td><input name="PUBSYM' + variableCounter + '_value" type="text" size="4"></td>';
 	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="4"> </textarea></td>';
@@ -101,7 +111,7 @@ function addVariable() {
 	variableCounter++;
 
 	// make sure that the new row conforms to the current view
-	if(document.task_creation_form.correctness_by.value == "predefined_values") {
+	if(document.task_creation_form.correctness_by[0].checked == true) {
 		switchToCriteriaView();
 	} else {
 		switchToExampleView();
@@ -111,7 +121,7 @@ function addVariable() {
 </script>
 </head>
 
-<body onLoad="initTaskCreation();">
+<body onLoad="composerOnLoad();">
 
 <jsp:include page="../menu.jsp"/>
 

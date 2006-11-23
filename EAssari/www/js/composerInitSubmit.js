@@ -48,19 +48,17 @@ function initTaskCreation()
 		}
 	}
 
-	switchToCriteriaView();
-	switchToWholeProgramView();
-	
-	<c:if test="${task.fillInTask}">
-		showElementById('partialProgramDiv1');
-		showElementById('partialProgramDiv2');
-		showElementById('exampleTable');
-	</c:if>
-	<c:if test="${task.validateByModel}">
-		showElementById('exampleCodeDiv');
-		showElementById('exampleTable');
-	</c:if>
-	
+	if(document.task_creation_form.correctness_by[1].checked == true) {
+		switchToExampleView();	
+	} else {
+		switchToCriteriaView(); // default to predefined values if somehow selection has not been made
+	}
+
+	if(document.task_creation_form.task_type[1].checked == true) {
+		switchToPartOfProgramView();	
+	} else {
+		switchToWholeProgramView();	// default to whole program view if somehow selection has not been made
+	}
 }
 
 function onFormSubmit() {
@@ -104,7 +102,6 @@ function onFormSubmit() {
 		if(numberOfPublicInputs == -1) {
 			alertCounter++;
 			alertText += '\n' + alertCounter + '. Public input must be integers separated by commas with optional spaces.';
-			break;
 		}
 	}	
 	
@@ -114,7 +111,6 @@ function onFormSubmit() {
 		if(numberOfSecretInputs == -1) {
 			alertCounter++;
 			alertText += '\n' + alertCounter + '. Secret input must be integers separated by commas with optional spaces.';
-			break;
 		}
 	}	
 	
@@ -146,7 +142,6 @@ function onFormSubmit() {
 		if(numberOfPublicOutputs == -1) {
 			alertCounter++;
 			alertText += '\n' + alertCounter + '. Simulator output with public input must be integers separated by commas with optional spaces.';
-			break;
 		}
 	}	
 	
@@ -156,7 +151,6 @@ function onFormSubmit() {
 		if(numberOfSecretOutputs == -1) {
 			alertCounter++;
 			alertText += '\n' + alertCounter + '. Simulator output with secret input must be integers separated by commas with optional spaces.';
-			break;
 		}
 	}	
 	
