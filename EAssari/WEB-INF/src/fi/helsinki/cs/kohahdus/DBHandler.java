@@ -124,7 +124,7 @@ public class DBHandler {
 		if (!addModule(course.getCourseID())) return false;
 		
 		// Links all tasks with the course
-		LinkedList<Task> tasks = getTasks();
+		List<Task> tasks = getTasks();
 		for (Task task : tasks) {
 			if (!addTaskInModule(course.getCourseID(), task.getTaskID())) return false;
 		}
@@ -259,7 +259,7 @@ public class DBHandler {
 	} 
 	
 	/** Return all tasks */
-	public LinkedList<Task> getTasks() throws SQLException{
+	public List<Task> getTasks() throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		LinkedList<Task> tasks = new LinkedList<Task>();
@@ -301,52 +301,56 @@ public class DBHandler {
 		return tasks;
 	}
 	
-	/** Return all tasks */
-	public LinkedList<Task> getTasks(String courseID, String userID) throws SQLException{
+	/** Return all tasks with students status info */
+	public List<Task> getTasks(String courseID, String userID) throws SQLException{
+		List<Task> tasks = getTasks();
+		HashMap<String, AnswerState> states = getAnswerStates(userID, courseID, DEFAULT_MODULE_ID);
+		
+		for (Task t : tasks) {
+			AnswerState s = states.get(t.getTaskID());
+			if (s != null) {
+				t.setNoOfTries(s.getLastTryNumber());
+				t.setHasSucceeded(s.hasSucceeded());
+			}
+		}
+		
+		return tasks;
+	}
+	
+	/** Add answer state to a task object */
+	private HashMap<String, AnswerState> getAnswerStates(String userID, String courseID, String moduleID) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
-		LinkedList<Task> tasks = new LinkedList<Task>();
+		HashMap<String, AnswerState> states = new HashMap<String, AnswerState>();
+		
 		try {
-			st = conn.prepareStatement("select t.*, sm.lasttrynumber, sm.hassucceeded" +
-									   "from studentmodel sm, taskidmodule tim, task t " +
-									   "where sm.sid=? and sm.courseid=? and sm.courseid=tim.courseid " +
-									   "and sm.moduleid=tim.moduleid and sm.seqno=tim.seqno " +
-									   "and tim.taskid=t.taskid and tim.moduleid=?");
+			st = conn.prepareStatement("select seqno, lasttrynumber, hassucceeded from studentmodel " +
+									   "where sid=? and courseid=? and moduleid=? ");
+			
 			st.setString(1, userID);
 			st.setString(2, courseID);
-			st.setString(3, DBHandler.DEFAULT_MODULE_ID);
+			st.setString(3, moduleID);
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
-			while (rs.next()){
-				Task task = new Task();
-				task.setTaskID(rs.getString("taskid"));
-				task.setName(rs.getString("taskname"));
-				task.setAuthor(rs.getString("author"));
-				// Todo: implement these fields
-				//task(rs.getDate("datecreate"));
-				//task.setTasktype(rs.getString("tasktype"));
-				task.deserializeFromXML(rs.getString("taskmetadata"));
-				task.setNoOfTries(rs.getInt("lasttrynumber"));
-				task.setShouldStore("N".equals(rs.getString("shouldstoreanswer_def")) ? false : true);
-				task.setShouldRegister("N".equals(rs.getString("shouldregistertry_def")) ? false : true);
-				task.setShouldKnow("N".equals(rs.getString("shouldknowstudent_def")) ? false : true);
-				task.setShouldEvaluate("N".equals(rs.getString("shouldevaluate_def")) ? false : true);
-				task.setCutoffvalue(rs.getInt("cutoffvalue"));
-				task.setHasSucceeded("N".equals(rs.getString("hassucceded")) ? false : true);
-				tasks.add(task);
+			while (rs.next()) {
+				AnswerState state = new AnswerState();
+				
+				state.setLastTryNumber(rs.getInt("lasttrynumber"));
+				state.setHasSucceeded("Y".equals(rs.getString("hassucceeded")));
+				
+				states.put(rs.getString("seqno"), state);
 			} 
-			Log.write("DBHandler: Fetched " +tasks.size() + " tasks with course="+courseID+ ", user="+userID);
 			rs.close();
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to fetch tasks with course="+courseID+ ", user="+userID+". " +e);
+			Log.write("DBHandler: Failed to get number of tries for user "+userID+". " +e);
 			throw e;
 		} finally {
 			release(conn);
 			if (st != null) st.close();			
-		}	
-		return tasks;
-	}
+		}
+		return states;
+	} 
 	
 	/** Return task identified by taskID */
 	public Task getTask(String taskID) throws SQLException {
