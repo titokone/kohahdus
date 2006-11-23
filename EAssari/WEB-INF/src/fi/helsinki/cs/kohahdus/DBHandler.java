@@ -918,126 +918,70 @@ public class DBHandler {
 	 * @return
 	 * @throws SQLException
 	 */
-	/*
-	private String storeStateAndAnswer(boolean shouldStore, User student, String courseId, 
-									   String taskID, String[] answers, boolean accepted,
-									   String lang, Feedback feedback) throws SQLException {
-	    String insertStatus=
-	            "insert into studentmodel values (?,?,?,?,?,1,?,?,?)";
-	    String updateStatus=
-	         "update studentmodel set "+
-	          "  lasttrynumber=?, "+
-	          "  currentresult=?, "+
-	          "  hassucceeded=?, "+
-	          "  wascreditedintime=? "+
-	          "  where studentid=? and" +
-	            "courseid=? and " +
-	            "moduleid=? and" +
-	            "seqno=?";
-	    String insertanswer= "insert into answer values (" +
-	            "?,?,?,?,?,?,?,?,?,?)";
-	     
-	    Connection connection=null;
-	    PreparedStatement ps1=null;
-	    PreparedStatement ps2=null;
-	    String done=null;
-	
-	    
-	     try {
-	        connection =getConnection();
-	        if (connection!=null) {
-	            int answercount= student.getAttempts(fullTaskID);
-	            int cc=student.getCurrentCredit(fullTaskID);
-	            String stval= student.getState(fullTaskID);
-	            String studentId= student.getUserid();
-	                    
-	            if (answercount==1) {
-	                ps1=connection.prepareStatement(insertStatus);
-	                ps1.setString(1,studentId);
-	                ps1.setString(2,courseId);
-	                ps1.setString(3,moduleID);
-	                ps1.setInt(4,taskNo);
-	                ps1.setString(5,params);
-	                ps1.setInt(6,cc);
-	                if (stval.equals("YES")) {
-	                    ps1.setString(7,"Y");
-	                    ps1.setString(8,"Y");
-	                }
-	                else {
-	                    if (stval.equals("LATE")) {
-	                        ps1.setString(7,"Y");
-	                        ps1.setString(8,"N");
-	                    }    
-	                    else {
-	                        ps1.setString(7,"N");
-	                        ps1.setString(8,"N");
-	                    }                      
-	                }    
-	                ps1.executeUpdate();                 
-	            }
-	            else {
-	                ps1=connection.prepareStatement(insertStatus);
-	                ps1.setInt(1,answercount);
-	                ps1.setInt(2,cc);
-	                if (stval.equals("YES")) {
-	                    ps1.setString(3,"Y");
-	                    ps1.setString(4,"Y");
-	                }
-	                else {
-	                    if (stval.equals("LATE")) {
-	                        ps1.setString(3,"Y");
-	                        ps1.setString(4,"N");
-	                    }    
-	                    else {
-	                        ps1.setString(3,"N");
-	                        ps1.setString(4,"N");
-	                    }                      
-	                }    
-	                
-	                ps1.setString(5,studentId);
-	                ps1.setString(6,courseId);
-	                ps1.setString(6,moduleID);
-	                ps1.setInt(8,taskNo);
-	                ps1.executeUpdate();                 
-	            }
-	            
-	            
-	            if (shouldStore) {
-	                String packedanswer = pack(answers);
-	                ps2=connection.prepareStatement(insertanswer);
-	                ps2.setString(1,studentId);
-	                ps2.setString(2,courseId);
-	                ps2.setString(3,moduleID);
-	                ps2.setInt(4,taskNo);
-	                ps2.setInt(5,answercount);
-	                ps2.setInt(6,feedback.getEvaluation());
-	                ps2.setTimestamp(7,when);
-	                ps2.setString(8,packedanswer);
-	                ps2.setString(9,lang);
-	                ps2.setString(10,feedback.toString()); 
-	                ps2.executeUpdate();    
-	            }
-	        }
-	        else {
-	            String em1= taskBase.getAttribute("E","DATABASEERROR","MESSAGE",lang); 
-	            done =fatalErrorNotification(fullTaskID, em1);
-	        }
-	    }
-	    catch (SQLException e) {
-	          String em2= taskBase.getAttribute("E","DATABASEERROR","MESSAGE",lang)+ e.getMessage(); 
-	          done= fatalErrorNotification(fullTaskID, em2);
-	    }  
-	    finally {
-	           try {
-	             if (ps1!=null) ps1.close();
-	             if (ps2!=null) ps2.close();
-	             connection.close();
-	           }  
-	             catch (SQLException fex) {}      
-	    }
-	    return done;
+	public void storeStateAndAnswer(String userID, String courseID, String taskID, String answer, 
+									   String input, TitoFeedback feedback, String language) throws SQLException {
+		int tries = getNumberOfTries(userID, courseID, DBHandler.DEFAULT_MODULE_ID, taskID);
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("insert into storedanswer (sid, courseid, moduleid, seqno, trynumber, " +
+									   "correctness, whenanswered, answer, feedbacklanguage, feedback) " +
+									   "values (?,?,?,?,?,?,sysdate,?,?,?)"); 
+			st.setString(1, userID);
+			st.setString(2, courseID);
+			st.setString(3, DBHandler.DEFAULT_MODULE_ID);
+			st.setString(4, taskID);
+			st.setInt(5, tries + 1);
+			st.setInt(6, feedback.isSuccessful() ? 100 : 0);
+			st.setString(7, answer);
+			st.setString(8, language);
+			st.setString(9, feedback.getOverallFeedback());
+			int c = st.executeUpdate();
+			if (c > 0){
+				Log.write("DBHandler: Answer stored for user " +userID);
+			} else {
+				Log.write("DBHandler: Failed store answer for user " +userID);
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to store answer for user "+userID+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
 	}
-	*/
+
+	/** Return number of tries with a specific task */
+	private int getNumberOfTries(String userID, String courseID, String moduleID, String seqNo) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		int tries = 0;
+		try {
+			st = conn.prepareStatement("select trynumber from storedanswer " +
+									   "where sid=? and courseid=? and moduleid=? and seqno=? " +
+									   "order by trynumber");
+			st.setString(1, userID);
+			st.setString(2, courseID);
+			st.setString(3, moduleID);
+			st.setString(4, seqNo);
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			if (rs.next()){
+				tries = rs.getInt("trynumber");
+			} 
+			rs.close();
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to get number of tries for user "+userID+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return tries;
+	} 
+	
 	
 }
 

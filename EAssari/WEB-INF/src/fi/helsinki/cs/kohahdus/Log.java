@@ -8,6 +8,10 @@ public class Log {
 		System.out.println(context + ": " + data);		
 	}
 	
+	public static void write(Exception e){
+		e.printStackTrace(System.out);
+	}
+	
 	public static void setContext(String context){
 		Log.context = context;		
 	}

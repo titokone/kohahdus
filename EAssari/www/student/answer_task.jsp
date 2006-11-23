@@ -106,7 +106,7 @@ function showhideTitokoneReport() {
 
 <br>
 
-<form name="answerform" action="../../servlet/Answer" method="POST">
+<form name="answerform" action="../../Answer" method="POST">
 	<table border="0">
 		<tr>
 			<td>
