@@ -2,9 +2,9 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment></comment>
-	<entry key="studentTaskList">tomcat/webapps/tsoha/EB-INF/xml/studentTaskList.xml</entry>
-	<entry key="answer_task">tomcat/webapps/tsoha/WEB-INF/xml/answer_task.xml</entry>
-	<entry key="modify_user">tomcat/webapps/tsoha/WEB-INF/xml/modify_user.xml</entry>
-	<entry key="menu">tomcat/webapps/tsoha/WEB-INF/xml/menu.xml</entry>
-	<entry key="criterion">tomcat/webapps/tsoha/WEB-INF/xml/criterion.xml</entry>
+	<entry key="studentTaskList">WEB-INF/xml/studentTaskList.xml</entry>
+	<entry key="answer_task">WEB-INF/xml/answer_task.xml</entry>
+	<entry key="modify_user">WEB-INF/xml/modify_user.xml</entry>
+	<entry key="menu">WEB-INF/xml/menu.xml</entry>
+	<entry key="criterion">WEB-INF/xml/criterion.xml</entry>
 </properties>
