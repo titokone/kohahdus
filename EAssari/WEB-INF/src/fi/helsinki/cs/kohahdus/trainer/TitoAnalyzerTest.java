@@ -1,9 +1,11 @@
 package fi.helsinki.cs.kohahdus.trainer;
 
 import static fi.helsinki.cs.kohahdus.criteria.Criterion.ID_FORBIDDEN_INSTRUCTIONS;
+import static fi.helsinki.cs.kohahdus.criteria.Criterion.ID_PUBLIC_OUTPUT;
 import static fi.helsinki.cs.kohahdus.criteria.Criterion.ID_PUBLIC_REGISTER_PREFIX;
 import static fi.helsinki.cs.kohahdus.criteria.Criterion.ID_PUBLIC_SYMBOL_PREFIX;
 import static fi.helsinki.cs.kohahdus.criteria.Criterion.ID_REQUIRED_INSTRUCTIONS;
+import static fi.helsinki.cs.kohahdus.criteria.Criterion.ID_SECRET_OUTPUT;
 import static fi.helsinki.cs.kohahdus.criteria.Criterion.ID_SECRET_SYMBOL_PREFIX;
 import junit.framework.TestCase;
 import java.util.*;
@@ -21,7 +23,24 @@ public class TitoAnalyzerTest extends TestCase {
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		
+			
+	}
+
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
+/*
+	/*
+	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer.TitoAnalyzer()'
+	 */
+	public void testTitoAnalyzer() {
+	}
+
+	/*
+	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer.Analyze(Task, List<Criterion>, String, String)'
+	 */
+	//Tests programming task with only criteria
+	public void testAnalyze() {
 		//TASK1, answer checked by only criteria, programming task
 		task1=new Task();
 		task1.setName("Simple Math");
@@ -87,8 +106,29 @@ public class TitoAnalyzerTest extends TestCase {
 			"SVC SP, =HALT";
 		
 		
+		//Solve
+		TitoAnalyzer analys1=new TitoAnalyzer();
+		TitoFeedback feed=analys1.Analyze(task1, criteria1, programcode1, input1);
+		System.out.println(feed.isSuccessful());
+		System.out.println(feed.getOverallFeedback());
+		System.out.println(feed.getCompileError());
+		System.out.println(feed.getRunError());
 		
-		
+		List<TitoCriterionFeedback>  criteriafeed=feed.getCriteriaFeedback();
+		for (TitoCriterionFeedback c : criteriafeed) {
+			System.out.print(c.getName());
+			System.out.print("    "+c.isPassedAcceptanceTest());
+			System.out.println("    "+c.getFeedback());
+		}
+		System.out.println("\n\n\n----------------------------------");
+	}
+	
+	/*
+	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer.Analyze(Task, List<Criterion>, String, String)'
+	 */
+	//Tests programming task with model answer
+	public void testAnalyzeModel() {
+
 		//TASK2, answer checked by comparing to model answer, programming task
 		task2=new Task();
 		task2.setName("Simple Math");
@@ -168,26 +208,9 @@ public class TitoAnalyzerTest extends TestCase {
 		
 		
 		
-			
-	}
-
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
-/*
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer.TitoAnalyzer()'
-	 */
-	public void testTitoAnalyzer() {
-	}
-
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer.Analyze(Task, List<Criterion>, String, String)'
-	 */
-	//Tests programming task with only criteria
-	public void testAnalyze1() {
-		TitoAnalyzer analys1=new TitoAnalyzer();
-		TitoFeedback feed=analys1.Analyze(task1, criteria1, programcode1, input1);
+		
+		TitoAnalyzer analys2=new TitoAnalyzer();
+		TitoFeedback feed=analys2.Analyze(task2, criteria2, programcode2, input2);
 		System.out.println(feed.isSuccessful());
 		System.out.println(feed.getOverallFeedback());
 		System.out.println(feed.getCompileError());
@@ -205,10 +228,54 @@ public class TitoAnalyzerTest extends TestCase {
 	/*
 	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer.Analyze(Task, List<Criterion>, String, String)'
 	 */
-	//Tests programming task with model answer
-	public void testAnalyze2() {
-		TitoAnalyzer analys2=new TitoAnalyzer();
-		TitoFeedback feed=analys2.Analyze(task2, criteria2, programcode2, input2);
+	//Test inputs and outputs
+	public void testAnalyzeInputsOutputs() {
+		//TASK1, answer checked by only criteria, programming task
+		task1=new Task();
+		task1.setName("Inputs");
+		task1.setCategory("Easy tasks");
+		task1.setLanguage("EN");
+		task1.setFillInTask(false);
+		task1.setFailFeedBack("Miss.");
+		task1.setPassFeedBack("Good game.");
+		task1.setMaximumNumberOfInstructions(1000);
+		//inputs, both public and sssecret
+		task1.setPublicInput("1,-4");
+		task1.setSecretInput("3,2");
+		
+		/* 2 inputtia, r1=4, r2=2, input1*r1, input2*r2.
+		 * r1=input1*r1, r2=input2*r2
+		 * tavan syötteellä halutaan, että r1=4, salainen r1=12
+		 *                                 r2=-8,         r2=4
+		 * kriteereinä siis että tulostuu tavan syötteellä 4,-8 ja sal 12,4
+		*/
+		//Create criteria
+		criteria1=new LinkedList<Criterion>();
+		//outputs
+		ScreenOutputCriterion out1=new ScreenOutputCriterion(ID_PUBLIC_OUTPUT, false);
+		ScreenOutputCriterion out2=new ScreenOutputCriterion(ID_SECRET_OUTPUT, true);
+		out1.setAcceptanceTestValue("4,-8");
+		out2.setAcceptanceTestValue("12,4");
+		out1.setAcceptanceFeedback("julkisella syötteellä läpi");
+		out2.setAcceptanceFeedback("salaisella syötteellä läpi");
+		out1.setFailureFeedback("julkisella syötteellä vituiks");
+		out2.setFailureFeedback("salaisella syötteellä vituiks");
+		criteria1.add(out1);
+		criteria1.add(out2);
+		input1="1,-4"; //no sense changing
+		programcode1="" +
+		"IN R1,=KBD\n" +
+		"MUL R1, =4\n" +
+		"IN R2,=KBD\n" +
+		"MUL R2, =2\n" +
+		"OUT R1, =KBD\n" +
+		"OUT R2, =KBD\n" +
+		"SVC SP, =HALT";
+		
+		
+		//Solve
+		TitoAnalyzer analys1=new TitoAnalyzer();
+		TitoFeedback feed=analys1.Analyze(task1, criteria1, programcode1, input1);
 		System.out.println(feed.isSuccessful());
 		System.out.println(feed.getOverallFeedback());
 		System.out.println(feed.getCompileError());
@@ -221,7 +288,9 @@ public class TitoAnalyzerTest extends TestCase {
 			System.out.println("    "+c.getFeedback());
 		}
 		System.out.println("\n\n\n----------------------------------");
+		
 	}
+	
 	
 
 }
