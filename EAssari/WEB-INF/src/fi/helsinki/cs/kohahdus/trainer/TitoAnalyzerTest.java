@@ -99,6 +99,7 @@ public class TitoAnalyzerTest extends TestCase {
 		task2.setPassFeedBack("Tehtävä on täydellisesti oikein");
 		task2.setMaximumNumberOfInstructions(1000);
 		task2.setValidateByModel(true);
+		task2.setPublicInput("");
 		String teachercode="X DC 0\n" +
 		"Y DC 0\n" +
 		"LOAD R1, =4\n" +

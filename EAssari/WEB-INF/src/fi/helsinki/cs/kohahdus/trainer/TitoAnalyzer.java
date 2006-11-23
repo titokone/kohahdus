@@ -47,7 +47,6 @@ public class TitoAnalyzer {
 				programCodeTeacher+=task.getFillInPostCode();
 			} else {
 				programCodeTeacher=task.getModelAnswer();
-				System.out.println("elsessä ollaan,model answer on:\n"+programCodeTeacher); //TODO
 			}
 			
 			//First public let's run the code with public input
@@ -56,14 +55,13 @@ public class TitoAnalyzer {
 			String compileResult=stateTeacherPublic.compile(programCodeTeacher); //compile program with TitoKone
 			if (compileResult != null) {
 				feedback.setCompileError(compileResult);
-				System.out.println("open compile kusee!"); //TODO
 				return feedback;
 			}
+			
 			//Execute the successfully compiled code.
 			String runResult=stateTeacherPublic.execute(task.getPublicInput(), maxInstructions); //run the compiled program in TitoKone
 			if (runResult != null) {
 				feedback.setRunError(runResult);
-				System.out.println("open run kusee!"); //TODO
 				return feedback;
 			}
 			
@@ -145,8 +143,8 @@ public class TitoAnalyzer {
 			Boolean csuccess=true;
 			
 			//get the name TODO: done?
-			//cname=c.getName(LanguageManager.getTextResource(task.getLanguage() ,"criterion"));
-			cname="TESTINIMI";
+			cname=c.getName(LanguageManager.getTextResource(task.getLanguage() ,"criterion"));
+			//cname="TESTINIMI";
 			
 			// if criterion is meant for secret input
 			if (c.isSecretInputCriterion()) {
