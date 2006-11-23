@@ -34,7 +34,7 @@ public class SymbolCriterion extends VariableCriterion {
 		if ((symbol == null) || ((symbol.matches("\\W")))) { 
 			symbolName = "";
 		} else {
-			symbolName = symbol.toLowerCase(); // Titokone always returns symbols in lowercase			
+			symbolName = symbol.toLowerCase();			
 		}		
 	}
 	
