@@ -74,7 +74,7 @@ public class TitoState {
 		} finally {
 			cpu = (Processor)(controller.getCpu());
 			mem = (RandomAccessMemory)(controller.getMemory());
-			memRef = mem.getMemoryReferences() - mem.getCodeAreaSize() - mem.getDataAreaSize();
+			memRef = mem.getMemoryReferences();
 		}
 		return null;
 	}

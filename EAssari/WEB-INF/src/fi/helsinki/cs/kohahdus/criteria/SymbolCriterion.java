@@ -34,7 +34,7 @@ public class SymbolCriterion extends VariableCriterion {
 		if ((symbol == null) || ((symbol.matches("\\W")))) { 
 			symbolName = "";
 		} else {
-			symbolName = symbol;			
+			symbolName = symbol.toLowerCase(); // Titokone always returns symbols in lowercase			
 		}		
 	}
 	
@@ -46,10 +46,6 @@ public class SymbolCriterion extends VariableCriterion {
 	@Override protected long getCriterionValue(TitoState answer) {
 		HashMap symbols = answer.getSymbolTable();
 		Integer addr = (Integer)symbols.get(symbolName);
-		
-		System.out.println(symbols.keySet());
-		System.out.println(answer.getMemoryLocation(addr));		
-		
 		return (addr == null) ? UNDEFINED : answer.getMemoryLocation(addr);
 	}	
 
@@ -60,6 +56,6 @@ public class SymbolCriterion extends VariableCriterion {
 
 	@Override protected void initSubClass(String serializedXML) {
 		super.initSubClass(serializedXML);
-		symbolName = parseXMLString(serializedXML, "symbol");
+		setSymbolName(parseXMLString(serializedXML, "symbol"));
 	}
 }

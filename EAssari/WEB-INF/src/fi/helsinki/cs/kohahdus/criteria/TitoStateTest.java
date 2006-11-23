@@ -48,7 +48,7 @@ public class TitoStateTest extends TestCase {
 						+ "     LOAD  R5, =500   \n"
 	
 						// Exit program
-						// code size = 1, exec steps = 1, mem references = 1
+						// code size = 1, exec steps = 1, mem references = 3
 						+ "     SVC   SP, =HALT  \n";
 	
 	
@@ -132,7 +132,7 @@ public class TitoStateTest extends TestCase {
 	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getMemoryAccessCount()'
 	 */
 	public void testGetMemoryAccessCount() {
-		assertEquals(27, tito.getMemoryAccessCount());
+		assertEquals(code.split("\n").length + 3 + 2, tito.getMemoryAccessCount());
 	}
 
 	/*
