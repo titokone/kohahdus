@@ -1001,13 +1001,13 @@ public class DBHandler {
 
 	
 	/**
-	 *  Returns a list of tasks (as hashtables) that student has answered. 
+	 *  Returns a list of tasks (as AnswerStates) that student has answered. 
 	 */
 	public LinkedList getStudentAnswers(String userID) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		
-		LinkedList<HashMap<String, String>> studentsAnswers = new LinkedList<HashMap<String, String >>();
+		LinkedList<AnswerState> studentsAnswers = new LinkedList<AnswerState>();
 		
 		try {
 			st = conn.prepareStatement("select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname" +
@@ -1018,12 +1018,13 @@ public class DBHandler {
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			while (rs.next()){
-				HashMap<String, String> m = new HashMap<String, String>();
-				m.put("firstname", rs.getString("firstname"));
-				m.put("lastname", rs.getString("lastname"));
-				m.put("hassucceeded", rs.getString("hassucceeded"));
-				m.put("lasttrynumber", ""+rs.getInt("lasttrynumber"));
-				m.put("taskname", rs.getString("taskname"));
+				AnswerState m = new AnswerState();
+				m.setFirstname(rs.getString("firstname"));
+				m.setLastname(rs.getString("lastname"));
+				m.setHasSucceeded("Y".equals(rs.getString("hassucceeded")));
+				m.setLastTryNumber(rs.getInt("lasttrynumber"));
+				m.setTaskName(rs.getString("taskname"));
+				m.setUserID(userID);
 				studentsAnswers.add(m);
 			} 
 			rs.close();
@@ -1038,39 +1039,7 @@ public class DBHandler {
 		}	
 
 		return studentsAnswers;
-	}
-		
-	/** Return number of tries with a specific task */
-	/*
-	private int getNumberOfTries(String userID, String courseID, String moduleID, String seqNo) throws SQLException {
-		Connection conn = getConnection();
-		PreparedStatement st = null;
-		int tries = 0;
-		try {
-			st = conn.prepareStatement("select trynumber from storedanswer " +
-									   "where sid=? and courseid=? and moduleid=? and seqno=? " +
-									   "order by trynumber");
-			st.setString(1, userID);
-			st.setString(2, courseID);
-			st.setString(3, moduleID);
-			st.setString(4, seqNo);
-			st.executeQuery();
-			ResultSet rs = st.getResultSet();
-			if (rs.next()){
-				tries = rs.getInt("trynumber");
-			} 
-			rs.close();
-			
-		} catch (SQLException e){
-			Log.write("DBHandler: Failed to get number of tries for user "+userID+". " +e);
-			throw e;
-		} finally {
-			release(conn);
-			if (st != null) st.close();			
-		}	
-		return tries;
-	} 
-	*/
+	}	
 	
 	/** Return answer state for a task */
 	private AnswerState getAnswerState(String userID, String courseID, String moduleID, String seqNo) throws SQLException {
