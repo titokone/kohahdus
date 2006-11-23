@@ -40,7 +40,7 @@
 	<p>Search results</p>
 	<p>
 		<c:forEach var="user" items="${users}">	
-			<a href="showUser.jsp?userID=<c:out value="${user.userID}"/>"> <c:out value="${user.lastName}"/>, <c:out value="${user.firstName}"/> (<c:out value="${user.userID}"/>) <c:if test="${user.status=='adm'}">Teacher</c:if> </a><br>
+			<a href="showUser.jsp?userID=<c:out value="${user.userID}"/>"> <c:out value="${user.lastName}"/>, <c:out value="${user.firstName}"/> (<c:out value="${user.userID}"/>) <c:if test="${user.status=='adm'}">(Teacher)</c:if> </a><br>
 		</c:forEach>
 	</p>
 </c:if>

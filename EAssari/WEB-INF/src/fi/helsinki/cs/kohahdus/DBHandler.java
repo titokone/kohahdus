@@ -952,6 +952,7 @@ public class DBHandler {
 		}	
 	}
 
+	/* Returns a list of tasks that student has answered. If it would work. */
 	public LinkedList getStudentAnswers(String userID) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
@@ -969,6 +970,7 @@ public class DBHandler {
 			ResultSet rs = st.getResultSet();
 			if (rs.next()){
 				studentsAnswers.add(new HashMap<String, String>());
+				rs.getInt("correctness");
 				m.put("a", "b");
 			} 
 			rs.close();
