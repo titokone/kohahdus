@@ -1,5 +1,6 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -68,9 +69,7 @@ public class TitoStateTest extends TestCase {
 	
 	
 
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getRegister(int)'
-	 */
+	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getRegister(int)' */
 	public void testGetRegister() {
 		assertEquals(000, tito.getRegister(REG_R0));
 		assertEquals(100, tito.getRegister(REG_R1));
@@ -79,65 +78,61 @@ public class TitoStateTest extends TestCase {
 		assertEquals(400, tito.getRegister(REG_R4));
 		assertEquals(500, tito.getRegister(REG_R5));
 	}
+	
 
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getScreenOutput()'
-	 */
+	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getScreenOutput()' */
 	public void testGetScreenOutput() {
 		assertEquals("1, 1, 2, 3, 5, 8, 13", tito.getScreenOutput());
 	}
 	
 
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getDataSize()'
-	 */
+	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getDataSize()' */
 	public void testGetDataSize() {
 		assertEquals(defs.split("\n").length, tito.getDataSize());
 	}
 	
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getCodeSize()'
-	 */
+	
+	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getCodeSize()' */
 	public void testGetCodeSize() {
 		assertEquals(code.split("\n").length, tito.getCodeSize());
 	}
-
 	
 	
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getMemoryLocation(int)'
-	 */
+	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getMemoryLocation(int)' */
 	public void testGetMemoryLocation() {
 		int xLocation = code.split("\n").length;
 		assertEquals(42, tito.getMemoryLocation(xLocation));
 	}
 	
+	
+	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getSymbolTable()' */
+	public void testGetSymbolTable() {
+		int xLocation = code.split("\n").length;
+		HashMap symbols = tito.getSymbolTable();
+		assertEquals(xLocation, symbols.get("x"));		
+	}
+	
 
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getStackMaxSize()'
-	 */
+	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getStackMaxSize()' */
 	public void testGetStackMaxSize() {
 		// TODO: Add stack code to test program
 		assertEquals(0, tito.getStackMaxSize()); 
 	}
+	
 
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getExecutionSteps()'
-	 */
+	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getExecutionSteps()' */
 	public void testGetExecutionSteps() {
 		assertEquals(24, tito.getExecutionSteps());
 	}
 
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getMemoryAccessCount()'
-	 */
+	
+	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getMemoryAccessCount()' */
 	public void testGetMemoryAccessCount() {
 		assertEquals(code.split("\n").length + 3 + 2, tito.getMemoryAccessCount());
 	}
 
-	/*
-	 * Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getUsedOpcodes()'
-	 */
+	
+	/* Test method for 'fi.helsinki.cs.kohahdus.criteria.TitoState.getUsedOpcodes()' */
 	public void testGetUsedOpcodes() {
 		Set<String> expectedOpcodes = new HashSet<String>();
 		expectedOpcodes.add("LOAD");
