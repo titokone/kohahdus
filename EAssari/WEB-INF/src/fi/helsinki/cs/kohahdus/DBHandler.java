@@ -952,6 +952,39 @@ public class DBHandler {
 		}	
 	}
 
+	public LinkedList getStudentAnswers(String userID) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		
+		LinkedList<HashMap<String, String>> studentsAnswers = new LinkedList<HashMap<String, String >>();
+		HashMap<String, String> m = new HashMap<String, String>();
+		
+		studentsAnswers.add(m);
+		
+		
+		try {
+			st = conn.prepareStatement("select correctness from storedanswer where sid=?");
+			st.setString(1, userID);
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			if (rs.next()){
+				studentsAnswers.add(new HashMap<String, String>());
+				m.put("a", "b");
+			} 
+			rs.close();
+			
+
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to get student answers: "+userID+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+
+		return studentsAnswers;
+	}
+		
 	/** Return number of tries with a specific task */
 	private int getNumberOfTries(String userID, String courseID, String moduleID, String seqNo) throws SQLException {
 		Connection conn = getConnection();
