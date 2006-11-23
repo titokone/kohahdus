@@ -67,14 +67,15 @@ public class TitoState {
 		try {
 			app.setKbd(keyboardInput + ","); // TitoKone does not accept empty string
 			controller.run(app, maxExecutionSteps);
-			cpu = (Processor)(controller.getCpu());
-			mem = (RandomAccessMemory)(controller.getMemory());
-			memRef = mem.getMemoryReferences() - mem.getCodeAreaSize() - mem.getDataAreaSize();
 		} catch (TTK91RuntimeException e) {
 			return e.getMessage();
 		} catch (TTK91Exception e) {		// APIdoc indicates this can never happen
 			throw new RuntimeException(e);
-		}		
+		} finally {
+			cpu = (Processor)(controller.getCpu());
+			mem = (RandomAccessMemory)(controller.getMemory());
+			memRef = mem.getMemoryReferences() - mem.getCodeAreaSize() - mem.getDataAreaSize();
+		}
 		return null;
 	}
 	
@@ -147,10 +148,10 @@ public class TitoState {
 		return mem.getDataAreaSize();
 	}
 	
-	/** Return number memory references executed during program run. This number
-	 * includes references caused by both data and instruction fetches. */
+	/** Return number memory references executed during program run. The number
+	 * includes references caused by both data reads and writes, and instruction fetches. */
 	int getMemoryAccessCount() {
-		return memRef;
+		return memRef + getExecutionSteps();
 	}
 	
 	/** Return used opcodes in set of Strings. This does not include instructions
