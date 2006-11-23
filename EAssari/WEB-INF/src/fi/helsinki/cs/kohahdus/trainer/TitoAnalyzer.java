@@ -127,16 +127,15 @@ public class TitoAnalyzer {
 				return feedback;
 			} //end if
 		} //end if secret input
-		
-		
-		
 		//CRITERION CHECK
 		LinkedList<TitoCriterionFeedback> criterfblist=new LinkedList<TitoCriterionFeedback>();
 		boolean passp=true, passs=true;
 		boolean passTask=true; //will stay true until criterion fails
 		
+		System.out.println(criteria.size());
 		//Checks each criterion
 		for (Criterion c : criteria) {
+			System.out.println("Styff");
 			//Criterion feedback object and value fields for it, will be created in the end.
 			TitoCriterionFeedback critfb;
 			String cname="", cfeedback="";
@@ -150,7 +149,6 @@ public class TitoAnalyzer {
 			if (c.isSecretInputCriterion()) {
 				/* It won't be used in any quality tests.
 				   It always has acceptance test. stateTeacherSecret can be null. */
-				passs=c.passesAcceptanceTest(stateSecret, stateTeacherSecret);
 				// criterion requirement is met
 				if (passs) {
 					cfeedback=c.getAcceptanceFeedback();
@@ -166,6 +164,7 @@ public class TitoAnalyzer {
 				boolean passedQuality=false; // to check if it passed quality test
 				if (c.hasQualityTest(task.isValidateByModel())) {
 					// it has, let's check it out. stateTeacherPublic can be null.
+					passs=c.passesAcceptanceTest(stateSecret, stateTeacherSecret);
 					passp=c.passesQualityTest(state, stateTeacherPublic);
 					if (passp) {
 						cfeedback=c.getHighQualityFeedback();

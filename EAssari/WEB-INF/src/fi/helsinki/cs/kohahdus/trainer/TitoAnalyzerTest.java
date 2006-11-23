@@ -117,20 +117,24 @@ public class TitoAnalyzerTest extends TestCase {
 		RegisterCriterion r2=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 12, false, 1);
 		r2.setAcceptanceFeedback("Rekisteri 1 on oikein.");
 		r2.setFailureFeedback("R1 vituiks.");
+		r2.setCompareToModel("true");
 		criteria2.add(r2);
 		RegisterCriterion r3=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 123, false, 0);
 		r3.setAcceptanceFeedback("Rekisteri 0 on oikein.");
 		r3.setFailureFeedback("R0 vituiks.");
+		r3.setCompareToModel("true");
 		criteria2.add(r3);
 		//symbols
 		SymbolCriterion s3=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 36, false);
 		s3.setAcceptanceFeedback("Symboli X on oikein.");
 		s3.setFailureFeedback("Symboli X vituillaan.");
 		s3.setSymbolName("x");
+		s3.setCompareToModel("true");
 		SymbolCriterion s4=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 78, false);
 		s4.setSymbolName("y");
 		s4.setAcceptanceFeedback("Symboli Y on oikein.");
 		s4.setFailureFeedback("Symboli Y vituillaan.");
+		s4.setCompareToModel("true");
 		criteria2.add(s3);
 		criteria2.add(s4);
 		//instructions
