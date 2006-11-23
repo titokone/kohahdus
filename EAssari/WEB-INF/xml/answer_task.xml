@@ -30,4 +30,8 @@
 	<entry key="commentsText_FI">Kommentit</entry>
 	<entry key="criteriaText_EN">Criteria</entry>
 	<entry key="criteriaText_FI">Kriteerit</entry>
+	<entry key="taskSuccessfulText_EN">Task succeeded.</entry>
+	<entry key="taskSuccessfulText_FI">Tehtävä onnistui.</entry>
+	<entry key="taskFailedText_EN">Task failed.</entry>
+	<entry key="taskFailedText_FI">Tehtävä epäonnistui.</entry>
 </properties>

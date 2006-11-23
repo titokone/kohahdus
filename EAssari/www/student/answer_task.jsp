@@ -39,8 +39,9 @@
 <style>
 	span.helpButton {padding: 2px 4px; border-style: outset; background-color: #B0C4DE; border-color: #6495ED; color: #000000; text-decoration: none;}
 </style>
-<script language="Javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
-<script language="Javascript">
+<script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
+<script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
+<script language="javascript" type="text/javascript">
 
 var titokoneVisible = false;
 
@@ -58,6 +59,21 @@ function helpWindow(topic) {
 	helpWin.document.close();
 }
 
+function checkInput() {
+	trimWhitespace(document.answerform.keyboardInput);
+
+	if(document.answerform.keyboardInput.value == "") {
+		return;
+	}
+
+	var numberOfKeyboardInput = amountOfTitokoneInputOutput(document.answerform.keyboardInput.value);
+	
+	if(numberOfKeyboardInput == -1) {
+		alert("Keyboard input must be integers separated by commas.");
+		document.answerform.keyboardInput.focus();
+	}
+}
+
 function showhideTitokoneReport() {
 	if(titokoneVisible == false) {
 		showElementById('titokone_report');
@@ -69,7 +85,6 @@ function showhideTitokoneReport() {
 		titokoneVisible = false;
 	}
 }
-
 </script>
 </head>
 
@@ -101,7 +116,7 @@ function showhideTitokoneReport() {
 					</tr>
 					<tr>
 						<td width="80"><b><%=rb.getString("keyboardInput")%>&nbsp;</b></td>
-						<td><input name="keyboardInput" type="text" size="90" value="<c:out value="${param.keyboardInput}"/>"></td>
+						<td><input name="keyboardInput" type="text" size="90" value="<c:out value="${param.keyboardInput}"/>" onBlur="checkInput()"></td>
 					</tr>
 				</table>
 			</td>
@@ -132,7 +147,7 @@ function showhideTitokoneReport() {
 	<br>
 
 	<input type="submit" value="<%=rb.getString("executeButtonValue")%>"> 
-	<input type="button" name="titokone_report_button" value="<%=rb.getString("showTitokoneReportButtonValue")%>" onclick="showhideTitokoneReport()">
+	<input type="button" name="titokone_report_button" value="<%=rb.getString("showTitokoneReportButtonValue")%>" onClick="showhideTitokoneReport()">
 
 </form>
 
@@ -151,10 +166,10 @@ function showhideTitokoneReport() {
 			<td width="90%">
 				<c:choose>
 					<c:when test="${feedback.successful == 'true'}">
-						Task succeeded
+						<%=rb.getString("taskSuccessfulText")%>
 					</c:when>
 					<c:otherwise>
-						Task failed
+						<%=rb.getString("taskFailedText")%>
 					</c:otherwise>
 				</c:choose>
 			</td>

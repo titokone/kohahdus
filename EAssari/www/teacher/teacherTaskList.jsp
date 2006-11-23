@@ -13,8 +13,8 @@
 <html>
 <head>
 <title>Task listing</title>
-<script language="javascript" type="text/javascript" src="../js/textValidityFunctions.js"></script>
-<script language="Javascript">
+<script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
+<script language="javascript" type="text/javascript">
 
 function deleteTask(taskName, taskID) {
 	if (window.confirm('Do you really want to delete task '+taskName+'?')) {

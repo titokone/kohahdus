@@ -50,14 +50,9 @@
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Create Task</title>
 <script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
-<script language="javascript" type="text/javascript" src="../js/textValidityFunctions.js"></script>
-<script language="Javascript">
+<script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
+<script language="javascript" type="text/javascript">
 
-//alert("criteriaCount2:"+<%= ((CriterionMap)pageContext.getAttribute("criteria")).getCriterionCount() %>);
-//alert("criteriaCount:"+<c:out value="${pageScope.criteria.criterionCount}"/>);
-//alert("symbolCriteriaCount:"+<c:out value="${criteria.symbolCriterionCount}"/>);
-//var variableCounter = <c:out value="${criteria.criterionCount}"/>;
-//var variableCounter = <%= ((CriterionMap)pageContext.getAttribute("criteria")).getCriterionCount() %>;
 var variableCounter = <c:out value="${symbolCriterionCount}"/>;
 
 var positive = new Image();
@@ -306,34 +301,22 @@ function onFormSubmit() {
 	var numberOfSecretInputs = 0;
 	
 	if(document.task_creation_form.public_input.value != '') {
-		var splitExp = / *\, */;
+		numberOfPublicInputs = amountOfTitokoneInputOutput(document.task_creation_form.public_input.value);
 		
-		var inputInts = document.task_creation_form.public_input.value.split(splitExp);
-		
-		numberOfPublicInputs = inputInts.length;
-		
-		for(var i = 0; i < inputInts.length; i++) {
-			if(!isInteger(inputInts[i])) {
-				alertCounter++;
-				alertText += '\n' + alertCounter + '. Public input must be integers separated by commas with optional spaces.';
-				break;
-			}
+		if(numberOfPublicInputs == -1) {
+			alertCounter++;
+			alertText += '\n' + alertCounter + '. Public input must be integers separated by commas with optional spaces.';
+			break;
 		}
 	}	
 	
 	if(document.task_creation_form.secret_input.value != "") {
-		var splitExp = / *\, */;
+		numberOfSecretInputs = amountOfTitokoneInputOutput(document.task_creation_form.secret_input.value);
 		
-		var inputInts = document.task_creation_form.secret_input.value.split(splitExp);
-		
-		numberOfSecretInputs = inputInts.length;
-		
-		for(var i = 0; i < inputInts.length; i++) {
-			if(!isInteger(inputInts[i])) {
-				alertCounter++;
-				alertText += '\n' + alertCounter + '. Secret input must be integers separated by commas with optional spaces.';
-				break;
-			}
+		if(numberOfSecretInputs == -1) {
+			alertCounter++;
+			alertText += '\n' + alertCounter + '. Secret input must be integers separated by commas with optional spaces.';
+			break;
 		}
 	}	
 	
@@ -360,34 +343,22 @@ function onFormSubmit() {
 	var numberOfSecretOutputs = 0;
 	
 	if(document.task_creation_form.<c:out value="${pub.id}"/>output_value.value != "") {
-		var splitExp = / *\, */;
+		numberOfPublicOutputs = amountOfTitokoneInputOutput(document.task_creation_form.<c:out value="${pub.id}"/>output_value.value);
 		
-		var outputInts = document.task_creation_form.<c:out value="${pub.id}"/>output_value.value.split(splitExp);
-		
-		numberOfPublicOutputs = outputInts.length;
-		
-		for(var i = 0; i < outputInts.length; i++) {
-			if(!isInteger(outputInts[i])) {
-				alertCounter++;
-				alertText += '\n' + alertCounter + '. Simulator output with public input must be integers separated by commas with optional spaces.';
-				break;
-			}
+		if(numberOfPublicOutputs == -1) {
+			alertCounter++;
+			alertText += '\n' + alertCounter + '. Simulator output with public input must be integers separated by commas with optional spaces.';
+			break;
 		}
 	}	
 	
 	if(document.task_creation_form.<c:out value="${sec.id}"/>output_value.value != '') {
-		var splitExp = / *\, */;
+			numberOfSecretOutputs = amountOfTitokoneInputOutput(document.task_creation_form.<c:out value="${sec.id}"/>output_value.value);
 		
-		var outputInts = document.task_creation_form.<c:out value="${sec.id}"/>output_value.value.split(splitExp);
-		
-		numberOfSecretOutputs = outputInts.length;
-		
-		for(var i = 0; i < outputInts.length; i++) {
-			if(!isInteger(outputInts[i])) {
-				alertCounter++;
-				alertText += '\n' + alertCounter + '. Simulator output with secret input must be integers separated by commas with optional spaces.';
-				break;
-			}
+		if(numberOfSecretOutputs == -1) {
+			alertCounter++;
+			alertText += '\n' + alertCounter + '. Simulator output with secret input must be integers separated by commas with optional spaces.';
+			break;
 		}
 	}	
 	
@@ -487,14 +458,6 @@ function instructionRequirementsIntoText() {
 	document.task_creation_form.REQOPCODES_instructions.value = requiredInstructions;
 	document.task_creation_form.BANOPCODES_instructions.value = forbiddenInstructions;
 }
-
-function isInteger(variable)
-{
-	var integerExp = /^((\+|-)\d)?\d*/;
-	
-	return integerExp.test(variable);
-}
-
 </script>
 </head>
 

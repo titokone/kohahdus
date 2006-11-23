@@ -9,8 +9,8 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Sign up</title>
-<script language="javascript" type="text/javascript" src="js/textValidityFunctions.js"></script>
-<script language="Javascript">
+<script language="javascript" type="text/javascript" src="js/inputValidityFunctions.js"></script>
+<script language="javascript" type="text/javascript">
 
 	/* Function to check the validity of form inputs that can be checked client-side - called on submit event. */
 	function checkForm() {
@@ -164,88 +164,7 @@
 		}
 
 		return returnvalue;
-	}
-
-	/* Function to check if student number is of valid format. */
-	function studentNumberValid(numberString) {
-		var weights = new Array(7, 3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1);
-		var numberLength = numberString.length - 1;
-		var sum = 0;
-		var checkSymbol = numberString.charAt(numberLength);
-
-		if((checkSymbol <'0') || (checkSymbol > '9')) {
-			return false;
-		}
-
-		var checkNumber = Number(checkSymbol);
-
-		numberLength--;
-
-		// check that student number contains only digits and sum for calculating correct checkNumber
-		for (var counter = 0; counter <= numberLength; counter++) {
-			var singleDigit = numberString.charAt(numberLength - counter);
-			if((singleDigit <'0') || (singleDigit > '9')) {
-				return false;
-			}
-			sum += weights[counter] * Number(singleDigit);
-		}
-
-		var last = sum % 10;
-
-		var correctCheck = 0;
-
-		if(last == 0) {
-			correctCheck = 0;
-		} else {
-			correctCheck = 10 - last;
-		}
-
-		if(correctCheck != checkNumber) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	/* Function to check if social security number is of valid format. */
-	function socialSecurityNumberValid(ssn) {
-		ssn = ssn.toUpperCase();
-		var checkSymbolArray = "0123456789ABCDEFHJKLMNPRSTUVWXY";
-
-		// wrong length
-		if(ssn.length != 11) {
-			return false;
-		}
-
-		// Finnish social security number is of format ddmmyyNxxxS, in which ddmmyy is birthday, N separator character, 
-		// xxx individual number and S checking symbol.
-		var separator = ssn.charAt(6);
-
-		// - for those born in 20th century and A for those born in 21st
-		if((separator == '-') || (separator == 'A')) {
-       			ssnWithoutSeparatorAndCheck = ssn.substring(0, 6) + ssn.substring(7, ssn.length-1);
-		} else {
-			return false;
-		}
-
-		// Must contain only numbers
-		for (var counter = 0; counter < ssnWithoutSeparatorAndCheck.length; counter++) { 
-			if ((ssnWithoutSeparatorAndCheck.charAt(counter) < '0') || (ssnWithoutSeparatorAndCheck.charAt(counter)>'9')) {
-				return false;
-			}
-		}
-
-		// check symbol is calculated by treating everything else as a 9-digit number and taking a modulo 31
-		var numberToDivide = Number(ssnWithoutSeparatorAndCheck);
-		var checkSymbol = ssn.charAt(ssn.length-1);
-		var mod31= numberToDivide % 31;
-
-		if(checkSymbol != checkSymbolArray.charAt(mod31)){
-			return false;
-		} else {
-			return true;
-		}
-	}
+	}	// end function checkForm()
 </script>
 </head>
 
@@ -281,7 +200,7 @@
 	<c:choose>
 		<c:when test="${not empty oldUser}">
 			<%-- TODO: display a proper error msg --%>
-			<p>User name invalid or already in use. Please pick another.
+			<p>User name invalid or already in use. Please pick another.</p>
 		</c:when>
 		<c:otherwise>			
 			<%
@@ -380,12 +299,12 @@
 		</tr>
 		<tr>
 			<td><b>Password </b></td>
-			<td><input type="password" name="password" onChange="trimWhitespace(this)"></td>
+			<td><input type="password" name="password"></td>
 			<td id="password_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
 			<td><b>Password again </b></td>
-			<td><input type="password" name="repeat_password" onChange="trimWhitespace(this)"></td>
+			<td><input type="password" name="repeat_password"></td>
 			<td id="repeat_password_error_msg_space">&nbsp;</td>
 		</tr>
 		<tr>
