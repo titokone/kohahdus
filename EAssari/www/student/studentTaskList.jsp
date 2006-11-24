@@ -134,7 +134,7 @@
 
 <%-- TODO: get status info --%>
 <c:out value="${accepted}"/> <%=rb.getString("acceptedText")%><br>
-<c:out value="${unfinished}"/> <%=rb.getString("unfinishedText")%><br>
+<c:out value="${unfinished}"/> <%=rb.getString("unfinishedText")%></p>
 
 </body>
 </html>

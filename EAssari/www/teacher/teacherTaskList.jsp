@@ -14,6 +14,7 @@
 <head>
 <title>Task listing</title>
 <script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
 <script language="javascript" type="text/javascript">
 
 function deleteTask(taskName, taskID) {
@@ -37,12 +38,12 @@ function checkNewCourseInputValidity() {
 	feedbackElem.innerHTML = '';
 	
 	if(containsHtmlCharacters(courseName)) {
-		feedbackElem.innerHTML = '<font color="red">Course name may not contain characters ", <, >, &.</font>';
+		feedbackElem.innerHTML = 'Course name may not contain characters ", <, >, &.';
 		return false;
 	}
 	
 	if((courseName.length < 1) || (courseName.length > 40)) {
-		feedbackElem.innerHTML = '<font color="red">Course name must be 1-40 characters long.</font>';
+		feedbackElem.innerHTML = 'Course name must be 1-40 characters long.';
 		return false;
 	}
 	
@@ -55,7 +56,7 @@ function checkNewCourseInputValidity() {
 
 <body>
 
-<c:if test="${empty user}"><script language="Javascript">
+<c:if test="${empty user}">
 	Not logged in - redirecting to login
 	<c:redirect url="../login.jsp"/>	
 </c:if>
@@ -110,21 +111,19 @@ function checkNewCourseInputValidity() {
 	%>
 </c:if>
 
+<br><br>
 
-
-<p>
-<p>
-<table border="0">
+<table>
 	<tr>
-		<td><font size="+2"><b>Courses</b></font></td>
+		<td><h2>Courses</h2></td>
 	</tr>
 </table>	
 
-<table border="0" bgcolor="#000000" cellpadding="4">
+<table class="listTable">
 	<tr>
-		<td bgcolor="#CECECE"><b>ID</b></td>
-		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortCourses=true"><b>Name</b></a></td>
-		<td bgcolor="#CECECE" colspan="2"><b></b></td>
+		<td class="titleBar">ID</td>
+		<td class="titleBar"><a href="teacherTaskList.jsp?sortCourses=true">Name</a></td>
+		<td class="titleBar" colspan="2"></td>
 	</tr>
 	<%  
 		List<Course> courses = DBHandler.getInstance().getCourses();	
@@ -132,7 +131,7 @@ function checkNewCourseInputValidity() {
 	%>
 	<c:if test="${empty courses}">
 		<tr>
-			<td bgcolor="#FFFFFF" colspan="4">No available courses.</td>
+			<td colspan="4">No available courses.</td>
 		</tr>
 	</c:if>
 	<c:if test="${not empty courses}">
@@ -146,29 +145,29 @@ function checkNewCourseInputValidity() {
 		<c:forEach var="course" items="${pageScope.courses}">	
 			<tr>
 				<%-- TODO: add implementation for statistics and delete buttons --%>
-				<td bgcolor="#FFFFFF"><c:out value="${course.courseID}"/></td>
-				<td bgcolor="#FFFFFF"><c:out value="${course.name}"/></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Statistics" onClick="Javascript:location.href='showStatistics.jsp?courseID=<c:out value="${course.courseID}"/>';"></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="Javascript:deleteCourse('<c:out value="${course.name}"/>', '<c:out value="${course.courseID}"/>');"></td>
+				<td><c:out value="${course.courseID}"/></td>
+				<td><c:out value="${course.name}"/></td>
+				<td><input type="button" value="Statistics" onClick="Javascript:location.href='showStatistics.jsp?courseID=<c:out value="${course.courseID}"/>';"></td>
+				<td><input type="button" value="Delete" onclick="Javascript:deleteCourse('<c:out value="${course.name}"/>', '<c:out value="${course.courseID}"/>');"></td>
 			</tr>
 		</c:forEach>	
 	</c:if>
 	<form name="create_course_form" action="teacherTaskList.jsp" method="POST" onSubmit="return checkNewCourseInputValidity()">
 	<input type="hidden" name="action" value="create_course">
 		<tr>
-			<td bgcolor="#FFFFFF" align="right">Course name</td>
-			<td bgcolor="#FFFFFF"><input type="text" name="new_course"></td>
-			<td bgcolor="#FFFFFF" colspan=2><input type="submit" name="create_course_button" value="Create new course"></td>
+			<td>Course name</td>
+			<td><input type="text" name="new_course"></td>
+			<td colspan=2><input type="submit" name="create_course_button" value="Create new course"></td>
 		</tr>
 	</form>
 </table>
-<div id="new_course_creation_feedback"></div>		
+<div id="new_course_creation_feedback" class="errorMsg"></div>		
 
+<br><br>
 
-<p>
 <table border="0">
 	<tr>
-		<td><font size="+2"><b>Tasks</b></font></td>
+		<td><h2>Tasks</h2></td>
 		<!--
 		<td width="100">&nbsp;</td>
 		<td><input type="button" value="Create task" onclick="location.href = 'composer.jsp?task_id=EN_TEMPLATE&save_type=new'">
@@ -176,20 +175,19 @@ function checkNewCourseInputValidity() {
 		-->
 	</tr>
 </table>
-</p>
 
 <%-- FIXME: kun halutaan sortata listausta, niin sivu ladataan uudestaan. Voisi ohjata selaimen suoraan task listauksen alkuun eikä sivun alkuun --%>
 
-<table border="0" bgcolor="#000000" cellpadding="4">
+<table class="listTable">
 	<tr>
-		<td bgcolor="#CECECE"><b>ID</b></td>
-		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=0"><b>Name</b></a></td>
-		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=1"><b>Type</b></a></td>
-		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=2"><b>Category</b></a></td>
-		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=3"><b>Language</b></a></td>
-		<td bgcolor="#CECECE"><a href="teacherTaskList.jsp?sortTasks=4"><b>Author</b></a></td>
-		<td bgcolor="#CECECE"><b>Modification date</b></a></td>
-		<td bgcolor="#CECECE" colspan="3"><b></b></td>
+		<td class="titleBar">ID</td>
+		<td class="titleBar"><a href="teacherTaskList.jsp?sortTasks=0">Name</a></td>
+		<td class="titleBar"><a href="teacherTaskList.jsp?sortTasks=1">Type</a></td>
+		<td class="titleBar"><a href="teacherTaskList.jsp?sortTasks=2">Category</a></td>
+		<td class="titleBar"><a href="teacherTaskList.jsp?sortTasks=3">Language</a></td>
+		<td class="titleBar"><a href="teacherTaskList.jsp?sortTasks=4">Author</a></td>
+		<td class="titleBar">Modification date</a></td>
+		<td class="titleBar" colspan="3"></td>
 	</tr>
 	
 	<%	//Get tasks from DB
@@ -198,7 +196,7 @@ function checkNewCourseInputValidity() {
 	%>
 	<c:if test="${empty tasks}">
 		<tr>
-			<td bgcolor="#FFFFFF" colspan="9">Ei tehtäviä.</td>
+			<td colspan="9">Ei tehtäviä.</td>
 		</tr>
 	</c:if>
 	<c:if test="${not empty tasks}">
@@ -226,16 +224,16 @@ function checkNewCourseInputValidity() {
 	
 		<c:forEach var="task" items="${pageScope.tasks}"> 
 			<tr>					
-				<td bgcolor="#FFFFFF"><c:out value="${task.taskID}"/></td>
-				<td bgcolor="#FFFFFF"><c:out value="${task.name}"/></td>
-				<td bgcolor="#FFFFFF"><c:out value="${task.titoTaskType}"/></td>
-				<td bgcolor="#FFFFFF"><c:out value="${task.category}"/></td>
-				<td bgcolor="#FFFFFF"><c:out value="${task.language}"/></td>
-				<td bgcolor="#FFFFFF"><c:out value="${task.author}"/></td>
-				<td bgcolor="#FFFFFF"><c:out value="${task.modificationDate}"/></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Modify" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=update'"></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Modify as new" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=new'"></td>
-				<td bgcolor="#FFFFFF"><input type="button" value="Delete" onclick="Javascript:deleteTask('<c:out value="${task.name}"/>', '<c:out value="${task.taskID}"/>');"></td>
+				<td><c:out value="${task.taskID}"/></td>
+				<td><c:out value="${task.name}"/></td>
+				<td><c:out value="${task.titoTaskType}"/></td>
+				<td><c:out value="${task.category}"/></td>
+				<td><c:out value="${task.language}"/></td>
+				<td><c:out value="${task.author}"/></td>
+				<td><c:out value="${task.modificationDate}"/></td>
+				<td><input type="button" value="Modify" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=update'"></td>
+				<td><input type="button" value="Modify as new" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=new'"></td>
+				<td><input type="button" value="Delete" onclick="Javascript:deleteTask('<c:out value="${task.name}"/>', '<c:out value="${task.taskID}"/>');"></td>
 			</tr>
 		</c:forEach>
 	</c:if>		
