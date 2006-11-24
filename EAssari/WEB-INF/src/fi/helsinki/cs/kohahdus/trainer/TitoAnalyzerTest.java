@@ -200,14 +200,12 @@ public class TitoAnalyzerTest extends TestCase {
 			"SUB R0, =5\n" +
 			"STORE R0, X\n" +
 			"LOAD R0, =10\n" +
-			"DIV R0, =5\n" +
+			"DIV R0, =2\n" +
 			"STORE R0, Y\n" +
 			"LOAD R0, =3\n" +
 			"SVC SP, =HALT";
-		
-		
-		
-		
+
+				
 		
 		TitoAnalyzer analys2=new TitoAnalyzer();
 		TitoFeedback feed=analys2.Analyze(task2, criteria2, programcode2, input2);
