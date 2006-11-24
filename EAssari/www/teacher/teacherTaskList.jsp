@@ -193,7 +193,7 @@ function checkNewCourseInputValidity() {
 	</tr>
 	
 	<%	//Get tasks from DB
-		LinkedList<Task> tasks = DBHandler.getInstance().getTasks();	
+		List<Task> tasks = DBHandler.getInstance().getTasks();	
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 	%>
 	<c:if test="${empty tasks}">

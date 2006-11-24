@@ -2,14 +2,12 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment></comment>
-	<entry key="PUBREG_EN">Register</entry>
-	<entry key="PUBREG_FI">Rekisteri</entry>
-	<entry key="SECREG_EN">Register</entry>
-	<entry key="SECREG_FI">Rekisteri</entry>
-	<entry key="PUBSYM_EN">Symbol</entry>
-	<entry key="PUBSYM_FI">Symboli</entry>
-	<entry key="SECSYM_EN">Symbol</entry>
-	<entry key="SECSYM_FI">Symboli</entry>
+	<entry key="REG_EN">Register</entry>
+	<entry key="REG_FI">Rekisteri</entry>
+	<entry key="SYM_EN">Symbol</entry>
+	<entry key="SYM_FI">Symboli</entry>
+	<entry key="OUT_EN">Output</entry>
+	<entry key="OUT_FI">Tuloste</entry>
 	<entry key="PUBOUT_EN">Output</entry>
 	<entry key="PUBOUT_FI">Tuloste</entry>
 	<entry key="SECOUT_EN">Output</entry>
