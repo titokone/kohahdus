@@ -116,7 +116,7 @@ function showhideTitokoneReport() {
 					</tr>
 					<tr>
 						<td width="80"><b><%=rb.getString("keyboardInput")%>&nbsp;</b></td>
-						<td><input name="keyboardInput" type="text" size="90" value="<c:out value="${param.keyboardInput}"/>" onBlur="checkInput()"></td>
+						<td><input name="keyboardInput" type="text" size="90" value="<c:out value="${keyboardInput}"/>" onBlur="checkInput()"></td>
 					</tr>
 				</table>
 			</td>
@@ -136,7 +136,7 @@ function showhideTitokoneReport() {
 				<c:if test="${task.fillInTask}">
 					<div><b><pre><c:out value="${task.fillInPreCode}"/></pre></b><br><br></div>
 				</c:if>	
-				<textarea name="programCode" cols="90" rows="40"><c:out value="${param.programCode}"/></textarea>
+				<textarea name="programCode" cols="90" rows="40"><c:out value="${programCode}"/></textarea>
 				<c:if test="${task.fillInTask}">
 					<div><br><b><pre><c:out value="${task.fillInPostCode}"/></pre></b></div>
 				</c:if>
@@ -193,6 +193,10 @@ function showhideTitokoneReport() {
 		</c:forEach>
 	</table>
 </c:if>
+
+<%-- If user has answered a task all task specific info should be purged from session --%>
+<c:remove var="programCode" scope="session"/>
+<c:remove var="keyboardInput" scope="session"/>
 
 </body>
 </html>
