@@ -183,10 +183,14 @@ public class TitoState {
 	    BinaryInterpreter interp = new BinaryInterpreter();
 	    for(MemoryLine line : code) {
 	    	String fullInstruction = interp.binaryToString(line.getBinary());
+	    	//TitoKone is case insensitive. We don't know whether students answer is capitalized or not.
+	    	//Thus we need to prepare for both cases to ensure that InstructionCriteria is analyzed properly.
 	    	if (fullInstruction.indexOf(' ') == -1) {
-	    		opcodes.add(fullInstruction);		    		    
+	    		opcodes.add(fullInstruction.toLowerCase());
+	    		opcodes.add(fullInstruction.toUpperCase());
 	    	} else {
-	    		opcodes.add(fullInstruction.substring(0, fullInstruction.indexOf(' ')));
+	    		opcodes.add(fullInstruction.substring(0, fullInstruction.indexOf(' ')).toLowerCase());
+	    		opcodes.add(fullInstruction.substring(0, fullInstruction.indexOf(' ')).toUpperCase());
 	    	}		
 	    }
 	    return opcodes;
