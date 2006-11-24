@@ -17,7 +17,7 @@ import fi.helsinki.cs.kohahdus.criteria.*;
 //Tuloksia:
 //- ForbiddenInstructions kriteerin tarkistus ei toimi oikein.
 //- ScreenOutputCriterion ei toimi oikein, titostaten getScreenOutput()
-//- palauttaa 2:lla syötteellä muotoa
+//- palauttaa 2:lla tulostuksella muotoa
 //4
 //, -8
 //olevan Stringin, oikein?
@@ -129,6 +129,7 @@ public class TitoAnalyzerTest extends TestCase {
 			System.out.println("    "+c.getFeedback());
 		}
 		System.out.println("\n\n\n----------------------------------");
+		assertEquals(true, feed.isSuccessful());
 	}
 	
 	/*
@@ -229,6 +230,7 @@ public class TitoAnalyzerTest extends TestCase {
 			System.out.println("    "+c.getFeedback());
 		}
 		System.out.println("\n\n\n----------------------------------");
+		assertEquals(true, feed.isSuccessful());
 	}
 	
 	/*
@@ -294,7 +296,7 @@ public class TitoAnalyzerTest extends TestCase {
 			System.out.println("    "+c.getFeedback());
 		}
 		System.out.println("\n\n\n----------------------------------");
-		
+		assertEquals(true, feed.isSuccessful());
 	}
 	
 	/*
@@ -363,6 +365,7 @@ public class TitoAnalyzerTest extends TestCase {
 			System.out.println("    "+c.getFeedback());
 		}
 		System.out.println("\n\n\n----------------------------------");
+		assertEquals(true, feed.isSuccessful());
 	}
 	
 
