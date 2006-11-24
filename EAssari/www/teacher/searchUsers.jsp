@@ -7,11 +7,12 @@
 <html>
 <head>
 	<title>Search Users</title>
+	<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
 <head>
 
 
 <body>
-<c:if test="${empty user}"><script language="Javascript">
+<c:if test="${empty user}">
 	Not logged in - redirecting to login
 	<c:redirect url="../login.jsp"/>	
 </c:if>
@@ -23,11 +24,11 @@
 <jsp:include page="../menu.jsp"/>
 
 
-<b>Search users</b><br>
+<h2>Search users</h2>
 
 <form name="searchUser_form" action="searchUsers.jsp" method="POST">
 	<input type="hidden" name="action" value="search">
-	<input type="text" name="query" value="<c:out value="${param.query}"/>"> <input type="submit" value="Search" onclick="">
+	<input type="text" name="query" value="<c:out value="${param.query}"/>"> <input type="submit" value="Search">
 </form>
 
 <c:if test="${param.action=='search'}">

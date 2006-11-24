@@ -9,9 +9,10 @@
 <html>
 <head>
 	<title>Course Autumn 2006 tasks done</title>
+	<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
 </head>
 
-<body>
+<body id="showStatistics">
 
 <% 	String[][] storedAnswers = DBHandler.getInstance().getAnswerStatistics(String courseID);		
 	if (storedAnswers != null) pageContext.setAttribute("answers", storedAnswers);
@@ -19,10 +20,9 @@
 
 	<c:set var="total" value="0"/>
 
-<h1 align="center">Course Autumn 2006 tasks done</h1>
+<h1>Course Autumn 2006 tasks done</h1>
 
-<p align="center">
-	<table border="1">
+	<table class="listTable">
 		<tr>
 		<td>&nbsp;</td>
 		
@@ -37,7 +37,7 @@
 			<c:forEach var="task" items="${pageScope.answers}">
 	
 			<tr>
-				<td><a href="../teacher/showUser.jsp?userID=<c:out value="${user.userID}"/>"><c:out value="${user.lastName}"</a></td>
+				<td><a href="../teacher/showUser.jsp?userID=<c:out value="${user.userID}"/>"><c:out value="${user.lastName}"/></a></td>
 				<td>
 				<c:choose>
 					<c:when test="${task.hasSucceeded}">
@@ -61,7 +61,7 @@
 		</c:forEach>
 
 
-</table></p>
+</table>
 
 
 </body>

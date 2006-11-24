@@ -36,9 +36,7 @@
 <html>
 <head>
 <title>TitoTrainer - <%=rb.getString("answerTitle")%></title>
-<style>
-	span.helpButton {padding: 2px 4px; border-style: outset; background-color: #B0C4DE; border-color: #6495ED; color: #000000; text-decoration: none;}
-</style>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
 <script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
 <script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
 <script language="javascript" type="text/javascript">
@@ -94,9 +92,9 @@ function showhideTitokoneReport() {
 
 <h2><c:out value="${task.name}"/></h2>
 
-<table border="1" width="750" cellpadding="2">
+<table class="presentationTable">
 	<tr>
-		<td align="center" bgcolor="#6495ED"><b><%=rb.getString("instructions")%></b></td>
+		<td class="titleBar"><%=rb.getString("instructions")%></td>
 	</tr>
 	<tr>
 		<%--<td><pre><c:out value="${task.description}"/></pre></td>--%>
@@ -107,29 +105,28 @@ function showhideTitokoneReport() {
 <br>
 
 <form name="answerform" action="../../Answer" method="POST">
-	<table border="0">
+	<table>
 		<tr>
 			<td>
-				<table border="1">
+				<table class="presentationTable">
 					<tr>
-						<td colspan="2" align="center" bgcolor="#6495ED"><b><%=rb.getString("input")%></b></td>
+						<td colspan="2" class="titleBar"><%=rb.getString("input")%></td>
 					</tr>
 					<tr>
-						<td width="80"><b><%=rb.getString("keyboardInput")%>&nbsp;</b></td>
+						<td><b><%=rb.getString("keyboardInput")%>&nbsp;</b></td>
 						<td><input name="keyboardInput" type="text" size="90" value="<c:out value="${keyboardInput}"/>" onBlur="checkInput()"></td>
 					</tr>
 				</table>
 			</td>
-			<td>&nbsp;&nbsp;</td>
-			<td><a href="javascript:helpWindow('input_keyboard')"><span class="helpButton"><b>?</b></span></a></td>
+			<td><a href="javascript:helpWindow('input_keyboard')"><span class="helpButton">?</span></a></td>
 		</tr>
 	</table>
 
 	<br>
 
-	<table border="1" width="750" cellpadding="2">
+	<table class="presentationTable">
 		<tr>
-			<td align="center" bgcolor="#6495ED"><b><%=rb.getString("programCode")%></b></td>
+			<td class="titleBar"><%=rb.getString("programCode")%></td>
 		</tr>
 		<tr>
 			<td>
@@ -157,9 +154,9 @@ function showhideTitokoneReport() {
 		<c:out value="${feedback.titoState}"/>
 	</div>
 	<hr>
-	<table border="1" width="750" cellpadding="2">
+	<table class="presentationTable">
 		<tr>
-			<td colspan="2" align="center" bgcolor="#6495ED"><b><%=rb.getString("gradingTitle")%></b></td>
+			<td colspan="2" class="titleBar"><b><%=rb.getString("gradingTitle")%></b></td>
 		</tr>
 		<tr>
 			<td width="10%"><b><%=rb.getString("gradeText")%></b></td>
@@ -180,9 +177,9 @@ function showhideTitokoneReport() {
 		</tr>
 	</table>
 	<br>
-	<table border="1" width="750" cellpadding="2">
+	<table class="presentationTable">
 		<tr>
-			<td colspan="3" align="center" bgcolor="#6495ED"><b><%=rb.getString("criteriaText")%></b></td>
+			<td colspan="3" class="titleBar"><%=rb.getString("criteriaText")%></td>
 		</tr>
 		<c:forEach var="criterionFeedback" items="${feedback.criteriaFeedback}">
 			<tr>

@@ -4,8 +4,6 @@
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
-<jsp:include page="../menu.jsp"/>
-
 <%
 	User user = DBHandler.getInstance().getUser(request.getParameter("userID"));
 	if (user != null) pageContext.setAttribute("user", user);		
@@ -15,18 +13,18 @@
 <html>
 <head>
 <title>User information</title>
-
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
 <script language="Javascript">
 
 function removeUser(userID) {
 	return window.confirm('Do you really want to remove user '+userID+'?');
 }
-
 </script>
-
 </head>
 
 <body>
+
+<jsp:include page="../menu.jsp"/>
 
 <h2>User information</h2>
 
@@ -34,14 +32,6 @@ function removeUser(userID) {
 	<% DBHandler.getInstance().removeUser(request.getParameter("userID")); %>
 	<c:redirect url="../teacher/removed.jsp"/>
 </c:if>
-
-<form name="removeUser_form" onSubmit="return removeUser('<c:out value="${user.userID}"/>')" action="showUser.jsp?action=remove&userID=<c:out value="${user.userID}"/>" method="POST">
-	<input type="hidden" name="action" value="remove">
-	<input type="submit" value="remove" onclick="">
-	<small>Will remove user account and all user information</small>
-</form>
-
-
 
 <ul>
 	<li>First name: <c:out value="${user.firstName}"/></li>
@@ -52,15 +42,21 @@ function removeUser(userID) {
 	<li>Status: <c:out value="${user.status}"/></li>
 </ul>
 
+<form name="removeUser_form" onSubmit="return removeUser('<c:out value="${user.userID}"/>')" action="showUser.jsp?action=remove&userID=<c:out value="${user.userID}"/>" method="POST">
+	<input type="hidden" name="action" value="remove">
+	<input type="submit" value="Remove" onclick="">
+	<span class="footNote">(Will remove user account and all user information)</span>
+</form>
+
 <h3>Tasks</h3>
 <p>
-<table border="1" cellpadding="4">
+<table class="listTable">
 <tr>
-<td>&nbsp;</td>
-<td><b>Task</b></td>
-<td><b>Type</b></td>
-<td><b>Number of tries</b></td>
-<td><b>Last date</b></td>
+<td class="titleBar">&nbsp;</td>
+<td class="titleBar">Task</td>
+<td class="titleBar">Type</td>
+<td class="titleBar">Number of tries</td>
+<td class="titleBar">Last date</td>
 </tr>
 <tr>
 <td><img src="positive.gif"></td>

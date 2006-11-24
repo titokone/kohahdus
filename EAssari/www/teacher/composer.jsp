@@ -45,6 +45,7 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Create Task</title>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
 <script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
 <script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
 <script language="javascript" type="text/javascript" src="../js/composerViews.js"></script>
@@ -121,7 +122,7 @@ function addVariable() {
 </script>
 </head>
 
-<body onLoad="composerOnLoad();">
+<body id="composer" onLoad="composerOnLoad();">
 
 <jsp:include page="../menu.jsp"/>
 
@@ -140,9 +141,9 @@ function addVariable() {
 
 <div align="center">
 
-	<table border="1" cellpadding="3" cellspacing="0">
+	<table class="presentationTable">
 		<tr>
-			<td align="center" colspan="2"><h2>Properties</h2></td>
+			<td class="presentationTitle" colspan="2"><h2>Properties</h2></td>
 		</tr>
 		<tr>
 			<td>Task language </td>
@@ -170,13 +171,13 @@ function addVariable() {
 
 	<br><br><br>
 
-	<table border="1" cellpadding="3" cellspacing="0">
+	<table class="presentationTable">
 		<tr>
-			<td align="center" colspan="2"><h2>Definition</h2></td>
+			<td class="presentationTitle" colspan="2"><h2>Definition</h2></td>
 		</tr>
 		<tr>
-			<td valign="top">Instructions </td>
-			<td valign="top"><textarea name="instructions" cols="90" rows="20"><c:out value="${task.description}"/></textarea></td>
+			<td>Instructions </td>
+			<td><textarea name="instructions" cols="90" rows="20"><c:out value="${task.description}"/></textarea></td>
 		</tr>
 		<tr>
 			<td>Public input </td>
@@ -187,20 +188,20 @@ function addVariable() {
 			<td><input name="secret_input" type="text" size="60" value="<c:out value="${task.secretInput}"/>"></td>
 		</tr>
 		<tr>
-			<td valign="top">Feedback on success </td>
-			<td valign="top"><textarea name="feedback_pass" cols="90" rows="5"><c:out value="${task.passFeedBack}"/></textarea></td>
+			<td>Feedback on success </td>
+			<td><textarea name="feedback_pass" cols="90" rows="5"><c:out value="${task.passFeedBack}"/></textarea></td>
 		</tr>
 		<tr>
-			<td valign="top">Feedback on failure </td>
-			<td valign="top"><textarea name="feedback_fail" cols="90" rows="5"><c:out value="${task.failFeedBack}"/></textarea></td>
+			<td>Feedback on failure </td>
+			<td><textarea name="feedback_fail" cols="90" rows="5"><c:out value="${task.failFeedBack}"/></textarea></td>
 		</tr>
 	</table>
 
 	<br><br><br>
 
-	<table border="1" cellpadding="3" cellspacing="0">
+	<table class="presentationTable">
 		<tr>
-			<td align="center" colspan="2"><h2>Type</h2></td>
+			<td class="presentationTitle" colspan="2"><h2>Type</h2></td>
 		</tr>
 		<tr>
 			<td>Task type </td>
@@ -221,12 +222,12 @@ function addVariable() {
 	<br>
 
 	<div id="exampleTable">
-		<table border="1" cellpadding="3" cellspacing="0">
+		<table class="presentationTable">
 			<tr>
-				<td align="center"><h2>Program code</h2></td>
+				<td class="presentationTitle"><h2>Program code</h2></td>
 			</tr>
 			<tr>
-				<td align="top">
+				<td>
 					<div id="partialProgramDiv1"><b>Visible code, part 1:</b><br><textarea name="partial_code1" cols="100" rows="30"><c:out value="${task.fillInPreCode}"/></textarea></div>
 
 					<div id="exampleCodeDiv"><b>Example code:</b><br><textarea name="example_code" cols="100" rows="40"><c:out value="${task.modelAnswer}"/></textarea></div>
@@ -239,31 +240,31 @@ function addVariable() {
 		<br><br>
 	</div>
 
-	<table border="1" cellpadding="3" cellspacing="0">
+	<table class="presentationTable">
 		<tr>
-			<td align="center"><h2>Criteria</h2></td>
+			<td class="presentationTitle"><h2>Criteria</h2></td>
 		</tr>
 		<tr>
-			<td valign="top" bgcolor="#6495ED"><b><i>Registers</i></b></td>
+			<td class="titleBar">Registers</td>
 		</tr>
 		<tr>
 			<td>
-				<table border="1" cellpadding="3" cellspacing="0">
+				<table class="innerComposerTable">
 					<tr>
-						<td align="center" colspan="3"></td>
+						<td colspan="3"></td>
 						<td align="center" colspan="3"><b>With public input</b></td>
 						<td></td>
 						<td align="center" colspan="3"><b>With secret input</b></td>
 					</tr>
 					<tr>
-						<td align="center" colspan="3"></td>
-						<td><p>Value</p></td>
-						<td><p>Feedback if correct</p></td>
-						<td><p>Feedback if wrong</p></td>
+						<td colspan="3"></td>
+						<td>Value</td>
+						<td>Feedback if correct</td>
+						<td>Feedback if wrong</td>
 						<td></td>
-						<td><p>Value</p></td>
-						<td><p>Feedback if correct</p></td>
-						<td><p>Feedback if wrong</p></td>
+						<td>Value</td>
+						<td>Feedback if correct</td>
+						<td>Feedback if wrong</td>
 					</tr>				
 					<c:forEach begin="0" end="7" step="1" var="i">
 						
@@ -307,22 +308,22 @@ function addVariable() {
 		</tr>
 
 		<tr>
-			<td valign="top" bgcolor="#6495ED"><b><i>Variables</i></b></td>
+			<td class="titleBar">Variables</td>
 		</tr>
 		<tr>
 			<td>
-				<table border="0">
+				<table>
 					<tr>
 						<td id="variables_cell">
-							<table border="1" cellpadding="3" cellspacing="0" class="bordered">
+							<table class="innerComposerTable">
 								<tr>
-									<td align="center" colspan="3"></td>
+									<td colspan="3"></td>
 									<td align="center" colspan="3"><b>With public input</b></td>
 									<td></td>
 									<td align="center" colspan="3"><b>With secret input</b></td>
 								</tr>
 								<tr>
-									<td align="center" colspan="3"></td>
+									<td colspan="3"></td>
 									<td><p>Value</p></td>
 									<td><p>Feedback if correct</p></td>
 									<td><p>Feedback if wrong</p></td>
@@ -375,18 +376,16 @@ function addVariable() {
 			</td>
 		</tr>
 		<tr>
-			<td valign="top" bgcolor="#6495ED">
-				<b><i>TTK-91 Instructions</i></b>
-			</td>
+			<td class="titleBar">TTK-91 Instructions</td>
 		</tr>
 		<tr>
 			<td>
-				<table border="0" width="100%">
+				<table id="ttk91Table">
 					<tr>
 						<td>
-							<table border="1" cellpadding="3" cellspacing="0">
+							<table class="innerComposerTable">
 								<tr>
-									<td valign="top">
+									<td>
 										<a href="#" onClick="return ttkInstructionOnClick('load')"><img id="load_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> LOAD<br>
 										<a href="#" onClick="return ttkInstructionOnClick('store')"><img id="store_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> STORE<br>
 										<a href="#" onClick="return ttkInstructionOnClick('push')"><img id="push_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> PUSH<br>
@@ -397,7 +396,7 @@ function addVariable() {
 										<a href="#" onClick="return ttkInstructionOnClick('in')"><img id="in_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> IN<br>
 										<a href="#" onClick="return ttkInstructionOnClick('out')"><img id="out_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> OUT<br>
 									</td>
-									<td valign="top">
+									<td>
 										<a href="#" onClick="return ttkInstructionOnClick('add')"><img id="add_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> ADD<br>
 										<a href="#" onClick="return ttkInstructionOnClick('sub')"><img id="sub_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> SUB<br>
 										<a href="#" onClick="return ttkInstructionOnClick('mul')"><img id="mul_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> MUL<br>
@@ -413,7 +412,7 @@ function addVariable() {
 										<a href="#" onClick="return ttkInstructionOnClick('shr')"><img id="shr_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> SHR<br>
 										<a href="#" onClick="return ttkInstructionOnClick('comp')"><img id="comp_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> COMP<br>
 									</td>
-									<td valign="top">
+									<td>
 										<a href="#" onclick="return ttkInstructionOnClick('jump')"><img id="jump_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JUMP<br>
 										<br>
 										<a href="#" onClick="return ttkInstructionOnClick('jneg')"><img id="jneg_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNEG<br>
@@ -430,7 +429,7 @@ function addVariable() {
 										<a href="#" onClick="return ttkInstructionOnClick('jnequ')"><img id="jnequ_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNEQU<br>
 										<a href="#" onClick="return ttkInstructionOnClick('jngre')"><img id="jngre_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNGRE<br>
 									</td>
-									<td valign="top">
+									<td>
 										<a href="#" onClick="return ttkInstructionOnClick('call')"><img id="call_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> CALL<br>
 										<a href="#" onClick="return ttkInstructionOnClick('exit')"><img id="exit_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> EXIT<br>
 										<a href="#" onClick="return ttkInstructionOnClick('svc')"><img id="svc_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> SVC<br>
@@ -448,10 +447,10 @@ function addVariable() {
 								</tr>
 							</table>
 						</td>
-						<td valign="top">
-							<table border="0">
+						<td>
+							<table>
 								<tr>
-									<td style="border: thin solid #000000; padding: 0.5em">
+									<td class="infoBox">
 										<b>Key:</b><br>
 										<img src="positive.gif"> = required<br>
 										<img src="negative.gif"> = forbidden<br>
@@ -460,7 +459,7 @@ function addVariable() {
 								</tr>
 							</table>
 						</td>
-						<td valign="top">
+						<td>
 							Feedback if some forbidden instruction has been used:<br>
 							<textarea name="<c:out value="${reqopcodes.id}"/>_feedback" cols="60" rows="6"><c:out value="${reqopcodes.failureFeedback}"/></textarea>
 							<br><br>
@@ -472,13 +471,13 @@ function addVariable() {
 			</td>
 		</tr>
 		<tr>
-			<td valign="top" bgcolor="#6495ED"><b><i>Simulator output</i></b></td>
+			<td class="titleBar">Simulator output</td>
 		</tr>
 		<tr>
 			<td>
 				<c:set var="pub" value="${criteria['PUBOUT']}"/>
 				<b>With public input:</b><br>
-				<table border="1" cellpadding="3" cellspacing="0">
+				<table class="innerComposerTable">
 					<tr>
 						<td>Output</td>
 						<td>Feedback if correct</td>
@@ -492,7 +491,7 @@ function addVariable() {
 				</table>
 				<c:set var="sec" value="${criteria['SECOUT']}"/>
 				<b>With secret input:</b><br>
-				<table border="1" cellpadding="3" cellspacing="0">
+				<table class="innerComposerTable">
 					<tr>
 						<td>Output</td>
 						<td>Feedback if correct</td>
@@ -507,18 +506,18 @@ function addVariable() {
 			</td>
 		</tr>
 		<tr>
-			<td valign="top" bgcolor="#6495ED"><b><i>Quality criteria</i></b></td>
+			<td class="titleBar">Quality criteria</td>
 		</tr>
 		<tr>
 			<td>
-				<table border="1" cellpadding="3" cellspacing="0">
+				<table class="innerComposerTable">
 					<tr>
-						<td><p></p></td>
-						<td><p>Not accepted feedback</p></td>
-						<td><p>Acceptance<br>limit</p></td>
-						<td><p>Accepted feedback</p></td>
-						<td><p>Quality<br>limit</p></td>
-						<td><p>Accepted with quality limit</p></td>
+						<td></td>
+						<td>Not accepted feedback</td>
+						<td>Acceptance<br>limit</td>
+						<td>Accepted feedback</td>
+						<td>Quality<br>limit</td>
+						<td>Accepted with quality limit</td>
 					</tr>
 					<tr>
 						<td>Number of lines<br>(in program)</td>
@@ -578,7 +577,7 @@ function addVariable() {
 			</td>
 		</tr>
 		<tr>
-			<td bgcolor="#6495ED"><b><i>Endless loop prevention</i></b></td>
+			<td class="titleBar">Endless loop prevention</td>
 		</tr>
 		<tr>
 			<td>Maximum number of executed instructions <input name="maximum_number_of_executed_instructions" type="text" value="<c:out value="${task.maximumNumberOfInstructions}"/>"></td>

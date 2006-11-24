@@ -11,6 +11,7 @@ table td {
 	padding: 0px;
 	background: #eeeeff;
 	border-style: solid;
+	border-color: #000000;
 	border-width: 2;
 }
 
@@ -20,8 +21,17 @@ table td {
 	padding-bottom: 0px;
 }
 
+#menuTable .linksCell {
+	text-align: left;
+}
+
+#menuTable .userCell {
+	text-align: right;
+}
+
 #menuTable .linksCell > table {
 	margin-right: auto;
+	text-align: left;
 }
 
 #menuTable .linksCell td {
@@ -33,6 +43,7 @@ table td {
 
 #menuTable .userCell > table {
 	margin-left: auto;
+	text-align: right;
 }
 
 #menuTable .userCell td {
@@ -47,6 +58,20 @@ table td {
 	padding-left: 0px;
 	text-align: left;
 	font-weight: bold;
+}
+
+#showStatistics {
+	left-margin: auto;
+	right-margin: auto;
+}
+
+#composer {
+	left-margin: auto;
+	right-margin: auto;
+}
+
+#composer #ttk91Table {
+	width: 100%;
 }
 
 .listTable {
@@ -66,11 +91,44 @@ table td {
 }
 
 .presentationTable {
+	border: solid #000000 1px;
+	empty-cells: show;
+}
 
+.presentationTable td {
+	vertical-align: top;
+	border: solid #000000 1px;
+	padding: 4px;
+}
+
+.presentationTable td td {
+	border-width: 0;
 }
 
 .presentationTable td.titleBar {
+	background-color: #6495ED;
+	text-align: center;
+	font-weight: bold;
+}
 
+#composer .presentationTable td.titleBar {
+	text-align: left;
+	font-style: italic;
+}
+
+.presentationTitle {
+	text-align: center;
+}
+
+#composer .innerComposerTable {
+	border: solid #808080 1px;
+	empty-cells: hide;
+	border-collapse: collapse;
+}
+
+#composer .innerComposerTable td {
+	border: solid #CECECE 1px;
+	border-collapse: collapse;
 }
 
 .formTable td {
@@ -87,8 +145,8 @@ table td {
 	text-align: right;
 }
 
-.footNote {
-	font-size: small;
+.footNote, .formTable .footNote {
+	font-size: 0.8em;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -102,4 +160,16 @@ table td {
 .infoBox {
 	padding: 6px; 
 	border: solid 2px #000000;
+}
+
+/* an element that looks like a button */
+.helpbutton {
+	margin-left: 8px;
+	padding: 2px 4px; 
+	border-style: outset; 
+	background-color: #B0C4DE; 
+	border-color: #6495ED; 
+	color: #000000; 
+	text-decoration: none;
+	font-weight: bold;
 }

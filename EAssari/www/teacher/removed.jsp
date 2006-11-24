@@ -9,6 +9,7 @@
 <html>
 <head>
 <title>User information</title>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
 </head>
 
 <body>
