@@ -20,6 +20,7 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - <%=rb.getString("editTitle")%></title>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
 <script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
 <script language="javascript" type="text/javascript">
 
@@ -42,116 +43,116 @@
 		// missing inputs
 		if(form.first_name.value == '') {
 			var elem = document.getElementById("first_name_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your first name.</b></font>';
+			elem.innerHTML = 'Please fill in your first name.';
 			returnvalue = false;
 		}
 
 		if(form.last_name.value == '') {
 			var elem = document.getElementById("last_name_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your last name.</b></font>';
+			elem.innerHTML = 'Please fill in your last name.';
 			returnvalue = false;
 		}
 
 		if(form.student_number.value == '' && form.social_security_number.value == '') {
 			var elem = document.getElementById("student_number_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please fill in either your student number or social security number.</b></font>';
+			elem.innerHTML = 'Please fill in either your student number or social security number.';
 			returnvalue = false;
 		}
 
 		if(form.email.value == '') {
 			var elem = document.getElementById("email_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please fill in your e-mail address.</b></font>';
+			elem.innerHTML = 'Please fill in your e-mail address.';
 			returnvalue = false;
 		}
 			
 		// first name contains illegal html-characters
 		if(containsHtmlCharacters(form.first_name.value)) {
 			var elem = document.getElementById("first_name_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Field may not contain characters ", <, >, &.</b></font>';
+			elem.innerHTML = 'Field may not contain characters ", <, >, &.';
 			returnvalue = false;
 		}
 		
 		// first name not of valid length
 		if(form.first_name.value.length > 40) {
 			var elem = document.getElementById("first_name_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>First name must be 1-40 characters long.</b></font>';
+			elem.innerHTML = 'First name must be 1-40 characters long.';
 			returnvalue = false;
 		}
 		
 		// last name contains illegal html-characters
 		if(containsHtmlCharacters(form.last_name.value)) {
 			var elem = document.getElementById("last_name_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Field may not contain characters ", <, >, &.</b></font>';
+			elem.innerHTML = 'Field may not contain characters ", <, >, &.';
 			returnvalue = false;
 		}
 		
 		// last name not of valid length
 		if(form.last_name.value.length > 40) {
 			var elem = document.getElementById("last_name_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Last name must be 1-40 characters long.</b></font>';
+			elem.innerHTML = 'Last name must be 1-40 characters long.';
 			returnvalue = false;
 		}
 
 		// student number of wrong format
 		if((form.student_number.value != '') && (!studentNumberValid(form.student_number.value))) {
 			var elem = document.getElementById("student_number_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Your student number is of wrong format.</b></font>';
+			elem.innerHTML = 'Your student number is of wrong format.';
 			returnvalue = false;
 		}
 
 		// social security number of wrong format
 		if((form.social_security_number.value != '') && (!socialSecurityNumberValid(form.social_security_number.value))) {
 			var elem = document.getElementById("ssn_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Social security number must be of Finnish format.</b></font>';
+			elem.innerHTML = 'Social security number must be of Finnish format.';
 			returnvalue = false;
 		}
 		
 		// e-mail address of wrong format
 		if((form.email.value != '') && (!emailExp.test(form.email.value))) {
 			var elem = document.getElementById("email_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Your e-mail address isn\'t of a valid format. A valid format would be e.g. user@cs.helsinki.fi</b></font>';
+			elem.innerHTML = 'Your e-mail address isn\'t of a valid format. A valid format would be e.g. user@cs.helsinki.fi';
 			returnvalue = false;
 		}
 		
 		// e-mail address contains illegal html-characters
 		if(containsHtmlCharacters(form.email.value)) {
 			var elem = document.getElementById("email_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Field may not contain characters ", <, >, &.</b></font>';
+			elem.innerHTML = 'Field may not contain characters ", <, >, &.';
 			returnvalue = false;
 		}
 
 		// e-mail address not of valid length
 		if(form.email.value.length > 80) {
 			var elem = document.getElementById("email_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>E-mail address may contain only up to 80 characters.</b></font>';
+			elem.innerHTML = 'E-mail address may contain only up to 80 characters.';
 			returnvalue = false;
 		}
 		
 		// new password chosen, but not repeated
 		if((form.new_password.value != '') && (form.repeat_new_password.value == '')) {
 			var elem = document.getElementById("repeat_new_password_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please repeat your new password.</b></font>';
+			elem.innerHTML = 'Please repeat your new password.';
 			returnvalue = false;
 		}
 
 		// new password repeated, but not chosen
 		if((form.repeat_new_password.value != '') && (form.new_password.value == '')) {
 			var elem = document.getElementById("new_password_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Please type your new password.</b></font>';
+			elem.innerHTML = 'Please type your new password.';
 			returnvalue = false;
 		}
 
 		// Only if "password" and "repeat password" don't match and neither is empty
 		if ((form.new_password.value != '') && (form.repeat_new_password.value != '') && (form.new_password.value != form.repeat_new_password.value)) {
 				var elem = document.getElementById("new_password_error_msg_space");
-				elem.innerHTML = '<font color="#FF0000"><b>Different values in password fields. Please check your typing.</b></font>';			
+				elem.innerHTML = 'Different values in password fields. Please check your typing.';			
 				returnvalue = false;
 		}
 		
 		// new password not of valid length
 		if((form.new_password.value != '') && ((form.new_password.value.length < 6) || (form.new_password.value.length > 12))) {
 			var elem = document.getElementById("new_password_error_msg_space");
-			elem.innerHTML = '<font color="#FF0000"><b>Password must be 6-12 characters long.</b></font>';
+			elem.innerHTML = 'Password must be 6-12 characters long.';
 			returnvalue = false;
 		}
 		
@@ -211,39 +212,39 @@
 
 
 <div>
-        <table border="0" cellpadding="5">
+        <table class="formTable">
                 <tr>
-                        <td><b><%=rb.getString("userName")%> </b></td>
+                        <td><%=rb.getString("userName")%></td>
                         <td><c:out value="${user.userID}"/></td>
                 </tr>
                 <tr>
-                        <td><b><%=rb.getString("firstName")%> </b></td>
+                        <td><%=rb.getString("firstName")%></td>
                         <td><input type="text" name="first_name" value="<c:out value="${user.firstName}"/>" onChange="trimWhitespace(this)">    </td>
-                        <td id="first_name_error_msg_space">&nbsp;</td>                        
+                        <td id="first_name_error_msg_space" class="errorMsg">&nbsp;</td>                        
                 </tr>
                 <tr>
-                        <td><b><%=rb.getString("lastName")%> </b></td>
+                        <td><%=rb.getString("lastName")%></td>
                         <td><input type="text" name="last_name" value="<c:out value="${user.lastName}"/>" onChange="trimWhitespace(this)"></td>
-                        <td id="last_name_error_msg_space">&nbsp;</td>
+                        <td id="last_name_error_msg_space" class="errorMsg">&nbsp;</td>
                 </tr>
                 <tr>
-                        <td><b><%=rb.getString("email")%> </b></td>
+                        <td><%=rb.getString("email")%></td>
                         <td><input type="text" name="email" value="<c:out value="${user.email}"/>" onChange="trimWhitespace(this)"></td>
-                        <td id="email_error_msg_space">&nbsp;</td>
+                        <td id="email_error_msg_space" class="errorMsg">&nbsp;</td>
                 </tr>
     
                 <tr>
-                        <td><b><%=rb.getString("studentNumber")%>* </b></td>
+                        <td><%=rb.getString("studentNumber")%>*</td>
                         <td><input type="text" name="student_number" value="<c:out value="${user.studentNumber}"/>" onChange="trimWhitespace(this)"> </td>
-                        <td id="student_number_error_msg_space">&nbsp;</td>
+                        <td id="student_number_error_msg_space" class="errorMsg">&nbsp;</td>
                 </tr>
                 <tr>
-                        <td><b><%=rb.getString("ssn")%>* </b></td>
+                        <td><%=rb.getString("ssn")%>*</td>
                         <td><input type="text" name="social_security_number" value="<c:out value="${user.socialSecurityNumber}"/>" onChange="trimWhitespace(this)"> </td>
-                        <td id="ssn_error_msg_space">&nbsp;</td>
+                        <td id="ssn_error_msg_space" class="errorMsg">&nbsp;</td>
                 </tr>
                 <tr>
-                        <td colspan="2"><small>* <%=rb.getString("studentNumberOrSsnRequired")%></small></td>
+                        <td colspan="2" class="footNote">* <%=rb.getString("studentNumberOrSsnRequired")%></td>
                         <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -251,20 +252,20 @@
                         <td>&nbsp;</td>
                 </tr>
                 <tr>
-                        <td colspan="2"><b><i><%=rb.getString("changePasswordTitle")%></i></b></td>
+                        <td colspan="2" class="subTitle"><%=rb.getString("changePasswordTitle")%></td>
                 </tr>
                 <tr>
-                        <td><b><%=rb.getString("newPassword")%> </b></td>
+                        <td><%=rb.getString("newPassword")%></td>
                         <td><input type="password" name="new_password"></td>
-                         <td id="new_password_error_msg_space">&nbsp;</td>
+                         <td id="new_password_error_msg_space" class="errorMsg">&nbsp;</td>
                 </tr>
                 <tr>
-                        <td><b><%=rb.getString("newPasswordAgain")%> </b></td>
+                        <td><%=rb.getString("newPasswordAgain")%></td>
                         <td><input type="password" name="repeat_new_password"></td>
-                        <td id="repeat_new_password_error_msg_space">&nbsp;</td>
+                        <td id="repeat_new_password_error_msg_space" class="errorMsg">&nbsp;</td>
                 </tr>
                 <tr>
-                        <td colspan="2" align="right"><input type="submit" name="save_button" value="<%=rb.getString("saveButtonValue")%>"></td>
+                        <td colspan="2" class="formButtonCell"><input type="submit" name="save_button" value="<%=rb.getString("saveButtonValue")%>"></td>
                 </tr>
         </table>
 </div>

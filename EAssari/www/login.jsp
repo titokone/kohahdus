@@ -9,7 +9,7 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Sign in</title>
-
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../styles/titotrainer.css">
 <script language="Javascript" type="text/javascript" src="js/common.js"></script>
 <script language="Javascript">
 
@@ -46,7 +46,7 @@
 	if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
 	%>
 	<c:if test="${empty user}">
-		Username or password not correct..
+		<p class="errorMsg">Username or password not correct.</p>
 	</c:if>
 	<c:if test="${not empty user}">		
 		Login ok and then redirect here....
@@ -72,21 +72,18 @@
 <input type="hidden" name="action" value="login">
 
 <div>
-	<table border="0">
+	<table id="loginTable">
 		<tr>
 			<td><b>Username</b></td>
-			<td>&nbsp;</td>
 			<td><input type="text" name="username"></td>
 		</tr>
 		<tr>
 			<td><b>Password</b></td>
-			<td>&nbsp;</td>
 			<td><input type="password" name="password"></td>
 		</tr>
 		<c:if test="${empty param.role}">
 			<tr>
 				<td><b>Course</b></td>
-				<td>&nbsp;</td>
 				
 				<%	//List<MockCourse> courses = MockCourse.getCourses();
 					List<Course> courses = DBHandler.getInstance().getCourses();
@@ -109,7 +106,6 @@
 	
 		<tr>
 			<td><b>Language</b></td>
-			<td>&nbsp;</td>
 			<td>
 				<select name="language">
 					<option value="EN">English</option>
@@ -118,18 +114,18 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="3" align="right">
+			<td colspan="3" class="formButtonCell">
 				<br>
 				<!--<input type="button" value="Sign in" onClick="javascript:document.f.submit();">-->
 				<input type="submit" value="Sign in">
 			</td>
 		</tr>
 	</table>
+	
+	<c:if test="${empty param.role}">
+		<div class="footNote">New user? <a href="signup.jsp">Sign up</a></div>
+	</c:if>
 </div>
-
-<c:if test="${empty param.role}">
-	<p><small>New user? <a href="signup.jsp">Sign up</a></small></p>
-</c:if>
 
 </form>
 

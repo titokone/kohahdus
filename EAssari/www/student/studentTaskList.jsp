@@ -24,6 +24,7 @@
 <html>
 <head>
 <title>TitoTrainer - <%=rb.getString("tasksTitle")%></title>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
 </head>
 
 <body>
@@ -37,7 +38,7 @@
 <td>
 <table border="0">
 	<tr>
-		<td style="padding: 6px; border: solid 2px #000000"><img src="positive.gif" style="vertical-align:middle"> <%=rb.getString("acceptedText")%><br>
+		<td class="infoBox"><img src="positive.gif" style="vertical-align:middle"> <%=rb.getString("acceptedText")%><br>
 			<img src="negative.gif" style="vertical-align:middle"> <%=rb.getString("unfinishedText")%></td>
 		</td>
 	</tr>
@@ -45,14 +46,14 @@
 </p>
 
 <p>
-<table border="1" cellpadding="4">
+<table class="listTable">
 	<tr>
-		<td>&nbsp;<a href="studentTaskList.jsp?sortTasks=5"><%=rb.getString("statusText")%></a></td>
-		<td><a href="studentTaskList.jsp?sortTasks=0"><b><%=rb.getString("nameText")%></b></a></td>
-		<td><a href="studentTaskList.jsp?sortTasks=1"><b><%=rb.getString("typeText")%></b></a></td>
-		<td><a href="studentTaskList.jsp?sortTasks=2"><b><%=rb.getString("categoryText")%></b></a></td>
-		<td><a href="studentTaskList.jsp?sortTasks=6"><b><%=rb.getString("triesText")%></b></a></td>
-		<td><b><%=rb.getString("languageText")%></b></a></td>
+		<td class="titleBar"><a href="studentTaskList.jsp?sortTasks=5"><%=rb.getString("statusText")%></a></td>
+		<td class="titleBar"><a href="studentTaskList.jsp?sortTasks=0"><%=rb.getString("nameText")%></a></td>
+		<td class="titleBar"><a href="studentTaskList.jsp?sortTasks=1"><%=rb.getString("typeText")%></a></td>
+		<td class="titleBar"><a href="studentTaskList.jsp?sortTasks=2"><%=rb.getString("categoryText")%></a></td>
+		<td class="titleBar"><a href="studentTaskList.jsp?sortTasks=6"><%=rb.getString("triesText")%></a></td>
+		<td class="titleBar"><%=rb.getString("languageText")%></b></td>
 	</tr>
 	
 	<%-- get all tasks from db and store them in page context --%>
@@ -74,7 +75,7 @@
 
 	<c:if test="${empty tasks}">
 		<tr>
-			<td bgcolor="#FFFFFF" colspan="4"><%=rb.getString("noTasksText")%></td>
+			<td colspan="4"><%=rb.getString("noTasksText")%></td>
 		</tr>
 	</c:if>
 	<c:if test="${not empty tasks}">

@@ -1,19 +1,105 @@
 table {
-	
+	border-width: 0;
+}
+
+table td {
+	padding: 2px;
+}
+
+#menuTable {
+	width: 100%;
+	padding: 0px;
+	background: #eeeeff;
+	border-style: solid;
+	border-width: 2;
+}
+
+#menuTable .linksCell, #menuTable .userCell {
+	width: 50%;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#menuTable .linksCell > table {
+	margin-right: auto;
+}
+
+#menuTable .linksCell td {
+	padding-left: 0.5em;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	text-align: left;
+}
+
+#menuTable .userCell > table {
+	margin-left: auto;
+}
+
+#menuTable .userCell td {
+	padding-right: 0.5em;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	text-align: right;
+}
+
+#loginTable td {
+	padding-right: 5px;
+	padding-left: 0px;
+	text-align: left;
+	font-weight: bold;
 }
 
 .listTable {
+	background-color: #000000;
+}
 
+.listTable td {
+	padding: 4px;
+	background-color: #FFFFFF;
+	text-align: left;
+}
+
+.listTable td.titleBar {
+	background-color: #CECECE;
+	color: #000000;
+	font-weight: bold;
 }
 
 .presentationTable {
 
 }
 
-.presentationTable .titlebar {
+.presentationTable td.titleBar {
 
 }
 
-.formTable {
+.formTable td {
+	padding: 5px;
+	text-align: left;
+	font-weight: bold;
+}
 
+.formTable .subTitle {
+	font-style: italic;
+}
+
+.formTable td.formButtonCell {
+	text-align: right;
+}
+
+.footNote {
+	font-size: small;
+	font-weight: normal;
+	font-style: normal;
+}
+
+.errorMsg {
+	color: #FF0000;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.infoBox {
+	padding: 6px; 
+	border: solid 2px #000000;
 }

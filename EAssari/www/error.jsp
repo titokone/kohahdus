@@ -6,7 +6,7 @@
 <html>
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
-<title>TitoTrainer - Sign in</title>
+<title>TitoTrainer - Error</title>
 </head>
 
 <body>
