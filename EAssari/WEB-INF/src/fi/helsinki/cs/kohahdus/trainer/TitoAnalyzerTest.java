@@ -14,7 +14,14 @@ import fi.helsinki.cs.kohahdus.criteria.*;
 
 
 /**Test class for TitoAnalyzer */
-//VAIHEISSA
+//Tuloksia:
+//- ForbiddenInstructions kriteerin tarkistus ei toimi oikein.
+//- ScreenOutputCriterion ei toimi oikein, titostaten getScreenOutput()
+//- palauttaa 2:lla syötteellä muotoa
+//4
+//, -8
+//olevan Stringin, oikein?
+//
 public class TitoAnalyzerTest extends TestCase {
 	Task task1, task2;
 	LinkedList<Criterion> criteria1, criteria2;
@@ -35,6 +42,7 @@ public class TitoAnalyzerTest extends TestCase {
 	 */
 	public void testTitoAnalyzer() {
 	}
+	
 
 	/*
 	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer.Analyze(Task, List<Criterion>, String, String)'
@@ -200,7 +208,7 @@ public class TitoAnalyzerTest extends TestCase {
 			"SUB R0, =5\n" +
 			"STORE R0, X\n" +
 			"LOAD R0, =10\n" +
-			"DIV R0, =2\n" +
+			"DIV R0, =5\n" +
 			"STORE R0, Y\n" +
 			"LOAD R0, =3\n" +
 			"SVC SP, =HALT";
@@ -264,10 +272,10 @@ public class TitoAnalyzerTest extends TestCase {
 		programcode1="" +
 		"IN R1,=KBD\n" +
 		"MUL R1, =4\n" +
-		"IN R2,=KBD\n" +
+		"IN R2, =KBD\n" +
 		"MUL R2, =2\n" +
-		"OUT R1, =KBD\n" +
-		"OUT R2, =KBD\n" +
+		"OUT R1, =CRT\n" +
+		"OUT R2, =CRT\n" +
 		"SVC SP, =HALT";
 		
 		
@@ -289,6 +297,73 @@ public class TitoAnalyzerTest extends TestCase {
 		
 	}
 	
+	/*
+	 * Test method for 'fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer.Analyze(Task, List<Criterion>, String, String)'
+	 */
+	//Test fill-in task in comparison to model answer
+	public void testAnalyzeFillIn() {
+//		TASK2, answer checked by comparing to model answer, fillin task
+		task2=new Task();
+		task2.setName("Some fillin task");
+		task2.setCategory("Easy tasks");
+		task2.setLanguage("EN");
+		task2.setFillInTask(true);
+		task2.setFailFeedBack("Task was wrong.");
+		task2.setPassFeedBack("Task was correct.");
+		task2.setMaximumNumberOfInstructions(1000);
+		task2.setValidateByModel(true);
+		task2.setPublicInput("");
+		String fillinpre="" +
+		"X DC 5\n" +
+		"Y DC 2\n";
+		String teachercode="" +
+		"LOAD R1, X\n" +
+		"ADD R1, Y\n";
+		String fillinpost="OUT R1, =CRT\n" +
+		"SVC SP, =HALT";
+		
+		task2.setFillInPreCode(fillinpre);
+		task2.setModelAnswer(teachercode);
+		task2.setFillInPostCode(fillinpost);
+		
+		//Create criteria
+		criteria2=new LinkedList<Criterion>();
+		//registers
+		RegisterCriterion r1=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 12, false, 1);
+		r1.setAcceptanceFeedback("Register 1 correct.");
+		r1.setFailureFeedback("Register 1 wrong.");
+		r1.setCompareToModel("true");
+		criteria2.add(r1);
+		
+		//instructions
+		InstructionCriterion i1=new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false);
+		i1.setAcceptanceTestValue("MUL"); //ei käytössä, väittää väärin
+		i1.setAcceptanceFeedback("No forbidden instructions. Good.");
+		i1.setFailureFeedback("U used forbidden instructions.");
+		criteria2.add(i1);
+		
+		//no input
+		input2="";
+		//students anwer
+		programcode2="" +
+		"LOAD R1, =7\n";
+				
+		
+		TitoAnalyzer analys2=new TitoAnalyzer();
+		TitoFeedback feed=analys2.Analyze(task2, criteria2, programcode2, input2);
+		System.out.println(feed.isSuccessful());
+		System.out.println(feed.getOverallFeedback());
+		System.out.println(feed.getCompileError());
+		System.out.println(feed.getRunError());
+		
+		List<TitoCriterionFeedback>  criteriafeed=feed.getCriteriaFeedback();
+		for (TitoCriterionFeedback c : criteriafeed) {
+			System.out.print(c.getName());
+			System.out.print("    "+c.isPassedAcceptanceTest());
+			System.out.println("    "+c.getFeedback());
+		}
+		System.out.println("\n\n\n----------------------------------");
+	}
 	
 
 }
