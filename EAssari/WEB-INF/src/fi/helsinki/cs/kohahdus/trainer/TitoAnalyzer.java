@@ -140,8 +140,8 @@ public class TitoAnalyzer {
 			Boolean csuccess=true;
 			
 			//get the name TODO: done?
-			//cname=c.getName(LanguageManager.getTextResource(task.getLanguage() ,"criterion"));
-			cname="TESTINIMI";
+			cname=c.getName(LanguageManager.getTextResource(task.getLanguage() ,"criterion"));
+			//cname="TESTINIMI";
 			
 			// if criterion is meant for secret input
 			if (c.isSecretInputCriterion()) {
