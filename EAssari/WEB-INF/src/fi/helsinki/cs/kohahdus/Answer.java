@@ -42,6 +42,8 @@ public class Answer extends HttpServlet {
 			String programCode = req.getParameter("programCode");
 			String keyboardInput = req.getParameter("keyboardInput");
 			
+			Log.write("Answering with code " + programCode + " and input " + keyboardInput);
+			
 			// Use the analyzer to process the answer
 			TitoAnalyzer analyser = new TitoAnalyzer();
 			TitoFeedback feedback = analyser.Analyze(task, criteria, programCode, keyboardInput);
@@ -52,10 +54,12 @@ public class Answer extends HttpServlet {
 			
 			// Store the result for later use on the jsp-page
 			req.getSession().setAttribute("feedback", feedback);
+			req.getSession().setAttribute("programCode", programCode);
+			req.getSession().setAttribute("keyboardInput", keyboardInput);
 			
 			// Forward the request to the answer jsp page
-			res.sendRedirect(req.getContextPath()+"/www/student/answer_task.jsp?analyzed=true&keyboardInput="+keyboardInput+
-					         "&programCode="+programCode);
+			res.sendRedirect(req.getContextPath()+"/www/student/answer_task.jsp?analyzed=true");  //&keyboardInput="+keyboardInput+
+					         //"&programCode="+programCode);
 		} catch (Exception e){
 			Log.write("Answer: Failed to process student's answer. " +e);
 			Log.write(e);
