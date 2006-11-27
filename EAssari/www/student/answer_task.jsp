@@ -177,18 +177,20 @@ function showhideTitokoneReport() {
 		</tr>
 	</table>
 	<br>
-	<table class="presentationTable">
-		<tr>
-			<td colspan="3" class="titleBar"><%=rb.getString("criteriaText")%></td>
-		</tr>
-		<c:forEach var="criterionFeedback" items="${feedback.criteriaFeedback}">
+	<c:if test="${not empty feedback.criteriaFeedback}">
+		<table class="presentationTable">
 			<tr>
-				<td width="10%"><b><c:out value="${criterionFeedback.passedAcceptanceTest}"/></b></td>
-				<td width="10%"><b><c:out value="${criterionFeedback.name}"/></b></td>
-				<td width="80%"><c:out value="${criterionFeedback.feedback}"/></td>
+				<td colspan="3" class="titleBar"><%=rb.getString("criteriaText")%></td>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach var="criterionFeedback" items="${feedback.criteriaFeedback}">
+				<tr>
+					<td width="10%"><b><c:out value="${criterionFeedback.passedAcceptanceTest}"/></b></td>
+					<td width="10%"><b><c:out value="${criterionFeedback.name}"/></b></td>
+					<td width="80%"><c:out value="${criterionFeedback.feedback}"/></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
 </c:if>
 
 <%-- If user has answered a task all task specific info should be purged from session --%>
