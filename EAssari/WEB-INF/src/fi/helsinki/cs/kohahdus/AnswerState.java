@@ -1,5 +1,8 @@
 package fi.helsinki.cs.kohahdus;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 public class AnswerState {
 	
 	private int lastTryNumber = 0;
@@ -9,6 +12,7 @@ public class AnswerState {
 	private String firstname;
 	private String lastname;
 	private String userID;
+	private Timestamp answerTime;
 	
 	
 	
@@ -57,6 +61,13 @@ public class AnswerState {
 	}
 	public void setUserID(String userID) {
 		this.userID = userID;
+	}
+	public String getAnswerTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm dd.MM.yyyy");
+		return sdf.format(answerTime);
+	}
+	public void setAnswerTime(Timestamp answerTime) {
+		this.answerTime = answerTime;
 	}
 	
 }
