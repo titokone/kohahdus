@@ -914,7 +914,8 @@ public class DBHandler {
 	 */
 	public void storeStateAndAnswer(String userID, String courseID, String taskID, String answer, 
 									   String input, TitoFeedback feedback, String language) throws SQLException {
-		AnswerState state = getAnswerState(userID, courseID, DBHandler.DEFAULT_MODULE_ID, taskID);
+		int seqNo = getTaskSequenceNumber(courseID, taskID);
+		AnswerState state = getAnswerState(userID, courseID, DBHandler.DEFAULT_MODULE_ID, seqNo);
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
@@ -924,7 +925,7 @@ public class DBHandler {
 			st.setString(1, userID);
 			st.setString(2, courseID);
 			st.setString(3, DBHandler.DEFAULT_MODULE_ID);
-			st.setString(4, taskID);
+			st.setInt(4, seqNo);
 			st.setInt(5, state.getLastTryNumber() + 1);
 			st.setInt(6, feedback.isSuccessful() ? 100 : 0);
 			st.setString(7, answer);
@@ -949,14 +950,14 @@ public class DBHandler {
 		}	
 		
 		// Finally store the answer state
-		storeAnswerState(userID, courseID, taskID, state);
+		storeAnswerState(userID, courseID, seqNo, state);
 	}
 
 	
 	/**
 	 * Stores the state of an answer into database table studentmodel. 
 	 */
-	private void storeAnswerState(String userID, String courseID, String taskID, AnswerState state) throws SQLException {
+	private void storeAnswerState(String userID, String courseID, int seqNo, AnswerState state) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
@@ -966,7 +967,7 @@ public class DBHandler {
 				st.setString(1, userID);
 				st.setString(2, courseID);
 				st.setString(3, DBHandler.DEFAULT_MODULE_ID);
-				st.setString(4, taskID);
+				st.setInt(4, seqNo);
 				st.setInt(5, state.getLastTryNumber());
 				st.setInt(6, state.getCurrentResult());
 				st.setString(7, state.hasSucceeded() ? "Y" : "N");
@@ -985,7 +986,7 @@ public class DBHandler {
 				st.setString(4, userID);
 				st.setString(5, courseID);
 				st.setString(6, DBHandler.DEFAULT_MODULE_ID);
-				st.setString(7, taskID);
+				st.setInt(7, seqNo);
 				int c = st.executeUpdate();
 				if (c > 0){
 					Log.write("DBHandler: Answer state updated for user " +userID);
@@ -1015,9 +1016,9 @@ public class DBHandler {
 		
 		try {
 			st = conn.prepareStatement("select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname, sa.whenanswered " +
-									   "from studentmodel sm, eauser u, task t, storedanswer sa " +
-									   "where sm.sid=? and sm.sid=u.userid and sm.seqno=t.taskid and " +
-									   "sa.trynumber=sm.lasttrynumber");
+									   "from studentmodel sm, eauser u, task t, storedanswer sa, taskinmodule tim " +
+									   "where sm.sid=? and sm.sid=u.userid and sm.seqno=tim.seqno and " +
+									   "sa.trynumber=sm.lasttrynumber and tim.taskid=t.taskid");
 			st.setString(1, userID);
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
@@ -1047,7 +1048,7 @@ public class DBHandler {
 	}	
 	
 	/** Return answer state for a task */
-	private AnswerState getAnswerState(String userID, String courseID, String moduleID, String seqNo) throws SQLException {
+	private AnswerState getAnswerState(String userID, String courseID, String moduleID, int seqNo) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		AnswerState state = new AnswerState();
@@ -1057,7 +1058,7 @@ public class DBHandler {
 			st.setString(1, userID);
 			st.setString(2, courseID);
 			st.setString(3, moduleID);
-			st.setString(4, seqNo);
+			st.setInt(4, seqNo);
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			if (rs.next()){
@@ -1075,6 +1076,33 @@ public class DBHandler {
 			if (st != null) st.close();			
 		}	
 		return state;
+	} 
+	
+	/** Returns a sequence number for a task in a module */
+	private int getTaskSequenceNumber(String courseID, String taskID) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		int seqNo = 0;
+		try {
+			st = conn.prepareStatement("select seqno from taskinmodule where courseid=? and taskid=? and moduleid=?");
+			st.setString(1, courseID);
+			st.setString(2, taskID);
+			st.setString(3, DBHandler.DEFAULT_MODULE_ID);
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			if (rs.next()){
+				seqNo = rs.getInt("seqno");
+			} 
+			rs.close();
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to get seqno. " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return seqNo;
 	} 
 	
 	
