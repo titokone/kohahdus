@@ -151,7 +151,7 @@ function showhideTitokoneReport() {
 <c:if test="${param.analyzed == 'true'}">
 	<div id="titokone_report" style="display: none">
 		<hr><b><%=rb.getString("titokoneReportTitle")%></b>
-		<c:out value="${feedback.titoState}"/>
+		<c:out value="${feedback.titoState.screenOutput}"/>
 	</div>
 	<hr>
 	<table class="presentationTable">
