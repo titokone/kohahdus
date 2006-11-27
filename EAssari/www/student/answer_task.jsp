@@ -114,7 +114,16 @@ function showhideTitokoneReport() {
 					</tr>
 					<tr>
 						<td><b><%=rb.getString("keyboardInput")%>&nbsp;</b></td>
-						<td><input name="keyboardInput" type="text" size="90" value="<c:out value="${keyboardInput}"/>" onBlur="checkInput()"></td>
+						<td><input name="keyboardInput" type="text" size="90" 
+							value="<c:choose>
+										<c:when test="${not empty keyboardInput}">
+											<c:out value="${keyboardInput}"/>
+										</c:when>
+										<c:otherwise>
+											<c:out value="${task.publicInput}"/>
+										</c:otherwise>
+									</c:choose>			
+									" onBlur="checkInput()"></td>
 					</tr>
 				</table>
 			</td>
