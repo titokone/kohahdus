@@ -30,7 +30,7 @@ public abstract class InstructionCriterion extends Criterion {
 	@Override public void setAcceptanceTestValue(String test) {
 		opcodes = new HashSet<String>();
 		if (test != null) {
-			String[] instructions = test.split("[ \t\r\f\n,;]+");
+			String[] instructions = test.toUpperCase().split("[ \t\r\f\n,;]+");
 			opcodes.addAll(Arrays.asList(instructions));
 			opcodes.remove("");
 		}

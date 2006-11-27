@@ -16,6 +16,6 @@ public class ForbiddenInstructionsCriterion extends InstructionCriterion {
 	@Override public boolean passesAcceptanceTest(TitoState studentAnswer, TitoState modelAnswer) {
 		Set<String> usedOps = studentAnswer.getUsedOpcodes();
 		Set<String> banOps  = opcodes;
-		return banOps.removeAll(usedOps);
+		return !banOps.removeAll(usedOps);
 	}
 }

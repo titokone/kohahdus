@@ -105,7 +105,7 @@ public class TitoState {
 	 * @param registerCode TKK91Cpu.REG_*
 	 * @throws IllegalArgumentException invalid register code is given
 	 * @see fi.hu.cs.ttk91.TTK91Cpu#REG_R0 */
-	int getRegister(int registerCode) {
+	public int getRegister(int registerCode) {
 		return cpu.getValueOf(registerCode);
 	}	
 	
@@ -114,23 +114,23 @@ public class TitoState {
 	/** Return contents of specified memory address.
 	 * @throws IllegalArgumentException if Address > (CodeSize + DataSize - 1) 
 	 */
-	int getMemoryLocation(int address) {
+	public int getMemoryLocation(int address) {
 		return mem.getValue(address);
 	}
 	
 	
 	/** Return symbol table that maps symbol names to symbol value addresses
 	 */
-	HashMap getSymbolTable() {
+	public HashMap getSymbolTable() {
 		return app.getSymbolTable().toHashMap();
 	}
 	
 	
 	/** Return TitoKone screen output as String in format "1234, 1234, 1234". Returns an
 	 * emptry String "" if the program produced no screen ouput. */
-	String getScreenOutput() {
+	public String getScreenOutput() {
 		String outputs[] = output.split("\n");
-
+		
 		// Reformat output as "124, 4242, 2335, 3535, 35325"
 		StringBuffer buffer = new StringBuffer();
 		for (int i=0; i<outputs.length; i++) {
@@ -138,7 +138,7 @@ public class TitoState {
 			if (i < outputs.length-1) {
 				buffer.append(", ");
 			}
-		}	
+		}
 		return buffer.toString();
 	}
 	
@@ -149,48 +149,44 @@ public class TitoState {
 	/** Return maximum size of stack reached during program execution.
 	 * @return stack size, measured in 32-bit words
 	 */ 
-	int getStackMaxSize() {
+	public int getStackMaxSize() {
 		return cpu.giveStackMaxSize();
 	}
 
 	/** Return number of executed instructions. */
-	int getExecutionSteps() {
+	public int getExecutionSteps() {
 		return cpu.giveCommAmount();		
 	}
 	
 	/** Return number of instruction words in the program code */
-	int getCodeSize() {
+	public int getCodeSize() {
 		return mem.getCodeAreaSize();		
 	}
 	
 	/** Return number of words in program's data-area */
-	int getDataSize() {
+	public int getDataSize() {
 		return mem.getDataAreaSize();
 	}
 	
 	/** Return number data references executed during program run. The number includes
 	 * memory references caused by both data reads and writes, but not memory reference
 	 * caused by instruction fetches. */
-	int getDataReferenceCount() {
+	public int getDataReferenceCount() {
 		return memRef;
 	}
 	
-	/** Return used opcodes in set of Strings. This does not include instructions
+	/** Return used opcodes in set of ALL-CAPS Strings. This does not include instructions
 	 * DC, DS and EQU.  */
-	Set<String> getUsedOpcodes() {
+	public Set<String> getUsedOpcodes() {
 	    Set<String> opcodes = new HashSet<String>();
 
 	    BinaryInterpreter interp = new BinaryInterpreter();
 	    for(MemoryLine line : code) {
 	    	String fullInstruction = interp.binaryToString(line.getBinary());
-	    	//TitoKone is case insensitive. We don't know whether students answer is capitalized or not.
-	    	//Thus we need to prepare for both cases to ensure that InstructionCriteria is analyzed properly.
 	    	if (fullInstruction.indexOf(' ') == -1) {
-	    		opcodes.add(fullInstruction.toLowerCase());
-	    		opcodes.add(fullInstruction.toUpperCase());
+	    		opcodes.add(fullInstruction);		    		    
 	    	} else {
-	    		opcodes.add(fullInstruction.substring(0, fullInstruction.indexOf(' ')).toLowerCase());
-	    		opcodes.add(fullInstruction.substring(0, fullInstruction.indexOf(' ')).toUpperCase());
+	    		opcodes.add(fullInstruction.substring(0, fullInstruction.indexOf(' ')));
 	    	}		
 	    }
 	    return opcodes;
