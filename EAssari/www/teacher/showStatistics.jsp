@@ -30,28 +30,28 @@
 <table class="listTable">
 	<tr>
 		<td>Opiskelija</td>
-		<td>
 		<c:forEach var="taskName" items="${taskNames}">
-			<c:out value="${taskName}"/>
+			<td>
+				<div style="direction:ltr; writing-mode:tb-rl">
+					<c:out value="${taskName}"/>
+				</div>
+			</td>
 		</c:forEach>
-		</td>
-		<td><c:out value="${total}"/></td>
 	</tr>
-	<c:forEach var="studentAnswer" items="${students}">
+	<c:forEach var="student" items="${students}">
 		<tr>
 			<td>
-				<a href="showUser.jsp?userID=<c:out value="${studentAnswer.userID}"/>">
-					<c:out value="${studentAnswer.lastname}"/>, <c:out value="${studentAnswer.firstname}"/>
+				<a href="showUser.jsp?userID=<c:out value="${student.userID}"/>">
+					<c:out value="${student.lastname}"/>, <c:out value="${student.firstname}"/>
 				</a>
 			</td>
-			<td>
 			<c:forEach var="taskName" items="${taskNames}">
-				<c:if test="${not empty studentAnswer[taskName]}">
-					<c:out value="${studentAnswer[taskName].hasSucceeded}"/>
-				</c:if>
+				<td>
+					<c:if test="${not empty student[taskName]}">
+						<c:out value="${student[taskName].hasSucceeded}"/>
+					</c:if>
+				</td>
 			</c:forEach>
-			</td>
-			<td><c:out value="${total}"/></td>
 		</tr>
 	</c:forEach>
 </table>

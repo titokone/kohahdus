@@ -1170,7 +1170,7 @@ public class DBHandler {
 					studentAnswers = new StudentAnswers(m.getFirstname(), m.getLastname(), m.getUserID());
 					students.addLast(studentAnswers);
 				}
-				studentAnswers.put(rs.getString("taskid"), m);
+				studentAnswers.put(rs.getString("taskname"), m);
 			} 
 			rs.close();
 			
