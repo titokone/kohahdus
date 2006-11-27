@@ -72,5 +72,6 @@ Taro Morimoto
 20.11.2006	TOTE	3	Koodausta
 21.11.2006	TOTE	5	Koodausta
 22.11.2006	TOTE	2.5	Koodausta
+23.11.2006	TOTE	5	Koodausta
 
 
