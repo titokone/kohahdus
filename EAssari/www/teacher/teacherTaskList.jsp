@@ -8,54 +8,6 @@
 	TODO: poista ID kentät listauksista
 --%>
 
-
-
-<html>
-<head>
-<title>Task listing</title>
-<script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
-<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
-<script language="javascript" type="text/javascript">
-
-function deleteTask(taskName, taskID) {
-	if (window.confirm('Do you really want to delete task '+taskName+'?')) {
-		location.href="teacherTaskList.jsp?action=deleteTask&taskID="+taskID;
-	}
-}
-
-function deleteCourse(courseName, courseID) {
-	if (window.confirm('Do you really want to delete course '+courseName+'?')) {
-		location.href="teacherTaskList.jsp?action=deleteCourse&courseID="+courseID;
-	}
-}
-
-function checkNewCourseInputValidity() {
-	trimWhitespace(document.create_course_form.new_course);
-
-	var courseName = document.create_course_form.new_course.value;
-	var feedbackElem = document.getElementById('new_course_creation_feedback');
-	
-	feedbackElem.innerHTML = '';
-	
-	if(containsHtmlCharacters(courseName)) {
-		feedbackElem.innerHTML = 'Course name may not contain characters ", <, >, &.';
-		return false;
-	}
-	
-	if((courseName.length < 1) || (courseName.length > 40)) {
-		feedbackElem.innerHTML = 'Course name must be 1-40 characters long.';
-		return false;
-	}
-	
-	return true;
-}
-</script>
-
-</head>
-
-
-<body>
-
 <c:if test="${empty user}">
 	Not logged in - redirecting to login
 	<c:redirect url="../login.jsp"/>	
@@ -111,133 +63,302 @@ function checkNewCourseInputValidity() {
 	%>
 </c:if>
 
-<br><br>
+<html>
+<head>
+<title>Task listing</title>
+<script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
+<script language="javascript" type="text/javascript">
 
-<table>
-	<tr>
-		<td><h2>Courses</h2></td>
-	</tr>
-</table>	
+var courses;
+var tasks;
+var coursesAvailable;
+var tasksAvailable;
 
-<table class="listTable">
-	<tr>
-		<td class="titleBar">ID</td>
-		<td class="titleBar"><a href="teacherTaskList.jsp?sortCourses=true">Name</a></td>
-		<td class="titleBar" colspan="2"></td>
-	</tr>
-	<%  
-		List<Course> courses = DBHandler.getInstance().getCourses();	
-		if (courses != null) pageContext.setAttribute("courses", courses);		
+/* Object constructor for Course objects */
+function Course(id, name) {
+	this.name = name;
+	this.id = id;
+}
+
+/* Object constructor for Task objects */
+function Task(id, name, type, category, language, author, modificationDate) {
+	this.id = id;
+	this.name = name;
+	this.type = type;
+	this.category = category;
+	this.language = language
+	this.author = author;
+	this.modificationDate = modificationDate;
+}
+
+function initPage() {
+	initCourses();
+	initTasks();
+	
+	writeCourseList();
+	writeTaskList();
+}
+
+/* fill courses array from database */
+function initCourses() {
+	courses = new Array();
+	var courseCounter = 0;
+	
+	<%  // get courses from DB
+		List<Course> DBcourses = DBHandler.getInstance().getCourses();	
+		if (DBcourses != null) pageContext.setAttribute("courses", DBcourses);		
 	%>
 	<c:if test="${empty courses}">
-		<tr>
-			<td colspan="4">No available courses.</td>
-		</tr>
+		coursesAvailable = false;
 	</c:if>
 	<c:if test="${not empty courses}">
-		<c:if test="${not empty param.sortCourses}">
-			<%-- sort courses with comparator object. Comparison type is stored in request --%>
-			<%
-				CourseComparator cc = new CourseComparator();
-				Collections.sort(courses, cc);
-			%>
-		</c:if>	
+		coursesAvailable = true;
 		<c:forEach var="course" items="${pageScope.courses}">	
-			<tr>
-				<%-- TODO: add implementation for statistics and delete buttons --%>
-				<td><c:out value="${course.courseID}"/></td>
-				<td><c:out value="${course.name}"/></td>
-				<td><input type="button" value="Statistics" onClick="Javascript:location.href='showStatistics.jsp?courseID=<c:out value="${course.courseID}"/>';"></td>
-				<td><input type="button" value="Delete" onclick="Javascript:deleteCourse('<c:out value="${course.name}"/>', '<c:out value="${course.courseID}"/>');"></td>
-			</tr>
+			courses[courseCounter++] = new Course('<c:out value="${course.courseID}"/>', '<c:out value="${course.name}"/>');
 		</c:forEach>	
 	</c:if>
-	<form name="create_course_form" action="teacherTaskList.jsp" method="POST" onSubmit="return checkNewCourseInputValidity()">
-	<input type="hidden" name="action" value="create_course">
-		<tr>
-			<td>Course name</td>
-			<td><input type="text" name="new_course"></td>
-			<td colspan=2><input type="submit" name="create_course_button" value="Create new course"></td>
-		</tr>
-	</form>
-</table>
-<div id="new_course_creation_feedback" class="errorMsg"></div>		
 
-<br><br>
-
-<table border="0">
-	<tr>
-		<td><h2>Tasks</h2></td>
-		<!--
-		<td width="100">&nbsp;</td>
-		<td><input type="button" value="Create task" onclick="location.href = 'composer.jsp?task_id=EN_TEMPLATE&save_type=new'">
-		<td><input type="button" value="Create task in finnish" onclick="location.href = 'composer.jsp?task_id=FI_TEMPLATE&save_type=new'">
-		-->
-	</tr>
-</table>
-
-<%-- FIXME: kun halutaan sortata listausta, niin sivu ladataan uudestaan. Voisi ohjata selaimen suoraan task listauksen alkuun eikä sivun alkuun --%>
-
-<table class="listTable">
-	<tr>
-		<td class="titleBar">ID</td>
-		<td class="titleBar"><a href="teacherTaskList.jsp?sortTasks=0">Name</a></td>
-		<td class="titleBar"><a href="teacherTaskList.jsp?sortTasks=1">Type</a></td>
-		<td class="titleBar"><a href="teacherTaskList.jsp?sortTasks=2">Category</a></td>
-		<td class="titleBar"><a href="teacherTaskList.jsp?sortTasks=3">Language</a></td>
-		<td class="titleBar"><a href="teacherTaskList.jsp?sortTasks=4">Author</a></td>
-		<td class="titleBar">Modification date</a></td>
-		<td class="titleBar" colspan="3"></td>
-	</tr>
+}
+	
+/* fill tasks array from database */
+function initTasks() {
+	tasks = new Array();
+	var taskCounter = 0;
 	
 	<%	//Get tasks from DB
 		List<Task> tasks = DBHandler.getInstance().getTasks();	
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 	%>
 	<c:if test="${empty tasks}">
-		<tr>
-			<td colspan="9">Ei tehtäviä.</td>
-		</tr>
+		tasksAvailable = false;		
 	</c:if>
 	<c:if test="${not empty tasks}">
-	
-		<c:if test="${not empty param.sortTasks}">
-			<%
-				TaskComparator tc = null;
-				String sortRequest = request.getParameter("sortTasks");
-				try {
-					int sort = Integer.parseInt(sortRequest);
-					tc = new TaskComparator(sort);
-				} catch (NumberFormatException e) {
-					Log.write("TeacherTaskList: Invalid sort parameter");
-			%>		
-					<c:redirect url="../error.jsp">
-						<c:param name="errorMsg" value="Invalid sort parameter!"/>
-					</c:redirect>
-			<%		
-				}
-				if (tc != null) {
-					Collections.sort(tasks, tc);
-				}
-			%>				
-		</c:if>
-	
+		tasksAvailable = true;
 		<c:forEach var="task" items="${pageScope.tasks}"> 
-			<tr>					
-				<td><c:out value="${task.taskID}"/></td>
-				<td><c:out value="${task.name}"/></td>
-				<td><c:out value="${task.titoTaskType}"/></td>
-				<td><c:out value="${task.category}"/></td>
-				<td><c:out value="${task.language}"/></td>
-				<td><c:out value="${task.author}"/></td>
-				<td><c:out value="${task.modificationDate}"/></td>
-				<td><input type="button" value="Modify" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=update'"></td>
-				<td><input type="button" value="Modify as new" onclick="location.href = 'composer.jsp?task_id=<c:out value="${task.taskID}"/>&save_type=new'"></td>
-				<td><input type="button" value="Delete" onclick="Javascript:deleteTask('<c:out value="${task.name}"/>', '<c:out value="${task.taskID}"/>');"></td>
-			</tr>
+			tasks[taskCounter++] = new Task('<c:out value="${task.taskID}"/>', '<c:out value="${task.name}"/>',
+				'<c:out value="${task.titoTaskType}"/>', '<c:out value="${task.category}"/>',
+				'<c:out value="${task.language}"/>', '<c:out value="${task.author}"/>',
+				'<c:out value="${task.modificationDate}"/>');
 		</c:forEach>
 	</c:if>		
-</table>
+}
+
+/* input courses into course list */
+function writeCourseList() {
+
+	var headerHtml = '<table class="listTable"><tr><td class="titleBar">ID</td>';
+	headerHtml += '<td class="titleBar"><a href="javascript:sortCoursesByName()">Name</a></td>';
+	headerHtml += '<td class="titleBar" colspan="2">&nbsp;</td></tr>';
+	
+	var listHtml = '';
+
+	if(coursesAvailable == true) {
+		for(var i = 0; i < courses.length; i++) {
+			listHtml += '<tr><td>' + courses[i].id + '</td>';
+			listHtml += '<td>' + courses[i].name + '</td>';
+			listHtml += '<td><input type="button" value="Statistics" onClick="Javascript:location.href=\'showStatistics.jsp?courseID=' + courses[i].id + '\';"></td>';
+			listHtml += '<td><input type="button" value="Delete" onclick="Javascript:deleteCourse(\'' + courses[i].name + '\', \'' + courses[i].id + '\');"></td></tr>';
+		}
+	} else {	
+		listHtml = '<tr><td colspan="4">No available courses.</td></tr>';	
+	}
+	var newCourseHtml = '<tr><td>Course name</td><td><input type="text" name="new_course"></td>';
+	newCourseHtml += '<td colspan="2"><input type="submit" name="create_course_button" value="Create new course"></td>';
+	newCourseHtml += '</tr></table>';
+	
+	var courseListElem = document.getElementById("courseList");
+	courseListElem.innerHTML = headerHtml + listHtml + newCourseHtml; 
+}
+
+/* input tasks into task list */
+function writeTaskList() {
+	var headerHtml = '<table class="listTable"><tr><td class="titleBar">ID</td>';
+	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByName()">Name</a></td>';
+	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByType()">Type</a></td>';
+	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByCategory()">Category</a></td>';
+	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByLanguage()">Language</a></td>';
+	headerHtml += '<td class="titleBar"><a href="javascript: sortTasksByAuthor()">Author</a></td>';
+	headerHtml += '<td class="titleBar">Modification date</a></td>';
+	headerHtml += '<td class="titleBar" colspan="3"></td></tr>';
+	
+	var listHtml = '';
+
+	if(tasksAvailable == true) {
+		for(var i = 0; i < tasks.length; i++) {
+			listHtml += '<tr><td>' + tasks[i].id + '</td>';
+			listHtml += '<td>' + tasks[i].name + '</td>';
+			listHtml += '<td>' + tasks[i].type + '</td>';
+			listHtml += '<td>' + tasks[i].category + '</td>';
+			listHtml += '<td>' + tasks[i].language + '</td>';
+			listHtml += '<td>' + tasks[i].author + '</td>';
+			listHtml += '<td>' + tasks[i].modificationDate + '</td>';
+			listHtml += '<td><input type="button" value="Modify" onclick="location.href = \'composer.jsp?task_id=' + tasks[i].id + '&save_type=update\'"></td>';
+			listHtml += '<td><input type="button" value="Modify as new" onclick="location.href = \'composer.jsp?task_id=' + tasks[i].id + '&save_type=new\'"></td>';
+			listHtml += '<td><input type="button" value="Delete" onclick="Javascript:deleteTask(\'' + tasks[i].name + '\', \'' + tasks[i].id + '\');"></td></tr>';
+		}
+	} else {	
+		listHtml = '<tr><td colspan="9">No tasks.</td></tr>';	
+	}
+	
+	listHtml += '</table>';
+	
+	var taskListElem = document.getElementById("taskList");
+	taskListElem.innerHTML = headerHtml + listHtml;
+}
+
+/* use insertion sort to sort courses into alphabetical order */
+function sortCoursesByName() {
+	for(var i = 1; i < courses.length; i++) {
+		var temp = courses[i];
+		var j = i;
+		
+		while (j > 0 && courses[j-1].name.toLowerCase() > temp.name.toLowerCase()) {
+			courses[j] = courses[j-1]; 
+			--j;
+		}
+		courses[j] = temp;
+	}
+
+	writeCourseList();
+}
+
+/* use insertion sort to sort tasks into alphabetical order by task name */
+function sortTasksByName() {
+	for(var i = 1; i < tasks.length; i++) {
+		var temp = tasks[i];
+		var j = i;
+		
+		while (j > 0 && tasks[j-1].name.toLowerCase() > temp.name.toLowerCase()) {
+			tasks[j] = tasks[j-1]; 
+			--j;
+		}
+		tasks[j] = temp;
+	}
+
+	writeTaskList();
+}
+
+/* use insertion sort to sort tasks into alphabetical order by task type */
+function sortTasksByType() {
+	for(var i = 1; i < tasks.length; i++) {
+		var temp = tasks[i];
+		var j = i;
+		
+		while (j > 0 && tasks[j-1].type.toLowerCase() > temp.type.toLowerCase()) {
+			tasks[j] = tasks[j-1]; 
+			--j;
+		}
+		tasks[j] = temp;
+	}
+
+	writeTaskList();
+}
+
+/* use insertion sort to sort tasks into alphabetical order by task category */
+function sortTasksByCategory() {
+	for(var i = 1; i < tasks.length; i++) {
+		var temp = tasks[i];
+		var j = i;
+		
+		while (j > 0 && tasks[j-1].category.toLowerCase() > temp.category.toLowerCase()) {
+			tasks[j] = tasks[j-1]; 
+			--j;
+		}
+		tasks[j] = temp;
+	}
+
+	writeTaskList();
+}
+
+/* use insertion sort to sort tasks into alphabetical order by task language */
+function sortTasksByLanguage() {
+	for(var i = 1; i < tasks.length; i++) {
+		var temp = tasks[i];
+		var j = i;
+		
+		while (j > 0 && tasks[j-1].language.toLowerCase() > temp.language.toLowerCase()) {
+			tasks[j] = tasks[j-1]; 
+			--j;
+		}
+		tasks[j] = temp;
+	}
+
+	writeTaskList();
+}
+
+/* use insertion sort to sort tasks into alphabetical order by author */
+function sortTasksByAuthor() {
+	for(var i = 1; i < tasks.length; i++) {
+		var temp = tasks[i];
+		var j = i;
+		
+		while (j > 0 && tasks[j-1].author.toLowerCase() > temp.author.toLowerCase()) {
+			tasks[j] = tasks[j-1]; 
+			--j;
+		}
+		tasks[j] = temp;
+	}
+
+	writeTaskList();
+}
+
+function deleteTask(taskName, taskID) {
+	if (window.confirm('Do you really want to delete task '+taskName+'?')) {
+		location.href="teacherTaskList.jsp?action=deleteTask&taskID="+taskID;
+	}
+}
+
+function deleteCourse(courseName, courseID) {
+	if (window.confirm('Do you really want to delete course '+courseName+'?')) {
+		location.href="teacherTaskList.jsp?action=deleteCourse&courseID="+courseID;
+	}
+}
+
+function checkNewCourseInputValidity() {
+	trimWhitespace(document.create_course_form.new_course);
+
+	var courseName = document.create_course_form.new_course.value;
+	var feedbackElem = document.getElementById('new_course_creation_feedback');
+	
+	feedbackElem.innerHTML = '';
+	
+	if(containsHtmlCharacters(courseName)) {
+		feedbackElem.innerHTML = 'Course name may not contain characters ", <, >, &.';
+		return false;
+	}
+	
+	if((courseName.length < 1) || (courseName.length > 40)) {
+		feedbackElem.innerHTML = 'Course name must be 1-40 characters long.';
+		return false;
+	}
+	
+	return true;
+}
+</script>
+
+</head>
+
+
+<body onLoad="initPage()">
+
+<br>
+
+<form name="create_course_form" action="teacherTaskList.jsp" method="POST" onSubmit="return checkNewCourseInputValidity()">
+<input type="hidden" name="action" value="create_course">
+<h2 class="headerAboveListTable">Courses</h2>
+<div id="courseList">
+<!-- Course list will be written in Javascript. -->
+</div>
+</form>
+<div id="new_course_creation_feedback" class="errorMsg"></div>		
+
+<br>
+
+<h2 class="headerAboveListTable">Tasks</h2>
+<div id="taskList">
+<!-- Task list will be written in Javascript. -->
+</div>
 </p>
 
 </body>

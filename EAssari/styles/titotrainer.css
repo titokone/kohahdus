@@ -74,6 +74,11 @@ table td {
 	width: 100%;
 }
 
+.headerAboveListTable {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
 .listTable {
 	background-color: #000000;
 }
