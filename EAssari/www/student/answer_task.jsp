@@ -184,7 +184,7 @@ function showhideTitokoneReport() {
 			</tr>
 			<tr>
 				<td width="100%">
-					<c:out value="${feedback.compilerError}"/>				
+					<c:out value="${feedback.compileError}"/>				
 				</td>
 			</tr>
 		</table>
