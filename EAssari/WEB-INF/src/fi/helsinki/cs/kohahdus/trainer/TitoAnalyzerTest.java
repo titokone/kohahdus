@@ -272,7 +272,7 @@ public class TitoAnalyzerTest extends TestCase {
 		criteria1.add(out2);
 		input1="1,-4"; //no sense changing
 		programcode1="" +
-		"IN R1,=KBD\n" +
+		"IN R1, =KBD\n" +
 		"MUL R1, =4\n" +
 		"IN R2, =KBD\n" +
 		"MUL R2, =2\n" +
@@ -339,9 +339,10 @@ public class TitoAnalyzerTest extends TestCase {
 		
 		//instructions
 		InstructionCriterion i1=new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false);
-		i1.setAcceptanceTestValue("MUL"); //ei käytössä, väittää väärin
+		i1.setAcceptanceTestValue("SVC"); //ei käytössä, väittää väärin
 		i1.setAcceptanceFeedback("No forbidden instructions. Good.");
 		i1.setFailureFeedback("U used forbidden instructions.");
+		System.out.println(i1.hasAcceptanceTest(true));
 		criteria2.add(i1);
 		
 		//no input
