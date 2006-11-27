@@ -1,10 +1,21 @@
 package fi.helsinki.cs.kohahdus;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.StringTokenizer;
 
-import fi.helsinki.cs.kohahdus.trainer.*;
-import fi.helsinki.cs.kohahdus.criteria.*;
+import fi.helsinki.cs.kohahdus.criteria.Criterion;
+import fi.helsinki.cs.kohahdus.criteria.CriterionMap;
+import fi.helsinki.cs.kohahdus.trainer.Course;
+import fi.helsinki.cs.kohahdus.trainer.Task;
+import fi.helsinki.cs.kohahdus.trainer.TitoFeedback;
+import fi.helsinki.cs.kohahdus.trainer.User;
 
 
 /** Singleton class used for database interactions. Each public method of DBHandler class
@@ -310,7 +321,7 @@ public class DBHandler {
 			AnswerState s = states.get(t.getTaskID());
 			if (s != null) {
 				t.setNoOfTries(s.getLastTryNumber());
-				t.setHasSucceeded(s.hasSucceeded());
+				t.setHasSucceeded(s.getHasSucceeded());
 			}
 		}
 		
@@ -935,7 +946,7 @@ public class DBHandler {
 			if (c > 0){
 				Log.write("DBHandler: Answer stored for user " +userID);
 				state.incrementLastTryNumber();
-				if (!state.hasSucceeded()) state.setHasSucceeded(feedback.isSuccessful());
+				if (!state.getHasSucceeded()) state.setHasSucceeded(feedback.isSuccessful());
 				if (state.getCurrentResult() == 0) state.setCurrentResult(feedback.isSuccessful() ? 100 : 0);
 			} else {
 				Log.write("DBHandler: Failed store answer for user " +userID);
@@ -970,7 +981,7 @@ public class DBHandler {
 				st.setInt(4, seqNo);
 				st.setInt(5, state.getLastTryNumber());
 				st.setInt(6, state.getCurrentResult());
-				st.setString(7, state.hasSucceeded() ? "Y" : "N");
+				st.setString(7, state.getHasSucceeded() ? "Y" : "N");
 				int c = st.executeUpdate();
 				if (c > 0){
 					Log.write("DBHandler: Answer state inserted for user " +userID);
@@ -982,7 +993,7 @@ public class DBHandler {
 										   "where sid=? and courseid=? and moduleid=? and seqno=?");
 				st.setInt(1, state.getLastTryNumber());
 				st.setInt(2, state.getCurrentResult());
-				st.setString(3, state.hasSucceeded() ? "Y" : "N");
+				st.setString(3, state.getHasSucceeded() ? "Y" : "N");
 				st.setString(4, userID);
 				st.setString(5, courseID);
 				st.setString(6, DBHandler.DEFAULT_MODULE_ID);
@@ -1011,7 +1022,6 @@ public class DBHandler {
 	public LinkedList<AnswerState> getStudentAnswers(String userID) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
-		
 		LinkedList<AnswerState> studentsAnswers = new LinkedList<AnswerState>();
 		
 		try {
@@ -1104,8 +1114,85 @@ public class DBHandler {
 		}	
 		return seqNo;
 	} 
+
+	/**
+	 *  Returns a list of students containing all the answer states that student has answered. 
+	 */
+	public LinkedList<HashMap<String, AnswerState>> getAllStudentAnswers(String courseID) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		LinkedList<HashMap<String, AnswerState>> students = new LinkedList<HashMap<String, AnswerState>>();
+		
+		try {
+			st = conn.prepareStatement("select u.userid, u.lastname, u.firstname, t.taskname, sm.hassucceeded " +
+									   "from studentmodel sm, course c, task t, taskinmodule tim, eauser u " +
+									   "where sm.courseid=? and sm.courseid=c.courseid and t.taskid=tim.taskid and " +
+									   "sm.seqno=tim.seqno and u.userid=sm.sid order by 1");
+			st.setString(1, courseID);
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			String userID = null;
+			HashMap<String, AnswerState> answerMap = null; 
+			while (rs.next()){
+				AnswerState m = new AnswerState();
+				m.setFirstname(rs.getString("firstname"));
+				m.setLastname(rs.getString("lastname"));
+				m.setHasSucceeded("Y".equals(rs.getString("hassucceeded")));
+				m.setTaskName(rs.getString("taskname"));
+				m.setUserID(rs.getString("userid"));
+				
+				if (!rs.getString("userid").equals(userID)){
+					answerMap = new HashMap<String, AnswerState>();
+					userID = rs.getString("userid");
+					students.addLast(answerMap);
+				}
+				answerMap.put(m.getTaskName(), m);
+			} 
+			rs.close();
+			
+
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to get all student answers: "+courseID+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+
+		return students;
+	}	
 	
-	
+	/**
+	 *  Returns a list of task names that have been answered. 
+	 */
+	public LinkedList<String> getAnsweredTaskNames(String courseID) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		LinkedList<String> taskNames = new LinkedList<String>();
+		
+		try {
+			st = conn.prepareStatement("select distinct t.taskname from task t, studentmodel sm, taskinmodule tim " +
+									   "where sm.seqno=tim.seqno and tim.taskid=t.taskid and sm.courseid=? order by taskname");
+			st.setString(1, courseID);
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			String userID = null;
+			while (rs.next()){
+				taskNames.add(rs.getString("taskname"));
+			} 
+			rs.close();
+			
+
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to get answered tasks names: "+courseID+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+
+		return taskNames;
+	}	
 }
 
 

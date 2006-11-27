@@ -22,7 +22,7 @@ public class AnswerState {
 	public void setCurrentResult(int currentResult) {
 		this.currentResult = currentResult;
 	}
-	public boolean hasSucceeded() {
+	public boolean getHasSucceeded() {
 		return hasSucceeded;
 	}
 	public void setHasSucceeded(boolean hasSucceeded) {
