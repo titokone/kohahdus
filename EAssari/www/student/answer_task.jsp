@@ -177,6 +177,32 @@ function showhideTitokoneReport() {
 		</tr>
 	</table>
 	<br>
+	<c:if test="${not empty feedback.compileError}">
+		<table class="presentationTable">
+			<tr>
+				<td colspan="2" class="titleBar"><b>Compiler error</b></td>
+			</tr>
+			<tr>
+				<td width="100%">
+					<c:out value="${feedback.compilerError}"/>				
+				</td>
+			</tr>
+		</table>
+		<br>
+	</c:if>
+	<c:if test="${not empty feedback.runError}">
+		<table class="presentationTable">
+			<tr>
+				<td colspan="2" class="titleBar"><b>Run error</b></td>
+			</tr>
+			<tr>
+				<td width="100%">
+					<c:out value="${feedback.runError}"/>				
+				</td>
+			</tr>
+		</table>
+		<br>
+	</c:if>
 	<c:if test="${not empty feedback.criteriaFeedback}">
 		<table class="presentationTable">
 			<tr>
