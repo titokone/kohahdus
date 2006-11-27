@@ -14,53 +14,46 @@
 
 <body id="showStatistics">
 
-<% 	LinkedList<AnswerState> storedAnswers = DBHandler.getInstance().getAnswerStatistics(String courseID);		
-	if (storedAnswers != null) pageContext.setAttribute("answers", storedAnswers);
+<% 	
+	String courseID = request.getParameter("courseID");
+	String courseName = DBHandler.getInstance().getCourseName(courseID);		
+	LinkedList<StudentAnswers> students = DBHandler.getInstance().getAllStudentAnswers(courseID);		
+	if (students != null) pageContext.setAttribute("students", students);
+	LinkedList<String> taskNames = DBHandler.getInstance().getAnsweredTaskNames(courseID);		
+	if (taskNames != null) pageContext.setAttribute("taskNames", taskNames);	
 %>
 
 	<c:set var="total" value="0"/>
 
-<h1>Course Autumn 2006 tasks done</h1>
+<h1>Course <%=courseName%> tasks done</h1>
 
-	<table class="listTable">
+<table class="listTable">
+	<tr>
+		<td>Opiskelija</td>
+		<td>
+		<c:forEach var="taskName" items="${taskNames}">
+			<c:out value="${taskName}"/>
+		</c:forEach>
+		</td>
+		<td><c:out value="${total}"/></td>
+	</tr>
+	<c:forEach var="studentAnswer" items="${students}">
 		<tr>
-		<td>&nbsp;</td>
-		
-		<c:forEach var="task" items="${pageScope.answers}">
-			<td><c:out value="${answers.taskID}"/></td>
-		</c:forEach>
-		
-		<td>Total</td>
-		</tr>
-		
-		<c:forEach var="user" items="${pageScope.answers}">
-			<c:forEach var="task" items="${pageScope.answers}">
-	
-			<tr>
-				<td><a href="../teacher/showUser.jsp?userID=<c:out value="${user.userID}"/>"><c:out value="${user.lastName}"/></a></td>
-				<td>
-				<c:choose>
-					<c:when test="${task.hasSucceeded}">
-						<img src="positive.gif">
-						<c:set var="total" value="${total + 1}"/>
-					</c:when>
-					<c:when test="${task.noOfTries == 0}">
-						<img src="blank.gif">
-					</c:when>
-					<c:otherwise>
-						<img src="negative.gif">
-					</c:otherwise>
-				</c:choose>
-				</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				
+			<td>
+				<a href="showUser.jsp?userID=<c:out value="${studentAnswer.userID}"/>">
+					<c:out value="${studentAnswer.lastname}"/>, <c:out value="${studentAnswer.firstname}"/>
+				</a>
+			</td>
+			<td>
+			<c:forEach var="taskName" items="${taskNames}">
+				<c:if test="${not empty studentAnswer[taskName]}">
+					<c:out value="${studentAnswer[taskName].hasSucceeded}"/>
+				</c:if>
 			</c:forEach>
-				<td><c:out value="${total}"/></td>
-			</tr>
-		</c:forEach>
-
-
+			</td>
+			<td><c:out value="${total}"/></td>
+		</tr>
+	</c:forEach>
 </table>
 
 

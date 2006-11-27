@@ -125,6 +125,30 @@ public class DBHandler {
 		return courses;
 	}
 	
+	/** Return all courses */
+	public String getCourseName(String courseID) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("select coursename from course where courseid=?");
+			st.setString(1, courseID);
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			if (rs.next()){
+				return rs.getString("coursename");
+			}
+			rs.close();
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to fetch course name from DB. " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return null;
+	}
+	
 	/**
 	 * Adds a new course to database and linkes the course to all tasks.
 	 */
@@ -1028,7 +1052,7 @@ public class DBHandler {
 			st = conn.prepareStatement("select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname, sa.whenanswered " +
 									   "from studentmodel sm, eauser u, task t, storedanswer sa, taskinmodule tim " +
 									   "where sm.sid=? and sm.sid=u.userid and sm.seqno=tim.seqno and " +
-									   "sa.trynumber=sm.lasttrynumber and tim.taskid=t.taskid");
+									   "sa.trynumber=sm.lasttrynumber and tim.taskid=t.taskid and sa.seqno=sm.seqno and sm.sid=sa.sid");
 			st.setString(1, userID);
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
@@ -1118,13 +1142,13 @@ public class DBHandler {
 	/**
 	 *  Returns a list of students containing all the answer states that student has answered. 
 	 */
-	public LinkedList<HashMap<String, AnswerState>> getAllStudentAnswers(String courseID) throws SQLException {
+	public LinkedList<StudentAnswers> getAllStudentAnswers(String courseID) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
-		LinkedList<HashMap<String, AnswerState>> students = new LinkedList<HashMap<String, AnswerState>>();
+		LinkedList<StudentAnswers> students = new LinkedList<StudentAnswers>();
 		
 		try {
-			st = conn.prepareStatement("select u.userid, u.lastname, u.firstname, t.taskname, sm.hassucceeded " +
+			st = conn.prepareStatement("select u.userid, u.lastname, u.firstname, t.taskname, t.taskid, sm.hassucceeded " +
 									   "from studentmodel sm, course c, task t, taskinmodule tim, eauser u " +
 									   "where sm.courseid=? and sm.courseid=c.courseid and t.taskid=tim.taskid and " +
 									   "sm.seqno=tim.seqno and u.userid=sm.sid order by 1");
@@ -1132,7 +1156,7 @@ public class DBHandler {
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			String userID = null;
-			HashMap<String, AnswerState> answerMap = null; 
+			StudentAnswers studentAnswers = null; 
 			while (rs.next()){
 				AnswerState m = new AnswerState();
 				m.setFirstname(rs.getString("firstname"));
@@ -1142,11 +1166,11 @@ public class DBHandler {
 				m.setUserID(rs.getString("userid"));
 				
 				if (!rs.getString("userid").equals(userID)){
-					answerMap = new HashMap<String, AnswerState>();
 					userID = rs.getString("userid");
-					students.addLast(answerMap);
+					studentAnswers = new StudentAnswers(m.getFirstname(), m.getLastname(), m.getUserID());
+					students.addLast(studentAnswers);
 				}
-				answerMap.put(m.getTaskName(), m);
+				studentAnswers.put(rs.getString("taskid"), m);
 			} 
 			rs.close();
 			
@@ -1176,7 +1200,6 @@ public class DBHandler {
 			st.setString(1, courseID);
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
-			String userID = null;
 			while (rs.next()){
 				taskNames.add(rs.getString("taskname"));
 			} 
