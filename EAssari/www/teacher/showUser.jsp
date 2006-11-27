@@ -59,7 +59,6 @@ function removeUser(userID) {
 <tr>
 <td class="titleBar">&nbsp;</td>
 <td class="titleBar">Task</td>
-<td class="titleBar">Type</td>
 <td class="titleBar">Number of tries</td>
 <td class="titleBar">Last date</td>
 </tr>
@@ -90,7 +89,6 @@ function removeUser(userID) {
 			
 			</td>
 			<td><c:out value="${answers.taskName}"/></td>
-			<td>type?</td>
 			<td><c:out value="${answers.lastTryNumber}"/></td>
 			<td><c:out value="${answers.answerTime}"/></td>
 		</tr>
@@ -101,8 +99,8 @@ function removeUser(userID) {
 </p>
 
 <p><b>Overall:</b><br>
-<c:out value="${accepted}"/> accepted<br>
-<c:out value="${unfinished}"/> unfinished</p>
+<img src="positive.gif"> <c:out value="${accepted}"/> accepted<br>
+<img src="negative.gif"> <c:out value="${unfinished}"/> unfinished</p>
 
 </body>
 </html>
