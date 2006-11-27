@@ -43,7 +43,9 @@ public class TitoAnalyzer {
 			//Check if task is fill-in or programming task.
 			if (task.isFillInTask()) {
 				programCodeTeacher=task.getFillInPreCode();
+				programCodeTeacher+="\n";
 				programCodeTeacher+=task.getModelAnswer();
+				programCodeTeacher+="\n";
 				programCodeTeacher+=task.getFillInPostCode();
 			} else {
 				programCodeTeacher=task.getModelAnswer();
@@ -93,7 +95,9 @@ public class TitoAnalyzer {
 		if (task.isFillInTask()) {
 			String help=programCode;
 			programCode=task.getFillInPreCode();
+			programCode+="\n";
 			programCode+=help;
+			programCode+="\n";
 			programCode+=task.getFillInPostCode();
 		}
 		

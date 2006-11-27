@@ -366,7 +366,7 @@ public class TitoAnalyzerTest extends TestCase {
 			System.out.println("    "+c.getFeedback());
 		}
 		System.out.println("\n\n\n----------------------------------");
-		assertEquals(true, feed.isSuccessful());
+		assertEquals(false, feed.isSuccessful());
 	}
 	
 
