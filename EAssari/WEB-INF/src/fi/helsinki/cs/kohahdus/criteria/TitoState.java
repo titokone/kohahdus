@@ -175,7 +175,7 @@ public class TitoState {
 		return memRef;
 	}
 	
-	/** Return used opcodes in set of ALL-CAPS Strings. This does not include instructions
+	/** Return used opcodes in set of Strings. This does not include instructions
 	 * DC, DS and EQU.  */
 	public Set<String> getUsedOpcodes() {
 	    Set<String> opcodes = new HashSet<String>();
