@@ -14,7 +14,7 @@
 
 <body id="showStatistics">
 
-<% 	String[][] storedAnswers = DBHandler.getInstance().getAnswerStatistics(String courseID);		
+<% 	LinkedList<AnswerState> storedAnswers = DBHandler.getInstance().getAnswerStatistics(String courseID);		
 	if (storedAnswers != null) pageContext.setAttribute("answers", storedAnswers);
 %>
 

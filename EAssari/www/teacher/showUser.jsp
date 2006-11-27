@@ -49,6 +49,11 @@ function removeUser(userID) {
 </form>
 
 <h3>Tasks</h3>
+
+<% 	LinkedList<AnswerState> answers = DBHandler.getInstance().getStudentAnswers(request.getParameter("userID"));
+	if (answers != null) pageContext.setAttribute("answers", answers);
+%>
+
 <p>
 <table class="listTable">
 <tr>
@@ -58,40 +63,30 @@ function removeUser(userID) {
 <td class="titleBar">Number of tries</td>
 <td class="titleBar">Last date</td>
 </tr>
-<tr>
-<td><img src="positive.gif"></td>
-<td>Tehtävä 1</td>
-<td>Täydennystehtävä</td>
-<td align="center">5</td>
-<td>5.5.2006</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>Tehtävä 2</td>
-<td>Staattinen tehtävä</td>
-<td align="center">0</td>
-<td>-</td>
-</tr>
-<tr>
-<td><img src="positive.gif"></td>
-<td>Tehtävä 3</td>
-<td>Staattinen tehtävä</td>
-<td align="center">1</td>
-<td>27.4.2006</td>
-</tr>
-<tr>
-<td><img src="negative.gif"></td>
-<td>Tehtävä 4</td>
-<td>Täydennystehtävä</td>
-<td align="center">2</td>
-<td>2.5.2006</td>
-</tr>
+
+<c:set var="accepted" value="0"/>
+<c:set var="unfinished" value="0"/>	
+
+<c:forEach var="answers" items="${pageScope.answers}">	
+
+		<tr>
+			<td>
+		
+			</td>
+			
+			<td><c:out value="${answers.taskName}"/></td>
+			<td><c:out value="${answers.lastTryNumber}"/></td>
+			<td><c:out value="${answers.answerTime}"/></td>
+		</tr>
+		
+</c:forEach>
+
 </table>
 </p>
 
-<p><b>Tehtyjä tehtäviä yhteensä:</b><br>
-2 hyväksyttyä<br>
-1 keskeneräistä</p>
+<p><b>Overall tasks completed:</b><br>
+<c:out value="${accepted}"/> accepted<br>
+<c:out value="${unfinished}"/> unfinished</p>
 
 </body>
 </html>
