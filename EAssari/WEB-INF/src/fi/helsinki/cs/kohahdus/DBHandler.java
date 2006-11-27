@@ -1014,7 +1014,7 @@ public class DBHandler {
 		LinkedList<AnswerState> studentsAnswers = new LinkedList<AnswerState>();
 		
 		try {
-			st = conn.prepareStatement("select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname, sa.whenanswered" +
+			st = conn.prepareStatement("select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname, sa.whenanswered " +
 									   "from studentmodel sm, eauser u, task t, storedanswer sa " +
 									   "where sm.sid=? and sm.sid=u.userid and sm.seqno=t.taskid and " +
 									   "sa.trynumber=sm.lasttrynumber");
