@@ -71,10 +71,26 @@ function removeUser(userID) {
 
 		<tr>
 			<td>
-		
-			</td>
 			
+			
+			<c:choose>
+				<c:when test="${answers.hasSucceeded}">
+					<img src="positive.gif">
+					<c:set var="accepted" value="${accepted + 1}"/>
+				</c:when>
+				<c:when test="${answers.lastTryNumber == 0}">
+					<img src="blank.gif">
+				</c:when>
+				<c:otherwise>
+					<img src="negative.gif">
+					<c:set var="unfinished" value="${unfinished + 1}"/>
+				</c:otherwise>
+			</c:choose>			
+		
+			
+			</td>
 			<td><c:out value="${answers.taskName}"/></td>
+			<td>type?</td>
 			<td><c:out value="${answers.lastTryNumber}"/></td>
 			<td><c:out value="${answers.answerTime}"/></td>
 		</tr>
@@ -84,7 +100,7 @@ function removeUser(userID) {
 </table>
 </p>
 
-<p><b>Overall tasks completed:</b><br>
+<p><b>Overall:</b><br>
 <c:out value="${accepted}"/> accepted<br>
 <c:out value="${unfinished}"/> unfinished</p>
 
