@@ -23,8 +23,26 @@ Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuite
 composer.jsp, Mikko, 28.11:
 Kun on muokataan malliratkaisutarkistustehtävää, rekisteri ja symboli checkbox ovat aina tyhjiä.
 --
-
+teacherTaskList.jsp, Markus, 28.11:
+Järjestäminen ei toimi modification daten mukaan. Modification daten voisi mös vaihtaa
+lyhyempään muotoon "modified".
+--
+teacherTaskList.jsp & studentTaskList.jsp, Markus, 28.11:
+Järjestäminen toimii edelleen vain yhteen suuntaan.
+--
+login.jsp, Tuomas & Markus & Mikko, 28.11:
+Opettajan kirjautumisessa käytettävä role parametri käy millä sisällöllä tahansa.
+Esim. ?role=ninja tai ?role=student
+--
+studentTaskList.jsp, Markus, 28.11:
+Kaikki yrittämättömät taskit merkataan oletuksena unfinished.
+--
 
 
 KORJATUT BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+login.jsp, Tuomas, 28.11:
+Opettajan loginissa näkyy kielivalinta.
+
+Korjattiin 28.11 yhteisvoimin
+--
