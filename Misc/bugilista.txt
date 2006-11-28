@@ -20,6 +20,9 @@ Korjaus: luodaan template-tehtävät uudestaan. Varmaan Mikon homma.
 composer.jsp, Mikko, 28.11:
 Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuitenkin tekstikenttä näkyvissä arvojen syöttämistä varten.
 --
+composer.jsp, Mikko, 28.11:
+Kun on muokataan malliratkaisutarkistustehtävää, rekisteri ja symboli checkbox ovat aina tyhjiä.
+--
 
 
 
