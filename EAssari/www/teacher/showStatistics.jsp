@@ -5,6 +5,14 @@
 
 <jsp:include page="../menu.jsp"/>
 
+<c:if test="${empty user}">
+	Not logged in - redirecting to login
+	<c:redirect url="../login.jsp"/>	
+</c:if>
+<c:if test="${user.student}">
+	Student tried to load a restricted page - redirecting to students tasklisting
+	<c:redirect url="../student/studentTaskList.jsp"/>
+</c:if>
 
 <html>
 <head>
