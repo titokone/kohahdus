@@ -540,15 +540,15 @@ public class TaskMaker {
 	// <mittauskriteerit>
 	static Criterion createCodeSizeCriterion_FI() {
 		Criterion cr = new CodeSizeCriterion(ID_CODE_SIZE, false);
-		cr.setHighQualityFeedback("Ohjelma on eritt‰in kompaktin kokoinen :)");
-		cr.setAcceptanceFeedback("Ohjelman koko t‰ytt‰‰ vaatimukset [mutta voisi olla pienempikin]");
+		cr.setHighQualityFeedback("Ohjelma koko t‰ytt‰‰ hyv‰ksymisrajan");
+		cr.setAcceptanceFeedback("Ohjelman koko t‰ytt‰‰ hyv‰ksymisrajan, mutta voisi olla pienempikin");
 		cr.setFailureFeedback("Ohjelma on liian suuri (sis‰lt‰‰ liian monta k‰sky‰)");
 		return cr;		
 	}	
 	static Criterion createCodeSizeCriterion_EN() {
 		Criterion cr = new CodeSizeCriterion(ID_CODE_SIZE, false);
-		cr.setHighQualityFeedback("Program size is very compact :)");
-		cr.setAcceptanceFeedback("Program size meets the requirements [could be smaller though]");
+		cr.setHighQualityFeedback("Program size size meets the requirement");
+		cr.setAcceptanceFeedback("Program size meets the passing requirement but you could do even better");
 		cr.setFailureFeedback("Program is too large (contains too many instructions)");
 		return cr;		
 	}
@@ -607,8 +607,8 @@ public class TaskMaker {
 	}	
 	static Criterion createMemReferencesCriterion_EN() {
 		Criterion cr = new MemReferencesCriterion(ID_MEMORY_REFERENCES, false);
-		cr.setHighQualityFeedback("Number of memory references is low :)");
-		cr.setAcceptanceFeedback("Number of memory references is acceptable");
+		cr.setHighQualityFeedback("Number of memory references meets requirements");
+		cr.setAcceptanceFeedback("Number of memory references is acceptable but you could do even better");
 		cr.setFailureFeedback("Too many memory references");
 		return cr;		
 	}		
