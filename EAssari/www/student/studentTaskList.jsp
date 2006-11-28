@@ -56,8 +56,10 @@ function initTaskList() {
 		User u = (User) session.getAttribute("user");
 		
 		List<Task> tasks = DBHandler.getInstance().getTasks(courseID, u.getUserID());
-			
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
+		
+		StudentAnswers answers = DBHandler.getInstance().getStudentAnswers(u.getUserID());
+		if (answers != null) pageContext.setAttribute("answers", answers);
 	%>
 	
 	<%-- TODO: get student status information from somewhere --%>
@@ -70,13 +72,14 @@ function initTaskList() {
 	</c:if>
 	<c:if test="${not empty tasks}">
 		tasksAvailable = true;	
-		<c:forEach var="task" items="${pageScope.tasks}">	
+		<c:forEach var="task" items="${pageScope.tasks}">
+			<c:set var="answer" value="${answers.answerMap[task.taskID]}"/>	
 			<c:choose>
-				<c:when test="${task.hasSucceeded}">
+				<c:when test="${answer.hasSucceeded}">
 					taskStatus = 'success';
 					<c:set var="accepted" value="${accepted + 1}"/>
 				</c:when>
-				<c:when test="${task.noOfTries == 0}">
+				<c:when test="${answer.lastTryNumber == 0}">
 					taskStatus = '-';
 				</c:when>
 				<c:otherwise>
@@ -88,7 +91,7 @@ function initTaskList() {
 			tasks[taskCounter++] = new Task('<c:out value="${task.taskID}"/>', taskStatus, 
 			'<c:out value="${task.name}"/>', '<c:out value="${task.titoTaskType}"/>', 
 			'<c:out value="${task.category}"/>', '<c:out value="${task.language}"/>', 
-			'<c:out value="${task.noOfTries}"/>');
+			'<c:out value="${answer.lastTryNumber}"/>');
 		</c:forEach>
 	</c:if>		
 }

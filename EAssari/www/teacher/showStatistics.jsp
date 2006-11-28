@@ -29,7 +29,7 @@
 
 <table class="listTable">
 	<tr>
-		<td>Student</td>
+		<td>Opiskelija</td>
 		<c:forEach var="taskName" items="${taskNames}">
 			<td>
 				<div style="direction:ltr; writing-mode:tb-rl">
@@ -48,10 +48,10 @@
 			</td>
 			<c:forEach var="taskName" items="${taskNames}">
 				<td>
-					<c:if test="${not empty student.answers[taskName]}">
+					<c:if test="${not empty student.answerMap[taskName]}">
 					
 					<c:choose>
-						<c:when test="${student.answers[taskName].hasSucceeded}">
+						<c:when test="${student.answerMap[taskName].hasSucceeded}">
 							<img src="positive.gif">
 						</c:when>
 						<c:otherwise>
@@ -65,11 +65,6 @@
 		</tr>
 	</c:forEach>
 </table>
-
-<p><br>
-<img src="positive.gif"> accepted<br>
-<img src="negative.gif"> unfinished
-</p>
 
 
 </body>

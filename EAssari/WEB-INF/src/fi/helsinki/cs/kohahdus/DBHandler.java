@@ -1043,13 +1043,13 @@ public class DBHandler {
 	/**
 	 *  Returns a list of tasks (as AnswerStates) that student has answered. 
 	 */
-	public LinkedList<AnswerState> getStudentAnswers(String userID) throws SQLException {
+	public StudentAnswers getStudentAnswers(String userID) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
-		LinkedList<AnswerState> studentsAnswers = new LinkedList<AnswerState>();
+		StudentAnswers studentsAnswers = new StudentAnswers();
 		
 		try {
-			st = conn.prepareStatement("select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname, sa.whenanswered " +
+			st = conn.prepareStatement("select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname, sa.whenanswered, t.taskid " +
 									   "from studentmodel sm, eauser u, task t, storedanswer sa, taskinmodule tim " +
 									   "where sm.sid=? and sm.sid=u.userid and sm.seqno=tim.seqno and " +
 									   "sa.trynumber=sm.lasttrynumber and tim.taskid=t.taskid and sa.seqno=sm.seqno and sm.sid=sa.sid");
@@ -1065,7 +1065,7 @@ public class DBHandler {
 				m.setTaskName(rs.getString("taskname"));
 				m.setAnswerTime(rs.getTimestamp("whenanswered"));
 				m.setUserID(userID);
-				studentsAnswers.add(m);
+				studentsAnswers.putAnswerState(rs.getString("taskid"), m);
 			} 
 			rs.close();
 			
@@ -1170,7 +1170,7 @@ public class DBHandler {
 					studentAnswers = new StudentAnswers(m.getFirstname(), m.getLastname(), m.getUserID());
 					students.addLast(studentAnswers);
 				}
-				studentAnswers.getAnswers().put(rs.getString("taskname"), m);
+				studentAnswers.getAnswerMap().put(rs.getString("taskname"), m);
 			} 
 			rs.close();
 			
@@ -1216,6 +1216,7 @@ public class DBHandler {
 
 		return taskNames;
 	}	
+	
 }
 
 

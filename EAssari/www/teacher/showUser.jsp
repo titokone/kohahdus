@@ -50,7 +50,8 @@ function removeUser(userID) {
 
 <h3>Tasks</h3>
 
-<% 	LinkedList<AnswerState> answers = DBHandler.getInstance().getStudentAnswers(request.getParameter("userID"));
+<% 	
+	StudentAnswers answers = DBHandler.getInstance().getStudentAnswers(request.getParameter("userID"));
 	if (answers != null) pageContext.setAttribute("answers", answers);
 %>
 
@@ -66,7 +67,7 @@ function removeUser(userID) {
 <c:set var="accepted" value="0"/>
 <c:set var="unfinished" value="0"/>	
 
-<c:forEach var="answers" items="${pageScope.answers}">	
+<c:forEach var="answers" items="${pageScope.answers.answers}">	
 
 		<tr>
 			<td>

@@ -1,5 +1,6 @@
 package fi.helsinki.cs.kohahdus;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 public class StudentAnswers {
@@ -12,6 +13,10 @@ public class StudentAnswers {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.userID = userID;
+		answers = new HashMap<String, AnswerState>();
+	}
+	
+	public StudentAnswers(){
 		answers = new HashMap<String, AnswerState>();
 	}
 	
@@ -34,10 +39,17 @@ public class StudentAnswers {
 		this.userID = userID;
 	}
 
-	public HashMap<String, AnswerState> getAnswers() {
+	public HashMap<String, AnswerState> getAnswerMap() {
 		return answers;
 	}
 	
+	public Collection<AnswerState> getAnswers() {
+		return answers.values();
+	}
+	
+	public void putAnswerState(String key, AnswerState value) {
+		answers.put(key, value);
+	}
 	
 
 }
