@@ -42,13 +42,14 @@
 		<tr>
 			<td>
 				<a href="showUser.jsp?userID=<c:out value="${student.userID}"/>">
+					
 					<c:out value="${student.lastname}"/>, <c:out value="${student.firstname}"/>
 				</a>
 			</td>
 			<c:forEach var="taskName" items="${taskNames}">
 				<td>
-					<c:if test="${not empty student[taskName]}">
-						<c:out value="${student[taskName].hasSucceeded}"/>
+					<c:if test="${not empty student.answers[taskName]}">
+						<c:out value="${student.answers[taskName].hasSucceeded}"/>
 					</c:if>
 				</td>
 			</c:forEach>
