@@ -85,7 +85,7 @@
 			<tr>
 				<td><b>Course</b></td>
 				
-				<%	//List<MockCourse> courses = MockCourse.getCourses();
+				<%	
 					List<Course> courses = DBHandler.getInstance().getCourses();
 					pageContext.setAttribute("courses", courses);				
 				%>
@@ -102,17 +102,16 @@
 					</select>
 				</td>
 			</tr>		
+			<tr>
+				<td><b>Language</b></td>
+				<td>
+					<select name="language">
+						<option value="EN">English</option>
+						<option value="FI">Finnish</option>
+					</select>
+				</td>
+			</tr>
 		</c:if>
-	
-		<tr>
-			<td><b>Language</b></td>
-			<td>
-				<select name="language">
-					<option value="EN">English</option>
-					<option value="FI">Finnish</option>
-				</select>
-			</td>
-		</tr>
 		<tr>
 			<td colspan="3" class="formButtonCell">
 				<br>
