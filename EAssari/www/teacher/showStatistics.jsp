@@ -29,7 +29,7 @@
 
 <table class="listTable">
 	<tr>
-		<td>Opiskelija</td>
+		<td>Student</td>
 		<c:forEach var="taskName" items="${taskNames}">
 			<td>
 				<div style="direction:ltr; writing-mode:tb-rl">
@@ -66,11 +66,11 @@
 	</c:forEach>
 </table>
 
-
 <p><br>
 <img src="positive.gif"> accepted<br>
 <img src="negative.gif"> unfinished
 </p>
+
 
 </body>
 </html>
