@@ -194,6 +194,10 @@ public class Task {
 		this.modificationdate=new Date();  //sets the current date and time
 	}
 	
+	public void setModificationDate(Date date) {
+		this.modificationdate = date;
+	}
+	
 	/** Set the hasSucceeded true or false depending the student has passed the task */
 	public void setHasSucceeded(boolean hasSucceeded) {
 		this.hasSucceeded = hasSucceeded;

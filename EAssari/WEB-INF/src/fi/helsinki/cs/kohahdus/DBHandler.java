@@ -312,7 +312,7 @@ public class DBHandler {
 				task.setName(rs.getString("taskname"));
 				task.setAuthor(rs.getString("author"));
 				// Todo: implement these fields
-				//task(rs.getDate("datecreate"));			
+				task.setModificationDate((rs.getDate("datecreated")));			
 				//task.setTasktype(rs.getString("tasktype"));
 				task.deserializeFromXML(rs.getString("taskmetadata"));
 				task.setNoOfTries(rs.getInt("numberoftries_def"));
