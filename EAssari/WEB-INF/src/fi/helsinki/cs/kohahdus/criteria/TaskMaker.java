@@ -409,8 +409,8 @@ public class TaskMaker {
 		DBHandler handler=DBHandler.getInstance();
 		handler.removeTask(et);
 		handler.removeTask(ft);
-		boolean enCreate=handler.createTask(et, enCriteria);
-		boolean fiCreate=handler.createTask(ft, fiCriteria);
+		boolean enCreate=handler.createTask(et, enCriteria, "FI_TEMPLATE");
+		boolean fiCreate=handler.createTask(ft, fiCriteria, "EN_TEMPLATE");
 		
 		if (enCreate&&fiCreate) {
 			System.out.println("Tasks were added to database succesfully.");
