@@ -1,0 +1,21 @@
+----------------------------------
+Sivu/Luokka/Tms, löytäjä, päiväys:
+Ongelman kuvaus
+Tiedot korjauksen edistymisestä
+----------------------------------
+
+
+--
+composer.jsp, Mikko, 28.11:
+Uuden symbolimuutujan lisääminen poistaa jo luotujen muuttujien tiedot
+--
+composer.jsp, Mikko, 28.11:
+Uusien symbolimuttujien palautteet oletuksena tyhjiä
+--
+composer.jsp, Mikko, 28.11:
+Tehtävän onnistumisen/epäonnistumisen palaute puuttuu
+Korjaus: luodaan template-tehtävät uudestaan. Varmaan Mikon homma.
+--
+composer.jsp, Mikko, 28.11:
+Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuitenkin tekstikenttä näkyvissä arvojen syöttämistä varten.
+--
