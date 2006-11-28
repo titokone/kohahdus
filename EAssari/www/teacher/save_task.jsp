@@ -49,7 +49,7 @@
 
 <br>
 
-<!--
+<%--
 Request parameters:<br>
 <c:forEach var="pMap" items="${paramValues}">
 	<c:out value="${pMap.key}: "/>
@@ -58,7 +58,7 @@ Request parameters:<br>
 	</c:forEach>
 	<br>
 </c:forEach>
---!>
+--%>
 
 </body>
 </html>
