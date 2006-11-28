@@ -390,8 +390,8 @@ public class TaskMaker {
 		
 		// Tehdään task-ilmentymät:
 		Task et = new Task("EN_TEMPLATE");
-		et.setFailFeedBack("Task wasn't solved");
-		et.setPassFeedBack("Task was solved");
+		et.setFailFeedBack("Solution attempt failed");
+		et.setPassFeedBack("Task was solved successfully");
 		et.setTitoTaskType(Task.TYPE_FULL); // oletuksena vaikka näin
 		et.setLanguage("EN");
 		
@@ -456,26 +456,26 @@ public class TaskMaker {
 	// <symbolikriteerit>
 	static Criterion createSymbolCriterion_FI_pub() {
 		SymbolCriterion cr = new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 0, false);
-		cr.setAcceptanceFeedback("Symbolin _ arvo oikein");
-		cr.setFailureFeedback("Symbolin _ arvo oli väärin");
+		cr.setAcceptanceFeedback("Symbolin arvo oikein");
+		cr.setFailureFeedback("Symbolin arvo oli väärin");
 		return cr;		
 	}	
 	static Criterion createSymbolCriterion_EN_pub() {
 		SymbolCriterion cr = new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 0, false);
-		cr.setAcceptanceFeedback("Symbol _ value correct");
-		cr.setFailureFeedback("Symbol _ value incorrect");
+		cr.setAcceptanceFeedback("Symbol value correct");
+		cr.setFailureFeedback("Symbol value incorrect");
 		return cr;		
 	}
 	static Criterion createSymbolCriterion_FI_sec() {
 		SymbolCriterion cr = new SymbolCriterion(ID_SECRET_SYMBOL_PREFIX + 0, true);
-		cr.setAcceptanceFeedback("Symbolin _ arvo arvo oikein myös vaihtoehtoisella syötteellä");
-		cr.setFailureFeedback("Symbolin _ arvo oli väärin kun käytettiin vaihtoehtoista syötettä");
+		cr.setAcceptanceFeedback("Symbolin arvo arvo oikein myös vaihtoehtoisella syötteellä");
+		cr.setFailureFeedback("Symbolin arvo oli väärin kun käytettiin vaihtoehtoista syötettä");
 		return cr;		
 	}	
 	static Criterion createSymbolCriterion_EN_sec() {
 		SymbolCriterion cr = new SymbolCriterion(ID_SECRET_SYMBOL_PREFIX + 0, true);
-		cr.setAcceptanceFeedback("Symbol _ value was correct when using alternate input");
-		cr.setFailureFeedback("Symbol _ value was incorrect when using alternate input");
+		cr.setAcceptanceFeedback("Symbol value was correct when using alternate input");
+		cr.setFailureFeedback("Symbol value was incorrect when using alternate input");
 		return cr;		
 	}
 	// </symbolikriteerit>
@@ -500,7 +500,7 @@ public class TaskMaker {
 	}	
 	static Criterion createForbiddenInstructionsCriterion_EN() {
 		ForbiddenInstructionsCriterion cr = new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false);
-		cr.setFailureFeedback("Your solution contains forbidden instruction(s)");
+		cr.setFailureFeedback("Your solution contains at least on forbidden instruction");
 		return cr;		
 	}		
 	// </käskykriteerit>
