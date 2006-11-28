@@ -49,7 +49,16 @@
 			<c:forEach var="taskName" items="${taskNames}">
 				<td>
 					<c:if test="${not empty student.answers[taskName]}">
-						<c:out value="${student.answers[taskName].hasSucceeded}"/>
+					
+					<c:choose>
+						<c:when test="${student.answers[taskName].hasSucceeded}">
+							<img src="positive.gif">
+						</c:when>
+						<c:otherwise>
+							<img src="negative.gif">
+						</c:otherwise>
+					</c:choose>			
+					
 					</c:if>
 				</td>
 			</c:forEach>
@@ -57,6 +66,11 @@
 	</c:forEach>
 </table>
 
+
+<p><br>
+<img src="positive.gif"> accepted<br>
+<img src="negative.gif"> unfinished
+</p>
 
 </body>
 </html>
