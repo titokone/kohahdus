@@ -5,7 +5,8 @@ Tiedot korjauksen edistymisestä
 ----------------------------------
 
 
---
+AVOIMET BUGIT JA PUUTEET
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 composer.jsp, Mikko, 28.11:
 Uuden symbolimuutujan lisääminen poistaa jo luotujen muuttujien tiedot
 --
@@ -19,3 +20,8 @@ Korjaus: luodaan template-tehtävät uudestaan. Varmaan Mikon homma.
 composer.jsp, Mikko, 28.11:
 Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuitenkin tekstikenttä näkyvissä arvojen syöttämistä varten.
 --
+
+
+
+KORJATUT BUGIT JA PUUTTEET
+~~~~~~~~~~~~~~~~~~~~~~~~~~
