@@ -13,7 +13,7 @@ Uuden symbolimuutujan lis‰‰minen poistaa jo luotujen muuttujien tiedot
 composer.jsp, Mikko, 28.11:
 Uusien symbolimuttujien palautteet oletuksena tyhji‰
 --
-composer.jsp, Mikko, 28.11:
+composer.jsp/TaskMaker.java, Mikko, 28.11:
 Teht‰v‰n onnistumisen/ep‰onnistumisen palaute puuttuu
 Korjaus: luodaan template-teht‰v‰t uudestaan. Varmaan Mikon homma.
 --
