@@ -431,11 +431,16 @@ public class DBHandler {
 		return task;
 	}
 
-	/** Adds a new task to task database. The insert will affect all courses. This operation
-	 * also adds all the criteria for the task to database*/ 
-	public synchronized boolean createTask(Task task, List<Criterion> criteria) throws SQLException{
+	/** 
+	 * Adds a new task to task database. The insert will affect all courses. This operation
+	 * also adds all the criteria for the task to database
+	 */ 
+	public boolean createTask(Task task, List<Criterion> criteria) throws SQLException{
+		return createTask(task, criteria, null);
+	}
+	public synchronized boolean createTask(Task task, List<Criterion> criteria, String defaultTaskID) throws SQLException{
 		Log.write("DBHandler: Creating a task and criteria to DB: name=" +task.getName()+ ", id="+task.getTaskID()+", criteriaCount="+criteria.size());
-		if (!addTask(task)) return false;
+		if (!addTask(task, defaultTaskID)) return false;
 		
 		// Link the new task with all existing courses 
 		LinkedList<Course> courses = getCourses();
@@ -453,20 +458,31 @@ public class DBHandler {
 		return true;
 	}
 
-	/** Adds a task to DB without any linkage to courses and modules */
+	/**
+	 * Adds a task to DB without any linkage to courses and modules 
+	 */
 	public boolean addTask(Task task) throws SQLException{
+		return addTask(task, null);
+	}
+	public boolean addTask(Task task, String defaultTaskID) throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st1 = null;
 		PreparedStatement st2 = null;
 		try {
-			st1 = conn.prepareStatement("insert into task (taskid, taskname, author, datecreated, cutoffvalue, tasktype, taskmetadata) " +
-									   "values (common_seq.nextval,?,?,sysdate,?,?,?)"); 
+			if (defaultTaskID == null) {
+				st1 = conn.prepareStatement("insert into task (taskname, author, datecreated, cutoffvalue, tasktype, taskmetadata, taskid) " +
+											"values (?,?,sysdate,?,?,?,common_seq.nextval)");
+			} else {
+				st1 = conn.prepareStatement("insert into task (taskname, author, datecreated, cutoffvalue, tasktype, taskmetadata, taskid) " +
+				   							"values (?,?,sysdate,?,?,?,?)");
+				st1.setString(6, defaultTaskID);
+			}
 			st1.setString(1, task.getName());
 			st1.setString(2, task.getAuthor());
 			st1.setInt(3, task.getCutoffvalue());
 			st1.setString(4, DBHandler.DEFAULT_TASKTYPE);
 			st1.setString(5, task.serializeToXML()); // Contains TitoTrainer specific data
-			//Log.write("DBHandler: Executing insert...");			
+			
 			if (st1.executeUpdate() > 0){
 				Log.write("DBHandler: Task added to DB: "+task);
 				st2 = conn.prepareStatement("select common_seq.currval from dual");
