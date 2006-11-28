@@ -394,6 +394,7 @@ public class TaskMaker {
 		et.setPassFeedBack("Task was solved successfully");
 		et.setTitoTaskType(Task.TYPE_FULL); // oletuksena vaikka n‰in
 		et.setLanguage("EN");
+		et.setMaximumNumberOfInstructions(10000);
 		
 
 		Task ft = new Task("FI_TEMPLATE");
@@ -402,6 +403,7 @@ public class TaskMaker {
 		ft.setCutoffvalue(100);
 		ft.setTitoTaskType(Task.TYPE_FULL);
 		ft.setLanguage("FI");
+		ft.setMaximumNumberOfInstructions(10000);
 		
 		
 		// Vied‰‰n tietokantaan:
@@ -409,8 +411,8 @@ public class TaskMaker {
 		DBHandler handler=DBHandler.getInstance();
 		handler.removeTask(et);
 		handler.removeTask(ft);
-		boolean enCreate=handler.createTask(et, enCriteria, "FI_TEMPLATE");
-		boolean fiCreate=handler.createTask(ft, fiCriteria, "EN_TEMPLATE");
+		boolean enCreate=handler.createTask(et, enCriteria, "EN_TEMPLATE");
+		boolean fiCreate=handler.createTask(ft, fiCriteria, "FI_TEMPLATE");
 		
 		if (enCreate&&fiCreate) {
 			System.out.println("Tasks were added to database succesfully.");
@@ -556,7 +558,7 @@ public class TaskMaker {
 	static Criterion createDataAreaSizeCriterion_FI() {
 		Criterion cr = new DataAreaSizeCriterion(ID_DATA_AREA_SIZE, false);
 		cr.setHighQualityFeedback("Data-alueen koko on eritt‰in kompakti :)");
-		cr.setAcceptanceFeedback("Data-alueen koko on hyv‰ksytt‰v‰");
+		cr.setAcceptanceFeedback("Data-alueen koko on hyv‰ksytt‰v‰, mutta voisi olla pienempikin");
 		cr.setFailureFeedback("Data-alueen koko on liian suuri");
 		return cr;		
 	}	
@@ -571,7 +573,7 @@ public class TaskMaker {
 	static Criterion createStackSizeCriterion_FI() {
 		Criterion cr = new StackSizeCriterion(ID_STACK_SIZE, false);
 		cr.setHighQualityFeedback("Pinon koko on eritt‰in kompakti :)");
-		cr.setAcceptanceFeedback("Pinon koko on hyv‰ksytt‰v‰");
+		cr.setAcceptanceFeedback("Pinon huippukorkeus on hyv‰ksytt‰v‰, mutta voisi olla pienempikin");
 		cr.setFailureFeedback("Pinon koko on liian suuri");
 		return cr;		
 	}	
@@ -586,7 +588,7 @@ public class TaskMaker {
 	static Criterion createExecutetionStepsCriterion_FI() {
 		Criterion cr = new ExecutetionStepsCriterion(ID_EXECUTION_STEPS, false);
 		cr.setHighQualityFeedback("Suoritettuja k‰skyj‰ on v‰h‰n :)");
-		cr.setAcceptanceFeedback("Suoritettuja k‰skyj‰ m‰‰r‰ on hyv‰ksytt‰v‰");
+		cr.setAcceptanceFeedback("Suoritettuja k‰skyjen m‰‰r‰ on hyv‰ksytt‰v‰, mutta voisi olla pienempikin");
 		cr.setFailureFeedback("K‰skyj‰ suoritettiin liian paljon");
 		return cr;		
 	}	
@@ -601,7 +603,7 @@ public class TaskMaker {
 	static Criterion createMemReferencesCriterion_FI() {
 		Criterion cr = new MemReferencesCriterion(ID_MEMORY_REFERENCES, false);
 		cr.setHighQualityFeedback("Muistiviittauksia oli eritt‰in v‰h‰n :)");
-		cr.setAcceptanceFeedback("Muistiviittausten lukum‰‰r‰ oli hyv‰ksytt‰v‰");
+		cr.setAcceptanceFeedback("Muistiviittausten lukum‰‰r‰ oli hyv‰ksytt‰v‰, mutta voisi olla pienempikin");
 		cr.setFailureFeedback("Muistiviittauksia oli liikaa");
 		return cr;		
 	}	
@@ -616,7 +618,7 @@ public class TaskMaker {
 	static Criterion createDataReferencesCriterion_FI() {
 		Criterion cr = new DataReferencesCriterion(ID_DATA_REFERENCES, false);
 		cr.setHighQualityFeedback("Suoritettuja data-viittauksia on v‰h‰n :)");
-		cr.setAcceptanceFeedback("Suoritettujen data-viittausten lukum‰‰r‰ on hyv‰ksytt‰v‰");
+		cr.setAcceptanceFeedback("Suoritettujen data-viittausten lukum‰‰r‰ on hyv‰ksytt‰v‰, mutta voisi olla pienempikin");
 		cr.setFailureFeedback("Suoritettuja data-viittauksia on liikaa");
 		return cr;		
 	}	
