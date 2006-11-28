@@ -405,6 +405,7 @@ public class TaskMaker {
 		
 		
 		// Vied‰‰n tietokantaan:
+		DBHandler.initialize("jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test", "kohahdus", "b1tt1");
 		DBHandler handler=DBHandler.getInstance();
 		handler.removeTask(et);
 		handler.removeTask(ft);
