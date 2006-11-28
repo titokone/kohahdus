@@ -37,6 +37,17 @@ Esim. ?role=ninja tai ?role=student
 studentTaskList.jsp, Markus, 28.11:
 Kaikki yrittämättömät taskit merkataan oletuksena unfinished.
 --
+answer_task.jsp, Markus, 28.11:
+Vastattuaan tehtävään selain palaa sivun ylälaitaan, mikä on jokseenkin ärsyttävää, koska
+oppilas todennäköisesti haluaisi ensimmäiseksi tietää menikö vastaus oikein vai ei.
+--
+answer_task.jsp, Mikko, 28.11:
+Näppissyötteen tarkastus on puutteellinen. Tarkistuksen voi ohittaa painamalla enteriä.
+Kentästä ei pääse pois, jos se sisältää epävalidia inputtia.
+--
+composer.jsp, Mikko, 28.11:
+Salaista ja julkista syötettä vaaditaan yhtä monta, vaikka tälle ei ole
+mitään syytä.
 
 
 KORJATUT BUGIT JA PUUTTEET
