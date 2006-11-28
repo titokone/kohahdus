@@ -5,27 +5,24 @@ Tiedot korjauksen edistymisestä
 ----------------------------------
 
 
-AVOIMET BUGIT JA PUUTEET
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+AVOIMET BUGIT, PUUTEET, YMS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 composer.jsp, Mikko, 28.11:
 Uuden symbolimuutujan lisääminen poistaa jo luotujen muuttujien tiedot
 --
 composer.jsp, Mikko, 28.11:
-Uusien symbolimuttujien palautteet oletuksena tyhjiä
---
-composer.jsp/TaskMaker.java, Mikko, 28.11:
-Tehtävän onnistumisen/epäonnistumisen palaute puuttuu
-Korjaus: luodaan template-tehtävät uudestaan. Varmaan Mikon homma.
+Uusien symbolimuuttujien palautteet oletuksena tyhjiä
 --
 composer.jsp, Mikko, 28.11:
-Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuitenkin tekstikenttä näkyvissä arvojen syöttämistä varten.
+Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuitenkin
+tekstikenttä näkyvissä arvojen syöttämistä varten.
 --
 composer.jsp, Mikko, 28.11:
 Kun on muokataan malliratkaisutarkistustehtävää, rekisteri ja symboli checkbox ovat aina tyhjiä.
 --
 teacherTaskList.jsp, Markus, 28.11:
-Järjestäminen ei toimi modification daten mukaan. Modification daten voisi mös vaihtaa
-lyhyempään muotoon "modified".
+Järjestäminen ei toimi modification daten mukaan. "Modification date":n voisi myös vaihtaa
+lyhyempään muotoon "Modified".
 --
 teacherTaskList.jsp & studentTaskList.jsp, Markus, 28.11:
 Järjestäminen toimii edelleen vain yhteen suuntaan.
@@ -42,18 +39,45 @@ Vastattuaan tehtävään selain palaa sivun ylälaitaan, mikä on jokseenkin ärsyttäv
 oppilas todennäköisesti haluaisi ensimmäiseksi tietää menikö vastaus oikein vai ei.
 --
 answer_task.jsp, Mikko, 28.11:
+Syytä harkita koodi-kentän kaventamista, jolloin tehtävän ratkaisun palauteet voisi näyttää koodin vieressä.
+--
+answer_task.jsp, Mikko, 28.11:
 Näppissyötteen tarkastus on puutteellinen. Tarkistuksen voi ohittaa painamalla enteriä.
-Kentästä ei pääse pois, jos se sisältää epävalidia inputtia.
+Kentästä ei pääse lainkaan pois, jos se sisältää epävalidia syötettä. Tarkastus kannattaa
+varmaan lykätä onsubmit-tapahtumaan.
 --
 composer.jsp, Mikko, 28.11:
-Salaista ja julkista syötettä vaaditaan yhtä monta, vaikka tälle ei ole
-mitään syytä.
+Salaista ja julkista syötettä vaaditaan yhtä monta, vaikka tälle ei ole mitään syytä.
+Opettaja ei kenties käytä salaisen syötteen kriteereitä, vaikka julkinen syöte onkin määritelty.
+Lisäksi perinteinen "Lue ja summaa lukuja kunnes tulee nolla"-tehtävä voi hyvin käyttää vaihtelevaa
+määrää syötettä.
+--
+composer.jsp, Mikko, 28.11:
+Käskykriteerien keltainen ikoni ei erotu valkoisesta taustasta tarpeeksi.
+--
+login.jsp, Mikko 28.11:
+Järjestelmään on mahdollista kirjautua vaikka javascript on pois päältä. Joko asetetaan formiin
+action="#" + onsubmit="xxx", tai action="javascript:xxxx".
+--
+modify_user.jsp, Mikko 28.11:
+Kenttiin on mahdollista kirjoittaa epävalidia syötettä laittamalla javascript pois päältä. Syötteelle
+ei tehdä palvelinpäässä mitään tarkistuksia. En testannut mutta veikkaan että sama koskee signup-sivua.
+--
+
+
+
+
+
+
 
 
 KORJATUT BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 login.jsp, Tuomas, 28.11:
 Opettajan loginissa näkyy kielivalinta.
-
 Korjattiin 28.11 yhteisvoimin
+--
+composer.jsp/TaskMaker.java, Mikko, 28.11:
+Tehtävän onnistumisen/epäonnistumisen palaute puuttuu
+Korjattu: Luotiin template-tehtävät uudestaan. Mikko 28.11
 --
