@@ -485,12 +485,16 @@ public class DBHandler {
 			
 			if (st1.executeUpdate() > 0){
 				Log.write("DBHandler: Task added to DB: "+task);
-				st2 = conn.prepareStatement("select common_seq.currval from dual");
-				ResultSet rs = st2.executeQuery();
-				if (rs.next()){
-					task.setTaskID(rs.getString(1));
+				if (defaultTaskID == null) { 
+					st2 = conn.prepareStatement("select common_seq.currval from dual");
+					ResultSet rs = st2.executeQuery();
+					if (rs.next()){
+						task.setTaskID(rs.getString(1));
+					}
+					rs.close();
+				} else {
+					task.setTaskID(defaultTaskID);
 				}
-				rs.close();
 				return true;
 			} else {
 				Log.write("DBHandler: Failed to add task to DB: " +task);
