@@ -7,6 +7,11 @@ Tiedot korjauksen edistymisestä
 
 AVOIMET BUGIT, PUUTEET, YMS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+studentTaskList.jsp, Markus, 28.11:
+Kaikki yrittämättömät taskit merkataan oletuksena unfinished.
+Paikattu: Ongelma on siinä, että tietokannasta noudettavassa datassa on null-arvoja eikä nollia. Lisätty
+paikkauskoodi, mutta pitäisi varmaan korjata kantaan syötettävässä tiedossa. Paula 29.11.
+--
 composer.jsp, Mikko, 28.11:
 Uuden symbolimuutujan lisääminen poistaa jo luotujen muuttujien tiedot
 --
@@ -30,9 +35,6 @@ Järjestäminen toimii edelleen vain yhteen suuntaan.
 login.jsp, Tuomas & Markus & Mikko, 28.11:
 Opettajan kirjautumisessa käytettävä role parametri käy millä sisällöllä tahansa.
 Esim. ?role=ninja tai ?role=student
---
-studentTaskList.jsp, Markus, 28.11:
-Kaikki yrittämättömät taskit merkataan oletuksena unfinished.
 --
 answer_task.jsp, Markus, 28.11:
 Vastattuaan tehtävään selain palaa sivun ylälaitaan, mikä on jokseenkin ärsyttävää, koska
