@@ -79,7 +79,8 @@ function initTaskList() {
 					taskStatus = 'success';
 					<c:set var="accepted" value="${accepted + 1}"/>
 				</c:when>
-				<c:when test="${answer.lastTryNumber == 0}">
+				<%-- FIXME: Pitäisikö tämä laittaa näin, vai estää null:ien pääseminen tietokantaan? --%>
+				<c:when test="${answer.lastTryNumber == 0  || answer.lastTryNumber == null}">
 					taskStatus = '-';
 				</c:when>
 				<c:otherwise>
