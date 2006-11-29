@@ -247,9 +247,64 @@ function setDefaultInput(){
 		<hr>
 		<a name="output"></a>
 		<b><%=rb.getString("titokoneReportTitle")%></b>
-		<c:out value="${feedback.titoState.screenOutput}"/>
+		
+		<table class="presentationTable" style="float: left; margin: 10px; width: auto;">
+		<tr><td colspan=3 class="titleBar">Muisti</td></tr>
+		<tr><td>Osoite</td><td>Arvo</td><td>Koodina</td></tr>
+		<tr><td>0</td><td>16846845</td><td>LOAD R1, =4</td></tr>
+		<tr><td>1</td><td>15465467</td><td>LOAD R1, =4</td></tr>
+		<tr><td>2</td><td>17684684</td><td>LOAD R1, =4</td></tr>
+		<tr><td>3</td><td>16846845</td><td>LOAD R1, =4</td></tr>
+		<tr><td>4</td><td>15465467</td><td>LOAD R1, =4</td></tr>
+		<tr><td>5</td><td>17684684</td><td>LOAD R1, =4</td></tr>
+		<tr><td>6</td><td>16846845</td><td>LOAD R1, =4</td></tr>
+		<tr><td>7</td><td>15465467</td><td>LOAD R1, =4</td></tr>
+		<tr><td>8</td><td>17684684</td><td>LOAD R1, =4</td></tr>
+		<tr><td>9</td><td>16846845</td><td>LOAD R1, =4</td></tr>
+		<tr><td>10</td><td>15465467</td><td>LOAD R1, =4</td></tr>
+		<tr><td>11</td><td>17684684</td><td>LOAD R1, =4</td></tr>
+		<tr><td>12</td><td>16846845</td><td>LOAD R1, =4</td></tr>
+		<tr><td>13</td><td>15465467</td><td>LOAD R1, =4</td></tr>
+		<tr><td>14</td><td>17684684</td><td>LOAD R1, =4</td></tr>
+		<tr><td>15</td><td>20</td><td></td></tr>
+		<tr><td>16</td><td>40</td><td></td></tr>
+		<tr><td>17</td><td>60</td><td></td></tr>
+		</table>
+
+		<table class="presentationTable" style="margin: 10px; width: auto;">
+		<tr><td colspan=2 class="titleBar">Suoritustiedot</td></tr>
+		<tr><td>Ohjelman tuloste n‰ytˆlle</td>				<td>2, 5, 6, 7, 8325, 214</td></tr>
+		<tr><td>Suoritettujen k‰skyjen lukum‰‰r‰</td>		<td>314</td></tr>
+		<tr><td>Suoritettujen muistiviitteiden m‰‰r‰</td>	<td>389</td></tr>
+		<tr><td>Suoritettujen dataviitteiden m‰‰r‰</td>		<td>75</td></tr>
+		<tr><td>Ohjelman koodin koko sanoina</td>			<td>15</td></tr>
+		<tr><td>Ohjelman datan koko sanoina</td>			<td>3</td></tr>
+		<tr><td>Pinon suorituksenaikainen huippukorkeus</td><td>12</td></tr>
+		</table>
+
+		<table class="presentationTable" style="float: left; margin: 10px; width: auto;">
+		<tr><td colspan=2  class="titleBar">Rekisterit</td></tr>
+		<tr><td>R0</td><td>20</td></tr>
+		<tr><td>R1</td><td>20</td></tr>
+		<tr><td>R2</td><td>20</td></tr>
+		<tr><td>R3</td><td>20</td></tr>
+		<tr><td>R4</td><td>20</td></tr>
+		<tr><td>R5</td><td>20</td></tr>
+		<tr><td>SP</td><td>20</td></tr>
+		<tr><td>FP</td><td>20</td></tr>
+		<tr><td>PC</td><td>20</td></tr>
+		</table>
+
+		<table class="presentationTable" style="margin: 10px; width: auto;">
+		<tr><td colspan=3 class="titleBar">Symbolit</td></tr>
+		<tr><td>Symboli</td><td>Osoite</td><td>Arvo</td></tr>
+		<tr><td>X</td><td>15</td><td>20</td></tr>
+		<tr><td>Y</td><td>16</td><td>40</td></tr>
+		<tr><td>ZDF</td><td>17</td><td>60</td></tr>
+		</table>
 	</div>
 </c:if>
+
 
 
 <%-- If user has answered a task all task specific info should be purged from session --%>
