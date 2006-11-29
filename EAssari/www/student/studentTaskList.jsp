@@ -25,7 +25,10 @@
 <head>
 <title>TitoTrainer - <%=rb.getString("tasksTitle")%></title>
 <link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
+<script language="Javascript" type="text/javascript" src="../js/common.js"></script>
 <script language="javascript">
+
+
 
 var tasks;
 var tasksAvailable;

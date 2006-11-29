@@ -18,6 +18,20 @@
 	if (getCookie("testi") != "true"){
 		window.location = "error.jsp?errorMsg=Cookie support is needed to access this site.";
 	}
+	
+function doOnLoad(){
+	var courseID = getCookie("courseID");
+	if (courseID != "") {
+		var option = document.getElementById(courseID);
+		option.selected = true;
+	}
+	var language = getCookie("language");
+	if (language != "") {
+		var option = document.getElementById(language);
+		option.selected = true;
+	}
+}
+
 
 </script>
 <noscript>
@@ -26,7 +40,7 @@
 </noscript>
 </head>
 
-<body>
+<body onLoad="javascript:doOnLoad()">
 
 <h2>TitoTrainer - Sign in</h2>
 
@@ -58,7 +72,10 @@
 			<c:redirect url="teacher/teacherTaskList.jsp"/>
 		</c:if>
 		<c:if test="${user.student}">	
-			
+			<%
+				response.addCookie(new Cookie("courseID", request.getParameter("course")));
+				response.addCookie(new Cookie("language", request.getParameter("language")));
+			%>			
 			<c:set var="course" value="${param.course}" scope="session"/>
 			<c:set var="language" value="${param.language}" scope="session"/>
 			
@@ -96,7 +113,7 @@
 					<select name="course">
 						<c:if test="${not empty courses}">
 							<c:forEach var="course" items="${pageScope.courses}">
-								<option value="<c:out value="${course.ID}"/>"><c:out value="${course.name}"/></option>							
+								<option id="<c:out value="${course.ID}"/>" value="<c:out value="${course.ID}"/>"><c:out value="${course.name}"/></option>							
 							</c:forEach>
 						</c:if>	
 					</select>
@@ -106,8 +123,8 @@
 				<td><b>Language</b></td>
 				<td>
 					<select name="language">
-						<option value="EN">English</option>
-						<option value="FI">Finnish</option>
+						<option id="EN" value="EN">English</option>
+						<option id="FI" value="FI">Finnish</option>
 					</select>
 				</td>
 			</tr>

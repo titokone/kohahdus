@@ -5,6 +5,9 @@
 <%@ page import="java.util.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.languages.*" %>
 
+
+
+
 <table id="menuTable">
 <tr>
 	<c:choose>
