@@ -7,7 +7,7 @@
 <%-- check that user is logged in --%>
 <c:if test="${empty user}">
 	Not logged in - redirecting to login
-	<c:redirect url="../login.jsp"/>	
+	<c:redirect url="login.jsp"/>	
 </c:if>
 
 <%
@@ -20,8 +20,8 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - <%=rb.getString("editTitle")%></title>
-<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
-<script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="styles/titotrainer.css">
+<script language="javascript" type="text/javascript" src="js/inputValidityFunctions.js"></script>
 <script language="javascript" type="text/javascript">
 
 	/* Function to check the validity of form inputs that can be checked client-side - called on submit event. */
@@ -166,7 +166,7 @@
 
 <body>
 
-<jsp:include page="../menu.jsp"/>
+<jsp:include page="menu.jsp"/>
 
 <c:if test="${param.action=='modify'}">
 

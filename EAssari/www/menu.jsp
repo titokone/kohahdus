@@ -19,8 +19,8 @@
 			<td class="linksCell">
 				<table>
 					<tr>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/student/studentTaskList.jsp"><%=menu.getString("taskList")%></a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/student/modify_user.jsp"><%=menu.getString("modify")%></a></td>
+						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/studentTaskList.jsp"><%=menu.getString("taskList")%></a></td>
+						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/modify_user.jsp"><%=menu.getString("modify")%></a></td>
 					</tr>
 				</table>
 			</td>
@@ -37,11 +37,11 @@
 			<td class="linksCell">
 				<table>
 					<tr>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacher/composer.jsp?task_id=EN_TEMPLATE&save_type=new">Create new task (English)</a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacher/composer.jsp?task_id=FI_TEMPLATE&save_type=new">Create new task (Finnish)</a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacher/teacherTaskList.jsp">Task list</a></td>
-						<!--<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacher/statistics.jsp">Search statistics</a></td>-->
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacher/searchUsers.jsp">Search users</a></td>
+						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/composer.jsp?task_id=EN_TEMPLATE&save_type=new">Create new task (English)</a></td>
+						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/composer.jsp?task_id=FI_TEMPLATE&save_type=new">Create new task (Finnish)</a></td>
+						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacherTaskList.jsp">Task list</a></td>
+						<!--<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/statistics.jsp">Search statistics</a></td>-->
+						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/searchUsers.jsp">Search users</a></td>
 					</tr>
 				</table>
 			</td>

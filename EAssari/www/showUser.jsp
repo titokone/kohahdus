@@ -13,7 +13,7 @@
 <html>
 <head>
 <title>User information</title>
-<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="styles/titotrainer.css">
 <script language="Javascript">
 
 function removeUser(userID) {
@@ -24,13 +24,13 @@ function removeUser(userID) {
 
 <body>
 
-<jsp:include page="../menu.jsp"/>
+<jsp:include page="menu.jsp"/>
 
 <h2>User information</h2>
 
 <c:if test="${param.action=='remove'}">
 	<% DBHandler.getInstance().removeUser(request.getParameter("userID")); %>
-	<c:redirect url="../teacher/removed.jsp"/>
+	<c:redirect url="removed.jsp"/>
 </c:if>
 
 <%-- Different views if the user displayed is student or teacher/admin --%>
@@ -89,15 +89,15 @@ function removeUser(userID) {
 					<td>			
 					<c:choose>
 						<c:when test="${answers.hasSucceeded}">
-							<img src="positive.gif">
+							<img src="images/positive.gif">
 							<c:set var="accepted" value="${accepted + 1}"/>
 						</c:when>
 						<%-- // FIXME: Tarvitaanko tätä? Listauksessa ei ainakaan näy tekemättömiä.
 						<c:when test="${answers.lastTryNumber == 0}">
-							<img src="blank.gif">
+							<img src="images/blank.gif">
 						</c:when> --%>
 						<c:otherwise>
-							<img src="negative.gif">
+							<img src="images/negative.gif">
 							<c:set var="unfinished" value="${unfinished + 1}"/>
 						</c:otherwise>
 					</c:choose>			
@@ -111,8 +111,8 @@ function removeUser(userID) {
 		</p>
 
 		<p><b>Overall:</b><br>
-		<img src="positive.gif"> <c:out value="${accepted}"/> accepted<br>
-		<img src="negative.gif"> <c:out value="${unfinished}"/> unfinished</p>
+		<img src="images/positive.gif"> <c:out value="${accepted}"/> accepted<br>
+		<img src="images/negative.gif"> <c:out value="${unfinished}"/> unfinished</p>
 	</c:when>
 </c:choose>	
 

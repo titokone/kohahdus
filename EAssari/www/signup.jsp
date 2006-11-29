@@ -9,7 +9,7 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Sign up</title>
-<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../styles/titotrainer.css">
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="styles/titotrainer.css">
 <script language="javascript" type="text/javascript" src="js/inputValidityFunctions.js"></script>
 <script language="javascript" type="text/javascript">
 
@@ -217,7 +217,7 @@
 					pageContext.setAttribute("language", request.getParameter("language"), PageContext.SESSION_SCOPE);
 					Log.write("Signup: new user created");
 			%>		
-					<c:redirect url="student/studentTaskList.jsp"/>
+					<c:redirect url="studentTaskList.jsp"/>
 			<%		
 				}
 			%>	

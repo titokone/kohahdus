@@ -7,11 +7,11 @@
 <%-- check that user is logged in --%>
 <c:if test="${empty user}">
 	<%--Not logged in - redirecting to login --%>
-	<c:redirect url="../login.jsp"/>	
+	<c:redirect url="login.jsp"/>	
 </c:if>
 <c:if test="${empty course}">
 	<%--Course not selected - redirecting to login/error? --%>
-	<c:redirect url="../login.jsp"/>
+	<c:redirect url="login.jsp"/>
 </c:if>	
 
 <%
@@ -24,8 +24,8 @@
 <html>
 <head>
 <title>TitoTrainer - <%=rb.getString("tasksTitle")%></title>
-<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
-<script language="Javascript" type="text/javascript" src="../js/common.js"></script>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="styles/titotrainer.css">
+<script language="Javascript" type="text/javascript" src="js/common.js"></script>
 <script language="javascript">
 
 
@@ -123,7 +123,7 @@ function writeTaskList() {
 				statusImg = 'blank.gif'
 			}
 		
-			listHtml += '<tr><td align="center"><img src="' + statusImg + '"></td>';
+			listHtml += '<tr><td align="center"><img src="images/' + statusImg + '"></td>';
 			listHtml += '<td><a href="answer_task.jsp?task_id=' + tasks[i].id + '">' + tasks[i].name + '</a></td>';
 			listHtml += '<td>' + tasks[i].type + '</td>';
 			listHtml += '<td>' + tasks[i].category + '</td>';
@@ -240,15 +240,15 @@ function sortTasksByLanguage() {
 
 <body onLoad="initPage()">
 
-<jsp:include page="../menu.jsp"/>
+<jsp:include page="menu.jsp"/>
 
 <p>
 <tr>
 <td>
 <table border="0">
 	<tr>
-		<td class="infoBox"><img src="positive.gif" style="vertical-align:middle"> <%=rb.getString("acceptedText")%><br>
-			<img src="negative.gif" style="vertical-align:middle"> <%=rb.getString("unfinishedText")%></td>
+		<td class="infoBox"><img src="images/positive.gif" style="vertical-align:middle"> <%=rb.getString("acceptedText")%><br>
+			<img src="images/negative.gif" style="vertical-align:middle"> <%=rb.getString("unfinishedText")%></td>
 		</td>
 	</tr>
 </table>

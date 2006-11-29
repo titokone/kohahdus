@@ -7,21 +7,21 @@
 <html>
 <head>
 	<title>Search Users</title>
-	<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
+	<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="styles/titotrainer.css">
 <head>
 
 
 <body>
 <c:if test="${empty user}">
 	Not logged in - redirecting to login
-	<c:redirect url="../login.jsp"/>	
+	<c:redirect url="login.jsp"/>	
 </c:if>
 <c:if test="${user.student}">
 	Student tried to load a restricted page - redirecting to students tasklisting
-	<c:redirect url="../student/studentTaskList.jsp"/>
+	<c:redirect url="studentTaskList.jsp"/>
 </c:if>
 
-<jsp:include page="../menu.jsp"/>
+<jsp:include page="menu.jsp"/>
 
 
 <h2>Search users</h2>

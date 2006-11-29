@@ -8,11 +8,11 @@
 <%-- check that user is logged in --%>
 <c:if test="${empty user}">
 	<%--Not logged in - redirecting to login --%>
-	<c:redirect url="../login.jsp"/>	
+	<c:redirect url="login.jsp"/>	
 </c:if>
 <c:if test="${empty course}">
 	<%--Course not selected - redirecting to login/error? --%>
-	<c:redirect url="../login.jsp"/>
+	<c:redirect url="login.jsp"/>
 </c:if>	
 
 <%
@@ -36,9 +36,9 @@
 <html>
 <head>
 <title>TitoTrainer - <%=rb.getString("answerTitle")%></title>
-<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
-<script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
-<script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="styles/titotrainer.css">
+<script language="javascript" type="text/javascript" src="js/visibilityFunctions.js"></script>
+<script language="javascript" type="text/javascript" src="js/inputValidityFunctions.js"></script>
 <script language="javascript" type="text/javascript">
 
 var titokoneVisible = false;
@@ -88,7 +88,7 @@ function showhideTitokoneReport() {
 
 <body>
 
-<jsp:include page="../menu.jsp"/>
+<jsp:include page="menu.jsp"/>
 
 <h2><c:out value="${task.name}"/></h2>
 
@@ -104,7 +104,7 @@ function showhideTitokoneReport() {
 
 <br>
 
-<form name="answerform" action="../../Answer" method="POST">
+<form name="answerform" action="../Answer" method="POST">
 	<table>
 		<tr>
 			<td>

@@ -10,14 +10,14 @@
 
 <c:if test="${empty user}">
 	Not logged in - redirecting to login
-	<c:redirect url="../login.jsp"/>	
+	<c:redirect url="login.jsp"/>	
 </c:if>
 <c:if test="${user.student}">
 	Student tried to load a restricted page - redirecting to students tasklisting
-	<c:redirect url="../student/studentTaskList.jsp"/>
+	<c:redirect url="studentTaskList.jsp"/>
 </c:if>
 
-<jsp:include page="../menu.jsp"/>
+<jsp:include page="menu.jsp"/>
 
 <c:if test="${param.action=='deleteTask'}">
 	<%
@@ -55,7 +55,7 @@
 		} else {
 			//out.print("ERROR: Duplicate course");
 	%>		
-			<c:redirect url="../error.jsp">
+			<c:redirect url="error.jsp">
 				<c:param name="errorMsg" value="Duplicate course!"/>
 			</c:redirect>
 	<%		
@@ -66,8 +66,8 @@
 <html>
 <head>
 <title>Task listing</title>
-<script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
-<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
+<script language="javascript" type="text/javascript" src="js/inputValidityFunctions.js"></script>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="styles/titotrainer.css">
 <script language="javascript" type="text/javascript">
 
 var courses;

@@ -9,7 +9,7 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Sign in</title>
-<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../styles/titotrainer.css">
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="styles/titotrainer.css">
 <script language="Javascript" type="text/javascript" src="js/common.js"></script>
 <script language="Javascript">
 
@@ -65,11 +65,11 @@ function doOnLoad(){
 	<c:if test="${not empty user}">		
 		Login ok and then redirect here....
 		<c:if test="${user.admin}">		
-			<c:redirect url="teacher/teacherTaskList.jsp"/>
+			<c:redirect url="teacherTaskList.jsp"/>
 			You are an admin so not redirecting to anywhere...
 		</c:if>
 		<c:if test="${user.teacher}">		
-			<c:redirect url="teacher/teacherTaskList.jsp"/>
+			<c:redirect url="teacherTaskList.jsp"/>
 		</c:if>
 		<c:if test="${user.student}">	
 			<%
@@ -79,7 +79,7 @@ function doOnLoad(){
 			<c:set var="course" value="${param.course}" scope="session"/>
 			<c:set var="language" value="${param.language}" scope="session"/>
 			
-			<c:redirect url="student/studentTaskList.jsp"/>
+			<c:redirect url="studentTaskList.jsp"/>
 		</c:if>
 	</c:if>
 </c:if>

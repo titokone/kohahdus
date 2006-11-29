@@ -6,11 +6,11 @@
 
 <c:if test="${empty user}">
 	Not logged in - redirecting to login
-	<c:redirect url="../login.jsp?role=teacher"/>	
+	<c:redirect url="login.jsp?role=teacher"/>	
 </c:if>
 <c:if test="${user.student}">
 	Student tried to load a restricted page - redirecting to students tasklisting
-	<c:redirect url="../student/studentTaskList.jsp"/>
+	<c:redirect url="studentTaskList.jsp"/>
 </c:if>
 
 <%	
@@ -30,12 +30,12 @@
 %>
 
 <c:if test="${empty task}">
-	<c:redirect url="../error.jsp">
+	<c:redirect url="error.jsp">
 		<c:param name="errorMsg" value="Task not found!"/>
 	</c:redirect>
 </c:if>
 <c:if test="${empty criteria}">
-	<c:redirect url="../error.jsp">
+	<c:redirect url="error.jsp">
 		<c:param name="errorMsg" value="Criteria not found!"/>
 	</c:redirect>
 </c:if>
@@ -45,12 +45,12 @@
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <title>TitoTrainer - Create Task</title>
-<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="../../styles/titotrainer.css">
-<script language="javascript" type="text/javascript" src="../js/visibilityFunctions.js"></script>
-<script language="javascript" type="text/javascript" src="../js/inputValidityFunctions.js"></script>
-<script language="javascript" type="text/javascript" src="../js/composerViews.js"></script>
-<script language="javascript" type="text/javascript" src="../js/composerTTK91.js"></script>
-<script language="javascript" type="text/javascript" src="../js/composerInitSubmit.js"></script>
+<link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="styles/titotrainer.css">
+<script language="javascript" type="text/javascript" src="js/visibilityFunctions.js"></script>
+<script language="javascript" type="text/javascript" src="js/inputValidityFunctions.js"></script>
+<script language="javascript" type="text/javascript" src="js/composerViews.js"></script>
+<script language="javascript" type="text/javascript" src="js/composerTTK91.js"></script>
+<script language="javascript" type="text/javascript" src="js/composerInitSubmit.js"></script>
 <script language="javascript">
 
 var variableCounter = <c:out value="${symbolCriterionCount}"/>;
@@ -124,7 +124,7 @@ function addVariable() {
 
 <body id="composer" onLoad="composerOnLoad();">
 
-<jsp:include page="../menu.jsp"/>
+<jsp:include page="menu.jsp"/>
 
 <h1 align="center">Create Task</h1>
 
@@ -386,61 +386,61 @@ function addVariable() {
 							<table class="innerComposerTable">
 								<tr>
 									<td>
-										<a href="#" onClick="return ttkInstructionOnClick('load')"><img id="load_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> LOAD<br>
-										<a href="#" onClick="return ttkInstructionOnClick('store')"><img id="store_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> STORE<br>
-										<a href="#" onClick="return ttkInstructionOnClick('push')"><img id="push_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> PUSH<br>
-										<a href="#" onClick="return ttkInstructionOnClick('pop')"><img id="pop_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> POP<br>
-										<a href="#" onClick="return ttkInstructionOnClick('pushr')"><img id="pushr_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> PUSHR<br>
-										<a href="#" onClick="return ttkInstructionOnClick('popr')"><img id="popr_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> POPR<br>
+										<a href="#" onClick="return ttkInstructionOnClick('load')"><img id="load_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> LOAD<br>
+										<a href="#" onClick="return ttkInstructionOnClick('store')"><img id="store_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> STORE<br>
+										<a href="#" onClick="return ttkInstructionOnClick('push')"><img id="push_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> PUSH<br>
+										<a href="#" onClick="return ttkInstructionOnClick('pop')"><img id="pop_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> POP<br>
+										<a href="#" onClick="return ttkInstructionOnClick('pushr')"><img id="pushr_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> PUSHR<br>
+										<a href="#" onClick="return ttkInstructionOnClick('popr')"><img id="popr_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> POPR<br>
 										<br>
-										<a href="#" onClick="return ttkInstructionOnClick('in')"><img id="in_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> IN<br>
-										<a href="#" onClick="return ttkInstructionOnClick('out')"><img id="out_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> OUT<br>
+										<a href="#" onClick="return ttkInstructionOnClick('in')"><img id="in_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> IN<br>
+										<a href="#" onClick="return ttkInstructionOnClick('out')"><img id="out_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> OUT<br>
 									</td>
 									<td>
-										<a href="#" onClick="return ttkInstructionOnClick('add')"><img id="add_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> ADD<br>
-										<a href="#" onClick="return ttkInstructionOnClick('sub')"><img id="sub_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> SUB<br>
-										<a href="#" onClick="return ttkInstructionOnClick('mul')"><img id="mul_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> MUL<br>
-										<a href="#" onClick="return ttkInstructionOnClick('div')"><img id="div_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> DIV<br>
-										<a href="#" onClick="return ttkInstructionOnClick('mod')"><img id="mod_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> MOD<br>
+										<a href="#" onClick="return ttkInstructionOnClick('add')"><img id="add_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> ADD<br>
+										<a href="#" onClick="return ttkInstructionOnClick('sub')"><img id="sub_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> SUB<br>
+										<a href="#" onClick="return ttkInstructionOnClick('mul')"><img id="mul_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> MUL<br>
+										<a href="#" onClick="return ttkInstructionOnClick('div')"><img id="div_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> DIV<br>
+										<a href="#" onClick="return ttkInstructionOnClick('mod')"><img id="mod_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> MOD<br>
 										<br>
-										<a href="#" onClick="return ttkInstructionOnClick('not')"><img id="not_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> NOT<br>
-										<a href="#" onClick="return ttkInstructionOnClick('and')"><img id="and_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> AND<br>
-										<a href="#" onClick="return ttkInstructionOnClick('or')"><img id="or_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> OR<br>
-										<a href="#" onClick="return ttkInstructionOnClick('xor')"><img id="xor_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> XOR<br>
+										<a href="#" onClick="return ttkInstructionOnClick('not')"><img id="not_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> NOT<br>
+										<a href="#" onClick="return ttkInstructionOnClick('and')"><img id="and_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> AND<br>
+										<a href="#" onClick="return ttkInstructionOnClick('or')"><img id="or_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> OR<br>
+										<a href="#" onClick="return ttkInstructionOnClick('xor')"><img id="xor_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> XOR<br>
 										<br>
-										<a href="#" onClick="return ttkInstructionOnClick('shl')"><img id="shl_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> SHL<br>
-										<a href="#" onClick="return ttkInstructionOnClick('shr')"><img id="shr_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> SHR<br>
-										<a href="#" onClick="return ttkInstructionOnClick('comp')"><img id="comp_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> COMP<br>
+										<a href="#" onClick="return ttkInstructionOnClick('shl')"><img id="shl_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> SHL<br>
+										<a href="#" onClick="return ttkInstructionOnClick('shr')"><img id="shr_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> SHR<br>
+										<a href="#" onClick="return ttkInstructionOnClick('comp')"><img id="comp_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> COMP<br>
 									</td>
 									<td>
-										<a href="#" onclick="return ttkInstructionOnClick('jump')"><img id="jump_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JUMP<br>
+										<a href="#" onclick="return ttkInstructionOnClick('jump')"><img id="jump_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JUMP<br>
 										<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jneg')"><img id="jneg_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNEG<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jzer')"><img id="jzer_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JZER<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jpos')"><img id="jpos_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JPOS<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jnneg')"><img id="jnneg_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNNEG<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jnzer')"><img id="jnzer_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNZER<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jnpos')"><img id="jnpos_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNPOS<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jneg')"><img id="jneg_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JNEG<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jzer')"><img id="jzer_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JZER<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jpos')"><img id="jpos_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JPOS<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jnneg')"><img id="jnneg_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JNNEG<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jnzer')"><img id="jnzer_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JNZER<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jnpos')"><img id="jnpos_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JNPOS<br>
 										<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jles')"><img id="jles_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JLES<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jequ')"><img id="jequ_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JEQU<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jgre')"><img id="jgre_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JGRE<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jnle')"><img id="jnle_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNLE<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jnequ')"><img id="jnequ_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNEQU<br>
-										<a href="#" onClick="return ttkInstructionOnClick('jngre')"><img id="jngre_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> JNGRE<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jles')"><img id="jles_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JLES<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jequ')"><img id="jequ_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JEQU<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jgre')"><img id="jgre_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JGRE<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jnle')"><img id="jnle_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JNLE<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jnequ')"><img id="jnequ_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JNEQU<br>
+										<a href="#" onClick="return ttkInstructionOnClick('jngre')"><img id="jngre_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> JNGRE<br>
 									</td>
 									<td>
-										<a href="#" onClick="return ttkInstructionOnClick('call')"><img id="call_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> CALL<br>
-										<a href="#" onClick="return ttkInstructionOnClick('exit')"><img id="exit_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> EXIT<br>
-										<a href="#" onClick="return ttkInstructionOnClick('svc')"><img id="svc_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> SVC<br>
+										<a href="#" onClick="return ttkInstructionOnClick('call')"><img id="call_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> CALL<br>
+										<a href="#" onClick="return ttkInstructionOnClick('exit')"><img id="exit_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> EXIT<br>
+										<a href="#" onClick="return ttkInstructionOnClick('svc')"><img id="svc_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> SVC<br>
 										<br>
-										<a href="#" onClick="return ttkInstructionOnClick('nop')"><img id="nop_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> NOP<br>
+										<a href="#" onClick="return ttkInstructionOnClick('nop')"><img id="nop_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> NOP<br>
 										<br>
 										
 										<%--
-										<a href="#" onClick="return ttkInstructionOnClick('equ')"><img id="equ_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> EQU<br>
-										<a href="#" onClick="return ttkInstructionOnClick('dc')"><img id="dc_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> DC<br>
-										<a href="#" onClick="return ttkInstructionOnClick('ds')"><img id="ds_img" src="neutral.gif" border="0" style="vertical-align:middle"></a> DS<br>
+										<a href="#" onClick="return ttkInstructionOnClick('equ')"><img id="equ_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> EQU<br>
+										<a href="#" onClick="return ttkInstructionOnClick('dc')"><img id="dc_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> DC<br>
+										<a href="#" onClick="return ttkInstructionOnClick('ds')"><img id="ds_img" src="images/neutral.gif" border="0" style="vertical-align:middle"></a> DS<br>
 										--%>
 										
 									</td>
@@ -452,9 +452,9 @@ function addVariable() {
 								<tr>
 									<td class="infoBox">
 										<b>Key:</b><br>
-										<img src="positive.gif"> = required<br>
-										<img src="negative.gif"> = forbidden<br>
-										<img src="neutral.gif"> = neither required<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nor forbidden
+										<img src="images/positive.gif"> = required<br>
+										<img src="images/negative.gif"> = forbidden<br>
+										<img src="images/neutral.gif"> = neither required<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nor forbidden
 									</td>
 								</tr>
 							</table>
