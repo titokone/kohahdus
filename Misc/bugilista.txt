@@ -59,10 +59,7 @@ ennen opettajan lopetuskoodia.
 TitoKone, Mikko 29.11:
 Rekisterin R0 toiminnassa pient‰ ep‰selvyytt‰, t‰ytyypi k‰yd‰ kysym‰ss‰ Teemulta lis‰tietoja.
 --
-TitoKone, Mikko, 29.11:
-Tiedostojen lukemis ja kirjoittamis k‰skyt pit‰‰ testata. Nykyisell‰‰n vehje lukee ja kirjoittaa
-/dev/nullia, t‰ytyy varmistaa ettei t‰st‰ tule ongelmia..
---
+
 
 
 
