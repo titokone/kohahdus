@@ -102,7 +102,7 @@ function initTaskList() {
 
 /* input tasks into task list */
 function writeTaskList() {
-	var headerHtml = '<table class="listTable"><tr>';
+	var headerHtml = '<table class="listTable" border="1px" cellspacing="0"><tr>';
 	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByStatus()"><%=rb.getString("statusText")%></a></td>';
 	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByName()"><%=rb.getString("nameText")%></a></td>';
 	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByType()"><%=rb.getString("typeText")%></a></td>';

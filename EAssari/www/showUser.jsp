@@ -73,7 +73,7 @@ function removeUser(userID) {
 		%>
 
 		<p>
-		<table class="listTable">
+		<table class="listTable" border="1px">
 			<tr>
 				<td class="titleBar">&nbsp;</td>
 				<td class="titleBar">Task</td>

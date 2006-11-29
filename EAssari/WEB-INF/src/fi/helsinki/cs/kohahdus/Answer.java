@@ -49,8 +49,10 @@ public class Answer extends HttpServlet {
 			TitoFeedback feedback = analyser.Analyze(task, criteria, programCode, keyboardInput);
 			
 			// Store the answer and the result to database
-			DBHandler.getInstance().storeStateAndAnswer(user.getUserID(), courseID, task.getTaskID(), programCode,
-														keyboardInput, feedback, language);
+			if (user.isStudent()) {
+				DBHandler.getInstance().storeStateAndAnswer(user.getUserID(), courseID, task.getTaskID(), programCode,
+															keyboardInput, feedback, language);
+			}
 			
 			// Store the result for later use on the jsp-page
 			req.getSession().setAttribute("feedback", feedback);

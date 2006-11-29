@@ -6,6 +6,18 @@ table td {
 	padding: 2px;
 }
 
+input[type="button"] {
+	border: solid #000000 1px;
+	background-color: #ccddff;
+	color: #000000;
+}
+
+input[type="submit"] {
+	border: solid #000000 1px;
+	background-color: #ccddff;
+	color: #000000;
+}
+
 #menuTable {
 	width: 100%;
 	padding: 0px;
@@ -80,7 +92,9 @@ table td {
 }
 
 .listTable {
-	background-color: #000000;
+	border: solid #000000 1px;
+	border-collapse: collapse;
+	background-color: #ffffff;
 }
 
 .listTable td {
@@ -90,7 +104,7 @@ table td {
 }
 
 .listTable td.titleBar {
-	background-color: #CECECE;
+	background-color: #ccddff;
 	color: #000000;
 	font-weight: bold;
 }
@@ -113,7 +127,7 @@ table td {
 }
 
 .presentationTable td.titleBar {
-	background-color: #6495ED;
+	background-color: #ccddff;
 	text-align: center;
 	font-weight: bold;
 	width: 100%;
@@ -181,3 +195,4 @@ table td {
 	text-decoration: none;
 	font-weight: bold;
 }
+

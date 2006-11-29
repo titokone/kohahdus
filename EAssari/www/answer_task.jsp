@@ -10,10 +10,6 @@
 	<%--Not logged in - redirecting to login --%>
 	<c:redirect url="login.jsp"/>	
 </c:if>
-<c:if test="${empty course}">
-	<%--Course not selected - redirecting to login/error? --%>
-	<c:redirect url="login.jsp"/>
-</c:if>	
 
 <%
 	String lang = (String)session.getAttribute("language");

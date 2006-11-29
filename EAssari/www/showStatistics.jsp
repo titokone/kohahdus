@@ -35,7 +35,7 @@
 
 <h1>Course <%=courseName%> tasks done</h1>
 
-<table class="listTable">
+<table class="listTable" border="1px">
 	<tr>
 		<td>Student</td>
 		<c:forEach var="taskName" items="${taskNames}">

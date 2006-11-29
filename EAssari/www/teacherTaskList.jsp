@@ -147,9 +147,9 @@ function initTasks() {
 /* input courses into course list */
 function writeCourseList() {
 
-	var headerHtml = '<table class="listTable"><tr><td class="titleBar">ID</td>';
+	var headerHtml = '<table class="listTable" border="1px"><tr><td class="titleBar">ID</td>';
 	headerHtml += '<td class="titleBar"><a href="javascript:sortCoursesByName()">Name</a></td>';
-	headerHtml += '<td class="titleBar" colspan="2">&nbsp;</td></tr>';
+	headerHtml += '<td class="titleBar">&nbsp;</td></tr>';
 	
 	var listHtml = '';
 
@@ -157,8 +157,8 @@ function writeCourseList() {
 		for(var i = 0; i < courses.length; i++) {
 			listHtml += '<tr><td>' + courses[i].id + '</td>';
 			listHtml += '<td>' + courses[i].name + '</td>';
-			listHtml += '<td><input type="button" value="Statistics" onClick="Javascript:location.href=\'showStatistics.jsp?courseID=' + courses[i].id + '\';"></td>';
-			listHtml += '<td><input type="button" value="Delete" onclick="Javascript:deleteCourse(\'' + courses[i].name + '\', \'' + courses[i].id + '\');"></td></tr>';
+			listHtml += '<td><input type="button" value="Statistics" onClick="Javascript:location.href=\'showStatistics.jsp?courseID=' + courses[i].id + '\';">&nbsp;';
+			listHtml += '<input type="button" value="Delete" onclick="Javascript:deleteCourse(\'' + courses[i].name + '\', \'' + courses[i].id + '\');"></td></tr>';
 		}
 	} else {	
 		listHtml = '<tr><td colspan="4">No available courses.</td></tr>';	
@@ -173,7 +173,7 @@ function writeCourseList() {
 
 /* input tasks into task list */
 function writeTaskList() {
-	var headerHtml = '<table class="listTable"><tr><td class="titleBar">ID</td>';
+	var headerHtml = '<table class="listTable" border="1px"><tr><td class="titleBar">ID</td>';
 	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByName()">Name</a></td>';
 	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByType()">Type</a></td>';
 	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByCategory()">Category</a></td>';
@@ -187,15 +187,15 @@ function writeTaskList() {
 	if(tasksAvailable == true) {
 		for(var i = 0; i < tasks.length; i++) {
 			listHtml += '<tr><td>' + tasks[i].id + '</td>';
-			listHtml += '<td>' + tasks[i].name + '</td>';
+			listHtml += '<td><a href="answer_task.jsp?task_id=' + tasks[i].id + '">' + tasks[i].name + '</td>';
 			listHtml += '<td>' + tasks[i].type + '</td>';
 			listHtml += '<td>' + tasks[i].category + '</td>';
 			listHtml += '<td>' + tasks[i].language + '</td>';
 			listHtml += '<td>' + tasks[i].author + '</td>';
 			listHtml += '<td>' + tasks[i].modificationDate + '</td>';
-			listHtml += '<td><input type="button" value="Modify" onclick="location.href = \'composer.jsp?task_id=' + tasks[i].id + '&save_type=update\'"></td>';
-			listHtml += '<td><input type="button" value="Modify as new" onclick="location.href = \'composer.jsp?task_id=' + tasks[i].id + '&save_type=new\'"></td>';
-			listHtml += '<td><input type="button" value="Delete" onclick="Javascript:deleteTask(\'' + tasks[i].name + '\', \'' + tasks[i].id + '\');"></td></tr>';
+			listHtml += '<td><input type="button" value="Modify" onclick="location.href = \'composer.jsp?task_id=' + tasks[i].id + '&save_type=update\'">&nbsp;';
+			listHtml += '<input type="button" value="Modify as new" onclick="location.href = \'composer.jsp?task_id=' + tasks[i].id + '&save_type=new\'">&nbsp;';
+			listHtml += '<input type="button" value="Delete" onclick="Javascript:deleteTask(\'' + tasks[i].name + '\', \'' + tasks[i].id + '\');"></td></tr>';
 		}
 	} else {	
 		listHtml = '<tr><td colspan="9">No tasks.</td></tr>';	

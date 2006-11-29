@@ -65,10 +65,12 @@ function doOnLoad(){
 	<c:if test="${not empty user}">		
 		Login ok and then redirect here....
 		<c:if test="${user.admin}">		
+			<c:set var="language" value="EN" scope="session"/>
 			<c:redirect url="teacherTaskList.jsp"/>
 			You are an admin so not redirecting to anywhere...
 		</c:if>
 		<c:if test="${user.teacher}">		
+			<c:set var="language" value="EN" scope="session"/>
 			<c:redirect url="teacherTaskList.jsp"/>
 		</c:if>
 		<c:if test="${user.student}">	
@@ -78,7 +80,6 @@ function doOnLoad(){
 			%>			
 			<c:set var="course" value="${param.course}" scope="session"/>
 			<c:set var="language" value="${param.language}" scope="session"/>
-			
 			<c:redirect url="studentTaskList.jsp"/>
 		</c:if>
 	</c:if>
