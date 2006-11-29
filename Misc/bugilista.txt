@@ -63,6 +63,10 @@ modify_user.jsp, Mikko 28.11:
 Kenttiin on mahdollista kirjoittaa epävalidia syötettä laittamalla javascript pois päältä. Syötteelle
 ei tehdä palvelinpäässä mitään tarkistuksia. En testannut mutta veikkaan että sama koskee signup-sivua.
 --
+answer_task.jsp, Mikko, 29.11:
+Fill-in tehtävissä on turhaan pari tyhjää riviä opettajan aloitus koodin jälkeen, sekä
+ennen opettajan lopetuskoodia.
+--
 
 
 

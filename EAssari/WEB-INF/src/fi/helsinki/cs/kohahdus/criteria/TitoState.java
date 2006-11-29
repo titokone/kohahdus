@@ -12,6 +12,7 @@ import fi.hu.cs.titokone.Control;
 import fi.hu.cs.titokone.MemoryLine;
 import fi.hu.cs.titokone.Processor;
 import fi.hu.cs.titokone.RandomAccessMemory;
+import fi.hu.cs.ttk91.TTK91AddressOutOfBounds;
 import fi.hu.cs.ttk91.TTK91CompileException;
 import fi.hu.cs.ttk91.TTK91CompileSource;
 import fi.hu.cs.ttk91.TTK91Exception;
@@ -84,6 +85,17 @@ public class TitoState {
 			Log.write("Attempting to run titokone with input '" + keyboardInput + "'");
 			app.setKbd(keyboardInput + ","); // TitoKone does not accept empty string
 			controller.run(app, maxExecutionSteps);
+		} catch (TTK91AddressOutOfBounds e) {
+			Log.write("Failed to run titokone");
+			Log.write(e);
+
+			// Forgetting to end the program causes TTK91AddressOutOfBounds, lets try to give
+			// descriptive error message if that is a likely case here.
+			mem = (RandomAccessMemory)(controller.getMemory());
+			Set<String> opcodes = getUsedOpcodes();
+			if (!opcodes.contains("SVC")) {
+				return e.getMessage() + " (possible cause: forgot to conclude the program with \"SVC SP, =HALT\")";				
+			}		
 		} catch (TTK91RuntimeException e) {
 			Log.write("Failed to run titokone");
 			Log.write(e);
@@ -175,7 +187,7 @@ public class TitoState {
 		return memRef;
 	}
 	
-	/** Return used opcodes in set of Strings. This does not include instructions
+	/** Return used opcodes in set of ALL-CAPS Strings. This does not include instructions
 	 * DC, DS and EQU.  */
 	public Set<String> getUsedOpcodes() {
 	    Set<String> opcodes = new HashSet<String>();
