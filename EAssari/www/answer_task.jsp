@@ -249,8 +249,8 @@ function setDefaultInput(){
 		<b><%=rb.getString("titokoneReportTitle")%></b>
 		
 		<table class="presentationTable" style="float: left; margin: 10px; width: auto;">
-		<tr><td colspan=3 class="titleBar">Muisti</td></tr>
-		<tr><td>Osoite</td><td>Arvo</td><td>Koodina</td></tr>
+		<tr><td colspan=3 class="titleBar"><%=rb.getString("titostateMemory")%></td></tr>
+		<tr><td><%=rb.getString("titostateAddress")%></td><td><%=rb.getString("titostateValue")%></td><td><%=rb.getString("titostateCode")%></td></tr>
 		<tr><td>0</td><td>16846845</td><td>LOAD R1, =4</td></tr>
 		<tr><td>1</td><td>15465467</td><td>LOAD R1, =4</td></tr>
 		<tr><td>2</td><td>17684684</td><td>LOAD R1, =4</td></tr>
@@ -272,18 +272,18 @@ function setDefaultInput(){
 		</table>
 
 		<table class="presentationTable" style="margin: 10px; width: auto;">
-		<tr><td colspan=2 class="titleBar">Suoritustiedot</td></tr>
-		<tr><td>Ohjelman tuloste n‰ytˆlle</td>				<td>2, 5, 6, 7, 8325, 214</td></tr>
-		<tr><td>Suoritettujen k‰skyjen lukum‰‰r‰</td>		<td>314</td></tr>
-		<tr><td>Suoritettujen muistiviitteiden m‰‰r‰</td>	<td>389</td></tr>
-		<tr><td>Suoritettujen dataviitteiden m‰‰r‰</td>		<td>75</td></tr>
-		<tr><td>Ohjelman koodin koko sanoina</td>			<td>15</td></tr>
-		<tr><td>Ohjelman datan koko sanoina</td>			<td>3</td></tr>
-		<tr><td>Pinon suorituksenaikainen huippukorkeus</td><td>12</td></tr>
+		<tr><td colspan=2 class="titleBar"><%=rb.getString("titostateExecuteInfo")%></td></tr>
+		<tr><td><%=rb.getString("titostateOutput")%></td>				<td>2, 5, 6, 7, 8325, 214</td></tr>
+		<tr><td><%=rb.getString("titostateExecutedInstructions")%></td>		<td>314</td></tr>
+		<tr><td><%=rb.getString("titostateMemoryReferences")%></td>	<td>389</td></tr>
+		<tr><td><%=rb.getString("titostateDataReferences")%></td>		<td>75</td></tr>
+		<tr><td><%=rb.getString("titostateCodeSize")%></td>			<td>15</td></tr>
+		<tr><td><%=rb.getString("titostateDataSize")%></td>			<td>3</td></tr>
+		<tr><td><%=rb.getString("titostateStackHeight")%></td><td>12</td></tr>
 		</table>
 
 		<table class="presentationTable" style="float: left; margin: 10px; width: auto;">
-		<tr><td colspan=2  class="titleBar">Rekisterit</td></tr>
+		<tr><td colspan=2  class="titleBar"><%=rb.getString("titostateRegisters")%></td></tr>
 		<tr><td>R0</td><td>20</td></tr>
 		<tr><td>R1</td><td>20</td></tr>
 		<tr><td>R2</td><td>20</td></tr>
@@ -296,8 +296,8 @@ function setDefaultInput(){
 		</table>
 
 		<table class="presentationTable" style="margin: 10px; width: auto;">
-		<tr><td colspan=3 class="titleBar">Symbolit</td></tr>
-		<tr><td>Symboli</td><td>Osoite</td><td>Arvo</td></tr>
+		<tr><td colspan=3 class="titleBar"><%=rb.getString("titostateSymbols")%></td></tr>
+		<tr><td><%=rb.getString("titostateSymbol")%></td><td><%=rb.getString("titostateAddress")%></td><td><%=rb.getString("titostateValue")%></td></tr>
 		<tr><td>X</td><td>15</td><td>20</td></tr>
 		<tr><td>Y</td><td>16</td><td>40</td></tr>
 		<tr><td>ZDF</td><td>17</td><td>60</td></tr>
