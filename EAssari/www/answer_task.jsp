@@ -77,6 +77,7 @@ function showhideTitokoneReport() {
 		showElementById('titokone_report');
 		document.answerform.titokone_report_button.value = "<%=rb.getString("hideTitokoneReportButtonValue")%>";
 		titokoneVisible = true;
+		location.href = "#output";
 	} else {
 		hideElementById('titokone_report');
 		document.answerform.titokone_report_button.value = "<%=rb.getString("showTitokoneReportButtonValue")%>";
@@ -115,7 +116,7 @@ function setDefaultInput(){
 </tr>
 <tr>
 	<td colspan="2">
-		<table class="presentationTable" style="width:500px">
+		<table class="presentationTable">
 			<tr>
 				<td colspan="3" class="titleBar">
 					<%=rb.getString("input")%>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -133,7 +134,7 @@ function setDefaultInput(){
 				</c:choose>
 
 				<td><b><%=rb.getString("keyboardInput")%>&nbsp;</b></td>
-				<td>
+				<td style="width:100%">
 					<input id="keyboardInput" name="keyboardInput" type="text" style="width:100%" value="<c:out value="${input}"/>" onBlur="checkInput()">
 				</td>
 				<td>
@@ -148,7 +149,10 @@ function setDefaultInput(){
 	
 		<table class="presentationTable" style="width:500px">
 			<tr>
-				<td class="titleBar"><%=rb.getString("programCode")%></td>
+				<td class="titleBar">
+					<a name="code"></a>
+					<%=rb.getString("programCode")%>
+				</td>
 			</tr>
 			<tr>
 				<td>
@@ -244,7 +248,9 @@ function setDefaultInput(){
 
 <c:if test="${param.analyzed == 'true'}">
 	<div id="titokone_report" style="display: none">
-		<hr><b><%=rb.getString("titokoneReportTitle")%></b>
+		<hr>
+		<a name="output"></a>
+		<b><%=rb.getString("titokoneReportTitle")%></b>
 		<c:out value="${feedback.titoState.screenOutput}"/>
 	</div>
 </c:if>
