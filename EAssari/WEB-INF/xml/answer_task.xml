@@ -12,6 +12,8 @@
 	<entry key="keyboardInput_FI">Näppäimistö</entry>
 	<entry key="keyboardInputHelpMsg_EN">Please type in the integers separated by commas. Whitespace between integers does not matter. E.g. 1, 2,3. TitoTrainer will interpret these integers as keyboard input during program simulation.</entry>
 	<entry key="keyboardInputHelpMsg_FI">Syöte annetaan kokonaislukuina, joita erottavat pilkut. Välilyöntien käyttö on sallittua, muttei pakollista. Esim. 1, 2,3. Vain kokonaisluvut ovat hyväksyttäviä.</entry>
+	<entry key="keyboardInputRestore_EN">Restore default</entry>
+	<entry key="keyboardInputRestore_FI">Palauta alkuarvo</entry>
 	<entry key="programCode_EN">Program code</entry>
 	<entry key="programCode_FI">Ohjelman koodi</entry>
 	<entry key="executeButtonValue_EN">Execute</entry>
