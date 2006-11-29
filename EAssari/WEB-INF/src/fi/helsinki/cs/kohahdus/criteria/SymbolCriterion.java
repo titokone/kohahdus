@@ -19,7 +19,7 @@ public class SymbolCriterion extends VariableCriterion {
 	 * String "SYM". Space and symbol name are appended to the string returned
 	 * by the bundle. */
 	@Override public String getName(ResourceBundle languageBundle) {
-		return languageBundle.getString("SYM") + " " + symbolName;
+		return languageBundle.getString("SYM") + " " + symbolName.toUpperCase();
 	}
 
 	
@@ -34,7 +34,7 @@ public class SymbolCriterion extends VariableCriterion {
 		if ((symbol == null) || ((symbol.matches("\\W")))) { 
 			symbolName = "";
 		} else {
-			symbolName = symbol.toLowerCase();			
+			symbolName = symbol.toLowerCase(); // Titokone always returns symbols in lowercase			
 		}		
 	}
 	
