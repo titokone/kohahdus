@@ -131,6 +131,22 @@ public class TitoState {
 	}
 	
 	
+	
+	/** Return contents of specified memory address interpeted as code.
+	 * If address exceeds the code segment of the program, returns an empty string 
+	 * @throws ArrayIndexOutOfBoundsException if address < 0 
+	 */
+	public String getInstruction(int address) {
+		String instruction = "";
+		if (address < code.length) { 
+			BinaryInterpreter interp = new BinaryInterpreter();
+			instruction = interp.binaryToString(code[address].getBinary());
+		}
+		return instruction;
+	}
+	
+	
+	
 	/** Return symbol table that maps symbol names to symbol value addresses
 	 */
 	public HashMap getSymbolTable() {
