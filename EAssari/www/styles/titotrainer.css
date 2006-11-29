@@ -97,7 +97,9 @@ table td {
 
 .presentationTable {
 	border: solid #000000 1px;
+	border-collapse: collapse;
 	empty-cells: show;
+	width: 100%;
 }
 
 .presentationTable td {
@@ -114,6 +116,7 @@ table td {
 	background-color: #6495ED;
 	text-align: center;
 	font-weight: bold;
+	width: 100%;
 }
 
 #composer .presentationTable td.titleBar {
@@ -170,7 +173,7 @@ table td {
 /* an element that looks like a button */
 .helpbutton {
 	margin-left: 8px;
-	padding: 2px 4px; 
+	padding: 1px 2px; 
 	border-style: outset; 
 	background-color: #B0C4DE; 
 	border-color: #6495ED; 
