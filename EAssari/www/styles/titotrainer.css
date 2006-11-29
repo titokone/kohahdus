@@ -18,6 +18,21 @@ input[type="submit"] {
 	color: #000000;
 }
 
+input[type="text"] {
+	border: inset #444444 1px;
+	color: #000000;
+}
+
+input[type="password"] {
+	border: inset #444444 1px;
+	color: #000000;
+}
+
+select {
+	border: solid #000000 1px;
+	color: #000000;
+}
+
 #menuTable {
 	width: 100%;
 	padding: 0px;
@@ -28,16 +43,17 @@ input[type="submit"] {
 }
 
 #menuTable .linksCell, #menuTable .userCell {
-	width: 50%;
 	padding-top: 0px;
 	padding-bottom: 0px;
 }
 
 #menuTable .linksCell {
+	width: 80%;
 	text-align: left;
 }
 
 #menuTable .userCell {
+	width: 20%;
 	text-align: right;
 }
 

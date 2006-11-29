@@ -56,11 +56,11 @@
 var variableCounter = <c:out value="${symbolCriterionCount}"/>;
 
 var positive = new Image();
-positive.src = "positive.gif";
+positive.src = "images/positive.gif";
 var negative = new Image();
-negative.src = "negative.gif";
+negative.src = "images/negative.gif";
 var neutral = new Image();
-neutral.src = "neutral.gif";
+neutral.src = "images/neutral.gif";
 
 var instructionNames;
 var instructionStatus;
@@ -128,6 +128,9 @@ function addVariable() {
 
 <h1 align="center">Create Task</h1>
 
+<table border="0px">
+<tr>
+<td>
 <form name="task_creation_form" method="POST" action="save_task.jsp" onSubmit="return onFormSubmit()">
 
 <c:set var="reqopcodes" value="${criteria['REQOPCODES']}"/>
@@ -593,6 +596,9 @@ function addVariable() {
 	</p>
 </div>
 </form>
+</td>
+</tr>
+</table>
 
 </body>
 
