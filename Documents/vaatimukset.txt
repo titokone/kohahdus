@@ -1,0 +1,196 @@
+|Vaatimus								|Tila				|Iteraatio |Prioriteetti
+---------------------------------------------------------------------------
+K1. Opettajan käyttöliittymän kieli		- OK					1		1
+K2. Open käli suomeksi					- PUUTTUU 				##		3
+K3. Opiskelijan kälin kieli				- OK					2		1
+K4. Ohjelmointitehtävä					- OK					1/2		1
+K5. Täydennystehtävä					- OK					1/2		1
+K6. Dynaaminen tehtävä					- EI TOTEUTETA 			-		4
+K7. Testisyötteet						- OK					1		1
+
+Opettajan käyttötapaukset
+-------------------------
+K8. Open kirjautuminen					- OK					1		1
+K9. Tehtävälistaus						- OK 					1		1
+K10. Raporttien tulostaminen			- KESKEN ? 				2		2
+K11. Tehtävän lisäys					- OK					1		1
+K12. Tehtävän muokkaus					- OK					1		1
+K13. Tehtävän poisto					- OK					1		1
+K14. Tehtävän muokkaus uutena			- OK					1		2
+
+Opiskelijan käyttötapaukset
+---------------------------
+K15. Rekisteröityminen					- OK					1		1
+K16. Kirjautuminen						- OK					1		1
+K17. Tehtävien selailu					- OK					1/2		1
+K18. Suoritustiedot						- OK					2		1
+K19. Tehtävään vastaaminen				- OK					2		1
+K20. Omien tietojen muuttaminen			- OK					1		1
+
+Ei-toiminnalliset käyttäjävaatimukset
+-------------------------------------
+K21. Tehtävien kieli					- OK					1		1
+K22. Opettajan käli selkeä				- OK					1		1
+K23. Opiskelijan käli selkeä			- OK					1/2		1
+K24. Palautteet							- OK ?					2		1
+K25. Ei turhia sivusiirtymiä			- OK					1		1
+K26. Opettajan käyttöohje				- PUUTTUU 				##		1
+K27. Opiskelijan käyttöohje				- PUUTTUU 				##		1
+
+Palautteet
+----------
+P1. Tehtävä onnistuu					- OK ?					2		-
+P2. Tehtävä epäonnistuu					- OK					2		-
+P3. Tehtävä ei toimi norm.syötteellä	- OK ?					2		-
+P4. Tehtävä ei toimi sal.syötteellä		- OK ?					2		-
+
+Opettajan käyttötapaukset
+-------------------------
+Kt1. Järjestelmään kirjautuminen		- OK					1		-
+Kt2. Tehtävien selaaminen				- OK					1		-
+Kt3. Tehtävän lisäys					- OK					1		-
+Kt4. Tehtävän muokkaaminen				- OK					1		-
+Kt5. Tehtävän tulostaminen				- OK					1		-
+Kt6. Tehtävän poisto					- OK					1		-
+Kt7. Raporttien katseleminen			- OK ?					2		-
+Kt8. Uloskirjautuminen					- OK					1		-
+
+Opiskelijan käyttötapaukset
+---------------------------
+Kt9. Rekisteröityminen					- OK					1		-
+Kt10. Kirjautuminen						- OK					1		-
+Kt11. Tehtävien katselu					- OK					1/2		-
+Kt12. Tehtävien ratkaiseminen			- OK ?					2		-
+Kt13. Uloskirjautuminen					- OK					1		-
+Kt14. Omien tietojen muokkaus			- OK					1		-
+
+Järjestelmävaatimukset
+######################
+
+Toiminnalliset vaatimukset
+--------------------------
+V1 Opettajan tunnuksen luominen			-OK						-		4
+V2 Opettajan kirjautuminen				-OK						1		1
+V3 Opiskelijoiden poisto				-OK						2		3
+V4 Opiskelijan tunnuksen luominen		-OK						1		1 
+V5 Opiskelijan kirjautuminen			-OK						1		1
+V6 Opiskelijan tietojen muokkaus		-OK						1		1
+V7 Salasana opiskelijalle maililla  	-PUUTTUU				##		3
+V8 Open salasanan vaihto				-PUUTTUU				##		3
+
+Tehtävätyypit
+-------------
+V9  Ohjelmointitehtävä					-OK						1/2		1
+V10 Täydennystehtävä					-OK						1/2		1
+V11 Dynaaminen tehtävä					-EI TOTEUTETA			-		4
+
+Uuden tehtävän luonti
+---------------------
+V12 Tehtävän lisäys						-OK						1		1
+V13 Tehtävän luonti vanhan pohjalta		-OK						1		3
+
+Tehtävän määrittely
+-------------------
+V14 Kriteerien määrittely tehtävälle 	-OK						1		1
+V15 Palautteen määrittely				-OK						1		1
+V16 Tehtävän aihepiiri					-PUUTTUU		 		2		1
+V17 Tarkistusmallin valinta				-OK						1		1
+V18 Opettajan tehtävälistaus			-OK						1		1
+V19 Opiskelijan tehtävälistaus			-OK						1/2		1
+V20 Vanhan tehtävän muokkaus			-OK						1		1
+V21 Tehtävän poisto						-OK						1		1
+
+Raportit
+--------
+V22 Raportti opiskelijan suorituksista	-OK 					2		1
+V23 Raportti kurssikohtaisista suor.	-KESKEN? 				2		1
+V24 Raportti opiskelijalle				-EI TOTEUTETA			-		4
+
+Tehtävän vastaaminen
+--------------------
+V25 Tehtävän valitseminen				-OK						2		1
+V26 Tehtävään vastaaminen				-OK						2		1
+V27 Käänöksen palaute titokoneesta		-OK						2		1
+V28 Suoritusstatistiikka				-PUUTTUU 				2		1
+V29 Opiskelijan tehtävätilanne			-OK						2		2
+
+Kriteerien järjestelmävaatimukset
+---------------------------------
+V30 Tehtävien tarkastuskriteerit		-OK						1/2		1
+
+Hyväksymiskriteerit
+-------------------
+V31 Hyväksymiskriteerit					-OK						1		1
+V32 Opiskelijan ohjelman maksimikoko	-OK						1		1
+V33 Stop-kriteeri						-OK						1		1		
+V34 Rekisterin arvo						-OK						1		1
+V35 Suor. muistiviittausten lkm.		-OK						1		2
+V36 Suor. dataviittausten lkm.			-OK						1		3
+V37 Suoritettujen käskyjen lkm.			-OK						1		1
+V38 Data-alueen koko					-OK						1		2
+V39 Pinon koko							-OK						1		2
+V40 Muuttujien arvot					-OK						1		1
+V41 Tulostettujen lukujen arvo			-OK ?					1		1	
+V42 Pakolliset käskyt					-OK						1		1
+V43 Kielletyt käskyt					-OK						1		1
+V44 Tiedostoon tulostaminen				-EI TOTEUTETA			-		4
+
+Laadulliset kriteerit
+---------------------
+V45 Laadulliset kriteerit				-OK						1		1
+V46 Opiskelijan ohjelman ihannekoko		-OK						1		1
+V47 Data-alueen ihannekoko				-OK						1		2
+V48 Pinon ihannekoko					-OK						1		2
+V49 Suor. käskyjen ihannelkm.			-OK						1		1
+V50 Suor. muistiviitteiden ihannelkm	-OK						1		1
+
+Kriteerien käyttäminen
+----------------------
+V51 Kriteerin ja vastauksen vertailu	-OK						1		2
+V52 Kriteerien yhdistäminen				-OK						2		1
+
+Muita järjestelmävaatimuksia
+----------------------------
+V53 Tehtävien aihepiirien luokittelu  	-PUUTTUU 				2		1
+V54 Aihepiirin lisäys					-PUUTTUU 				2		1
+V55 Aihepiirin muokkaus					-PUUTTUU 				2		1
+V56 Aihepiirin poisto					-PUUTTUU 				2		1
+V57 Opiskelijan kälin kieli				-OK						2		1
+V58 Opettajan kälin kieli				-OK						1		1
+V59 Opettajan käli suomeksi				-PUUTTUU 				##		3
+
+Titokoneen mahdollinen muokkaus
+-------------------------------
+V60 Symbolitaulu titokoneesta			-OK						2		1
+V61 Makefile							-PUUTTUU 				##		2
+V62 Päivitysohje						-PUUTTUU 				##		3
+
+Ei-toiminnalliset järjestelmävaatimukset
+----------------------------------------
+V63 Kuormitus							-OK?					-		-
+V64 Open kälin selkeys					-OK						-		-
+V65 Opiskelijan kälin selkeys			-OK						-		-
+V66 Tehtävän pisteytys					-OK						-		-
+V67 Selkeä käyttöohje opettajalle		-PUUTTUU				##		-
+V68 Käyttöohje opiskelijalle			-PUUTTUU				##		-
+V69 Kriteerien mielekkyys				-OK						-		-
+
+Toimintaympäristövaatimukset
+----------------------------
+V70 eAssari yhteensopivuus				-EI TAATA?				-		-
+V71 Titokone yhteensopivuus				-OK						-		-
+V72 Sijainti							-OK						-		-
+V73 Tuetut selaimet						-OK ?					-		-
+V74 JavaScript							-OK						-		-
+V75 Evästeet							-OK						2		-
+
+Käyttäytyminen virhetilanteessa
+-------------------------------
+E1. Väärä tunnus kirjautuessa			-OK						1		-
+E2. Väärä salasana						-OK						1		-
+E3. Väärän tyyppinen syöte teht-luonnissa -OK (kattava?)		2		-
+E4. Väärä syöte vastauksessa			-OK						2		-
+E5. Verkkoyhteys ei toimi				-?						-		-
+E6. Tietokantavirhe						-?						-		-
+
+
