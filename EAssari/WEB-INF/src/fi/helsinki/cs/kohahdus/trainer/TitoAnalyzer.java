@@ -56,6 +56,7 @@ public class TitoAnalyzer {
 			//Compile the code, check if errors.
 			String compileResult=stateTeacherPublic.compile(programCodeTeacher); //compile program with TitoKone
 			if (compileResult != null) {
+				compileResult = "Error in teacher's code, task is corrupted and can't be solved: " + compileResult;
 				feedback.setCompileError(compileResult);
 				return feedback;
 			}
@@ -63,6 +64,7 @@ public class TitoAnalyzer {
 			//Execute the successfully compiled code.
 			String runResult=stateTeacherPublic.execute(task.getPublicInput(), maxInstructions); //run the compiled program in TitoKone
 			if (runResult != null) {
+				runResult = "Error in teacher's code, task is corrupted and can't be solved: " + runResult;
 				feedback.setRunError(runResult);
 				return feedback;
 			}
@@ -73,12 +75,14 @@ public class TitoAnalyzer {
 				//Compile the code, check if errors.
 				compileResult=stateTeacherSecret.compile(programCodeTeacher); //compile program with TitoKone
 				if (compileResult != null) {
+					compileResult = "Error in teacher's code, task is corrupted and can't be solved: " + compileResult;
 					feedback.setCompileError(compileResult);
 					return feedback;
 				}
 				//Execute the successfully compiled code.
 				runResult=stateTeacherSecret.execute(task.getSecretInput(), maxInstructions); //run the compiled program in TitoKone
 				if (runResult != null) {
+					runResult = "Error in teacher's code, task is corrupted and can't be solved: " + runResult;
 					feedback.setRunError(runResult);
 					return feedback;
 				} //end if
