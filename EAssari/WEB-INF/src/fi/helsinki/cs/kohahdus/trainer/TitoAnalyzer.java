@@ -149,18 +149,20 @@ public class TitoAnalyzer {
 			
 			// if criterion is meant for secret input
 			if (c.isSecretInputCriterion()) {
-				/* It won't be used in any quality tests.
-				   It always has acceptance test. stateTeacherSecret can be null. */
-				if (stateSecret!=null) {
-					passs=c.passesAcceptanceTest(stateSecret, stateTeacherSecret);
-				}
-				// criterion requirement is met
-				if (passs) {
-					cfeedback=c.getAcceptanceFeedback();
-				} else { // fails
-					cfeedback=c.getFailureFeedback();					
-					csuccess=false;
-					passTask=false;
+				if (c.hasAcceptanceTest(task.isValidateByModel())) {
+					/* It won't be used in any quality tests.
+					   It always has acceptance test. stateTeacherSecret can be null. */
+					if (stateSecret!=null) {
+						passs=c.passesAcceptanceTest(stateSecret, stateTeacherSecret);
+					}
+					// criterion requirement is met
+					if (passs) {
+						cfeedback=c.getAcceptanceFeedback();
+					} else { // fails
+						cfeedback=c.getFailureFeedback();					
+						csuccess=false;
+						passTask=false;
+					}
 				}
 			}
 			// if criterion is meant for public input
