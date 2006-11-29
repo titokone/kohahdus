@@ -138,7 +138,7 @@ function setDefaultInput(){
 					<input id="keyboardInput" name="keyboardInput" type="text" style="width:100%" value="<c:out value="${input}"/>" onBlur="checkInput()">
 				</td>
 				<td>
-					<input type="button" value="Restore default" onClick="javascript:setDefaultInput();">
+					<input type="button" value="<%=rb.getString("keyboardInputRestore")%>" onClick="javascript:setDefaultInput();">
 				</td>
 			</tr>
 		</table>
