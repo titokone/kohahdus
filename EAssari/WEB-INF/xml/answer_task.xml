@@ -36,4 +36,35 @@
 	<entry key="taskSuccessfulText_FI">Tehtävä onnistui.</entry>
 	<entry key="taskFailedText_EN">Task failed.</entry>
 	<entry key="taskFailedText_FI">Tehtävä epäonnistui.</entry>
+	
+	<entry key="titostateOutput_EN">Program output</entry>
+	<entry key="titostateOutput_FI">Ohjelman tuloste näytölle</entry>
+	<entry key="titostateExecutedInstructions_EN">Number of executed instructions</entry>
+	<entry key="titostateExecutedInstructions_FI">Suoritettujen käskyjen lukumäärä</entry>
+	<entry key="titostateMemoryReferences_EN">Number of memory references</entry>
+	<entry key="titostateMemoryReferences_FI">Suoritettujen muistiviitteiden määrä</entry>
+	<entry key="titostateDataReferences_EN">Number of data references</entry>
+	<entry key="titostateDataReferences_FI">Suoritettujen dataviitteiden määrä</entry>
+	<entry key="titostateCodeSize_EN">Code size in words</entry>
+	<entry key="titostateCodeSize_FI">Ohjelman koodin koko sanoina</entry>
+	<entry key="titostateDataSize_EN">Data size in words</entry>
+	<entry key="titostateDataSize_FI">Ohjelman datan koko sanoina</entry>
+	<entry key="titostateStackHeight_EN">Peak height of stack</entry>
+	<entry key="titostateStackHeight_FI">Pinon suorituksenaikainen huippukorkeus</entry>
+	<entry key="titostateRegisters_EN">Registers</entry>
+	<entry key="titostateRegisters_FI">Rekisterit</entry>
+	<entry key="titostateSymbols_EN">Symbols</entry>
+	<entry key="titostateSymbols_FI">Symbolit</entry>
+	<entry key="titostateSymbol_EN">Symbol</entry>
+	<entry key="titostateSymbol_FI">Symboli</entry>
+	<entry key="titostateAddress_EN">Address</entry>
+	<entry key="titostateAddress_FI">Osoite</entry>
+	<entry key="titostateValue_EN">Value</entry>
+	<entry key="titostateValue_FI">Arvo</entry>
+	<entry key="titostateCode_EN">As opcode</entry>
+	<entry key="titostateCode_FI">Koodina</entry>
+	<entry key="titostateExecuteInfo_EN">Execution information</entry>
+	<entry key="titostateExecuteInfo_FI">Suoritustiedot</entry>
+	<entry key="titostateMemory_EN">Memory</entry>
+	<entry key="titostateMemory_FI">Muisti</entry>
 </properties>
