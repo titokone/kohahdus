@@ -7,29 +7,29 @@ table td {
 }
 
 input[type="button"] {
-	border: solid #000000 1px;
+	border: solid #555555 1px;
 	background-color: #ccddff;
 	color: #000000;
 }
 
 input[type="submit"] {
-	border: solid #000000 1px;
+	border: solid #555555 1px;
 	background-color: #ccddff;
 	color: #000000;
 }
 
 input[type="text"] {
-	border: inset #444444 1px;
+	border: inset #555555 1px;
 	color: #000000;
 }
 
 input[type="password"] {
-	border: inset #444444 1px;
+	border: inset #555555 1px;
 	color: #000000;
 }
 
 select {
-	border: solid #000000 1px;
+	border: solid #555555 1px;
 	color: #000000;
 }
 

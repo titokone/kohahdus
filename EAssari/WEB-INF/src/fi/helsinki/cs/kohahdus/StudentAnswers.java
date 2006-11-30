@@ -1,7 +1,9 @@
 package fi.helsinki.cs.kohahdus;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class StudentAnswers {
 	private String firstname;
@@ -47,8 +49,10 @@ public class StudentAnswers {
 		return answers;
 	}
 	
-	public Collection<AnswerState> getAnswers() {
-		return answers.values();
+	public LinkedList<AnswerState> getAnswers() {
+		LinkedList<AnswerState> list = new LinkedList<AnswerState>(answers.values());
+		Collections.sort(list);
+		return list;
 	}
 	
 	public void putAnswerState(String key, AnswerState value) {

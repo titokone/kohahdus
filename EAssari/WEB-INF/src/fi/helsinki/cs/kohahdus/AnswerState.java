@@ -3,7 +3,7 @@ package fi.helsinki.cs.kohahdus;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public class AnswerState {
+public class AnswerState implements Comparable{
 	
 	private int lastTryNumber = 0;
 	private int currentResult = 0;
@@ -15,6 +15,7 @@ public class AnswerState {
 	private String extid;
 	private String extid2;
 	private Timestamp answerTime;
+	private String courseName;
 	
 	
 	
@@ -83,6 +84,17 @@ public class AnswerState {
 	}
 	public void setAnswerTime(Timestamp answerTime) {
 		this.answerTime = answerTime;
+	}
+	public String getCourseName() {
+		return courseName;
+	}
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+	
+	public int compareTo(Object obj){
+		AnswerState other = (AnswerState)obj;
+		return this.getCourseName().compareTo(other.getCourseName());
 	}
 	
 }

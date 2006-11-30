@@ -79,6 +79,7 @@ function removeUser(userID) {
 				<td class="titleBar">Task</td>
 				<td class="titleBar">Number of tries</td>
 				<td class="titleBar">Last date</td>
+				<td class="titleBar">Course name</td>
 			</tr>
 
 			<c:set var="accepted" value="0"/>
@@ -105,6 +106,7 @@ function removeUser(userID) {
 					<td><c:out value="${answers.taskName}"/></td>
 					<td><c:out value="${answers.lastTryNumber}"/></td>
 					<td><c:out value="${answers.answerTime}"/></td>
+					<td><c:out value="${answers.courseName}"/></td>
 				</tr>
 			</c:forEach>
 		</table>

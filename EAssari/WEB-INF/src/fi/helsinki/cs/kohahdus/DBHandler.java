@@ -531,7 +531,7 @@ public class DBHandler {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("update task set taskname=?, author=?, cutoffvalue=?, tasktype=?, taskmetadata=? " +
+			st = conn.prepareStatement("update task set taskname=?, author=?, cutoffvalue=?, tasktype=?, taskmetadata=?, datecreated=sysdate " +
 									   "where taskid=?"); 
 			st.setString(1, task.getName());
 			st.setString(2, task.getAuthor());
@@ -1061,18 +1061,29 @@ public class DBHandler {
 
 	
 	/**
-	 *  Returns a list of tasks (as AnswerStates) that student has answered. 
+	 *  Returns a list of tasks (as AnswerStates) that student has answered.
+	 *  If courseID == null, return all answers of a student. 
 	 */
 	public StudentAnswers getStudentAnswers(String userID) throws SQLException {
+		return getStudentAnswers(userID, null);
+	}
+	public StudentAnswers getStudentAnswers(String userID, String courseID) throws SQLException {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		StudentAnswers studentsAnswers = new StudentAnswers();
 		
 		try {
-			st = conn.prepareStatement("select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname, sa.whenanswered, t.taskid " +
-									   "from studentmodel sm, eauser u, task t, storedanswer sa, taskinmodule tim " +
-									   "where sm.sid=? and sm.sid=u.userid and sm.seqno=tim.seqno and " +
-									   "sa.trynumber=sm.lasttrynumber and tim.taskid=t.taskid and sa.seqno=sm.seqno and sm.sid=sa.sid");
+			String sql = "select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname, sa.whenanswered, t.taskid, c.coursename " +
+			   			 "from studentmodel sm, eauser u, task t, storedanswer sa, taskinmodule tim, course c " +
+			   			 "where sm.sid=? and sm.sid=u.userid and sm.seqno=tim.seqno and sm.courseid=c.courseid and " +
+			   			 "sa.trynumber=sm.lasttrynumber and tim.taskid=t.taskid and sa.seqno=sm.seqno and sm.sid=sa.sid";
+			if (courseID != null){
+				sql += " and sm.courseid=?"; 
+	   			st = conn.prepareStatement(sql);
+	   			st.setString(2, courseID);
+			} else {
+	   			st = conn.prepareStatement(sql);
+			}
 			st.setString(1, userID);
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
@@ -1085,6 +1096,7 @@ public class DBHandler {
 				m.setTaskName(rs.getString("taskname"));
 				m.setAnswerTime(rs.getTimestamp("whenanswered"));
 				m.setUserID(userID);
+				m.setCourseName(rs.getString("coursename"));
 				studentsAnswers.putAnswerState(rs.getString("taskid"), m);
 			} 
 			rs.close();
