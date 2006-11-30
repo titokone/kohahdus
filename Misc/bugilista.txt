@@ -55,7 +55,10 @@ answer_task.jsp, Paula, 30.11.
 Monikielisyys ryppyilee taas (saattaa tietysti olla taas vain minun asetuksissani vikaa). Jos joku
 testaisi, kiitos. Lisäsin virheilmoituksen siitä virheellisesti syötteestä, mutta se heittää poikkeusta.
 Kommentoin ongelmakohdan pois. Edessä on tunnus "LANGPROB", jotta löydätte.
-
+--
+teacherTaskList.jsp, Tuomas, 30.11
+Javascript: Taskin järjestäminen kielen mukaan ei toimi alaspäin
+--
 
 
 
