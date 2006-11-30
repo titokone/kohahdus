@@ -27,9 +27,6 @@ answer_task.jsp, Mikko, 29.11:
 Fill-in teht‰viss‰ on turhaan pari tyhj‰‰ rivi‰ opettajan aloitus koodin j‰lkeen, sek‰
 ennen opettajan lopetuskoodia.
 --
-TitoKone, Mikko 29.11:
-Rekisterin R0 toiminnassa pient‰ ep‰selvyytt‰, t‰ytyypi k‰yd‰ kysym‰ss‰ Teemulta lis‰tietoja.
---
 TitoKone, Mikko, 29.11:
 Tiedostojen lukemis ja kirjoittamis k‰skyt pit‰‰ testata. Nykyisell‰‰n vehje lukee ja kirjoittaa
 /dev/nullia, t‰ytyy varmistaa ettei t‰st‰ tule ongelmia..
@@ -110,7 +107,10 @@ ei tehd‰ palvelinp‰‰ss‰ mit‰‰n tarkistuksia. En testannut mutta veikkaan ett‰ sa
 Korjattu: formin action on error-sivu, javascriptill‰ vaihdetaan submitin yhteydess‰. T‰m‰ on mahdollista
 ohittaa, mutta paskat siit‰, mit‰‰n varsinaista vahinkoa ei ole mahdollista saada aikaan.
 --
-
+TitoKone, Mikko 29.11:
+Rekisterin R0 toiminnassa pient‰ ep‰selvyytt‰, t‰ytyypi k‰yd‰ kysym‰ss‰ Teemulta lis‰tietoja.
+Teemulta tuli info ett‰ titokone toimii oikein, joten eip‰ t‰st‰ sen enemp‰‰..
+--
 
 
 
