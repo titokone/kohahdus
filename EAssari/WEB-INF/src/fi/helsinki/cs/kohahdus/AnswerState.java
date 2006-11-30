@@ -12,6 +12,8 @@ public class AnswerState {
 	private String firstname;
 	private String lastname;
 	private String userID;
+	private String extid;
+	private String extid2;
 	private Timestamp answerTime;
 	
 	
@@ -53,6 +55,19 @@ public class AnswerState {
 	public String getTaskName() {
 		return taskName;
 	}
+	public void setExtid(String extid) {
+		this.extid = extid;
+	}
+	public String getExtid() {
+		return extid;
+	}
+	public void setExtid2(String extid2) {
+		this.extid2 = extid2;
+	}
+	public String getExtid2() {
+		return extid2;
+	}
+	
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}

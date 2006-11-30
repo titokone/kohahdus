@@ -38,6 +38,7 @@
 <table class="listTable" border="1px">
 	<tr>
 		<td>Student</td>
+		<td>ID</td>
 		<c:forEach var="taskName" items="${taskNames}">
 			<td>
 				<div style="direction:ltr; writing-mode:tb-rl">
@@ -53,6 +54,9 @@
 					
 					<c:out value="${student.lastname}"/>, <c:out value="${student.firstname}"/>
 				</a>
+			</td>
+			<td>
+				<c:out value="${student.Extid}"/>
 			</td>
 			<c:forEach var="taskName" items="${taskNames}">
 				<td>

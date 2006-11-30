@@ -1168,7 +1168,7 @@ public class DBHandler {
 		LinkedList<StudentAnswers> students = new LinkedList<StudentAnswers>();
 		
 		try {
-			st = conn.prepareStatement("select u.userid, u.lastname, u.firstname, t.taskname, t.taskid, sm.hassucceeded " +
+			st = conn.prepareStatement("select u.userid, u.lastname, u.firstname, u.extid, u.extid2, t.taskname, t.taskid, sm.hassucceeded " +
 									   "from studentmodel sm, course c, task t, taskinmodule tim, eauser u " +
 									   "where sm.courseid=? and sm.courseid=c.courseid and t.taskid=tim.taskid and " +
 									   "sm.seqno=tim.seqno and u.userid=sm.sid order by 1");
@@ -1184,6 +1184,9 @@ public class DBHandler {
 				m.setHasSucceeded("Y".equals(rs.getString("hassucceeded")));
 				m.setTaskName(rs.getString("taskname"));
 				m.setUserID(rs.getString("userid"));
+				m.setExtid(rs.getString("extid"));
+				m.setExtid2(rs.getString("extid2"));
+				
 				
 				if (!rs.getString("userid").equals(userID)){
 					userID = rs.getString("userid");
