@@ -1190,7 +1190,7 @@ public class DBHandler {
 				
 				if (!rs.getString("userid").equals(userID)){
 					userID = rs.getString("userid");
-					studentAnswers = new StudentAnswers(m.getFirstname(), m.getLastname(), m.getUserID());
+					studentAnswers = new StudentAnswers(m.getFirstname(), m.getLastname(), m.getUserID(), m.getExtid(), m.getExtid2());
 					students.addLast(studentAnswers);
 				}
 				studentAnswers.getAnswerMap().put(rs.getString("taskname"), m);
