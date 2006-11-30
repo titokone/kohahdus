@@ -42,11 +42,7 @@ function doOnLoad(){
 
 <body onLoad="javascript:doOnLoad()">
 
-<h2>TitoTrainer - Sign in</h2>
-
 <c:if test="${param.action=='logout'}">
-	<c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> logged out.<br>
-	<br>
 	<c:remove var="user" scope="session"/>
 </c:if>
 
@@ -84,6 +80,10 @@ function doOnLoad(){
 		</c:if>
 	</c:if>
 </c:if>
+
+<jsp:include page="menu.jsp"/>
+
+<h2>Sign in</h2>
 
 
 <form name="f" action="login.jsp" method="POST">

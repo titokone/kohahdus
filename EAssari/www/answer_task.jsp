@@ -186,10 +186,10 @@ function setDefaultInput(){
 					<td>
 						<c:choose>
 							<c:when test="${feedback.successful == 'true'}">
-								<%=rb.getString("taskSuccessfulText")%>
+								<img src="images/positive.gif" border="0"><%=rb.getString("taskSuccessfulText")%>
 							</c:when>
 							<c:otherwise>
-								<%=rb.getString("taskFailedText")%>
+								<img src="images/negative.gif" border="0"><font color="#cc0000"><b><%=rb.getString("taskFailedText")%></b></font>
 							</c:otherwise>
 						</c:choose>
 					</td>

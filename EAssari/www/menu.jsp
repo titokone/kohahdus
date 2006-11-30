@@ -56,6 +56,22 @@
 				</table>
 			</td>
 		</c:when>
+		<c:when test="${empty user}">
+			<td class="linksCell">
+				<table>
+					<tr>
+						<td><span style="font-family:impact; font-size:30px">TitoTrainer</span></td>
+					</tr>
+				</table>
+			</td>
+			<td class="userCell">
+				<table>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+			</td>
+		</c:when>
 	</c:choose>	
 </tr>
 </table>
