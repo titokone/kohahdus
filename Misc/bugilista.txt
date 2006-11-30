@@ -13,14 +13,6 @@ Kun on muokataan malliratkaisutarkistustehtävää, rekisteri ja symboli checkbox o
 answer_task.jsp, Mikko, 28.11:
 Syytä harkita koodi-kentän kaventamista, jolloin tehtävän ratkaisun palauteet voisi näyttää koodin vieressä.
 --
-login.jsp, Mikko 28.11:
-Järjestelmään on mahdollista kirjautua vaikka javascript on pois päältä. Joko asetetaan formiin
-action="#" + onsubmit="xxx", tai action="javascript:xxxx".
---
-modify_user.jsp, Mikko 28.11:
-Kenttiin on mahdollista kirjoittaa epävalidia syötettä laittamalla javascript pois päältä. Syötteelle
-ei tehdä palvelinpäässä mitään tarkistuksia. En testannut mutta veikkaan että sama koskee signup-sivua.
---
 composer.jsp, Mikko, 28.11:
 Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuitenkin
 tekstikenttä näkyvissä arvojen syöttämistä varten.
@@ -106,6 +98,18 @@ Korjattu: Tarkistus poistettu. Poistettu myös vastaava tarkistus tulostuksista. 
 composer.jsp, Mikko, 28.11:
 Käskykriteerien keltainen ikoni ei erotu valkoisesta taustasta tarpeeksi.
 Korjattu: Vaihdettu mustaksi. Kuka teki?
+--
+login.jsp, Mikko 28.11:
+Järjestelmään on mahdollista kirjautua vaikka javascript on pois päältä. Joko asetetaan formiin
+action="#" + onsubmit="xxx", tai action="javascript:xxxx".
+Korjattu: formin action on error-sivu, javascriptillä vaihdetaan submitin yhteydessä.
+--
+modify_user.jsp, Mikko 28.11:
+Kenttiin on mahdollista kirjoittaa epävalidia syötettä laittamalla javascript pois päältä. Syötteelle
+ei tehdä palvelinpäässä mitään tarkistuksia. En testannut mutta veikkaan että sama koskee signup-sivua.
+Korjattu: formin action on error-sivu, javascriptillä vaihdetaan submitin yhteydessä. Tämä on mahdollista
+ohittaa, mutta paskat siitä, mitään varsinaista vahinkoa ei ole mahdollista saada aikaan.
+--
 
 
 

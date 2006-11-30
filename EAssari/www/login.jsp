@@ -86,7 +86,8 @@ function doOnLoad(){
 <h2>Sign in</h2>
 
 
-<form name="f" action="login.jsp" method="POST">
+<form name="f" action="error.jsp?errorMsg=Javascript+is+turned+off.+Please+enable+javascript" method="POST"
+      onsubmit="document.f.action='login.jsp'; return true;">
 <input type="hidden" name="action" value="login">
 
 <div>

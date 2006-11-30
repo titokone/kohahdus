@@ -205,7 +205,9 @@
 
 <br>
 
-<form name="modify_user_form" action="modify_user.jsp" onsubmit="return checkForm()" method="POST">
+
+<form name="modify_user_form" action="error.jsp?errorMsg=Javascript+is+turned+off.+Please+enable+javascript"
+      onsubmit="if (checkForm()) { document.modify_user_form.action='modify_user.jsp'; return true; } return false;" method="POST">
 <input type="hidden" name="action" value="modify">
 
 
