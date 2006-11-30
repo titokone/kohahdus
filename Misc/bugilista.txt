@@ -48,6 +48,9 @@ Kommentoin ongelmakohdan pois. Edessä on tunnus "LANGPROB", jotta löydätte.
 teacherTaskList.jsp, Tuomas, 30.11
 Javascript: Taskin järjestäminen kielen mukaan ei toimi alaspäin
 --
+teacherTaskList.jsp, Taro, 30.11
+Kurssien nimen muokkaus vois toteuttaa jos ehtii.
+--
 
 
 

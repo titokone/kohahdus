@@ -73,6 +73,8 @@ function doOnLoad(){
 			<%
 				response.addCookie(new Cookie("courseID", request.getParameter("course")));
 				response.addCookie(new Cookie("language", request.getParameter("language")));
+				String courseName = DBHandler.getInstance().getCourseName(request.getParameter("course"));
+				session.setAttribute("courseName", courseName);
 			%>			
 			<c:set var="course" value="${param.course}" scope="session"/>
 			<c:set var="language" value="${param.language}" scope="session"/>

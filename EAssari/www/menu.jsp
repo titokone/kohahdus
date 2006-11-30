@@ -28,6 +28,7 @@
 			<td class="userCell">
 				<table>
 					<tr>
+						<td>Kurssi: <c:out value="${courseName}"/></td>
 						<td><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> (<c:out value="${user.status}"/>)</td>
 						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/login.jsp?action=logout"><%=menu.getString("logout")%></a></td>
 					</tr>

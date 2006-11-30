@@ -79,7 +79,7 @@ public class AnswerState implements Comparable{
 		this.userID = userID;
 	}
 	public String getAnswerTime() {
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm dd.MM.yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(answerTime);
 	}
 	public void setAnswerTime(Timestamp answerTime) {
@@ -94,7 +94,9 @@ public class AnswerState implements Comparable{
 	
 	public int compareTo(Object obj){
 		AnswerState other = (AnswerState)obj;
-		return this.getCourseName().compareTo(other.getCourseName());
+		int result = this.getCourseName().compareTo(other.getCourseName());
+		if (result == 0) result = this.answerTime.compareTo(other.answerTime);
+		return result;
 	}
 	
 }
