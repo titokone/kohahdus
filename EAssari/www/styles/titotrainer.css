@@ -119,6 +119,11 @@ select {
 	text-align: left;
 }
 
+.listTable td img {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .listTable td.titleBar {
 	background-color: #ccddff;
 	color: #000000;
@@ -199,16 +204,3 @@ select {
 	padding: 6px; 
 	border: solid 2px #000000;
 }
-
-/* an element that looks like a button */
-.helpbutton {
-	margin-left: 8px;
-	padding: 1px 2px; 
-	border-style: outset; 
-	background-color: #B0C4DE; 
-	border-color: #6495ED; 
-	color: #000000; 
-	text-decoration: none;
-	font-weight: bold;
-}
-

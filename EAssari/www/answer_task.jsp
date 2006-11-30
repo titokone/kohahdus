@@ -55,17 +55,19 @@ function helpWindow(topic) {
 
 function checkInput() {
 	trimWhitespace(document.answerform.keyboardInput);
+	document.getElementById("inputFeedback").style.display = "none";
 
 	if(document.answerform.keyboardInput.value == "") {
-		return;
+		return true;
 	}
 
-	var numberOfKeyboardInput = amountOfTitokoneInputOutput(document.answerform.keyboardInput.value);
-	
-	if(numberOfKeyboardInput == -1) {
-		alert("Keyboard input must be integers separated by commas.");
+	if(!isValidTitokoneInputOutput(document.answerform.keyboardInput.value)) {
+		document.getElementById("inputFeedback").style.display = "block";
 		document.answerform.keyboardInput.focus();
+		return false;
 	}
+	
+	return true;
 }
 
 function showhideTitokoneReport() {
@@ -95,7 +97,7 @@ function setDefaultInput(){
 <h2><c:out value="${task.name}"/></h2>
 
 
-<form name="answerform" action="../Answer" method="POST">
+<form name="answerform" action="../Answer" method="POST" onSubmit="return checkInput()">
 <table border="0">
 <tr>
 	<td colspan="2">
@@ -116,7 +118,7 @@ function setDefaultInput(){
 			<tr>
 				<td colspan="3" class="titleBar">
 					<%=rb.getString("input")%>&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="javascript:helpWindow('input_keyboard')"><span class="helpButton">?</span></a>
+					<a href="javascript:helpWindow('input_keyboard')">?</a>
 				</td>
 			</tr>
 			<tr>
@@ -131,7 +133,7 @@ function setDefaultInput(){
 
 				<td><b><%=rb.getString("keyboardInput")%>&nbsp;</b></td>
 				<td style="width:100%">
-					<input id="keyboardInput" name="keyboardInput" type="text" style="width:100%" value="<c:out value="${input}"/>" onBlur="checkInput()">
+					<input id="keyboardInput" name="keyboardInput" type="text" style="width:100%" value="<c:out value="${input}"/>">
 				</td>
 				<td>
 					<input type="button" value="<%=rb.getString("keyboardInputRestore")%>" onClick="javascript:setDefaultInput();">
@@ -139,6 +141,9 @@ function setDefaultInput(){
 			</tr>
 		</table>
 	</td>
+</tr>
+<tr id="inputFeedback" style="display:none;">
+	<td class="errorMsg"><!--// LANGPROB: <% //=rb.getString("keyboardInputErrorMsg")%> --></td>
 </tr>
 <tr>
 	<td valign="top">

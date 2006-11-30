@@ -93,31 +93,20 @@ function onFormSubmit() {
 	}
 	
 	// inputs
-	var numberOfPublicInputs = 0;
-	var numberOfSecretInputs = 0;
-	
 	if(document.task_creation_form.public_input.value != '') {
-		numberOfPublicInputs = amountOfTitokoneInputOutput(document.task_creation_form.public_input.value);
-		
-		if(numberOfPublicInputs == -1) {
+		if(!isValidTitokoneInputOutput(document.task_creation_form.public_input.value)) {
 			alertCounter++;
 			alertText += '\n' + alertCounter + '. Public input must be integers separated by commas with optional spaces.';
 		}
 	}	
 
 	if(document.task_creation_form.secret_input.value != "") {
-		numberOfSecretInputs = amountOfTitokoneInputOutput(document.task_creation_form.secret_input.value);
-		
-		if(numberOfSecretInputs == -1) {
+		if(!isValidTitokoneInputOutput(document.task_creation_form.secret_input.value)) {
 			alertCounter++;
 			alertText += '\n' + alertCounter + '. Secret input must be integers separated by commas with optional spaces.';
 		}
 	}	
-	
-	if(numberOfPublicInputs != numberOfSecretInputs) {
-		alertCounter++;
-		alertText += '\n' + alertCounter + '. A task must have the same number of public and secret inputs.';	
-	}
+
 	
 	// registers and variables (only if correctness is determined by predefined values
 	if(document.task_creation_form.correctness_by.value == "predefined_values") {
@@ -132,31 +121,22 @@ function onFormSubmit() {
 		}
 	}
 	
+
 	// outputs
-	var numberOfPublicOutputs = 0;
-	var numberOfSecretOutputs = 0;
-	
 	if(publicOutputField.value != "") {
-		numberOfPublicOutputs = amountOfTitokoneInputOutput(publicOutputField.value);
-		if(numberOfPublicOutputs == -1) {
+		if(!isValidTitokoneInputOutput(publicOutputField.value)) {
 			alertCounter++;
 			alertText += '\n' + alertCounter + '. Simulator output with public input must be integers separated by commas with optional spaces.';
 		}
 	}	
 	
 	if(secretOutputField.value != '') {
-			numberOfSecretOutputs = amountOfTitokoneInputOutput(secretOutputField.value);
-		
-		if(numberOfSecretOutputs == -1) {
+		if(!isValidTitokoneInputOutput(secretOutputField.value)) {
 			alertCounter++;
 			alertText += '\n' + alertCounter + '. Simulator output with secret input must be integers separated by commas with optional spaces.';
 		}
 	}	
 	
-	if(numberOfPublicOutputs != numberOfSecretOutputs) {
-		alertCounter++;
-		alertText += '\n' + alertCounter + '. A task must have the same number of outputs with public and secret inputs.';	
-	}
 	
 	// quality criteria
 	for (i=0; i<inputs.length; i++) {

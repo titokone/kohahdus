@@ -22,12 +22,11 @@ function isInteger(variable)
 {
 	var integerExp = /^((\+|-)\d)?\d*$/;
 	
-	return integerExp.test(variable);
+	return ((variable != '') && (integerExp.test(variable)));
 }
 
-/* Check that the parameter string is integers separated by commas. Return number of inputs/outputs if valid,
--1 if not */
-function amountOfTitokoneInputOutput(aString)
+/* Check that the parameter string is integers separated by commas. Returns true/false. */
+function isValidTitokoneInputOutput(aString)
 {
 	var splitExp = / *\, */;
 		
@@ -35,11 +34,11 @@ function amountOfTitokoneInputOutput(aString)
 		
 	for(var i = 0; i < ints.length; i++) {
 		if(!isInteger(ints[i])) {
-			return -1;
+			return false;
 		}
 	}
 	
-	return ints.length;
+	return true;
 }
 
 /* Function to check if student number is of valid format. */

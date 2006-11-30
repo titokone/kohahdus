@@ -25,24 +25,12 @@
 <head>
 <title>TitoTrainer - <%=rb.getString("tasksTitle")%></title>
 <link rel="stylesheet" type="text/css" title="TitoTrainer stylesheet" href="styles/titotrainer.css">
+<script language="Javascript" type="text/javascript" src="js/studentTaskFunctions.js"></script>
 <script language="Javascript" type="text/javascript" src="js/common.js"></script>
 <script language="javascript">
 
-
-
 var tasks;
 var tasksAvailable;
-
-/* Object constructor for Task objects */
-function Task(id, status, name, type, category, language, tries) {
-	this.id = id;
-	this.status = status;
-	this.name = name;
-	this.type = type;
-	this.category = category;
-	this.language = language
-	this.tries = tries;
-}
 
 function initPage() {
 	initTaskList();
@@ -103,12 +91,12 @@ function initTaskList() {
 /* input tasks into task list */
 function writeTaskList() {
 	var headerHtml = '<table class="listTable" border="1px" cellspacing="0"><tr>';
-	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByStatus()"><%=rb.getString("statusText")%></a></td>';
-	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByName()"><%=rb.getString("nameText")%></a></td>';
-	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByType()"><%=rb.getString("typeText")%></a></td>';
-	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByCategory()"><%=rb.getString("categoryText")%></a></td>';
-	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByTries()"><%=rb.getString("triesText")%></a></td>';
-	headerHtml += '<td class="titleBar"><a href="javascript:sortTasksByLanguage()"><%=rb.getString("languageText")%></a></td></tr>';
+	headerHtml += '<td class="titleBar"><%=rb.getString("statusText")%> <a href="javascript: sortTasksByStatus(tasks, true)"><img src="images/arrow-down.gif" border="0"></a><a href="javascript: sortTasksByStatus(tasks, false)"><img src="images/arrow-up.gif" border="0"></a></td>';
+	headerHtml += '<td class="titleBar"><%=rb.getString("nameText")%> <a href="javascript: sortTasksByName(tasks, true)"><img src="images/arrow-down.gif" border="0"></a><a href="javascript: sortTasksByName(tasks, false)"><img src="images/arrow-up.gif" border="0"></a></td>';
+	headerHtml += '<td class="titleBar"><%=rb.getString("typeText")%> <a href="javascript: sortTasksByType(tasks, true)"><img src="images/arrow-down.gif" border="0"></a><a href="javascript: sortTasksByType(tasks, false)"><img src="images/arrow-up.gif" border="0"></a></td>';
+	headerHtml += '<td class="titleBar"><%=rb.getString("categoryText")%> <a href="javascript: sortTasksByCategory(tasks, true)"><img src="images/arrow-down.gif" border="0"></a><a href="javascript: sortTasksByCategory(tasks, false)"><img src="images/arrow-up.gif" border="0"></a></td>';
+	headerHtml += '<td class="titleBar"><%=rb.getString("triesText")%> <a href="javascript: sortTasksByTries(tasks, true)"><img src="images/arrow-down.gif" border="0"></a><a href="javascript: sortTasksByTries(tasks, false)"><img src="images/arrow-up.gif" border="0"></a></td>';
+	headerHtml += '<td class="titleBar"><%=rb.getString("languageText")%> <a href="javascript: sortTasksByLanguage(tasks, true)"><img src="images/arrow-down.gif" border="0"></a><a href="javascript: sortTasksByLanguage(tasks, false)"><img src="images/arrow-up.gif" border="0"></a></td></tr>';
 	
 	var listHtml = '';
 	var statusImg;
@@ -138,102 +126,6 @@ function writeTaskList() {
 	
 	var taskListElem = document.getElementById("taskList");
 	taskListElem.innerHTML = headerHtml + listHtml;
-}
-
-/* use insertion sort to sort tasks into order by task status - order: success, failure, - (not tried)*/
-function sortTasksByStatus() {
-	for(var i = 1; i < tasks.length; i++) {
-		var temp = tasks[i];
-		var j = i;
-		
-		while (j > 0 && tasks[j-1].status.toLowerCase() < temp.status.toLowerCase()) {
-			tasks[j] = tasks[j-1]; 
-			--j;
-		}
-		tasks[j] = temp;
-	}
-
-	writeTaskList();
-}
-
-/* use insertion sort to sort tasks into alphabetical order by task name */
-function sortTasksByName() {
-	for(var i = 1; i < tasks.length; i++) {
-		var temp = tasks[i];
-		var j = i;
-		
-		while (j > 0 && tasks[j-1].name.toLowerCase() > temp.name.toLowerCase()) {
-			tasks[j] = tasks[j-1]; 
-			--j;
-		}
-		tasks[j] = temp;
-	}
-
-	writeTaskList();
-}
-
-/* use insertion sort to sort tasks into alphabetical order by task type */
-function sortTasksByType() {
-	for(var i = 1; i < tasks.length; i++) {
-		var temp = tasks[i];
-		var j = i;
-		
-		while (j > 0 && tasks[j-1].type.toLowerCase() > temp.type.toLowerCase()) {
-			tasks[j] = tasks[j-1]; 
-			--j;
-		}
-		tasks[j] = temp;
-	}
-
-	writeTaskList();
-}
-
-/* use insertion sort to sort tasks into alphabetical order by task category */
-function sortTasksByCategory() {
-	for(var i = 1; i < tasks.length; i++) {
-		var temp = tasks[i];
-		var j = i;
-		
-		while (j > 0 && tasks[j-1].category.toLowerCase() > temp.category.toLowerCase()) {
-			tasks[j] = tasks[j-1]; 
-			--j;
-		}
-		tasks[j] = temp;
-	}
-
-	writeTaskList();
-}
-
-/* use insertion sort to sort tasks into reverse order by number of tries */
-function sortTasksByTries() {
-	for(var i = 1; i < tasks.length; i++) {
-		var temp = tasks[i];
-		var j = i;
-		
-		while (j > 0 && tasks[j-1].tries < temp.tries) {
-			tasks[j] = tasks[j-1]; 
-			--j;
-		}
-		tasks[j] = temp;
-	}
-
-	writeTaskList();
-}
-
-/* use insertion sort to sort tasks into alphabetical order by task language */
-function sortTasksByLanguage() {
-	for(var i = 1; i < tasks.length; i++) {
-		var temp = tasks[i];
-		var j = i;
-		
-		while (j > 0 && tasks[j-1].language.toLowerCase() > temp.language.toLowerCase()) {
-			tasks[j] = tasks[j-1]; 
-			--j;
-		}
-		tasks[j] = temp;
-	}
-
-	writeTaskList();
 }
 </script>
 </head>
