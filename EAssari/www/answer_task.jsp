@@ -259,6 +259,12 @@ function setDefaultInput(){
 		<table class="presentationTable" style="float: left; margin: 10px; width: auto;">
 		<tr><td colspan=3 class="titleBar"><%=rb.getString("titostateMemory")%></td></tr>
 		<tr><td><%=rb.getString("titostateAddress")%></td><td><%=rb.getString("titostateValue")%></td><td><%=rb.getString("titostateCode")%></td></tr>
+		<%
+		//	int memsize = state.getDataSize() + state.getCodeSize();
+		//	for (int i=0; i<memsize; i++) {
+		//		out.println("<tr><td>" + i + "</td><td>" + state.getMemoryLocation(i) + "</td><td>" + state.getInstruction(i) + "</td></tr>");
+		//	}
+		%>		
 		<tr><td>0</td><td>16846845</td><td>LOAD R1, =4</td></tr>
 		<tr><td>1</td><td>15465467</td><td>LOAD R1, =4</td></tr>
 		<tr><td>2</td><td>17684684</td><td>LOAD R1, =4</td></tr>
