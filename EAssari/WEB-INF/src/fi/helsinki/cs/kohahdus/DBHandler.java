@@ -1196,13 +1196,13 @@ public class DBHandler {
 				m.setHasSucceeded("Y".equals(rs.getString("hassucceeded")));
 				m.setTaskName(rs.getString("taskname"));
 				m.setUserID(rs.getString("userid"));
-				m.setExtid(rs.getString("extid"));
-				m.setExtid2(rs.getString("extid2"));
+				m.setstudentnumber(rs.getString("extid"));
+				m.setsocialsecuritynumber(rs.getString("extid2"));
 				
 				
 				if (!rs.getString("userid").equals(userID)){
 					userID = rs.getString("userid");
-					studentAnswers = new StudentAnswers(m.getFirstname(), m.getLastname(), m.getUserID(), m.getExtid(), m.getExtid2());
+					studentAnswers = new StudentAnswers(m.getFirstname(), m.getLastname(), m.getUserID(), m.getstudentnumber(), m.getsocialsecuritynumber());
 					students.addLast(studentAnswers);
 				}
 				studentAnswers.getAnswerMap().put(rs.getString("taskname"), m);

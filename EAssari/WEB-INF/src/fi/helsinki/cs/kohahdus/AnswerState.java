@@ -12,8 +12,8 @@ public class AnswerState implements Comparable{
 	private String firstname;
 	private String lastname;
 	private String userID;
-	private String extid;
-	private String extid2;
+	private String studentnumber;
+	private String socialsecuritynumber;
 	private Timestamp answerTime;
 	private String courseName;
 	
@@ -56,17 +56,17 @@ public class AnswerState implements Comparable{
 	public String getTaskName() {
 		return taskName;
 	}
-	public void setExtid(String extid) {
-		this.extid = extid;
+	public void setstudentnumber(String studentnumber) {
+		this.studentnumber = studentnumber;
 	}
-	public String getExtid() {
-		return extid;
+	public String getstudentnumber() {
+		return studentnumber;
 	}
-	public void setExtid2(String extid2) {
-		this.extid2 = extid2;
+	public void setsocialsecuritynumber(String socialsecuritynumber) {
+		this.socialsecuritynumber = socialsecuritynumber;
 	}
-	public String getExtid2() {
-		return extid2;
+	public String getsocialsecuritynumber() {
+		return socialsecuritynumber;
 	}
 	
 	public void setTaskName(String taskName) {

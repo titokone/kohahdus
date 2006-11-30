@@ -9,16 +9,16 @@ public class StudentAnswers {
 	private String firstname;
 	private String lastname;
 	private String userID;
-	private String extID;
-	private String extID2;
+	private String StudentNumber;
+	private String SocialSecurityNumber;
 	private HashMap<String, AnswerState> answers;
 	
-	public StudentAnswers(String firstname, String lastname, String userID, String extID, String extID2){
+	public StudentAnswers(String firstname, String lastname, String userID, String studentnumber, String socialsecuritynumber){
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.userID = userID;
-		this.extID = extID;
-		this.extID2 = extID2;
+		this.StudentNumber = studentnumber;
+		this.SocialSecurityNumber = socialsecuritynumber;
 		answers = new HashMap<String, AnswerState>();
 	}
 	
@@ -59,20 +59,20 @@ public class StudentAnswers {
 		answers.put(key, value);
 	}
 
-	public String getExtID() {
-		return extID;
+	public String getStudentNumber() {
+		return StudentNumber;
+	}
+	
+	public void setStudentNumber(String StudentNumber) {
+		this.StudentNumber = StudentNumber;
 	}
 
-	public void setExtID(String extID) {
-		this.extID = extID;
+	public String getSocialSecurityNumber() {
+		return SocialSecurityNumber;
 	}
 
-	public String getExtID2() {
-		return extID2;
-	}
-
-	public void setExtID2(String extID2) {
-		this.extID2 = extID2;
+	public void setSocialSecurityNumber(String SocialSecurityNumber) {
+		this.SocialSecurityNumber = SocialSecurityNumber;
 	}
 	
 

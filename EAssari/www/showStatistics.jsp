@@ -56,7 +56,9 @@
 				</a>
 			</td>
 			<td>
-				<c:out value="${student.Extid}"/>
+			    <c:if test="${not empty student.StudentNumber}">
+					<c:out value="${student.StudentNumber}"/>
+				</c:if>
 			</td>
 			<c:forEach var="taskName" items="${taskNames}">
 				<td>
