@@ -248,6 +248,9 @@ function setDefaultInput(){
 </form>
 
 <c:if test="${param.analyzed == 'true'}">
+	<c:set var="state" value="${feedback.titoState}"/>
+	
+	
 	<div id="titokone_report" style="display: none">
 		<hr>
 		<a name="output"></a>
@@ -278,13 +281,13 @@ function setDefaultInput(){
 
 		<table class="presentationTable" style="margin: 10px; width: auto;">
 		<tr><td colspan=2 class="titleBar"><%=rb.getString("titostateExecuteInfo")%></td></tr>
-		<tr><td><%=rb.getString("titostateOutput")%></td>				<td>2, 5, 6, 7, 8325, 214</td></tr>
-		<tr><td><%=rb.getString("titostateExecutedInstructions")%></td>		<td>314</td></tr>
-		<tr><td><%=rb.getString("titostateMemoryReferences")%></td>	<td>389</td></tr>
-		<tr><td><%=rb.getString("titostateDataReferences")%></td>		<td>75</td></tr>
-		<tr><td><%=rb.getString("titostateCodeSize")%></td>			<td>15</td></tr>
-		<tr><td><%=rb.getString("titostateDataSize")%></td>			<td>3</td></tr>
-		<tr><td><%=rb.getString("titostateStackHeight")%></td><td>12</td></tr>
+		<tr><td><%=rb.getString("titostateOutput")%></td>				<td><c:out value="${state.screenOutput}"/></td></tr>
+		<tr><td><%=rb.getString("titostateExecutedInstructions")%></td>	<td><c:out value="${state.executionSteps}"/></td></tr>
+		<tr><td><%=rb.getString("titostateMemoryReferences")%></td>		<td><c:out value="${state.executionSteps + state.dataReferenceCount}"/></td></tr>
+		<tr><td><%=rb.getString("titostateDataReferences")%></td>		<td><c:out value="${state.dataReferenceCount}"/></td></tr>
+		<tr><td><%=rb.getString("titostateCodeSize")%></td>				<td><c:out value="${state.codeSize}"/></td></tr>
+		<tr><td><%=rb.getString("titostateDataSize")%></td>				<td><c:out value="${state.dataSize}"/></td></tr>
+		<tr><td><%=rb.getString("titostateStackHeight")%></td>			<td><c:out value="${state.stackMaxSize}"/></td></tr>
 		</table>
 
 		<table class="presentationTable" style="float: left; margin: 10px; width: auto;">
