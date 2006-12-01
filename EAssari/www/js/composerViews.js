@@ -9,16 +9,14 @@ function switchToExampleView(){
 	for (i=0; i<inputs.length; i++){
 		if (inputs[i].name.indexOf("_checked") != -1){
 			inputs[i].style.display = "block";
-		} else if (inputs[i].name.indexOf("_value_public") != -1){
-			inputs[i].style.display = "none";
-		} else if (inputs[i].name.indexOf("_value_secret") != -1){
+		} else if (inputs[i].name.indexOf("_value") != -1){
 			inputs[i].style.display = "none";
 		}
 	}
 	
 	textareas = document.getElementsByTagName('textarea');
 	for (i=0; i<textareas.length; i++){
-		if (textareas[i].name.indexOf("output_value_") != -1){
+		if (textareas[i].name.indexOf("output_value") != -1){
 			textareas[i].style.display = "none";
 		}
 	}
@@ -37,16 +35,14 @@ function switchToCriteriaView(){
 	for (i=0; i<inputs.length; i++){
 		if (inputs[i].name.indexOf("_checked") != -1){
 			inputs[i].style.display = "none";
-		} else if (inputs[i].name.indexOf("_value_public") != -1){
-			inputs[i].style.display = "block";
-		} else if (inputs[i].name.indexOf("_value_secret") != -1){
+		} else if (inputs[i].name.indexOf("_value") != -1){
 			inputs[i].style.display = "block";
 		}
 	}
 
 	var textareas = document.getElementsByTagName('textarea');
 	for (i=0; i<textareas.length; i++){
-		if (textareas[i].name.indexOf("output_value_") != -1){
+		if (textareas[i].name.indexOf("output_value") != -1){
 			textareas[i].style.display = "block";
 		}
 	}

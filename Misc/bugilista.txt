@@ -18,9 +18,6 @@ Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuite
 tekstikenttä näkyvissä arvojen syöttämistä varten.
 --
 composer.jsp, Mikko, 28.11:
-Uuden symbolimuutujan lisääminen poistaa jo luotujen muuttujien tiedot
---
-composer.jsp, Mikko, 28.11:
 Uusien symbolimuuttujien palautteet oletuksena tyhjiä
 --
 TitoKone, Mikko, 29.11:
@@ -142,6 +139,12 @@ Korjattu?: Toimii, kenties kaikki tiedostot eivät olleet uusimpia/latautuneet. M
 menu.jsp, Paula, 1.12.
 Kurssi-teksti ja opiskelijan status eivät sopeudu kieliasetuksiin.
 Korjattu: Muokattu käyttämään monikielisyyspakettia. Paula 1.12.
+--
+composer.jsp, Mikko, 28.11:
+Uuden symbolimuutujan lisääminen poistaa jo luotujen muuttujien tiedot
+Korjattu: Jostain syystä Firefox hukkaa kenttien sisällöt (IE ei). Lisätty erillinen tallennus ja palautus
+Javascriptiin. Paula 1.12.
+
 
  BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

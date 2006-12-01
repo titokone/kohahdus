@@ -87,11 +87,41 @@ function composerOnLoad() {
 	initTaskCreation();
 }
 
+// "object" for storing variable values while rewriting the variable cell
+function ttk91variable(varChecked, name, publicOp, publicValue, cfp, wfp, secretOp, secretValue, cfs, wfs) {
+	this.checked = varChecked;
+	this.name = name;
+	this.publicOp = publicOp;
+	this.publicValue = publicValue;
+	this.correctFeedbackPublic = cfp;
+	this.wrongFeedbackPublic = wfp;
+	this.secretOp = secretOp;
+	this.secretValue = secretValue;
+	this.correctFeedbackSecret = cfs;
+	this.wrongFeedbackSecret = wfs;
+}
+
 // add a new variable field into HTML
 function addVariable() {
 	var cell = document.getElementById("variables_cell");
+	var varArray = new Array();
 
 	var html = cell.innerHTML;
+	
+	// Mozilla/Firefox browsers forget the contents of the fields, so save them...
+	for(var i = 0; i < variableCounter; i++) {
+		varArray[i] = new ttk91variable(
+				document.getElementsByName('SYM' + i + '_checked').item(0).checked,
+				document.getElementsByName('SYM' + i + '_name').item(0).value,
+				document.getElementsByName('PUBSYM' + i + '_comparison_op').item(0).selectedIndex,
+				document.getElementsByName('PUBSYM' + i + '_value').item(0).value,
+				document.getElementsByName('PUBSYM' + i + '_acceptance_feedback').item(0).value,
+				document.getElementsByName('PUBSYM' + i + '_failure_feedback').item(0).value,
+				document.getElementsByName('SECSYM' + i + '_comparison_op').item(0).selectedIndex,
+				document.getElementsByName('SECSYM' + i + '_value').item(0).value,
+				document.getElementsByName('SECSYM' + i + '_acceptance_feedback').item(0).value,
+				document.getElementsByName('SECSYM' + i + '_failure_feedback').item(0).value);
+	}
 
 	var beginhtml = html.substring(0, (html.length - 16));
 	var endhtml = html.substring(html.length - 16)
@@ -108,15 +138,29 @@ function addVariable() {
 	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_failure_feedback" cols="20" rows="4"> </textarea></td></tr>';
 
 	cell.innerHTML = beginhtml + endhtml;
-
-	variableCounter++;
-
+	
 	// make sure that the new row conforms to the current view
 	if(document.task_creation_form.correctness_by[0].checked == true) {
 		switchToCriteriaView();
 	} else {
 		switchToExampleView();
 	}
+	
+	// ...and put them back.
+	for(var i = 0; i < varArray.length; i++) {
+		document.getElementsByName('SYM' + i + '_checked').item(0).checked = varArray[i].checked;
+		document.getElementsByName('SYM' + i + '_name').item(0).value = varArray[i].name;
+		document.getElementsByName('PUBSYM' + i + '_comparison_op').item(0).selectedIndex = varArray[i].publicOp;
+		document.getElementsByName('PUBSYM' + i + '_value').item(0).value =  varArray[i].publicValue;
+		document.getElementsByName('PUBSYM' + i + '_acceptance_feedback').item(0).value = varArray[i].correctFeedbackPublic;
+		document.getElementsByName('PUBSYM' + i + '_failure_feedback').item(0).value = varArray[i].wrongFeedbackPublic;
+		document.getElementsByName('SECSYM' + i + '_comparison_op').item(0).selectedIndex = varArray[i].secretOp;
+		document.getElementsByName('SECSYM' + i + '_value').item(0).value = varArray[i].secretValue;
+		document.getElementsByName('SECSYM' + i + '_acceptance_feedback').item(0).value = varArray[i].correctFeedbackSecret;
+		document.getElementsByName('SECSYM' + i + '_failure_feedback').item(0).value = varArray[i].wrongFeedbackSecret;
+	}
+
+	variableCounter++;
 }
 
 </script>
