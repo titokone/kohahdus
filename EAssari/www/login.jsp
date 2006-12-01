@@ -20,16 +20,18 @@
 	}
 	
 function doOnLoad(){
-	var courseID = getCookie("courseID");
-	if (courseID != "") {
-		var option = document.getElementById(courseID);
-		option.selected = true;
-	}
-	var language = getCookie("language");
-	if (language != "") {
-		var option = document.getElementById(language);
-		option.selected = true;
-	}
+	<c:if test="${empty param.role}">
+		var courseID = getCookie("courseID");
+		if (courseID != "") {
+			var option = document.getElementById(courseID);
+			option.selected = true;
+		}
+		var language = getCookie("language");
+		if (language != "") {
+			var option = document.getElementById(language);
+			option.selected = true;
+		}
+	</c:if>
 }
 
 
@@ -93,7 +95,7 @@ function doOnLoad(){
 
 
 <form name="f" action="error.jsp?errorMsg=Javascript+is+turned+off.+Please+enable+javascript" method="POST"
-      onclick="document.f.action='login.jsp'; return true;">
+      onclick="document.f.action='login.jsp<c:if test="${not empty param.role}">?role=<c:out value="${param.role}"/></c:if>'; return true;">
 <input type="hidden" name="userAction" value="login">
 
 <div>

@@ -29,6 +29,13 @@
 	} 
 	List<String> categories = DBHandler.getInstance().getCategories();
 	if (categories != null) pageContext.setAttribute("categories", categories);
+	
+	String templateName = task.getLanguage() + "_TEMPLATE";
+	// Get template criteria from the database
+	CriterionMap templateCrit = DBHandler.getInstance().getCriteriaMap(DBHandler.getInstance().getTask(templateName));
+	if (!templateCrit.isEmpty()) {
+		pageContext.setAttribute("templateCrit", templateCrit);
+	}
 %>
 
 <c:if test="${empty task}">
@@ -56,6 +63,15 @@
 <script language="javascript">
 
 var variableCounter = <c:out value="${symbolCriterionCount}"/>;
+
+<c:set var="pi" value='PUBSYM${0}'/>
+<c:set var="si" value='SECSYM${0}'/>
+<c:set var="tpub" value="${templateCrit[pi]}"/>
+<c:set var="tsec" value="${templateCrit[si]}"/>
+var varAcceptanceFeedbackPublic = '<c:out value="${tpub.acceptanceFeedback}"/>';
+var varFailureFeedbackPublic = '<c:out value="${tpub.failureFeedback}"/>';
+var varAcceptanceFeedbackSecret = '<c:out value="${tsec.acceptanceFeedback}"/>';
+var varFailureFeedbackSecret = '<c:out value="${tsec.failureFeedback}"/>';
 
 var positive = new Image();
 positive.src = "images/positive.gif";
@@ -132,12 +148,12 @@ function addVariable() {
 	beginhtml += '<td><input name="SYM' + variableCounter + '_name" type="text" size="4"></td>';
 	beginhtml += '<td><select name="PUBSYM' + variableCounter + '_comparison_op"><option>=</option><option>!=</option><option><</option><option>></option><option><=</option><option>>=</option></select></td>';
 	beginhtml += '<td><input name="PUBSYM' + variableCounter + '_value" type="text" size="4"></td>';
-	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="4"> </textarea></td>';
-	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_failure_feedback" cols="20" rows="4"> </textarea></td>';
+	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="4">' + varAcceptanceFeedbackPublic + '</textarea></td>';
+	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_failure_feedback" cols="20" rows="4">' + varFailureFeedbackPublic + '</textarea></td>';
 	beginhtml += '<td><select name="SECSYM' + variableCounter + '_comparison_op"><option>=</option><option>!=</option><option><</option><option>></option><option><=</option><option>>=</option></select></td>';
 	beginhtml += '<td><input name="SECSYM' + variableCounter + '_value" type="text" size="4"></td>';
-	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="4"> </textarea></td>';
-	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_failure_feedback" cols="20" rows="4"> </textarea></td></tr>';
+	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="4">' + varAcceptanceFeedbackSecret + '</textarea></td>';
+	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_failure_feedback" cols="20" rows="4">' + varFailureFeedbackSecret + '</textarea></td></tr>';
 
 	cell.innerHTML = beginhtml + endhtml;
 	

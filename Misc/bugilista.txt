@@ -17,9 +17,6 @@ composer.jsp, Mikko, 28.11:
 Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereill‰ on kuitenkin
 tekstikentt‰ n‰kyviss‰ arvojen syˆtt‰mist‰ varten.
 --
-composer.jsp, Mikko, 28.11:
-Uusien symbolimuuttujien palautteet oletuksena tyhji‰
---
 TitoKone, Mikko, 29.11:
 Tiedostojen lukemis ja kirjoittamis k‰skyt pit‰‰ testata. Nykyisell‰‰n vehje lukee ja kirjoittaa
 /dev/nullia, t‰ytyy varmistaa ettei t‰st‰ tule ongelmia..
@@ -35,9 +32,6 @@ sekuntia ennen uudelleenohjausta, jotta opettaja n‰kisi tiedon teht‰v‰n tallentu
 --
 teacherTaskList.jsp, Taro, 30.11
 Kurssien nimen muokkaus vois toteuttaa jos ehtii.
---
-login.jsp, Paula 1.12.
-Sivu hukkaa rooliparametrin ja palauttaa opettajan perussivulle, jos antaa v‰‰r‰n tunnuksen/salasanan.
 --
 answer_task.jsp, Markus, 1.12
 Vastauksen tila s‰ilyy sessiossa vaikka opiskelija siirtyisi toiselle sivulle.
@@ -144,7 +138,16 @@ composer.jsp, Mikko, 28.11:
 Uuden symbolimuutujan lis‰‰minen poistaa jo luotujen muuttujien tiedot
 Korjattu: Jostain syyst‰ Firefox hukkaa kenttien sis‰llˆt (IE ei). Lis‰tty erillinen tallennus ja palautus
 Javascriptiin. Paula 1.12.
-
+--
+login.jsp, Paula 1.12.
+Sivu hukkaa rooliparametrin ja palauttaa opettajan perussivulle, jos antaa v‰‰r‰n tunnuksen/salasanan.
+Korjattu: Kirjoitetaan submit-linkkiin JSP:ll‰ rooliparametri jos se on asetettu. Paula 1.12.
+--
+composer.jsp, Mikko, 28.11:
+Uusien symbolimuuttujien palautteet oletuksena tyhji‰
+Korjattu: Otetaan vastaavan kielisest‰ templatesta tarvittavat palautteet Javascript-muuttujiin ja kirjoitetaan
+uusiin kenttiin kun niit‰ luodaan. Paula 1.12.
+--
 
  BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
