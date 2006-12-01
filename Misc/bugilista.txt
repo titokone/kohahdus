@@ -51,6 +51,9 @@ answer_task.jsp Analyzer, Markus, 1.12
 Jos vastaus ei mene titokoneen k‰‰nt‰j‰st‰ l‰pi, niin Analyzer komponentin palauttama TitoState on null.
 T‰t‰ on ymm‰rrett‰vist‰ syist‰ hieman hankala n‰ytt‰‰ opiskelijalle, joten 'show titokone report' napista
 ei tapahdu t‰llˆin mit‰‰n.
+--
+menu.jsp, Paula, 1.12.
+Kurssi-teksti ja opiskelijan status eiv‰t sopeudu kieliasetuksiin.
 
 
 
