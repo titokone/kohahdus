@@ -51,9 +51,6 @@ answer_task.jsp Analyzer, Markus, 1.12
 Jos vastaus ei mene titokoneen kääntäjästä läpi, niin Analyzer komponentin palauttama TitoState on null.
 Tätä on ymmärrettävistä syistä hieman hankala näyttää opiskelijalle, joten 'show titokone report' napista
 ei tapahdu tällöin mitään.
---
-menu.jsp, Paula, 1.12.
-Kurssi-teksti ja opiskelijan status eivät sopeudu kieliasetuksiin.
 
 
 
@@ -141,6 +138,10 @@ Monikielisyys ryppyilee taas (saattaa tietysti olla taas vain minun asetuksissan
 testaisi, kiitos. Lisäsin virheilmoituksen siitä virheellisesti syötteestä, mutta se heittää poikkeusta.
 Kommentoin ongelmakohdan pois. Edessä on tunnus "LANGPROB", jotta löydätte.
 Korjattu?: Toimii, kenties kaikki tiedostot eivät olleet uusimpia/latautuneet. Markus 1.12
+--
+menu.jsp, Paula, 1.12.
+Kurssi-teksti ja opiskelijan status eivät sopeudu kieliasetuksiin.
+Korjattu: Muokattu käyttämään monikielisyyspakettia. Paula 1.12.
 
  BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -2,10 +2,14 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment></comment>
-	<entry key="logout_EN">Logout</entry>
-	<entry key="logout_FI">Kirjaudu ulos</entry>
 	<entry key="modify_EN">Personal information</entry>
 	<entry key="modify_FI">Omat tiedot</entry>
 	<entry key="taskList_EN">Task list</entry>
 	<entry key="taskList_FI">Tehtävät</entry>
+	<entry key="courseText_EN">Course</entry>
+	<entry key="courseText_FI">Kurssi</entry>
+	<entry key="studentText_EN">student</entry>
+	<entry key="studentText_FI">opiskelija</entry>
+	<entry key="logout_EN">Logout</entry>
+	<entry key="logout_FI">Kirjaudu ulos</entry>
 </properties>

@@ -43,119 +43,118 @@
 		// missing inputs
 		if(form.first_name.value == '') {
 			var elem = document.getElementById("first_name_error_msg_space");
-			elem.innerHTML = 'Please enter your first name.';
+			elem.innerHTML = '<%=rb.getString("firstNameEmptyWarning")%>';
 			returnvalue = false;
 		}
 
 		if(form.last_name.value == '') {
 			var elem = document.getElementById("last_name_error_msg_space");
-			elem.innerHTML = 'Please enter your last name.';
+			elem.innerHTML = '<%=rb.getString("lastNameEmptyWarning")%>';
 			returnvalue = false;
 		}
 
 		if(form.student_number.value == '' && form.social_security_number.value == '') {
 			var elem = document.getElementById("student_number_error_msg_space");
-			elem.innerHTML = 'Please enter either your student number or social security number.';
+			elem.innerHTML = '<%=rb.getString("studentNoSsnEmptyWarning")%>';
 			returnvalue = false;
 		}
 
 		if(form.email.value == '') {
 			var elem = document.getElementById("email_error_msg_space");
-			elem.innerHTML = 'Please enter your e-mail address.';
+			elem.innerHTML = '<%=rb.getString("emailEmptyWarning")%>';
 			returnvalue = false;
 		}
 			
 		// first name contains illegal html-characters
 		if(containsHtmlCharacters(form.first_name.value)) {
 			var elem = document.getElementById("first_name_error_msg_space");
-			elem.innerHTML = 'Field may not contain characters ", <, >, &.';
+			elem.innerHTML = '<%=rb.getString("illegalCharactersWarning")%>';
 			returnvalue = false;
 		}
 		
 		// first name not of valid length
 		if(form.first_name.value.length > 40) {
 			var elem = document.getElementById("first_name_error_msg_space");
-			elem.innerHTML = 'First name must be 1-40 characters long.';
+			elem.innerHTML = '<%=rb.getString("firstNameLengthWarning")%>';
 			returnvalue = false;
 		}
 		
 		// last name contains illegal html-characters
 		if(containsHtmlCharacters(form.last_name.value)) {
 			var elem = document.getElementById("last_name_error_msg_space");
-			elem.innerHTML = 'Field may not contain characters ", <, >, &.';
+			elem.innerHTML = '<%=rb.getString("illegalCharactersWarning")%>';
 			returnvalue = false;
 		}
 		
 		// last name not of valid length
 		if(form.last_name.value.length > 40) {
 			var elem = document.getElementById("last_name_error_msg_space");
-			elem.innerHTML = 'Last name must be 1-40 characters long.';
+			elem.innerHTML = '<%=rb.getString("lastNameLengthWarning")%>';
 			returnvalue = false;
 		}
 
 		// student number of wrong format
 		if((form.student_number.value != '') && (!studentNumberValid(form.student_number.value))) {
 			var elem = document.getElementById("student_number_error_msg_space");
-			elem.innerHTML = 'Your student number is of wrong format.';
+			elem.innerHTML = '<%=rb.getString("studentNumberFormatWarning")%>';
 			returnvalue = false;
 		}
 
 		// social security number of wrong format
 		if((form.social_security_number.value != '') && (!socialSecurityNumberValid(form.social_security_number.value))) {
 			var elem = document.getElementById("ssn_error_msg_space");
-			elem.innerHTML = 'Social security number must be of Finnish format.';
+			elem.innerHTML = '<%=rb.getString("ssnFormatWarning")%>';
 			returnvalue = false;
 		}
 		
 		// e-mail address of wrong format
 		if((form.email.value != '') && (!emailExp.test(form.email.value))) {
 			var elem = document.getElementById("email_error_msg_space");
-			elem.innerHTML = 'Your e-mail address isn\'t of a valid format. A valid format would be e.g. user@cs.helsinki.fi';
+			elem.innerHTML = '<%=rb.getString("emailFormatWarning")%>';
 			returnvalue = false;
 		}
 		
 		// e-mail address contains illegal html-characters
 		if(containsHtmlCharacters(form.email.value)) {
 			var elem = document.getElementById("email_error_msg_space");
-			elem.innerHTML = 'Field may not contain characters ", <, >, &.';
+			elem.innerHTML = '<%=rb.getString("illegalCharactersWarning")%>';
 			returnvalue = false;
 		}
 
 		// e-mail address not of valid length
 		if(form.email.value.length > 80) {
 			var elem = document.getElementById("email_error_msg_space");
-			elem.innerHTML = 'E-mail address may contain only up to 80 characters.';
+			elem.innerHTML = '<%=rb.getString("emailLengthWarning")%>';
+			returnvalue = false;
+		}
+		// new password not of valid length
+		if((form.new_password.value != '') && ((form.new_password.value.length < 6) || (form.new_password.value.length > 12))) {
+			var elem = document.getElementById("new_password_error_msg_space");
+			elem.innerHTML = '<%=rb.getString("newPasswordLengthWarning")%>';
 			returnvalue = false;
 		}
 		
 		// new password chosen, but not repeated
 		if((form.new_password.value != '') && (form.repeat_new_password.value == '')) {
 			var elem = document.getElementById("repeat_new_password_error_msg_space");
-			elem.innerHTML = 'Please repeat your new password.';
+			elem.innerHTML = '<%=rb.getString("repeatNewPasswordWarning")%>';
 			returnvalue = false;
 		}
 
 		// new password repeated, but not chosen
 		if((form.repeat_new_password.value != '') && (form.new_password.value == '')) {
 			var elem = document.getElementById("new_password_error_msg_space");
-			elem.innerHTML = 'Please type your new password.';
+			elem.innerHTML = '<%=rb.getString("chooseNewPasswordWarning")%>';
 			returnvalue = false;
 		}
 
 		// Only if "password" and "repeat password" don't match and neither is empty
 		if ((form.new_password.value != '') && (form.repeat_new_password.value != '') && (form.new_password.value != form.repeat_new_password.value)) {
 				var elem = document.getElementById("new_password_error_msg_space");
-				elem.innerHTML = 'Different values in password fields. Please check your typing.';			
+				elem.innerHTML = '<%=rb.getString("passwordNoMatchWarning")%>';			
 				returnvalue = false;
 		}
-		
-		// new password not of valid length
-		if((form.new_password.value != '') && ((form.new_password.value.length < 6) || (form.new_password.value.length > 12))) {
-			var elem = document.getElementById("new_password_error_msg_space");
-			elem.innerHTML = 'Password must be 6-12 characters long.';
-			returnvalue = false;
-		}
-		
+			
 		return returnvalue;
 	}	// end function checkForm()
 

@@ -28,8 +28,8 @@
 			<td class="userCell">
 				<table>
 					<tr>
-						<td>Kurssi: <c:out value="${courseName}"/></td>
-						<td><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> (<c:out value="${user.status}"/>)</td>
+						<td><%=menu.getString("courseText")%>: <c:out value="${courseName}"/></td>
+						<td><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> (<%=menu.getString("studentText")%>)</td>
 						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/login.jsp?userAction=logout"><%=menu.getString("logout")%></a></td>
 					</tr>
 				</table>

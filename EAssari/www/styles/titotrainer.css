@@ -48,12 +48,12 @@ select {
 }
 
 #menuTable .linksCell {
-	width: 70%;
+/*	width: 70%;*/
 	text-align: left;
 }
 
 #menuTable .userCell {
-	width: 30%;
+/*	width: 30%;*/
 	text-align: right;
 }
 
