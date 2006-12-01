@@ -228,7 +228,7 @@
 <%-- signup form - already inserted values are preserved in newUser variable --%>
 <form name="sign_up_form" action="error.jsp?errorMsg=Javascript+is+turned+off.+Please+enable+javascript"
 	onsubmit="if (checkForm()) { document.sign_up_form.action='signup.jsp'; return true; } return false;" method="POST">
-<input type="hidden" name="action" value="signup">
+<input type="hidden" name="userAction" value="signup">
 
 <p>Please fill in all the fields.</p>
 
