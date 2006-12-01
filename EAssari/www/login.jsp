@@ -71,8 +71,12 @@ function doOnLoad(){
 		</c:if>
 		<c:if test="${user.student}">	
 			<%
-				response.addCookie(new Cookie("courseID", request.getParameter("course")));
-				response.addCookie(new Cookie("language", request.getParameter("language")));
+				Cookie cookie = new Cookie("courseID", request.getParameter("course"));
+				cookie.setMaxAge(60*60*24*365);
+				response.addCookie(cookie);
+				cookie = new Cookie("language", request.getParameter("language"));
+				cookie.setMaxAge(60*60*24*365);
+				response.addCookie(cookie);
 				String courseName = DBHandler.getInstance().getCourseName(request.getParameter("course"));
 				session.setAttribute("courseName", courseName);
 			%>			

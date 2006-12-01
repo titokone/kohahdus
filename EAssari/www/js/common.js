@@ -1,10 +1,14 @@
 
-function setCookie(cookieName, cookieValue, nDays) {
-	var today = new Date();
-	var expire = new Date();
-	if (nDays==null || nDays==0) nDays=365;
-	expire.setTime(today.getTime() + 3600000*24*nDays);
-	document.cookie = cookieName+"="+escape(cookieValue)+";expires="+expire.toGMTString();
+function setCookie (name,value,expires,path,domain,secure) {
+	if (!expires) {
+		expires = new Date();
+		expires.setTime(expires.getTime() + (24*60*60*1000*365));
+	}
+  document.cookie = name + "=" + escape (value) +
+    ((expires) ? "; expires=" + expires.toGMTString() : "") +
+    ((path) ? "; path=" + path : "") +
+    ((domain) ? "; domain=" + domain : "") +
+    ((secure) ? "; secure" : "");
 }
 
 
