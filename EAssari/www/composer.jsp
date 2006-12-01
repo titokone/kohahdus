@@ -27,6 +27,8 @@
 			pageContext.setAttribute("symbolCriterionCount", criteria.getSymbolCriterionCount());
 		}
 	} 
+	List<String> categories = DBHandler.getInstance().getCategories();
+	if (categories != null) pageContext.setAttribute("categories", categories);
 %>
 
 <c:if test="${empty task}">
@@ -207,10 +209,11 @@ function addVariable() {
 			<td>Category </td>
 			<td>
 				<select name="category">
-					<option <c:if test="${task.category=='Category 1'}">selected</c:if>>Category 1</option>
-					<option <c:if test="${task.category=='Category 2'}">selected</c:if>>Category 2</option>
-					<option <c:if test="${task.category=='Category 3'}">selected</c:if>>Category 3</option>
-					<option <c:if test="${task.category=='Category 4'}">selected</c:if>>Category 4</option>
+					<c:forEach var="category" items="${categories}">
+						<option <c:if test="${task.category==category}">selected</c:if>>
+							<c:out value="${category}"/>
+						</option>
+					</c:forEach>
 				</select>
 			</td>
 		</tr>

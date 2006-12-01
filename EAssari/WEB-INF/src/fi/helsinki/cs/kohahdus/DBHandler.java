@@ -27,10 +27,14 @@ import fi.helsinki.cs.kohahdus.trainer.User;
  */
 
 public class DBHandler {
+	private static final String DEFAULT_LANGUAGE = "EN"; 
 	private static final String DEFAULT_TASKTYPE = "titotask"; 
 	private static final String DEFAULT_MODULE_ID = "0"; 
 	private static final String DEFAULT_MODULE_TYPE = "training"; 
 	private static final String ATTRIBUTE_TYPE_TASK = "T"; 
+	private static final String ATTRIBUTE_TYPE_CATEGORY = "Q"; 
+	private static final String ATTRIBUTE_ID_CATEGORY = "Q"; 
+	private static final String ATTRIBUTE_NAME_CATEGORY = "Q"; 
 	private static final String ATTRIBUTE_VALUE_TYPE_CHARACTER = "C";	// Character value 
 	private static final String ATTRIBUTE_VALUE_TYPE_NUMERIC = "N";		// Numeric value 
 	
@@ -1073,7 +1077,7 @@ public class DBHandler {
 		StudentAnswers studentsAnswers = new StudentAnswers();
 		
 		try {
-			String sql = "select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname, sa.whenanswered, t.taskid, c.coursename " +
+			String sql = "select u.firstname, u.lastname, sm.hassucceeded, sm.lasttrynumber, t.taskname, sa.whenanswered, t.taskid, c.coursename, c.courseid " +
 			   			 "from studentmodel sm, eauser u, task t, storedanswer sa, taskinmodule tim, course c " +
 			   			 "where sm.sid=? and sm.sid=u.userid and sm.seqno=tim.seqno and sm.courseid=c.courseid and " +
 			   			 "sa.trynumber=sm.lasttrynumber and tim.taskid=t.taskid and sa.seqno=sm.seqno and sm.sid=sa.sid";
@@ -1097,7 +1101,7 @@ public class DBHandler {
 				m.setAnswerTime(rs.getTimestamp("whenanswered"));
 				m.setUserID(userID);
 				m.setCourseName(rs.getString("coursename"));
-				studentsAnswers.putAnswerState(rs.getString("taskid"), m);
+				studentsAnswers.putAnswerState(rs.getString("courseid")+"_"+rs.getString("taskid"), m);
 			} 
 			rs.close();
 			
@@ -1251,6 +1255,62 @@ public class DBHandler {
 
 		return taskNames;
 	}	
+
+	/** Return a list of categories */
+	public LinkedList<String> getCategories() throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		LinkedList<String> categories = new LinkedList<String>();
+		try {
+			st = conn.prepareStatement("select * from attributevalues " +
+									   "where objecttype=? and objectid=?");
+			st.setString(1, DBHandler.ATTRIBUTE_TYPE_CATEGORY);
+			st.setString(2, DBHandler.ATTRIBUTE_ID_CATEGORY);
+			st.executeQuery();
+			ResultSet rs = st.getResultSet();
+			while (rs.next()){
+				categories.add(rs.getString("attributename"));
+			} 
+			Log.write("DBHandler: Fetched " +categories.size() + " categories");
+			rs.close();
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to fetch categories with. " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return categories;
+	}	
+	
+	/** Adds a new category  */
+	public void addCategory(String name) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("insert into attributevalues (objecttype, objectid, attributename, valuetype, language) " +
+									   "values (?,?,?,?,?)"); 
+			st.setString(1, DBHandler.ATTRIBUTE_TYPE_CATEGORY);
+			st.setString(2, DBHandler.ATTRIBUTE_ID_CATEGORY);
+			st.setString(3, name);
+			st.setString(4, DBHandler.ATTRIBUTE_VALUE_TYPE_CHARACTER);
+			st.setString(5, DBHandler.DEFAULT_LANGUAGE);
+			if (st.executeUpdate() > 0){
+				Log.write("DBHandler: Category added: " +name);
+			} else {
+				Log.write("DBHandler: Failed to add category: " +name);
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to add category: " +name+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+	}
+	
 	
 }
 
