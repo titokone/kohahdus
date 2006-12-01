@@ -23,10 +23,6 @@ Uuden symbolimuutujan lis‰‰minen poistaa jo luotujen muuttujien tiedot
 composer.jsp, Mikko, 28.11:
 Uusien symbolimuuttujien palautteet oletuksena tyhji‰
 --
-answer_task.jsp, Mikko, 29.11:
-Fill-in teht‰viss‰ on turhaan pari tyhj‰‰ rivi‰ opettajan aloitus koodin j‰lkeen, sek‰
-ennen opettajan lopetuskoodia.
---
 TitoKone, Mikko, 29.11:
 Tiedostojen lukemis ja kirjoittamis k‰skyt pit‰‰ testata. Nykyisell‰‰n vehje lukee ja kirjoittaa
 /dev/nullia, t‰ytyy varmistaa ettei t‰st‰ tule ongelmia..
@@ -40,11 +36,6 @@ Ei ole k‰ytett‰vyyden kannalta kovin hyv‰, ett‰ tallentamisen j‰lkeen p‰‰tyy tyh
 navigoida takaisin listaukseen. Voisiko paluun automatisoida, jos ongelmia ei ole? (Voisi odottaa pari
 sekuntia ennen uudelleenohjausta, jotta opettaja n‰kisi tiedon teht‰v‰n tallentumisesta.)
 --
-answer_task.jsp, Paula, 30.11.
-Monikielisyys ryppyilee taas (saattaa tietysti olla taas vain minun asetuksissani vikaa). Jos joku
-testaisi, kiitos. Lis‰sin virheilmoituksen siit‰ virheellisesti syˆtteest‰, mutta se heitt‰‰ poikkeusta.
-Kommentoin ongelmakohdan pois. Edess‰ on tunnus "LANGPROB", jotta lˆyd‰tte.
---
 teacherTaskList.jsp, Taro, 30.11
 Kurssien nimen muokkaus vois toteuttaa jos ehtii.
 --
@@ -56,6 +47,10 @@ Vastauksen tila s‰ilyy sessiossa vaikka opiskelija siirtyisi toiselle sivulle.
 Esim. 1. Vastaa ensin yhteen teht‰v‰‰n. 2. Valitse joku toinen teht‰v‰.
       3. Lis‰‰ osoitteeseen &analyzed=true, niin vanhan vastauksen tiedot saadaan n‰kyviin
 -- 
+answer_task.jsp Analyzer, Markus, 1.12
+Jos vastaus ei mene titokoneen k‰‰nt‰j‰st‰ l‰pi, niin Analyzer komponentin palauttama TitoState on null.
+T‰t‰ on ymm‰rrett‰vist‰ syist‰ hieman hankala n‰ytt‰‰ opiskelijalle, joten 'show titokone report' napista
+ei tapahdu t‰llˆin mit‰‰n.
 
 
 
@@ -132,8 +127,17 @@ signup.jsp & modify_user.jsp, Paula 1.12.
 Opiskelijanumerotarkistus hyv‰ksyy esim. 123.
 Korjattu: Funktio tarkasti vain tarkistusmerkin, jolloin tietyt kelpaamattomat yhdistelm‰tkin hyv‰ksyttiin.
 Lis‰tty tarkistus, ett‰ 9 merkki‰ pitk‰ ja alkaa 01 (suoraan yliopiston sivuilta selvitettyj‰ kriteerej‰).
-
-
+--
+answer_task.jsp, Mikko, 29.11:
+Fill-in teht‰viss‰ on turhaan pari tyhj‰‰ rivi‰ opettajan aloitus koodin j‰lkeen, sek‰
+ennen opettajan lopetuskoodia.
+Korjattu: Pari turhaa <br> tagi‰ poistettu. Markus 1.12
+--
+answer_task.jsp, Paula, 30.11.
+Monikielisyys ryppyilee taas (saattaa tietysti olla taas vain minun asetuksissani vikaa). Jos joku
+testaisi, kiitos. Lis‰sin virheilmoituksen siit‰ virheellisesti syˆtteest‰, mutta se heitt‰‰ poikkeusta.
+Kommentoin ongelmakohdan pois. Edess‰ on tunnus "LANGPROB", jotta lˆyd‰tte.
+Korjattu?: Toimii, kenties kaikki tiedostot eiv‰t olleet uusimpia/latautuneet. Markus 1.12
 
  BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

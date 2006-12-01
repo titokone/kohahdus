@@ -144,7 +144,7 @@ function setDefaultInput(){
 	</td>
 </tr>
 <tr id="inputFeedback" style="display:none;">
-	<td class="errorMsg"><!--// LANGPROB: <% //=rb.getString("keyboardInputErrorMsg")%> --></td>
+	<td class="errorMsg"><%=rb.getString("keyboardInputErrorMsg")%></td>
 </tr>
 <tr>
 	<td valign="top">
@@ -159,11 +159,11 @@ function setDefaultInput(){
 			<tr>
 				<td>
 					<c:if test="${task.fillInTask}">
-						<div><b><pre><c:out value="${task.fillInPreCode}"/></pre></b><br><br></div>
+						<div><b><pre><c:out value="${task.fillInPreCode}"/></pre></b></div>
 					</c:if>	
 					<textarea name="programCode" style="width:100%" rows="40"><c:out value="${programCode}"/></textarea>
 					<c:if test="${task.fillInTask}">
-						<div><br><b><pre><c:out value="${task.fillInPostCode}"/></pre></b></div>
+						<div><b><pre><c:out value="${task.fillInPostCode}"/></pre></b></div>
 					</c:if>
 				</td>
 			</tr>
@@ -204,7 +204,7 @@ function setDefaultInput(){
 			<c:if test="${not empty feedback.compileError}">
 				<table class="presentationTable">
 					<tr>
-						<td class="titleBar"><b>Compiler error</b></td>
+						<td class="titleBar"><b><%=rb.getString("compilerError")%></b></td>
 					</tr>
 					<tr>
 						<td>
@@ -253,6 +253,7 @@ function setDefaultInput(){
 	<% 
 		TitoFeedback fb = (TitoFeedback)session.getAttribute("feedback");
 		TitoState titostate = fb.getTitoState();
+		if (titostate != null) {
 	%>   	
 	<div id="titokone_report" style="display: none">
 		<hr>
@@ -350,6 +351,7 @@ function setDefaultInput(){
 					</tr>
 			<%
 				}
+			}	
 			%>			
 		</table>
 	</div>
@@ -360,6 +362,7 @@ function setDefaultInput(){
 <%-- If user has answered a task all task specific info should be purged from session --%>
 <c:remove var="programCode" scope="session"/>
 <c:remove var="keyboardInput" scope="session"/>
+<c:remove var="state" scope="session"/>
 
 </body>
 </html>

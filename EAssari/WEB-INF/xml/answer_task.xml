@@ -38,6 +38,8 @@
 	<entry key="taskSuccessfulText_FI">Tehtävä onnistui.</entry>
 	<entry key="taskFailedText_EN">Task failed.</entry>
 	<entry key="taskFailedText_FI">Tehtävä epäonnistui.</entry>
+	<entry key="compilerError_EN">Compiler error</entry>
+	<entry key="compilerError_FI">Käännösvirhe</entry>
 	
 	<entry key="titostateOutput_EN">Program output</entry>
 	<entry key="titostateOutput_FI">Ohjelman tuloste näytölle</entry>
