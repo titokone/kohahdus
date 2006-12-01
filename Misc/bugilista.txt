@@ -50,7 +50,12 @@ Kurssien nimen muokkaus vois toteuttaa jos ehtii.
 --
 login.jsp, Paula 1.12.
 Sivu hukkaa rooliparametrin ja palauttaa opettajan perussivulle, jos antaa v‰‰r‰n tunnuksen/salasanan.
-
+--
+answer_task.jsp, Markus, 1.12
+Vastauksen tila s‰ilyy sessiossa vaikka opiskelija siirtyisi toiselle sivulle.
+Esim. 1. Vastaa ensin yhteen teht‰v‰‰n. 2. Valitse joku toinen teht‰v‰.
+      3. Lis‰‰ osoitteeseen &analyzed=true, niin vanhan vastauksen tiedot saadaan n‰kyviin
+-- 
 
 
 
