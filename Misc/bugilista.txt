@@ -45,12 +45,11 @@ Monikielisyys ryppyilee taas (saattaa tietysti olla taas vain minun asetuksissan
 testaisi, kiitos. Lisäsin virheilmoituksen siitä virheellisesti syötteestä, mutta se heittää poikkeusta.
 Kommentoin ongelmakohdan pois. Edessä on tunnus "LANGPROB", jotta löydätte.
 --
-teacherTaskList.jsp, Tuomas, 30.11
-Javascript: Taskin järjestäminen kielen mukaan ei toimi alaspäin
---
 teacherTaskList.jsp, Taro, 30.11
 Kurssien nimen muokkaus vois toteuttaa jos ehtii.
 --
+login.jsp, Paula 1.12.
+Sivu hukkaa rooliparametrin ja palauttaa opettajan perussivulle, jos antaa väärän tunnuksen/salasanan.
 
 
 
@@ -103,6 +102,8 @@ login.jsp, Mikko 28.11:
 Järjestelmään on mahdollista kirjautua vaikka javascript on pois päältä. Joko asetetaan formiin
 action="#" + onsubmit="xxx", tai action="javascript:xxxx".
 Korjattu: formin action on error-sivu, javascriptillä vaihdetaan submitin yhteydessä.
+Korjattu2: formissa oli kenttä nimeltä action, jonka takia ei toiminut oikein IE:ssä. Kenttä vaihdettu
+muotoon userAction. Paula 1.12.
 --
 modify_user.jsp, Mikko 28.11:
 Kenttiin on mahdollista kirjoittaa epävalidia syötettä laittamalla javascript pois päältä. Syötteelle
@@ -114,6 +115,18 @@ TitoKone, Mikko 29.11:
 Rekisterin R0 toiminnassa pientä epäselvyyttä, täytyypi käydä kysymässä Teemulta lisätietoja.
 Teemulta tuli info että titokone toimii oikein, joten eipä tästä sen enempää..
 --
+teacherTaskList.jsp, Tuomas, 30.11
+Javascript: Taskin järjestäminen kielen mukaan ei toimi alaspäin
+Korjattu: Funktiokutsussa oli kirjoitusvirhe. Paula 1.12.
+--
+signup.jsp & modify_user.jsp, Paula 1.12.
+Sama IE-ongelma kuin login.jsp-sivulla.
+Korjattu: Muutettu action-piilokenttä nimelle userAction.
+--
+signup.jsp & modify_user.jsp, Paula 1.12.
+Opiskelijanumerotarkistus hyväksyy esim. 123.
+Korjattu: Funktio tarkasti vain tarkistusmerkin, jolloin tietyt kelpaamattomat yhdistelmätkin hyväksyttiin.
+Lisätty tarkistus, että 9 merkkiä pitkä ja alkaa 01 (suoraan yliopiston sivuilta selvitettyjä kriteerejä).
 
 
 

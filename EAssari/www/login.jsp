@@ -42,15 +42,15 @@ function doOnLoad(){
 
 <body onLoad="javascript:doOnLoad()">
 
-<c:if test="${param.action=='logout'}">
+<c:if test="${param.userAction=='logout'}">
 	<c:remove var="user" scope="session"/>
 </c:if>
 
-<c:if test="${param.action=='login' && not empty user}">
+<c:if test="${param.userAction=='login' && not empty user}">
 	<c:remove var="user" scope="session"/>
 </c:if>
 
-<c:if test="${param.action=='login'}">
+<c:if test="${param.userAction=='login'}">
 	<%
 	User user = DBHandler.getInstance().getUser(request.getParameter("username"), request.getParameter("password"));
 	if (user != null) pageContext.setAttribute("user", user, PageContext.SESSION_SCOPE);
@@ -89,8 +89,8 @@ function doOnLoad(){
 
 
 <form name="f" action="error.jsp?errorMsg=Javascript+is+turned+off.+Please+enable+javascript" method="POST"
-      onsubmit="document.f.action='login.jsp'; return true;">
-<input type="hidden" name="action" value="login">
+      onclick="document.f.action='login.jsp'; return true;">
+<input type="hidden" name="userAction" value="login">
 
 <div>
 	<table id="loginTable">

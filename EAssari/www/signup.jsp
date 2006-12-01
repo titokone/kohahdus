@@ -33,25 +33,25 @@
 		// missing inputs
 		if(form.first_name.value == '') {
 			var elem = document.getElementById("first_name_error_msg_space");
-			elem.innerHTML = 'Please fill in your first name.';
+			elem.innerHTML = 'Please enter your first name.';
 			returnvalue = false;
 		}
 
 		if(form.last_name.value == '') {
 			var elem = document.getElementById("last_name_error_msg_space");
-			elem.innerHTML = 'Please fill in your last name.';
+			elem.innerHTML = 'Please enter your last name.';
 			returnvalue = false;
 		}
 
 		if(form.student_number.value == '' && form.social_security_number.value == '') {
 			var elem = document.getElementById("student_number_error_msg_space");
-			elem.innerHTML = 'Please fill in either your student number or social security number.';
+			elem.innerHTML = 'Please enter either your student number or social security number.';
 			returnvalue = false;
 		}
 
 		if(form.email.value == '') {
 			var elem = document.getElementById("email_error_msg_space");
-			elem.innerHTML = 'Please fill in your e-mail address.';
+			elem.innerHTML = 'Please enter your e-mail address.';
 			returnvalue = false;
 		}
 
@@ -174,7 +174,7 @@
 <h2>TitoTrainer - Sign up</h2>
 
 
-<c:if test="${param.action=='signup'}">
+<c:if test="${param.userAction=='signup'}">
 	
 	<% //Create a new user and store it in pagecontext as a temp object
 	   	User newUser = new User(request.getParameter("user_name"));	   	
@@ -226,7 +226,8 @@
 </c:if>
 
 <%-- signup form - already inserted values are preserved in newUser variable --%>
-<form name="sign_up_form" action="signup.jsp" onsubmit="return checkForm()" method="POST">
+<form name="sign_up_form" action="error.jsp?errorMsg=Javascript+is+turned+off.+Please+enable+javascript"
+	onsubmit="if (checkForm()) { document.sign_up_form.action='signup.jsp'; return true; } return false;" method="POST">
 <input type="hidden" name="action" value="signup">
 
 <p>Please fill in all the fields.</p>

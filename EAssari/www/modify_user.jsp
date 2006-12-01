@@ -43,25 +43,25 @@
 		// missing inputs
 		if(form.first_name.value == '') {
 			var elem = document.getElementById("first_name_error_msg_space");
-			elem.innerHTML = 'Please fill in your first name.';
+			elem.innerHTML = 'Please enter your first name.';
 			returnvalue = false;
 		}
 
 		if(form.last_name.value == '') {
 			var elem = document.getElementById("last_name_error_msg_space");
-			elem.innerHTML = 'Please fill in your last name.';
+			elem.innerHTML = 'Please enter your last name.';
 			returnvalue = false;
 		}
 
 		if(form.student_number.value == '' && form.social_security_number.value == '') {
 			var elem = document.getElementById("student_number_error_msg_space");
-			elem.innerHTML = 'Please fill in either your student number or social security number.';
+			elem.innerHTML = 'Please enter either your student number or social security number.';
 			returnvalue = false;
 		}
 
 		if(form.email.value == '') {
 			var elem = document.getElementById("email_error_msg_space");
-			elem.innerHTML = 'Please fill in your e-mail address.';
+			elem.innerHTML = 'Please enter your e-mail address.';
 			returnvalue = false;
 		}
 			
@@ -168,7 +168,7 @@
 
 <jsp:include page="menu.jsp"/>
 
-<c:if test="${param.action=='modify'}">
+<c:if test="${param.userAction=='modify'}">
 
 
 	<c:set target="${user}" property="firstName" value="${param.first_name}"/>
@@ -208,7 +208,7 @@
 
 <form name="modify_user_form" action="error.jsp?errorMsg=Javascript+is+turned+off.+Please+enable+javascript"
       onsubmit="if (checkForm()) { document.modify_user_form.action='modify_user.jsp'; return true; } return false;" method="POST">
-<input type="hidden" name="action" value="modify">
+<input type="hidden" name="userAction" value="modify">
 
 
 

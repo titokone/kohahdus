@@ -51,6 +51,11 @@ function studentNumberValid(numberString) {
 	if((checkSymbol <'0') || (checkSymbol > '9')) {
 		return false;
 	}
+	
+	// student number is a 9-digit number that always starts with 01
+	if((numberString[0] != '0') || (numberString[1] != '1') || (numberString.length != 9)) {
+		return false;
+	}
 
 	var checkNumber = Number(checkSymbol);
 
