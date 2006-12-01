@@ -4,6 +4,7 @@
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.languages.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.criteria.*" %>
+<%@ page import="fi.hu.cs.ttk91.TTK91Cpu" %>
 
 <%-- check that user is logged in --%>
 <c:if test="${empty user}">
@@ -249,72 +250,107 @@ function setDefaultInput(){
 
 <c:if test="${param.analyzed == 'true'}">
 	<c:set var="state" value="${feedback.titoState}"/>
-	
-	
+	<% 
+		TitoFeedback fb = (TitoFeedback)session.getAttribute("feedback");
+		TitoState titostate = fb.getTitoState();
+	%>   	
 	<div id="titokone_report" style="display: none">
 		<hr>
 		<a name="output"></a>
 		<b><%=rb.getString("titokoneReportTitle")%></b>
 		
 		<table class="presentationTable" style="float: left; margin: 10px; width: auto;">
-		<tr><td colspan=3 class="titleBar"><%=rb.getString("titostateMemory")%></td></tr>
-		<tr><td><%=rb.getString("titostateAddress")%></td><td><%=rb.getString("titostateValue")%></td><td><%=rb.getString("titostateCode")%></td></tr>
+			<tr><td colspan=3 class="titleBar"><%=rb.getString("titostateMemory")%></td></tr>
+			<tr>
+				<td><%=rb.getString("titostateAddress")%></td>
+				<td><%=rb.getString("titostateValue")%></td>
+				<td><%=rb.getString("titostateCode")%></td>
+			</tr>
 		<%
-		//	int memsize = state.getDataSize() + state.getCodeSize();
-		//	for (int i=0; i<memsize; i++) {
-		//		out.println("<tr><td>" + i + "</td><td>" + state.getMemoryLocation(i) + "</td><td>" + state.getInstruction(i) + "</td></tr>");
-		//	}
-		%>		
-		<tr><td>0</td><td>16846845</td><td>LOAD R1, =4</td></tr>
-		<tr><td>1</td><td>15465467</td><td>LOAD R1, =4</td></tr>
-		<tr><td>2</td><td>17684684</td><td>LOAD R1, =4</td></tr>
-		<tr><td>3</td><td>16846845</td><td>LOAD R1, =4</td></tr>
-		<tr><td>4</td><td>15465467</td><td>LOAD R1, =4</td></tr>
-		<tr><td>5</td><td>17684684</td><td>LOAD R1, =4</td></tr>
-		<tr><td>6</td><td>16846845</td><td>LOAD R1, =4</td></tr>
-		<tr><td>7</td><td>15465467</td><td>LOAD R1, =4</td></tr>
-		<tr><td>8</td><td>17684684</td><td>LOAD R1, =4</td></tr>
-		<tr><td>9</td><td>16846845</td><td>LOAD R1, =4</td></tr>
-		<tr><td>10</td><td>15465467</td><td>LOAD R1, =4</td></tr>
-		<tr><td>11</td><td>17684684</td><td>LOAD R1, =4</td></tr>
-		<tr><td>12</td><td>16846845</td><td>LOAD R1, =4</td></tr>
-		<tr><td>13</td><td>15465467</td><td>LOAD R1, =4</td></tr>
-		<tr><td>14</td><td>17684684</td><td>LOAD R1, =4</td></tr>
-		<tr><td>15</td><td>20</td><td></td></tr>
-		<tr><td>16</td><td>40</td><td></td></tr>
-		<tr><td>17</td><td>60</td><td></td></tr>
+			int memsize = titostate.getDataSize() + titostate.getCodeSize();
+			for (int i=0; i<memsize; i++) {
+		%>	
+				<tr>
+					<td><%=i%></td>
+					<td><%=titostate.getMemoryLocation(i)%></td>
+					<td><%=titostate.getInstruction(i)%></td>
+				</tr>
+		<%		
+			}
+		%>			
 		</table>
 
 		<table class="presentationTable" style="margin: 10px; width: auto;">
-		<tr><td colspan=2 class="titleBar"><%=rb.getString("titostateExecuteInfo")%></td></tr>
-		<tr><td><%=rb.getString("titostateOutput")%></td>				<td><c:out value="${state.screenOutput}"/></td></tr>
-		<tr><td><%=rb.getString("titostateExecutedInstructions")%></td>	<td><c:out value="${state.executionSteps}"/></td></tr>
-		<tr><td><%=rb.getString("titostateMemoryReferences")%></td>		<td><c:out value="${state.executionSteps + state.dataReferenceCount}"/></td></tr>
-		<tr><td><%=rb.getString("titostateDataReferences")%></td>		<td><c:out value="${state.dataReferenceCount}"/></td></tr>
-		<tr><td><%=rb.getString("titostateCodeSize")%></td>				<td><c:out value="${state.codeSize}"/></td></tr>
-		<tr><td><%=rb.getString("titostateDataSize")%></td>				<td><c:out value="${state.dataSize}"/></td></tr>
-		<tr><td><%=rb.getString("titostateStackHeight")%></td>			<td><c:out value="${state.stackMaxSize}"/></td></tr>
+			<tr><td colspan=2 class="titleBar"><%=rb.getString("titostateExecuteInfo")%></td></tr>
+			<tr>
+				<td><%=rb.getString("titostateOutput")%></td>				
+				<td><c:out value="${state.screenOutput}"/></td>
+			</tr>
+			<tr>
+				<td><%=rb.getString("titostateExecutedInstructions")%></td>
+				<td><c:out value="${state.executionSteps}"/></td>
+			</tr>
+			<tr>
+				<td><%=rb.getString("titostateMemoryReferences")%></td>		
+				<td><c:out value="${state.executionSteps + state.dataReferenceCount}"/></td>
+			</tr>
+			<tr>
+				<td><%=rb.getString("titostateDataReferences")%></td>
+				<td><c:out value="${state.dataReferenceCount}"/></td>
+			</tr>
+			<tr>
+				<td><%=rb.getString("titostateCodeSize")%></td>
+				<td><c:out value="${state.codeSize}"/></td>
+			</tr>
+			<tr>
+				<td><%=rb.getString("titostateDataSize")%></td>	
+				<td><c:out value="${state.dataSize}"/></td>
+			</tr>
+			<tr>
+				<td><%=rb.getString("titostateStackHeight")%></td>
+				<td><c:out value="${state.stackMaxSize}"/></td>
+			</tr>
 		</table>
-
+	
 		<table class="presentationTable" style="float: left; margin: 10px; width: auto;">
-		<tr><td colspan=2  class="titleBar"><%=rb.getString("titostateRegisters")%></td></tr>
-		<tr><td>R0</td><td>20</td></tr>
-		<tr><td>R1</td><td>20</td></tr>
-		<tr><td>R2</td><td>20</td></tr>
-		<tr><td>R3</td><td>20</td></tr>
-		<tr><td>R4</td><td>20</td></tr>
-		<tr><td>R5</td><td>20</td></tr>
-		<tr><td>SP</td><td>20</td></tr>
-		<tr><td>FP</td><td>20</td></tr>
-		<tr><td>PC</td><td>20</td></tr>
+			<tr><td colspan=2  class="titleBar"><%=rb.getString("titostateRegisters")%></td></tr>
+			<tr><td>R0</td><td><%=titostate.getRegister(TTK91Cpu.REG_R0)%></td></tr>
+			<tr><td>R1</td><td><%=titostate.getRegister(TTK91Cpu.REG_R1)%></td></tr>
+			<tr><td>R2</td><td><%=titostate.getRegister(TTK91Cpu.REG_R2)%></td></tr>
+			<tr><td>R3</td><td><%=titostate.getRegister(TTK91Cpu.REG_R3)%></td></tr>
+			<tr><td>R4</td><td><%=titostate.getRegister(TTK91Cpu.REG_R4)%></td></tr>
+			<tr><td>R5</td><td><%=titostate.getRegister(TTK91Cpu.REG_R5)%></td></tr>
+			<tr><td>SP</td><td><%=titostate.getRegister(TTK91Cpu.REG_SP)%></td></tr>
+			<tr><td>FP</td><td><%=titostate.getRegister(TTK91Cpu.REG_FP)%></td></tr>
+			<tr><td>PC</td><td><%=titostate.getRegister(TTK91Cpu.CU_PC)%></td></tr>
 		</table>
 
 		<table class="presentationTable" style="margin: 10px; width: auto;">
-		<tr><td colspan=3 class="titleBar"><%=rb.getString("titostateSymbols")%></td></tr>
-		<tr><td><%=rb.getString("titostateSymbol")%></td><td><%=rb.getString("titostateAddress")%></td><td><%=rb.getString("titostateValue")%></td></tr>
-		<tr><td>X</td><td>15</td><td>20</td></tr>
-		<tr><td>Y</td><td>16</td><td>40</td></tr>
-		<tr><td>ZDF</td><td>17</td><td>60</td></tr>
+			<tr>
+				<td colspan=3 class="titleBar"><%=rb.getString("titostateSymbols")%></td>
+			</tr>
+			<tr>
+				<td><%=rb.getString("titostateSymbol")%></td>
+				<td><%=rb.getString("titostateAddress")%></td>
+				<td><%=rb.getString("titostateValue")%></td>
+			</tr>
+			
+			<%
+				//Mapping symbol name strings to integer addresses
+				HashMap symbolMap = titostate.getSymbolTable();
+				Set keys = symbolMap.keySet();
+				
+				for (Object key : keys) {
+					int mem = (Integer)symbolMap.get(key);
+			%>	
+					<tr>
+						<td><%=(String)key%></td>
+						<td><%=mem%></td>
+						<td><%=titostate.getMemoryLocation(mem)%></td>
+					</tr>
+			<%
+				}
+			%>			
 		</table>
 	</div>
 </c:if>
