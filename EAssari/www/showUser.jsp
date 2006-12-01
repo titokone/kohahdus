@@ -85,9 +85,22 @@ function removeUser(userID) {
 			<c:set var="accepted" value="0"/>
 			<c:set var="unfinished" value="0"/>	
 
+			<c:set var="bgcolor" value="blueRow"/>
+			<c:set var="courseName" value=""/>
 			<c:forEach var="answers" items="${pageScope.answers.answers}">	
-				<tr>
-					<td>			
+				<c:if test="${courseName!=answers.courseName}">
+					<c:set var="courseName" value="${answers.courseName}"/>
+					<c:choose>
+						<c:when test="${bgcolor=='blueRow'}">
+							<c:set var="bgcolor" value="whiteRow"/>
+						</c:when>
+						<c:when test="${bgcolor=='whiteRow'}">
+							<c:set var="bgcolor" value="blueRow"/>
+						</c:when>
+					</c:choose>
+				</c:if>
+				<tr class="<c:out value="${bgcolor}"/>">
+					<td>
 					<c:choose>
 						<c:when test="${answers.hasSucceeded}">
 							<img src="images/positive.gif">

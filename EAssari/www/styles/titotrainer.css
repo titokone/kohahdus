@@ -204,3 +204,15 @@ select {
 	padding: 6px; 
 	border: solid 2px #000000;
 }
+
+tr.blueRow td {
+	background-color: #fcfcff; 
+	color: black;
+}
+
+tr.whiteRow td {
+	background-color: #ffffff; 
+	color: black;
+}
+
+

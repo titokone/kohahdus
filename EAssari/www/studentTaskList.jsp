@@ -64,7 +64,8 @@ function initTaskList() {
 	<c:if test="${not empty tasks}">
 		tasksAvailable = true;	
 		<c:forEach var="task" items="${pageScope.tasks}">
-			<c:set var="answer" value="${answers.answerMap[task.taskID]}"/>	
+			<c:set var="answerKey" value="${sessionScope.course}_${task.taskID}"/>	
+			<c:set var="answer" value="${answers.answerMap[answerKey]}"/>	
 			<c:choose>
 				<c:when test="${answer.hasSucceeded}">
 					taskStatus = 'success';
