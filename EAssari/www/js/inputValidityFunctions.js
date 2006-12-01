@@ -53,7 +53,7 @@ function studentNumberValid(numberString) {
 	}
 	
 	// student number is a 9-digit number that always starts with 01
-	if((numberString[0] != '0') || (numberString[1] != '1') || (numberString.length != 9)) {
+	if((numberString.charAt(0) != '0'.charAt(0)) || (numberString.charAt(1) != '1'.charAt(0)) || (numberString.length != 9)) {
 		return false;
 	}
 
