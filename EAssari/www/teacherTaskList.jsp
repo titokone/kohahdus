@@ -148,6 +148,13 @@ function initTasks() {
 </tr>
 <tr>
 	<td valign="top">
+		<c:import url="categories.jsp">
+			<c:param name="action" value="${param.action}"/>
+			<c:param name="category" value="${param.category}"/>
+			<c:param name="modified_category" value="${param.modified_category}"/>
+		</c:import>
+	</td>
+	<td valign="top">
 		<form name="create_course_form" action="teacherTaskList.jsp" method="POST" onSubmit="return checkNewCourseInputValidity()">
 		<input type="hidden" name="action" value="create_course">
 		<h2 class="headerAboveListTable">Courses</h2>
@@ -156,13 +163,6 @@ function initTasks() {
 		</div>
 		</form>
 		<div id="new_course_creation_feedback" class="errorMsg"></div>		
-	</td>
-	<td valign="top">
-		<c:import url="categories.jsp">
-			<c:param name="action" value="${param.action}"/>
-			<c:param name="category" value="${param.category}"/>
-			<c:param name="modified_category" value="${param.modified_category}"/>
-		</c:import>
 	</td>
 </tr>
 </table>
