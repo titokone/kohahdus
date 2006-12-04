@@ -10,5 +10,6 @@
 	<classpathentry sourcepath="ECLIPSE_HOME/plugins/org.eclipse.jdt.source_3.1.0/src/org.junit_3.8.1/junitsrc.zip" kind="var" path="JUNIT_HOME/junit.jar"/>
 	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/titokone-1.203.jar"/>
 	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/commons-email-1.0.jar"/>
 	<classpathentry kind="output" path="EAssari/WEB-INF/classes"/>
 </classpath>

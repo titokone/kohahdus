@@ -38,9 +38,11 @@ public final class TitoInitializer implements Filter {
     	LanguageManager.loadTextResources(contextPath, propertiesFile);
     	
     	DBHandler.initialize(filterConfig.getInitParameter("db-string"),
-    						 filterConfig.getInitParameter("db-username"),
-    						 filterConfig.getInitParameter("db-password"));
-    	
+				 filterConfig.getInitParameter("db-username"),
+				 filterConfig.getInitParameter("db-password"));
+
+    	Emailer.initialize(filterConfig.getInitParameter("smtp-server"));
+
     	Log.write("*********** Servlet context initialized.");
     	Log.write("");
     }
