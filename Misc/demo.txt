@@ -1,0 +1,40 @@
+
+
+
+Opettajan k‰yttˆtapaukset:
+
+ - Opettaja loggaa sis‰‰n tunnuksilla: teemu / teemu
+ - Teemu haluaa luoda uuden kurssin: 2007 kev‰t
+ - Teemu haluaa luoda uuden teht‰v‰n ja huomaa, ett‰ on kaksi kielivalintaa
+    * Haluaa luoda yksinkertainen programming teht‰v‰n
+ 	* Haluaa luoda englannin kielisen teht‰v‰n, koska kurssilla on vaihtareita
+ 	* Laittaa teht‰v‰lle nimen: Register assignment
+ 	* Valitsee kategoriksi: Exercise 1
+ 	* Kirjoittaa teht‰v‰nantoon: Calculate how much is 5+8 and assign the result to register R1. 
+ 	* M‰‰ritt‰‰ R1 kriteerin arvoksi 13
+ 	* Miettii ‰‰neen palautteiden muuttamista
+ 	* Valitsee instructions kriteerist‰ ADD komennon vaadituksi
+ 	* Tallentaa teht‰v‰n
+ - Haluaa katsoa edellisen kurssin suorituksia. Onko ollut liian vaikeita teht‰vi‰?
+ - P‰‰ttelee, ett‰ XZZ -teht‰v‰ on ollut liian vaikea. Haluaa muokata teht‰v‰‰.
+	* Sit muokkaa jotain kriteereit‰ helpommaksi.
+	* Tallentaa teht‰v‰n ja on tyytyv‰inen. 	
+ 	
+ 	
+Oppilaan k‰yttˆtapaukset:
+
+ - On rekisterˆitynyt aiemmin, joten loggautuu sis‰‰n: Mikko / Mikko
+ - Loggauksen yhteydess‰ tarkistaa, ett‰ valitsee oikean kurssin ja kielen.
+ - Tekee Register assignment -teht‰v‰n.
+ 	* Ensin haluaa huijata asettamalla suoraan luvun 13 rekisteriin R1.
+ 	* Sen j‰lkeen otti opikseen, lukee teht‰v‰n annon uudestaan ja k‰ytt‰‰ ADD k‰sky‰.
+ - N‰kee teht‰v‰listaussivulta, ett‰ teht‰v‰ on oikein suoritettu.
+ - Tekee Fill-in -teht‰v‰n.
+ 	* Diipadaapa.
+ - Loggautuu ulos.
+ 
+
+ 
+ 
+ 
+ 
