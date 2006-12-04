@@ -52,8 +52,8 @@ function initTaskList() {
 		StudentAnswers answers = DBHandler.getInstance().getStudentAnswers(u.getUserID(), courseID);
 		if (answers != null) pageContext.setAttribute("answers", answers);
 	%>
-	
-	<%-- TODO: get student status information from somewhere --%>
+
+	<%-- Take care of students status info --%>
 	
 	<c:set var="accepted" value="0"/>
 	<c:set var="unfinished" value="0"/>	
@@ -71,7 +71,6 @@ function initTaskList() {
 					taskStatus = 'success';
 					<c:set var="accepted" value="${accepted + 1}"/>
 				</c:when>
-				<%-- FIXME: Pitäisikö tämä laittaa näin, vai estää null:ien pääseminen tietokantaan? --%>
 				<c:when test="${answer.lastTryNumber == 0  || answer.lastTryNumber == null}">
 					taskStatus = '-';
 				</c:when>
@@ -135,17 +134,7 @@ function writeTaskList() {
 
 <jsp:include page="menu.jsp"/>
 
-<p>
-<tr>
-<td>
-<table border="0">
-	<tr>
-		<td class="infoBox"><img src="images/positive.gif" style="vertical-align:middle"> <%=rb.getString("acceptedText")%><br>
-			<img src="images/negative.gif" style="vertical-align:middle"> <%=rb.getString("unfinishedText")%></td>
-		</td>
-	</tr>
-</table>
-</p>
+<br>
 
 <div id="taskList">
 <!-- Task list will be written in Javascript. -->
@@ -153,9 +142,8 @@ function writeTaskList() {
 
 <p><b><%=rb.getString("totalTasksTitle")%>:</b><br>
 
-<%-- TODO: get status info --%>
-<c:out value="${accepted}"/> <%=rb.getString("acceptedText")%><br>
-<c:out value="${unfinished}"/> <%=rb.getString("unfinishedText")%></p>
+<img src="images/positive.gif"><c:out value="${accepted}"/> <%=rb.getString("acceptedText")%><br>
+<img src="images/negative.gif"><c:out value="${unfinished}"/> <%=rb.getString("unfinishedText")%></p>
 
 </body>
 </html>
