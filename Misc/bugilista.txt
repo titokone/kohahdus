@@ -25,11 +25,6 @@ Testaussuunnitelma/raportti (kohta Teht‰v‰n lis‰‰minen), Paula, 30.11.
 Viittaa, ett‰ eri m‰‰r‰ julkisia ja salaisia syˆtteit‰ on virheellinen syˆte. Korjattava, kun p‰‰dyttiin 
 tulokseen, ett‰ ei ole.
 --
-save_task.jsp, Paula, 30.11.
-Ei ole k‰ytett‰vyyden kannalta kovin hyv‰, ett‰ tallentamisen j‰lkeen p‰‰tyy tyhj‰lle sivulle, josta pit‰‰
-navigoida takaisin listaukseen. Voisiko paluun automatisoida, jos ongelmia ei ole? (Voisi odottaa pari
-sekuntia ennen uudelleenohjausta, jotta opettaja n‰kisi tiedon teht‰v‰n tallentumisesta.)
---
 teacherTaskList.jsp, Taro, 30.11
 Kurssien nimen muokkaus vois toteuttaa jos ehtii.
 --
@@ -42,6 +37,9 @@ answer_task.jsp Analyzer, Markus, 1.12
 Jos vastaus ei mene titokoneen k‰‰nt‰j‰st‰ l‰pi, niin Analyzer komponentin palauttama TitoState on null.
 T‰t‰ on ymm‰rrett‰vist‰ syist‰ hieman hankala n‰ytt‰‰ opiskelijalle, joten 'show titokone report' napista
 ei tapahdu t‰llˆin mit‰‰n.
+--
+showStatistics.jsp, Paula, 4.12.
+Teht‰vien nimet n‰kyv‰t pystysuorassa vain IE:ss‰. Firefox ei tue ominaisuutta.
 
 
 
@@ -147,6 +145,12 @@ composer.jsp, Mikko, 28.11:
 Uusien symbolimuuttujien palautteet oletuksena tyhji‰
 Korjattu: Otetaan vastaavan kielisest‰ templatesta tarvittavat palautteet Javascript-muuttujiin ja kirjoitetaan
 uusiin kenttiin kun niit‰ luodaan. Paula 1.12.
+--
+save_task.jsp, Paula, 30.11.
+Ei ole k‰ytett‰vyyden kannalta kovin hyv‰, ett‰ tallentamisen j‰lkeen p‰‰tyy tyhj‰lle sivulle, josta pit‰‰
+navigoida takaisin listaukseen. Voisiko paluun automatisoida, jos ongelmia ei ole? (Voisi odottaa pari
+sekuntia ennen uudelleenohjausta, jotta opettaja n‰kisi tiedon teht‰v‰n tallentumisesta.)
+Korjattu: Lis‰tty uudelleenohjaus teht‰v‰listaan kolmen sekunnin p‰‰st‰ sivun avaamisesta. Paula 4.12.
 --
 
  BUGIT JA PUUTTEET
