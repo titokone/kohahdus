@@ -82,7 +82,6 @@ function initPage() {
 	initTasks();
 	
 	writeCourseList(courses);
-	//writeTaskList(tasks);
 	sortTasksByCategory(tasks, true);
 }
 

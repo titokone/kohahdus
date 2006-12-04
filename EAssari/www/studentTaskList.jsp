@@ -34,7 +34,7 @@ var tasksAvailable;
 
 function initPage() {
 	initTaskList();
-	writeTaskList();
+	sortTasksByCategory(tasks, true);
 }
 
 function initTaskList() {
