@@ -323,7 +323,7 @@ function setDefaultInput(){
 			<tr><td>R5</td><td><%=titostate.getRegister(TTK91Cpu.REG_R5)%></td></tr>
 			<tr><td>SP</td><td><%=titostate.getRegister(TTK91Cpu.REG_SP)%></td></tr>
 			<tr><td>FP</td><td><%=titostate.getRegister(TTK91Cpu.REG_FP)%></td></tr>
-			<tr><td>PC</td><td><%=titostate.getRegister(TTK91Cpu.CU_PC)%></td></tr>
+			<tr><td>PC</td><td><%=titostate.getRegister(TTK91Cpu.CU_PC_CURRENT)%></td></tr>
 		</table>
 
 		<table class="presentationTable" style="margin: 10px; width: auto;">
