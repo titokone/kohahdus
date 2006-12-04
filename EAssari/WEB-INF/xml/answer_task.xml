@@ -57,8 +57,8 @@
 	<entry key="titostateStackHeight_FI">Pinon suorituksenaikainen huippukorkeus</entry>
 	<entry key="titostateRegisters_EN">Registers</entry>
 	<entry key="titostateRegisters_FI">Rekisterit</entry>
-	<entry key="titostateSymbols_EN">Symbols</entry>
-	<entry key="titostateSymbols_FI">Symbolit</entry>
+	<entry key="titostateSymbols_EN">Symbols and constants</entry>
+	<entry key="titostateSymbols_FI">Symbolit ja vakiot</entry>
 	<entry key="titostateSymbol_EN">Symbol</entry>
 	<entry key="titostateSymbol_FI">Symboli</entry>
 	<entry key="titostateAddress_EN">Address</entry>

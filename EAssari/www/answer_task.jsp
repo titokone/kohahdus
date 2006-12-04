@@ -228,7 +228,7 @@ function setDefaultInput(){
 			<c:if test="${not empty feedback.criteriaFeedback}">
 				<table class="presentationTable">
 					<tr>
-						<td colspan="3" class="titleBar"><%=rb.getString("criteriaText")%></td>
+						<td colspan="2" class="titleBar"><%=rb.getString("criteriaText")%></td>
 					</tr>
 					<c:forEach var="criterionFeedback" items="${feedback.criteriaFeedback}">
 						<c:choose>
@@ -240,8 +240,8 @@ function setDefaultInput(){
 							</c:otherwise>
 						</c:choose>	
 						<tr>
-							<td width="20%"><b><img src="<c:out value="${image}"/>" border="0"> <c:out value="${criterionFeedback.name}"/></b></td>
-							<td width="80%"><c:out value="${criterionFeedback.feedback}"/></td>
+							<td _width="20%"><b><img src="<c:out value="${image}"/>" border="0"> <c:out value="${criterionFeedback.name}"/></b></td>
+							<td _width="80%"><c:out value="${criterionFeedback.feedback}"/></td>
 						</tr>
 					</c:forEach>
 					<c:remove var="image"/>
