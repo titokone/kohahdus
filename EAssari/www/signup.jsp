@@ -171,7 +171,10 @@
 
 <body>
 
-<h2>TitoTrainer - Sign up</h2>
+<jsp:include page="menu.jsp"/>
+
+
+<h2>Sign up</h2>
 
 
 <c:if test="${param.userAction=='signup'}">
