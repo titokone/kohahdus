@@ -1311,6 +1311,72 @@ public class DBHandler {
 		}	
 	}
 	
+	/** Deletes a category. Before deletion check if the category is being used in a task.  */
+	public boolean checkAndDeleteCategory(String name) throws SQLException{
+		for (Task task : getTasks()) {
+			if (task.getCategory().equalsIgnoreCase(name)) {
+				Log.write("DBHandler: Category already in use. Failed to delete category: " +name);
+				return false;
+			}
+		}
+		
+		// If the category is not in use then delete it from db
+		return deleteCategory(name);
+	}
+	
+	/** Deletes a category  */
+	private boolean deleteCategory(String name) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("delete from attributevalues where objecttype=? and objectid=? and attributename=?"); 
+			st.setString(1, DBHandler.ATTRIBUTE_TYPE_CATEGORY);
+			st.setString(2, DBHandler.ATTRIBUTE_ID_CATEGORY);
+			st.setString(3, name);
+			if (st.executeUpdate() > 0){
+				Log.write("DBHandler: Category deleted: " +name);
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to delete category: " +name);
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to delete category: " +name+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return false;
+	}
+	
+	/** updates a category  */
+	public boolean updateCategory(String oldName, String newName) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("update attributevalues set attributename=? where objecttype=? and objectid=? and attributename=?"); 
+			st.setString(1, newName);
+			st.setString(2, DBHandler.ATTRIBUTE_TYPE_CATEGORY);
+			st.setString(3, DBHandler.ATTRIBUTE_ID_CATEGORY);
+			st.setString(4, oldName);
+			if (st.executeUpdate() > 0){
+				Log.write("DBHandler: Category updated to: " +newName);
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to update category: " +oldName);
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to update category: " +oldName+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return false;
+	}
+	
 	
 }
 
