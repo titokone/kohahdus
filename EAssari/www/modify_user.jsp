@@ -29,7 +29,7 @@
 	
 		var form = document.modify_user_form;
 		var returnvalue = true;
-		var emailExp = /([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;	// name followed by @ followed by domain
+		var emailExp = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;	// name followed by @ followed by domain
 
 		// remove old error messages
 		document.getElementById("first_name_error_msg_space").innerHTML = '';

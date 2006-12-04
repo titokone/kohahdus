@@ -152,6 +152,10 @@ navigoida takaisin listaukseen. Voisiko paluun automatisoida, jos ongelmia ei ol
 sekuntia ennen uudelleenohjausta, jotta opettaja näkisi tiedon tehtävän tallentumisesta.)
 Korjattu: Lisätty uudelleenohjaus tehtävälistaan kolmen sekunnin päästä sivun avaamisesta. Paula 4.12.
 --
+signup.jsp & modify_user.jsp, Paula, 4.12.
+Sähköpostitarkistus tarkistaa vain että vaadittu muoto on syötteen loppuosa. Esim. taro@morimoto@helsinki.fi
+menee läpi.
+Korjattu: Lisätty vaatimus, että täsmättävä myös syötteen alussa.
 
  BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
