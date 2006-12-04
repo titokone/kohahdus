@@ -82,7 +82,8 @@ function initPage() {
 	initTasks();
 	
 	writeCourseList(courses);
-	writeTaskList(tasks);
+	//writeTaskList(tasks);
+	sortTasksByCategory(tasks, true);
 }
 
 /* fill courses array from database */
@@ -106,6 +107,49 @@ function initCourses() {
 
 }
 	
+</script>
+
+</head>
+
+
+<body onLoad="initPage()">
+
+<br>
+
+<table>
+<tr>
+	<td valign="top">
+		<form name="create_course_form" action="teacherTaskList.jsp" method="POST" onSubmit="return checkNewCourseInputValidity()">
+		<input type="hidden" name="action" value="create_course">
+		<h2 class="headerAboveListTable">Courses</h2>
+		<div id="courseList">
+		<!-- Course list will be written in Javascript. -->
+		</div>
+		</form>
+		<div id="new_course_creation_feedback" class="errorMsg"></div>		
+	</td>
+	<td valign="top">
+		<c:import url="categories.jsp">
+			<c:param name="action" value="${param.action}"/>
+			<c:param name="category" value="${param.category}"/>
+			<c:param name="modified_category" value="${param.modified_category}"/>
+		</c:import>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" valign="top">
+		<h2 class="headerAboveListTable">Tasks</h2>
+		<div id="taskList">
+		<!-- Task list will be written in Javascript. -->
+		</div>
+	</td>
+</tr>
+</table>
+
+</body>
+
+<script language="javascript" type="text/javascript">
+
 /* fill tasks array from database */
 function initTasks() {
 	tasks = new Array();
@@ -130,42 +174,4 @@ function initTasks() {
 }
 </script>
 
-</head>
-
-
-<body onLoad="initPage()">
-
-<br>
-
-<table>
-<tr>
-	<td colspan="2" valign="top">
-		<h2 class="headerAboveListTable">Tasks</h2>
-		<div id="taskList">
-		<!-- Task list will be written in Javascript. -->
-		</div>
-	</td>
-</tr>
-<tr>
-	<td valign="top">
-		<c:import url="categories.jsp">
-			<c:param name="action" value="${param.action}"/>
-			<c:param name="category" value="${param.category}"/>
-			<c:param name="modified_category" value="${param.modified_category}"/>
-		</c:import>
-	</td>
-	<td valign="top">
-		<form name="create_course_form" action="teacherTaskList.jsp" method="POST" onSubmit="return checkNewCourseInputValidity()">
-		<input type="hidden" name="action" value="create_course">
-		<h2 class="headerAboveListTable">Courses</h2>
-		<div id="courseList">
-		<!-- Course list will be written in Javascript. -->
-		</div>
-		</form>
-		<div id="new_course_creation_feedback" class="errorMsg"></div>		
-	</td>
-</tr>
-</table>
-
-</body>
 </html>

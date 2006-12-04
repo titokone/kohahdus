@@ -8,13 +8,20 @@
 			location.href="teacherTaskList.jsp?action=delete_category&category="+categoryName;
 		}
 	}
-	function updateCategory(categoryName) {
-		if (document.categories_form.modified_category.value == "") {
+	function updateCategory(fieldName, categoryName) {
+		if (document.categories_form[fieldName].value == "") {
 			alert('Category cannot be empty');
 			return;
 		}
 		location.href="teacherTaskList.jsp?action=update_category&category="+categoryName+
-					  "&modified_category="+document.categories_form.modified_category.value;
+					  "&modified_category="+document.categories_form[fieldName].value;
+	}
+	function addCategory() {
+		if (document.categories_form.category.value == "") {
+			alert('Category cannot be empty');
+			return;
+		}
+		document.categories_form.submit();
 	}
 </script>
 
@@ -24,22 +31,16 @@
 	%>
 </c:if>
 <c:if test="${param.action=='delete_category'}">
-	<%
-		if (!DBHandler.getInstance().checkAndDeleteCategory(request.getParameter("category"))){
-	%>
+	<% if (!DBHandler.getInstance().checkAndDeleteCategory(request.getParameter("category"))){ %>
 		<span class="errorMsg">Failed to delete category. Category already in use in tasks.</span>
-	<%
-		}
-	%>
+	<% } %>
 </c:if>
 <c:if test="${param.action=='update_category'}">
-	<%
-		if (!DBHandler.getInstance().updateCategory(request.getParameter("category"), request.getParameter("modified_category"))){
-	%>
+	<% if (DBHandler.getInstance().updateCategoryAndTasks(request.getParameter("category"), request.getParameter("modified_category"))){ %>
+		Category updated.
+	<% } else { %>
 		<span class="errorMsg">Failed to update category.</span>
-	<%
-		}
-	%>
+	<% } %>
 </c:if>
 <%
 	List<String> categories = DBHandler.getInstance().getCategories();
@@ -55,11 +56,13 @@
 		<td colspan="2" class="titleBar">Category</td>
 		<td class="titleBar">&nbsp;</td>
 	</tr>
-	<c:forEach var="category" items="${categories}">
+	<c:forEach var="category" items="${categories}" varStatus="status">
 		<tr>
-			<td colspan="2"><input type="text" name="modified_category" value="<c:out value="${category}"/>"></td>
+			<td colspan="2">
+				<input type="text" name="category_<c:out value="${status.index}"/>" value="<c:out value="${category}"/>">
+			</td>
 			<td>
-				<input value="Update" onclick="Javascript:updateCategory('<c:out value="${category}"/>');" type="button">
+				<input value="Update" onclick="Javascript:updateCategory('category_<c:out value="${status.index}"/>', '<c:out value="${category}"/>');" type="button">
 				<input value="Delete" onclick="Javascript:deleteCategory('<c:out value="${category}"/>');" type="button">
 			</td>
 		</tr>
@@ -67,7 +70,9 @@
 	<tr>
 		<td>New category</td>
 		<td><input name="category" type="text"></td>
-		<td colspan="2"><input name="create_category_button" value="Create new category" type="submit"></td>
+		<td colspan="2">
+			<input onclick="Javascript:addCategory();" value="Create new category" type="button">
+		</td>
 	</tr>
 </tbody>
 </table>

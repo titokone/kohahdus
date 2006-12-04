@@ -219,11 +219,13 @@ public class DBHandler {
 		try {
 			st = conn.prepareStatement("delete from taskinmodule where courseid=?");
 			st.setString(1, courseID);			
-			st.executeUpdate();			
+			st.executeUpdate();
+			st.close();
 			
 			st = conn.prepareStatement("delete from module where courseid=?");
 			st.setString(1, courseID);			
 			st.executeUpdate();
+			st.close();
 			
 			st = conn.prepareStatement("delete from course where courseid=?");
 			st.setString(1, courseID);
@@ -510,6 +512,7 @@ public class DBHandler {
 		} finally {
 			release(conn);
 			if (st1 != null) st1.close();			
+			if (st2 != null) st2.close();			
 		}	
 		return true;
 	}
@@ -553,6 +556,32 @@ public class DBHandler {
 			
 		} catch (SQLException e){
 			Log.write("DBHandler: Failed to update task to DB: name=" +task.getName()+ ", id="+task.getTaskID()+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+		return false;
+	}
+		
+	/** Updates a task's metadata to DB */
+	private boolean updateTaskMetadata(Task task) throws SQLException{
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("update task set taskmetadata=? where taskid=?"); 
+			st.setString(1, task.serializeToXML());
+			st.setString(2, task.getTaskID());
+			int c = st.executeUpdate();
+			if (c > 0){
+				Log.write("DBHandler: Task metadata updated to DB: name=" +task.getName()+ ", id="+task.getTaskID());
+				return true;
+			} else {
+				Log.write("DBHandler: Failed to update task metadata to DB: name=" +task.getName()+ ", id="+task.getTaskID());
+			}
+			
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to update task metadata to DB: name=" +task.getName()+ ", id="+task.getTaskID()+". " +e);
 			throw e;
 		} finally {
 			release(conn);
@@ -907,6 +936,7 @@ public class DBHandler {
 			st = conn.prepareStatement("delete storedanswer where sid=?"); 
 			st.setString(1, userID);
 			st.executeUpdate();
+			if (st != null) st.close();			
 			
 			st = conn.prepareStatement("delete studentmodel where sid=?"); 
 			st.setString(1, userID);
@@ -1350,25 +1380,36 @@ public class DBHandler {
 		return false;
 	}
 	
+	/** updates category table and update all matching categories within tasks  */
+	public boolean updateCategoryAndTasks(String oldCategory, String newCategory) throws SQLException{
+		if (!updateCategory(oldCategory, newCategory)) return false; 
+		for (Task task : getTasks()) {
+			if (task.getCategory().equalsIgnoreCase(oldCategory)) {
+				task.setCategory(newCategory);
+				updateTaskMetadata(task);
+			}
+		}
+		return true;
+	}
 	/** updates a category  */
-	public boolean updateCategory(String oldName, String newName) throws SQLException{
+	private boolean updateCategory(String oldCategory, String newCategory) throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("update attributevalues set attributename=? where objecttype=? and objectid=? and attributename=?"); 
-			st.setString(1, newName);
+			st.setString(1, newCategory);
 			st.setString(2, DBHandler.ATTRIBUTE_TYPE_CATEGORY);
 			st.setString(3, DBHandler.ATTRIBUTE_ID_CATEGORY);
-			st.setString(4, oldName);
+			st.setString(4, oldCategory);
 			if (st.executeUpdate() > 0){
-				Log.write("DBHandler: Category updated to: " +newName);
+				Log.write("DBHandler: Category updated to: " +newCategory);
 				return true;
 			} else {
-				Log.write("DBHandler: Failed to update category: " +oldName);
+				Log.write("DBHandler: Failed to update category: " +oldCategory);
 			}
 			
 		} catch (SQLException e){
-			Log.write("DBHandler: Failed to update category: " +oldName+". " +e);
+			Log.write("DBHandler: Failed to update category: " +oldCategory+". " +e);
 			throw e;
 		} finally {
 			release(conn);
