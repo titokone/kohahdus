@@ -38,7 +38,7 @@
 <table class="listTable" border="1px">
 	<tr>
 		<td>Student</td>
-		<td>ID</td>
+		<td>Student number or Social Security Number</td>
 		<c:forEach var="taskName" items="${taskNames}">
 			<td>
 				<div style="direction:ltr; writing-mode:tb-rl">
@@ -56,7 +56,21 @@
 				</a>
 			</td>
 			<td>
-				id?
+				<c:choose>
+				
+					<c:when test="${not empty student.studentNumber}">
+		 				<c:out value="${student.studentNumber}"/>
+		 			</c:when>
+		 			
+		 			<c:when test="${not empty student.socialSecurityNumber}">
+		 				<c:out value="${student.socialSecurityNumber}"/>
+		 			</c:when>		 			
+		 			
+		 			<c:otherwise>
+						missing!
+		 			</c:otherwise>
+		 			
+		 		</c:choose>		
 			</td>
 			<c:forEach var="taskName" items="${taskNames}">
 				<td>
