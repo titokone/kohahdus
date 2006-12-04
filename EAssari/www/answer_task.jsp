@@ -231,12 +231,20 @@ function setDefaultInput(){
 						<td colspan="3" class="titleBar"><%=rb.getString("criteriaText")%></td>
 					</tr>
 					<c:forEach var="criterionFeedback" items="${feedback.criteriaFeedback}">
+						<c:choose>
+							<c:when test="${criterionFeedback.passedAcceptanceTest}">
+								<c:set var="image" value="images/positive.gif"/>
+							</c:when>
+							<c:otherwise>
+								<c:set var="image" value="images/negative.gif"/>
+							</c:otherwise>
+						</c:choose>	
 						<tr>
-							<td width="10%"><b><c:out value="${criterionFeedback.passedAcceptanceTest}"/></b></td>
-							<td width="10%"><b><c:out value="${criterionFeedback.name}"/></b></td>
+							<td width="20%"><b><img src="<c:out value="${image}"/>" border="0"> <c:out value="${criterionFeedback.name}"/></b></td>
 							<td width="80%"><c:out value="${criterionFeedback.feedback}"/></td>
 						</tr>
 					</c:forEach>
+					<c:remove var="image"/>
 				</table>
 			</c:if>
 		</c:if>
