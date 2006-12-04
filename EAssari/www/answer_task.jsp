@@ -165,16 +165,14 @@ function setDefaultInput(){
 					<c:if test="${task.fillInTask}">
 						<div><b><pre><c:out value="${task.fillInPostCode}"/></pre></b></div>
 					</c:if>
+					<div style="text-align: right;"><input type="submit" value="<%=rb.getString("executeButtonValue")%>"></div>
 				</td>
 			</tr>
 		</table>
 	
 		<br>
 	
-		<input type="submit" value="<%=rb.getString("executeButtonValue")%>"> 
-		<c:if test="${param.analyzed == 'true'}">
-			<input type="button" name="titokone_report_button" value="<%=rb.getString("showTitokoneReportButtonValue")%>" onClick="showhideTitokoneReport()">
-		</c:if>
+<!--		<input type="submit" value="<%=rb.getString("executeButtonValue")%>"> -->
 	</td>
 	<td valign="top" width="500px">
 		<c:if test="${param.analyzed == 'true'}">
@@ -255,7 +253,7 @@ function setDefaultInput(){
 		TitoState titostate = fb.getTitoState();
 		if (titostate != null) {
 	%>   	
-	<div id="titokone_report" style="display: none">
+	<div id="titokone_report">
 		<hr>
 		<a name="output"></a>
 		<b><%=rb.getString("titokoneReportTitle")%></b>

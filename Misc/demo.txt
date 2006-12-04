@@ -10,15 +10,17 @@ Opettajan käyttötapaukset:
  	* Haluaa luoda englannin kielisen tehtävän, koska kurssilla on vaihtareita
  	* Laittaa tehtävälle nimen: Register assignment
  	* Valitsee kategoriksi: Exercise 1
- 	* Kirjoittaa tehtävänantoon: Calculate how much is 5+8 and assign the result to register R1. 
+ 	* Kirjoittaa tehtävänantoon: Calculate 5+8 and assign the result to register R1. 
  	* Määrittää R1 kriteerin arvoksi 13
- 	* Miettii ääneen palautteiden muuttamista
+ 	* Miettii ääneen palautteiden muuttamista mutta jättää oletuspalautteet
  	* Valitsee instructions kriteeristä ADD komennon vaadituksi
  	* Tallentaa tehtävän
  - Haluaa katsoa edellisen kurssin suorituksia. Onko ollut liian vaikeita tehtäviä?
- - Päättelee, että XZZ -tehtävä on ollut liian vaikea. Haluaa muokata tehtävää.
-	* Sit muokkaa jotain kriteereitä helpommaksi.
-	* Tallentaa tehtävän ja on tyytyväinen. 	
+ - Päättelee, että Näppäimistöltä lukeminen-tehtävä on ollut liian vaikea. Haluaa muokata tehtävää.
+	* "Ehkä tuo keskiarvon käsite on käpistelijöille liian vaikea, poistetaan vaatimus"
+	* Poistaa kuvauksesta keskiarvokohdan
+	* Poistaa symbolikriteereistä KARVO-kriteerin tyhjentämällä kentät
+	* Tallentaa tehtävän.
  	
  	
 Oppilaan käyttötapaukset:
