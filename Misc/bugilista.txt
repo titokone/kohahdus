@@ -36,12 +36,6 @@ java.lang.NoClassDefFoundError: org/apache/commons/mail/SimpleEmail
 
 2006-12-04 16:49:01 StandardContext[/kinnunen]: Context startup failed due to previous errors
 --
-
-
-
-composer.jsp, Mikko, 28.11:
-Kun on muokataan malliratkaisutarkistusteht‰v‰‰, rekisteri ja symboli checkbox ovat aina tyhji‰.
---
 TitoKone, Mikko, 29.11:
 Tiedostojen lukemis ja kirjoittamis k‰skyt pit‰‰ testata. Nykyisell‰‰n vehje lukee ja kirjoittaa
 /dev/nullia, t‰ytyy varmistaa ettei t‰st‰ tule ongelmia..
@@ -60,7 +54,13 @@ Esim. 1. Vastaa ensin yhteen teht‰v‰‰n. 2. Valitse joku toinen teht‰v‰.
 -- 
 showStatistics.jsp, Paula, 4.12.
 Teht‰vien nimet n‰kyv‰t pystysuorassa vain IE:ss‰. Firefox ei tue ominaisuutta.
-
+--
+composer/teht‰v‰n tallennus, mikko 4.12
+1. Luo mallista tarkistettava t‰yttˆteht‰v‰ ja laita "esikoodia"
+2. Muuta ohjelmointiteht‰v‰ksi
+3. Tallenna
+4. Esikoodi joka oli piilossa, on tallennut osaksi mallikoodia
+--
 
 
 
@@ -196,6 +196,10 @@ Jos vastaus ei mene titokoneen k‰‰nt‰j‰st‰ l‰pi, niin Analyzer komponentin palau
 T‰t‰ on ymm‰rrett‰vist‰ syist‰ hieman hankala n‰ytt‰‰ opiskelijalle, joten 'show titokone report' napista
 ei tapahdu t‰llˆin mit‰‰n.
 Korjattu: Show titokone report-nappi poistettu, n‰ytet‰‰n aina automaattisesti kun k‰‰nnˆs on onnistunut
+--
+composer.jsp, Mikko, 28.11:
+Kun on muokataan malliratkaisutarkistusteht‰v‰‰, rekisteri ja symboli checkbox ovat aina tyhji‰.
+Korjattu: Mikko 4.12
 --
 
 

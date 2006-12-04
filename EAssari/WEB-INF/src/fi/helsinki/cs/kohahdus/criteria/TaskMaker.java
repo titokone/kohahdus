@@ -29,6 +29,7 @@ public class TaskMaker {
 	private static final String ACCEPTANCE_FB = "_acceptance_feedback";
 	private static final String FAILURE_FB = "_failure_feedback";
 	private static final String COMPARISON = "_comparison_op";
+	private static final String CHECKED = "_checked";
 	
 	private static final String OUTPUT_VAL = "output_value";
 	private static final String OUTPUT_ACCEPTANCE_FB = "output_acceptance_feedback";
@@ -190,7 +191,11 @@ public class TaskMaker {
 		crit.setAcceptanceTestValue(req.getParameter(id + ACCEPTANCE_VAL));
 		crit.setAcceptanceFeedback(req.getParameter(id + ACCEPTANCE_FB));
 		crit.setFailureFeedback(req.getParameter(id + FAILURE_FB));
-		
+		crit.setCompareToModel(req.getParameter(id + CHECKED));
+
+		Log.write(id + CHECKED + " checked: " + req.getParameter(id + CHECKED));
+		Log.write(id + ".hasAcceptanceTest(true) = " + crit.hasAcceptanceTest(true));
+
 		criteria.add(crit);
 	}
 
@@ -313,6 +318,10 @@ public class TaskMaker {
 		crit.setAcceptanceTestValue(req.getParameter(id + ACCEPTANCE_VAL));
 		crit.setAcceptanceFeedback(req.getParameter(id + ACCEPTANCE_FB));
 		crit.setFailureFeedback(req.getParameter(id + FAILURE_FB));
+		crit.setCompareToModel(req.getParameter(id + CHECKED));
+
+		Log.write(id + CHECKED + " checked: " + req.getParameter(id + CHECKED));
+		Log.write(id + ".hasAcceptanceTest(true) = " + crit.hasAcceptanceTest(true));
 		
 		Log.write("TaskMaker: new SymbolCriteria created - symName="+crit.getSymbolName()+" CompOp="+crit.getComparisonOperator()+
 				  " TestValue="+crit.getAcceptanceTestValue()+" AccFB="+crit.getAcceptanceFeedback()+" FFB="+crit.getFailureFeedback());

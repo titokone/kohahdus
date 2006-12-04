@@ -29,7 +29,14 @@ public abstract class VariableCriterion extends Criterion {
 	}
 	
 	
-	
+	/** Test whether this variable criterion has an acceptance test to use with
+	 * model answert. This is a convenience method to be used in JSTL-code, all
+	 * it does is call hasAcceptanceTest(true).
+	 * @return true if this criterion has a model test
+	 */
+	public boolean isModelAcceptanceTest() {
+		return this.hasAcceptanceTest(true);
+	}
 	
 
 	

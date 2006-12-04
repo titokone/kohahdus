@@ -106,8 +106,9 @@ function composerOnLoad() {
 }
 
 // "object" for storing variable values while rewriting the variable cell
-function ttk91variable(varChecked, name, publicOp, publicValue, cfp, wfp, secretOp, secretValue, cfs, wfs) {
-	this.checked = varChecked;
+function ttk91variable(name, publicOp, publicValue, publicChecked, cfp, wfp, secretOp, secretValue, secretChecked, cfs, wfs) {
+	this.publicChecked = publicChecked;
+	this.secretChecked = secretChecked;
 	this.name = name;
 	this.publicOp = publicOp;
 	this.publicValue = publicValue;
@@ -129,14 +130,15 @@ function addVariable() {
 	// Mozilla/Firefox browsers forget the contents of the fields, so save them...
 	for(var i = 0; i < variableCounter; i++) {
 		varArray[i] = new ttk91variable(
-				document.getElementsByName('SYM' + i + '_checked').item(0).checked,
 				document.getElementsByName('SYM' + i + '_name').item(0).value,
 				document.getElementsByName('PUBSYM' + i + '_comparison_op').item(0).selectedIndex,
 				document.getElementsByName('PUBSYM' + i + '_value').item(0).value,
+				document.getElementsByName('PUBSYM' + i + '_checked').item(0).checked,
 				document.getElementsByName('PUBSYM' + i + '_acceptance_feedback').item(0).value,
 				document.getElementsByName('PUBSYM' + i + '_failure_feedback').item(0).value,
 				document.getElementsByName('SECSYM' + i + '_comparison_op').item(0).selectedIndex,
 				document.getElementsByName('SECSYM' + i + '_value').item(0).value,
+				document.getElementsByName('SECSYM' + i + '_checked').item(0).checked,
 				document.getElementsByName('SECSYM' + i + '_acceptance_feedback').item(0).value,
 				document.getElementsByName('SECSYM' + i + '_failure_feedback').item(0).value);
 	}
@@ -144,14 +146,15 @@ function addVariable() {
 	var beginhtml = html.substring(0, (html.length - 16));
 	var endhtml = html.substring(html.length - 16)
 
-	beginhtml += '<tr><td><input type="checkbox" name="SYM' + variableCounter + '_checked"></td>';
+	beginhtml += '<tr><td><input type="checkbox" name="PUBSYM' + variableCounter + '_checked"></td>';
 	beginhtml += '<td><input name="SYM' + variableCounter + '_name" type="text" size="4"></td>';
 	beginhtml += '<td><select name="PUBSYM' + variableCounter + '_comparison_op"><option>=</option><option>!=</option><option><</option><option>></option><option><=</option><option>>=</option></select></td>';
 	beginhtml += '<td><input name="PUBSYM' + variableCounter + '_value" type="text" size="4"></td>';
 	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="4">' + varAcceptanceFeedbackPublic + '</textarea></td>';
 	beginhtml += '<td><textarea name="PUBSYM' + variableCounter + '_failure_feedback" cols="20" rows="4">' + varFailureFeedbackPublic + '</textarea></td>';
 	beginhtml += '<td><select name="SECSYM' + variableCounter + '_comparison_op"><option>=</option><option>!=</option><option><</option><option>></option><option><=</option><option>>=</option></select></td>';
-	beginhtml += '<td><input name="SECSYM' + variableCounter + '_value" type="text" size="4"></td>';
+	beginhtml += '<td><input name="SECSYM' + variableCounter + '_value" type="text" size="4">';
+	beginhtml += '<input type="checkbox" name="SECSYM' + variableCounter + '_checked"></td>';
 	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_acceptance_feedback" cols="20" rows="4">' + varAcceptanceFeedbackSecret + '</textarea></td>';
 	beginhtml += '<td><textarea name="SECSYM' + variableCounter + '_failure_feedback" cols="20" rows="4">' + varFailureFeedbackSecret + '</textarea></td></tr>';
 
@@ -166,14 +169,15 @@ function addVariable() {
 	
 	// ...and put them back.
 	for(var i = 0; i < varArray.length; i++) {
-		document.getElementsByName('SYM' + i + '_checked').item(0).checked = varArray[i].checked;
 		document.getElementsByName('SYM' + i + '_name').item(0).value = varArray[i].name;
 		document.getElementsByName('PUBSYM' + i + '_comparison_op').item(0).selectedIndex = varArray[i].publicOp;
 		document.getElementsByName('PUBSYM' + i + '_value').item(0).value =  varArray[i].publicValue;
+		document.getElementsByName('PUBSYM' + i + '_checked').item(0).checked = varArray[i].publicChecked;
 		document.getElementsByName('PUBSYM' + i + '_acceptance_feedback').item(0).value = varArray[i].correctFeedbackPublic;
 		document.getElementsByName('PUBSYM' + i + '_failure_feedback').item(0).value = varArray[i].wrongFeedbackPublic;
 		document.getElementsByName('SECSYM' + i + '_comparison_op').item(0).selectedIndex = varArray[i].secretOp;
 		document.getElementsByName('SECSYM' + i + '_value').item(0).value = varArray[i].secretValue;
+		document.getElementsByName('SECSYM' + i + '_checked').item(0).checked = varArray[i].secretChecked;
 		document.getElementsByName('SECSYM' + i + '_acceptance_feedback').item(0).value = varArray[i].correctFeedbackSecret;
 		document.getElementsByName('SECSYM' + i + '_failure_feedback').item(0).value = varArray[i].wrongFeedbackSecret;
 	}
@@ -339,7 +343,7 @@ function addVariable() {
 						<c:set var="pub" value='${criteria[pubIndex]}'/>
 						<c:set var="sec" value="${criteria[secIndex]}"/>
 						<tr>
-							<td><input type="checkbox" name="REG<c:out value="${i}"/>_checked"></td>
+						<td><input type="checkbox" name="<c:out value="${pub.id}"/>_checked" <c:if test="${pub.modelAcceptanceTest}">checked</c:if>></td>
 							<td>R<c:out value="${i}"/></td>
 							<td>
 								<select name="<c:out value="${pub.id}"/>_comparison_op">
@@ -364,7 +368,8 @@ function addVariable() {
 									<option <c:if test="${sec.comparisonOperator=='>='}">selected</c:if>>>=</option>
 								</select>
 							</td>
-							<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="4" value="<c:out value="${sec.acceptanceTestValue}"/>"></td>
+							<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="4" value="<c:out value="${sec.acceptanceTestValue}"/>">
+								<input type="checkbox" name="<c:out value="${sec.id}"/>_checked" <c:if test="${sec.modelAcceptanceTest}">checked</c:if>></td>
 							<td><textarea name="<c:out value="${sec.id}"/>_acceptance_feedback" cols="21" rows="4"><c:out value="${sec.acceptanceFeedback}"/></textarea></td>
 							<td><textarea name="<c:out value="${sec.id}"/>_failure_feedback" cols="21" rows="4"><c:out value="${sec.failureFeedback}"/></textarea></td>
 						</tr>
@@ -404,7 +409,7 @@ function addVariable() {
 									<c:set var="pub" value="${criteria[pubIndex]}"/>
 									<c:set var="sec" value="${criteria[secIndex]}"/>
 									<tr>
-										<td><input type="checkbox" name="SYM<c:out value="${i}"/>_checked"></td>
+										<td><input type="checkbox" name="<c:out value="${pub.id}"/>_checked" <c:if test="${pub.modelAcceptanceTest}">checked</c:if>></td>
 										<td><input name="SYM<c:out value="${i}"/>_name" type="text" size="4" value="<c:out value="${pub.symbolName}"/>"></td>
 										<td>
 											<select name="<c:out value="${pub.id}"/>_comparison_op">
@@ -429,7 +434,8 @@ function addVariable() {
 												<option <c:if test="${sec.comparisonOperator=='>='}">selected</c:if>>>=</option>
 											</select>
 										</td>
-										<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="4" value="<c:out value="${sec.acceptanceTestValue}"/>"></td>
+										<td><input name="<c:out value="${sec.id}"/>_value" type="text" size="4" value="<c:out value="${sec.acceptanceTestValue}"/>">
+											<input type="checkbox" name="<c:out value="${sec.id}"/>_checked" <c:if test="${sec.modelAcceptanceTest}">checked</c:if>></td>
 										<td><textarea name="<c:out value="${sec.id}"/>_acceptance_feedback" cols="20" rows="2"><c:out value="${sec.acceptanceFeedback}"/></textarea></td>
 										<td><textarea name="<c:out value="${sec.id}"/>_failure_feedback" cols="20" rows="2"><c:out value="${sec.failureFeedback}"/></textarea></td>
 									</tr></c:forEach></table></td>
