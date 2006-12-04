@@ -38,7 +38,7 @@
 <table class="listTable" border="1px">
 	<tr>
 		<td>Student</td>
-		<td>Student number or Social Security Number</td>
+		<td>Student or Social Security Number</td>
 		<c:forEach var="taskName" items="${taskNames}">
 			<td>
 				<div style="direction:ltr; writing-mode:tb-rl">
@@ -67,7 +67,7 @@
 		 			</c:when>		 			
 		 			
 		 			<c:otherwise>
-						missing!
+						illegally missing!
 		 			</c:otherwise>
 		 			
 		 		</c:choose>		
