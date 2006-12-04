@@ -10,13 +10,6 @@ AVOIMET BUGIT, PUUTEET, YMS
 composer.jsp, Mikko, 28.11:
 Kun on muokataan malliratkaisutarkistustehtävää, rekisteri ja symboli checkbox ovat aina tyhjiä.
 --
-answer_task.jsp, Mikko, 28.11:
-Syytä harkita koodi-kentän kaventamista, jolloin tehtävän ratkaisun palauteet voisi näyttää koodin vieressä.
---
-composer.jsp, Mikko, 28.11:
-Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuitenkin
-tekstikenttä näkyvissä arvojen syöttämistä varten.
---
 TitoKone, Mikko, 29.11:
 Tiedostojen lukemis ja kirjoittamis käskyt pitää testata. Nykyisellään vehje lukee ja kirjoittaa
 /dev/nullia, täytyy varmistaa ettei tästä tule ongelmia..
@@ -33,11 +26,6 @@ Vastauksen tila säilyy sessiossa vaikka opiskelija siirtyisi toiselle sivulle.
 Esim. 1. Vastaa ensin yhteen tehtävään. 2. Valitse joku toinen tehtävä.
       3. Lisää osoitteeseen &analyzed=true, niin vanhan vastauksen tiedot saadaan näkyviin
 -- 
-answer_task.jsp Analyzer, Markus, 1.12
-Jos vastaus ei mene titokoneen kääntäjästä läpi, niin Analyzer komponentin palauttama TitoState on null.
-Tätä on ymmärrettävistä syistä hieman hankala näyttää opiskelijalle, joten 'show titokone report' napista
-ei tapahdu tällöin mitään.
---
 showStatistics.jsp, Paula, 4.12.
 Tehtävien nimet näkyvät pystysuorassa vain IE:ssä. Firefox ei tue ominaisuutta.
 
@@ -156,6 +144,29 @@ signup.jsp & modify_user.jsp, Paula, 4.12.
 Sähköpostitarkistus tarkistaa vain että vaadittu muoto on syötteen loppuosa. Esim. taro@morimoto@helsinki.fi
 menee läpi.
 Korjattu: Lisätty vaatimus, että täsmättävä myös syötteen alussa.
+--
+answer_task.jsp, Mikko, 28.11:
+Syytä harkita koodi-kentän kaventamista, jolloin tehtävän ratkaisun palauteet voisi näyttää koodin vieressä.
+Korjattu: joku teki joskus
+--
+answer_task.jsp, Markus, 28.11:
+Vastattuaan tehtävään selain palaa sivun ylälaitaan, mikä on jokseenkin ärsyttävää, koska
+oppilas todennäköisesti haluaisi ensimmäiseksi tietää menikö vastaus oikein vai ei.
+Korjattu: joku teki joskus
+--
+composer.jsp, Mikko, 28.11:
+Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuitenkin
+tekstikenttä näkyvissä arvojen syöttämistä varten.
+Korjattu: Paulaa epäillään
+--
+answer_task.jsp Analyzer, Markus, 1.12
+Jos vastaus ei mene titokoneen kääntäjästä läpi, niin Analyzer komponentin palauttama TitoState on null.
+Tätä on ymmärrettävistä syistä hieman hankala näyttää opiskelijalle, joten 'show titokone report' napista
+ei tapahdu tällöin mitään.
+Korjattu: Show titokone report-nappi poistettu, näytetään aina automaattisesti kun käännös on onnistunut
+--
+
+
 
  BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -164,8 +175,4 @@ Opettajan kirjautumisessa käytettävä role parametri käy millä sisällöllä tahansa
 Esim. ?role=ninja tai ?role=student
 Kommentti: Tämä on ominaisuus
 --
-answer_task.jsp, Markus, 28.11:
-Vastattuaan tehtävään selain palaa sivun ylälaitaan, mikä on jokseenkin ärsyttävää, koska
-oppilas todennäköisesti haluaisi ensimmäiseksi tietää menikö vastaus oikein vai ei.
-Kommentti: 
---
+
