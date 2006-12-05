@@ -35,4 +35,8 @@
 	<p>Your new password has been sent to your email.</p>
 </c:if>
 
+<br>
+<br>
+<a href="login.jsp">Login</a>
+
 </body>

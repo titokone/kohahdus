@@ -804,7 +804,7 @@ public class DBHandler {
 				user.setSocialSecurityNumber(rs.getString("extid2"));
 				user.setStatus(rs.getString("status"));
 			} else {
-				Log.write("DBHandler: user not found with " +userID+ "/" +password);
+				Log.write("DBHandler: user not found with " +userID+ " and with given password");
 			}
 			rs.close();			
 			

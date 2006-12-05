@@ -151,6 +151,8 @@ function doOnLoad(){
 	<c:if test="${empty param.role}">
 		<div class="footNote">New user? <a href="signup.jsp">Sign up</a></div>
 	</c:if>
+	<br>
+	<div class="footNote"><a href="send_email.jsp">Forgot your password?</a></div>
 </div>
 
 </form>

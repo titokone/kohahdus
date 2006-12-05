@@ -41,7 +41,7 @@ public final class TitoInitializer implements Filter {
 				 filterConfig.getInitParameter("db-username"),
 				 filterConfig.getInitParameter("db-password"));
 
-    	Emailer.initialize(filterConfig.getInitParameter("smtp-server"));
+    	Emailer.initialize(filterConfig.getInitParameter("smtp-server"), Integer.parseInt(filterConfig.getInitParameter("smtp-port")));
 
     	Log.write("*********** Servlet context initialized.");
     	Log.write("");

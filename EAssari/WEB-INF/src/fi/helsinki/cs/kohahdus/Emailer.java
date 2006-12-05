@@ -9,33 +9,38 @@ import org.apache.commons.mail.SimpleEmail;
 * 
 */
 public class Emailer {
-	private static String hostName = "mail.cs.helsinki.fi";
+	private static String hostName = "localhost";
+	private static int smtpPort = 25;
 	
 	private Emailer() {}
 	
-	public static void initialize(String hostName) {
+	public static void initialize(String hostName, int smtpPort) {
 		if (hostName == null) return;
 		Emailer.hostName = hostName;
+		Emailer.smtpPort = smtpPort;
 	}
 	
-	/** Send a single email. */
-	public static void sendNewPasswordEmail(String toEmailAddr){
+	/**
+	 *  Emails the new password.
+	 *  Returns the new password.
+	 */
+	public static String sendNewPasswordEmail(String toEmailAddr) throws Exception{
 	    try {
 			SimpleEmail email = new SimpleEmail();
 			email.setHostName(hostName);
+			email.setSmtpPort(smtpPort);
 			email.addTo(toEmailAddr);
-			email.setFrom("TitoTrainer@cs.helsinki.fi", "TitoTrainer");
+			email.setFrom("titotrainer@cs.helsinki.fi", "TitoTrainer");
 			email.setSubject("New password for TitoTrainer");
-			email.setMsg("Your new password is: " +randomstring(6,12));
+			String randomString = randomstring(6,12);
+			email.setMsg("Your new password is: " +randomString);
 			email.send();
-	    	
-		    //sending message worked, change the password from database
-	    	// TODO: dbhandler tarvii metodin
-	    	//DBHandler.getInstance().changePassword(aToEmailAddr); 
-	    	
+	    	Log.write("Email sent to " +toEmailAddr+ " New password is " +randomString);
+			return randomString;
 	    } catch (Exception e){
 	    	Log.write("Failed to send email. " + e);
 	    	Log.write(e);
+	    	throw e;
 	    }
 	}
 
