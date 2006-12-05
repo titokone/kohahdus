@@ -53,12 +53,12 @@
 <table class="listTable" border="1">
 <tbody>
 	<tr>
-		<td colspan="2" class="titleBar">Category</td>
+		<td class="titleBar">Category</td>
 		<td class="titleBar">&nbsp;</td>
 	</tr>
 	<c:forEach var="category" items="${categories}" varStatus="status">
 		<tr>
-			<td colspan="2">
+			<td>
 				<input type="text" name="category_<c:out value="${status.index}"/>" value="<c:out value="${category}"/>">
 			</td>
 			<td>
@@ -68,8 +68,7 @@
 		</tr>
 	</c:forEach>	
 	<tr>
-		<td>New category</td>
-		<td><input name="category" type="text"></td>
+		<td>New category <input name="category" type="text"></td>
 		<td colspan="2">
 			<input onclick="Javascript:addCategory();" value="Create new category" type="button">
 		</td>

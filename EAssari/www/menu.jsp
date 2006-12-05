@@ -40,10 +40,9 @@
 				<table>
 					<tr>
 						<td><span style="font-family:impact; font-size:30px">TitoTrainer</span></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/composer.jsp?task_id=EN_TEMPLATE&save_type=new">Create new task (English)</a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/composer.jsp?task_id=FI_TEMPLATE&save_type=new">Create new task (Finnish)</a></td>
+						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/composer.jsp?task_id=EN_TEMPLATE&save_type=new">New task (English)</a></td>
+						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/composer.jsp?task_id=FI_TEMPLATE&save_type=new">New task (Finnish)</a></td>
 						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacherTaskList.jsp">Task list</a></td>
-						<!--<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/statistics.jsp">Search statistics</a></td>-->
 						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/searchUsers.jsp">Search users</a></td>
 					</tr>
 				</table>

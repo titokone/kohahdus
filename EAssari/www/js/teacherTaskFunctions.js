@@ -13,7 +13,7 @@ function Task(id, name, type, category, language, author, modificationDate) {
 
 /* input tasks into task list */
 function writeTaskList() {
-	var headerHtml = '<table class="listTable" border="1px"><tr><td class="titleBar">ID</td>';
+	var headerHtml = '<table class="listTable" border="1px"><tr>';
 	headerHtml += '<td class="titleBar">Name <a href="javascript: sortTasksByName(tasks, true)"><img src="images/arrow-down.gif" border="0"></a><a href="javascript: sortTasksByName(tasks, false)"><img src="images/arrow-up.gif" border="0"></a></td>';
 	headerHtml += '<td class="titleBar">Type <a href="javascript: sortTasksByType(tasks, true)"><img src="images/arrow-down.gif" border="0"></a><a href="javascript: sortTasksByType(tasks, false)"><img src="images/arrow-up.gif" border="0"></a></td>';
 	headerHtml += '<td class="titleBar">Category <a href="javascript: sortTasksByCategory(tasks, true)"><img src="images/arrow-down.gif" border="0"></a><a href="javascript: sortTasksByCategory(tasks, false)"><img src="images/arrow-up.gif" border="0"></a></td>';
@@ -26,7 +26,7 @@ function writeTaskList() {
 
 	if(tasksAvailable == true) {
 		for(var i = 0; i < tasks.length; i++) {
-			listHtml += '<tr><td>' + tasks[i].id + '</td>';
+			listHtml += '<tr>';
 			listHtml += '<td><a href="answer_task.jsp?task_id=' + tasks[i].id + '">' + tasks[i].name + '</td>';
 			listHtml += '<td>' + tasks[i].type + '</td>';
 			listHtml += '<td>' + tasks[i].category + '</td>';
