@@ -28,7 +28,9 @@ composer/tehtävän tallennus, mikko 4.12
 3. Tallenna
 4. Esikoodi joka oli piilossa, on tallennut osaksi mallikoodia
 --
-
+composer/tehtävän muokkaus ainakin, tuomas 5.12
+Ei tallenna kiellettyjä ja vaadittuja käskyjä
+--
 
 
 KORJATUT BUGIT JA PUUTTEET
