@@ -28,9 +28,6 @@ composer/tehtävän tallennus, mikko 4.12
 3. Tallenna
 4. Esikoodi joka oli piilossa, on tallennut osaksi mallikoodia
 --
-composer/tehtävän muokkaus ainakin, tuomas 5.12
-Ei tallenna kiellettyjä ja vaadittuja käskyjä
---
 
 
 KORJATUT BUGIT JA PUUTTEET
@@ -179,6 +176,11 @@ Testaussuunnitelma/raportti (kohta Tehtävän lisääminen), Paula, 30.11.
 Viittaa, että eri määrä julkisia ja salaisia syötteitä on virheellinen syöte. Korjattava, kun päädyttiin 
 tulokseen, että ei ole.
 Korjattu: Ninja 5.12
+--
+composer/tehtävän muokkaus ainakin, tuomas 5.12
+Ei tallenna kiellettyjä ja vaadittuja käskyjä
+Korjattu: Mikko 5.12 - tallensi kyllä, muttei näyttänyt niitä muokkaustilassa. Kusi koska javascriptissä 
+vertailtiin "jmp" == "JMP". toUpperCase() lisätty molempiin operandeihin niin johan toimii.
 --
 
 

@@ -22,7 +22,7 @@ function initTaskCreation()
 
 		for (var requiredCounter = 0; requiredCounter < requiredInstructions.length; requiredCounter++) {
 			for (var nameCounter = 0; nameCounter < instructionNames.length; nameCounter++) {
-				if(instructionNames[nameCounter] == requiredInstructions[requiredCounter]) {
+				if(instructionNames[nameCounter].toUpperCase() == requiredInstructions[requiredCounter].toUpperCase()) {
 					instructionStatus[nameCounter] = REQUIRED_STATUS;
 					img = document.getElementById(instructionNames[nameCounter] + "_img");
 					img.src = positive.src;
@@ -38,7 +38,7 @@ function initTaskCreation()
 
 		for (var forbiddenCounter = 0; forbiddenCounter < forbiddenInstructions.length; forbiddenCounter++) {
 			for (var nameCounter = 0; nameCounter < instructionNames.length; nameCounter++) {
-				if(instructionNames[nameCounter] == forbiddenInstructions[forbiddenCounter]) {
+				if(instructionNames[nameCounter].toUpperCase() == forbiddenInstructions[forbiddenCounter].toUpperCase()) {
 					instructionStatus[nameCounter] = FORBIDDEN_STATUS;
 					img = document.getElementById(instructionNames[nameCounter] + "_img");
 					img.src = negative.src;
