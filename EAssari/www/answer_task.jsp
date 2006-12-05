@@ -158,13 +158,16 @@ function setDefaultInput(){
 			</tr>
 			<tr>
 				<td>
-					<c:if test="${task.fillInTask}">
-						<div><b><pre><c:out value="${task.fillInPreCode}"/></pre></b></div>
-					</c:if>	
-					<textarea name="programCode" style="width:100%" rows="40"><c:out value="${programCode}"/></textarea>
-					<c:if test="${task.fillInTask}">
-						<div><b><pre><c:out value="${task.fillInPostCode}"/></pre></b></div>
-					</c:if>
+					<c:choose>	
+						<c:when test="${task.fillInTask}">
+							<div><b><pre><c:out value="${task.fillInPreCode}"/></pre></b></div>					
+							<textarea name="programCode" style="width:100%" rows="20"><c:out value="${programCode}"/></textarea>					
+							<div><b><pre><c:out value="${task.fillInPostCode}"/></pre></b></div>
+						</c:when>
+						<c:otherwise>					
+							<textarea name="programCode" style="width:100%" rows="40"><c:out value="${programCode}"/></textarea>											
+						</c:otherwise>
+					</c:choose>
 					<div style="text-align: right;"><input type="submit" value="<%=rb.getString("executeButtonValue")%>"></div>
 				</td>
 			</tr>
