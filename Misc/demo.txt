@@ -3,36 +3,45 @@
 
 Opettajan k‰yttˆtapaukset:
 
- - Opettaja loggaa sis‰‰n tunnuksilla: teemu / teemu
+ - Opettaja loggaa sis‰‰n tunnuksilla: teemu / kerola
  - Teemu haluaa luoda uuden kurssin: 2007 kev‰t
  - Teemu haluaa luoda uuden teht‰v‰n ja huomaa, ett‰ on kaksi kielivalintaa
     * Haluaa luoda yksinkertainen programming teht‰v‰n
  	* Haluaa luoda englannin kielisen teht‰v‰n, koska kurssilla on vaihtareita
- 	* Laittaa teht‰v‰lle nimen: Register assignment
+ 	* Laittaa teht‰v‰lle nimen: Register math
  	* Valitsee kategoriksi: Exercise 1
- 	* Kirjoittaa teht‰v‰nantoon: Calculate 5+8 and assign the result to register R1. 
+ 	* Kirjoittaa teht‰v‰nantoon: "Calculate 5+8 and assign the result to register R1"
  	* M‰‰ritt‰‰ R1 kriteerin arvoksi 13
  	* Miettii ‰‰neen palautteiden muuttamista mutta j‰tt‰‰ oletuspalautteet
- 	* Valitsee instructions kriteerist‰ ADD komennon vaadituksi
+ 	* Valitsee instructions kriteerist‰ "ADD" komennon vaadituksi
  	* Tallentaa teht‰v‰n
- - Haluaa katsoa edellisen kurssin suorituksia. Onko ollut liian vaikeita teht‰vi‰?
- - P‰‰ttelee, ett‰ N‰pp‰imistˆlt‰ lukeminen-teht‰v‰ on ollut liian vaikea. Haluaa muokata teht‰v‰‰.
-	* "Ehk‰ tuo keskiarvon k‰site on k‰pistelijˆille liian vaikea, poistetaan vaatimus"
-	* Poistaa kuvauksesta keskiarvokohdan
-	* Poistaa symbolikriteereist‰ KARVO-kriteerin tyhjent‰m‰ll‰ kent‰t
-	* Tallentaa teht‰v‰n.
+ - P‰‰tt‰‰ luoda viel‰ toisen teht‰v‰n ykkˆslaskareihin
+    * K‰ynnist‰‰ suomenkielisen teht‰v‰n luomisen
+    * Laittaa teht‰v‰lle nimeksi "Yhteenlasku"
+    * "Tehd‰‰n t‰st‰ t‰yttˆteht‰v‰ johon opiskelija t‰ydent‰‰ vain osan koodista" (vaihtaa tyypin)
+    * Kirjoittaa teht‰v‰nantoon "T‰ydenn‰ ohjelmaa siten, ett‰ se laskee rekisterien R1..R4 summan ja tulostaa sen n‰ytˆlle"
+    * Asettaa public input "1, 2, 3, 4"
+    * Kirjoittaa alkukoodin "IN R1, =KBD
+                             IN R2, =KBD
+                             IN R3, =KBD
+                             IN R4, =KBD"
+    * Miettii "laitetaan t‰nne t‰m‰ ohjelmna lopetusk‰sky niin s‰‰styy opiskelijoilta vaivaa" - "SVC SP, =HALT"
+    * Asettaa public output kriteeriksi "10"
+    * Tallentaa teht‰v‰n
  	
  	
 Oppilaan k‰yttˆtapaukset:
 
- - On rekisterˆitynyt aiemmin, joten loggautuu sis‰‰n: Mikko / Mikko
+ - On rekisterˆitynyt aiemmin, joten loggautuu sis‰‰n: mikko / 123456
  - Loggauksen yhteydess‰ tarkistaa, ett‰ valitsee oikean kurssin ja kielen.
- - Tekee Register assignment -teht‰v‰n.
+ - Selaa teht‰v‰listausta
+ - Tekee "Register math"-teht‰v‰n.
  	* Ensin haluaa huijata asettamalla suoraan luvun 13 rekisteriin R1.
- 	* Sen j‰lkeen otti opikseen, lukee teht‰v‰n annon uudestaan ja k‰ytt‰‰ ADD k‰sky‰.
+ 	* Sen j‰lkeen otti opikseen, lukee teht‰v‰nannon uudestaan ja k‰ytt‰‰ ADD k‰sky‰.
  - N‰kee teht‰v‰listaussivulta, ett‰ teht‰v‰ on oikein suoritettu.
- - Tekee Fill-in -teht‰v‰n.
- 	* Diipadaapa.
+ - Tekee "Yhteenlasku" -teht‰v‰n.
+    * Jahas, t‰‰ll‰ on jo osa koodista valmiina
+    * Kirjoittaa ohjelman kerralla oikein
  - Loggautuu ulos.
  
 
