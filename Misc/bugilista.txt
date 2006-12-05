@@ -11,9 +11,6 @@ TitoKone, Mikko, 29.11:
 Tiedostojen lukemis ja kirjoittamis käskyt pitää testata. Nykyisellään vehje lukee ja kirjoittaa
 /dev/nullia, täytyy varmistaa ettei tästä tule ongelmia..
 --
-teacherTaskList.jsp, Taro, 30.11
-Kurssien nimen muokkaus vois toteuttaa jos ehtii.
---
 answer_task.jsp, Markus, 1.12
 Vastauksen tila säilyy sessiossa vaikka opiskelija siirtyisi toiselle sivulle.
 Esim. 1. Vastaa ensin yhteen tehtävään. 2. Valitse joku toinen tehtävä.
@@ -190,11 +187,15 @@ vertailtiin "jmp" == "JMP". toUpperCase() lisätty molempiin operandeihin niin jo
 
 
 
- BUGIT JA PUUTTEET
+ HYLÄTYT BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 login.jsp, Tuomas & Markus & Mikko, 28.11:
 Opettajan kirjautumisessa käytettävä role parametri käy millä sisällöllä tahansa.
 Esim. ?role=ninja tai ?role=student
 Kommentti: Tämä on ominaisuus
+--
+teacherTaskList.jsp, Taro, 30.11
+Kurssien nimen muokkaus vois toteuttaa jos ehtii.
+Kommentti: Ei tehdä
 --
 
