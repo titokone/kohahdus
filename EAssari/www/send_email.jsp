@@ -36,7 +36,6 @@
 </c:if>
 
 <br>
-<br>
-<a href="login.jsp">Login</a>
+Back to <a href="login.jsp">login</a> page
 
 </body>
