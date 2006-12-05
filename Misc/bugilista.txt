@@ -11,10 +11,6 @@ TitoKone, Mikko, 29.11:
 Tiedostojen lukemis ja kirjoittamis käskyt pitää testata. Nykyisellään vehje lukee ja kirjoittaa
 /dev/nullia, täytyy varmistaa ettei tästä tule ongelmia..
 --
-Testaussuunnitelma/raportti (kohta Tehtävän lisääminen), Paula, 30.11.
-Viittaa, että eri määrä julkisia ja salaisia syötteitä on virheellinen syöte. Korjattava, kun päädyttiin 
-tulokseen, että ei ole.
---
 teacherTaskList.jsp, Taro, 30.11
 Kurssien nimen muokkaus vois toteuttaa jos ehtii.
 --
@@ -176,6 +172,11 @@ TitoInitializer.java, Mikko 4.12:
 Piti kommentoida pois seuraava rivi: "Emailer.initialize(filterConfig.getInitParameter("smtp-server"));"
 Muuten tomcat-kontekstin init menee pieleen viestillä:
 Korjattu: Kopioi kaikki jarrit uudelleen workspacesta.
+--
+Testaussuunnitelma/raportti (kohta Tehtävän lisääminen), Paula, 30.11.
+Viittaa, että eri määrä julkisia ja salaisia syötteitä on virheellinen syöte. Korjattava, kun päädyttiin 
+tulokseen, että ei ole.
+Korjattu: Ninja 5.12
 --
 
 
