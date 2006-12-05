@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/titokone-1.203.jar"/>
 	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/commons-email-1.0.jar"/>
+	<classpathentry kind="lib" path="EAssari/WEB-INF/lib/activation.jar"/>
 	<classpathentry kind="output" path="EAssari/WEB-INF/classes"/>
 </classpath>

@@ -9,7 +9,7 @@ import org.apache.commons.mail.SimpleEmail;
 * 
 */
 public class Emailer {
-	private static String hostName = "localhost";
+	private static String hostName = "post.cs.helsinki.fi";
 	private static int smtpPort = 25;
 	
 	private Emailer() {}
@@ -33,7 +33,7 @@ public class Emailer {
 			email.setFrom("titotrainer@cs.helsinki.fi", "TitoTrainer");
 			email.setSubject("New password for TitoTrainer");
 			String randomString = randomstring(6,12);
-			email.setMsg("Your new password is: " +randomString);
+			email.setMsg("Your new password for TitoTrainer is: " +randomString);
 			email.send();
 	    	Log.write("Email sent to " +toEmailAddr+ " New password is " +randomString);
 			return randomString;
@@ -50,7 +50,7 @@ public class Emailer {
 		byte b[] = new byte[n];
 		for (int i = 0; i < n; i++)
 		b[i] = (byte)rand('a', 'z');
-		return new String(b, 0);
+		return new String(b);
 	}
 	private static int rand(int lo, int hi) {
 		int n = hi - lo + 1;
@@ -59,5 +59,9 @@ public class Emailer {
 		if (i < 0)
 			i = -i;
 		return lo + i;
+	}
+	
+	public static void main(String[] args) throws Exception{
+		Emailer.sendNewPasswordEmail("taro.morimoto@helsinki.fi");
 	}
 }
