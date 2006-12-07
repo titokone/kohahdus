@@ -42,7 +42,7 @@
 	<p>
 	<table class="listTable" border="1">
 		<tr>
-		<td class="titlebar">Lastname, Firstname</td><td class="titlebar">Username</td><td class="titlebar">Studentnumber</td><td class="titlebar">Social security number</td><td class="titlebar">Status</td>
+		<td class="titlebar">Lastname, Firstname</td><td class="titlebar">Username</td><td class="titlebar">Student number</td><td class="titlebar">Social security number</td><td class="titlebar">Status</td>
 		</tr>
 		<c:forEach var="user" items="${users}">	
 			<tr>
