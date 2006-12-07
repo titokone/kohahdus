@@ -101,7 +101,7 @@ Korjattu: Muutettu action-piilokentt‰ nimelle userAction.
 signup.jsp & modify_user.jsp, Paula 1.12.
 Opiskelijanumerotarkistus hyv‰ksyy esim. 123.
 Korjattu: Funktio tarkasti vain tarkistusmerkin, jolloin tietyt kelpaamattomat yhdistelm‰tkin hyv‰ksyttiin.
-Lis‰tty tarkistus, ett‰ 9 merkki‰ pitk‰ ja alkaa 01 (suoraan yliopiston sivuilta selvitettyj‰ kriteerej‰).
+Lis‰tty tarkistus, ett‰ 9 merkki‰ pitk‰ ja a2006 Spring / Kev‰tlkaa 01 (suoraan yliopiston sivuilta selvitettyj‰ kriteerej‰).
 --
 answer_task.jsp, Mikko, 29.11:
 Fill-in teht‰viss‰ on turhaan pari tyhj‰‰ rivi‰ opettajan aloitus koodin j‰lkeen, sek‰

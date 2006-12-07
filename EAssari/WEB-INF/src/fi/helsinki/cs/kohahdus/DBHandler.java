@@ -139,6 +139,7 @@ public class DBHandler {
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			if (rs.next()){
+				rs.close();
 				return rs.getString("coursename");
 			}
 			rs.close();
