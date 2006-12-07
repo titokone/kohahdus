@@ -969,6 +969,9 @@ public class DBHandler {
 				String name = names.nextToken().toLowerCase();
 				st.setString(1, "%"+name+"%");
 				st.setString(2, "%"+name+"%");
+				st.setString(3, "%"+name+"%");
+				st.setString(4, "%"+name+"%");
+				st.setString(5, "%"+name+"%");
 				st.executeQuery();
 				ResultSet rs = st.getResultSet();
 				while (rs.next()){
