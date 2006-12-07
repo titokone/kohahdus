@@ -22,9 +22,6 @@ composer/tehtävän tallennus, mikko 4.12
 3. Tallenna
 4. Esikoodi joka oli piilossa, on tallennut osaksi mallikoodia
 --
-showStatistics.jsp, Paula, 4.12.
-Tehtävien nimet näkyvät pystysuorassa vain IE:ssä. Firefox ei tue ominaisuutta.
---
 composer/tehtävän tallennus, markus, 7.12
 Kiellettyjä ja vaadittuja käskyjä mittaavat kriteerit antavat tyhjän palautteen, jos tehtävä menee oikein. 
 Esim. demotussa register math -tehtävässä palaute on tyhjä.
@@ -188,6 +185,10 @@ vertailtiin "jmp" == "JMP". toUpperCase() lisätty molempiin operandeihin niin jo
 composer/uuden tehtävän luonti, tuomas 5.12
 Antaa tallentaa tehtävän ilman nimeä
 Korjattu: Vaatii nimen. Paula 7.12.
+--
+showStatistics.jsp, Paula, 4.12.
+Tehtävien nimet näkyvät pystysuorassa vain IE:ssä. Firefox ei tue ominaisuutta.
+Korjattu: Lisätty numero joka viittaa taskin nimeen.
 --
 
 

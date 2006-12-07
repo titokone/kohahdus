@@ -46,7 +46,7 @@ function rotateText(){
 
 	<c:set var="total" value="0"/>
 
-<h1>Course <%=courseName%> tasks done</h1>
+<h1>Course <%=courseName%> tasks</h1>
 
 <table class="listTable" border="1px">
 	<tr>
@@ -110,7 +110,6 @@ function rotateText(){
 	</c:forEach>
 </table>
 <p>
-<br>
 <img src="images/positive.gif"> accepted<br>
 <img src="images/negative.gif"> unfinished
 </p>
