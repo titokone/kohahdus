@@ -16,17 +16,14 @@ Vastauksen tila säilyy sessiossa vaikka opiskelija siirtyisi toiselle sivulle.
 Esim. 1. Vastaa ensin yhteen tehtävään. 2. Valitse joku toinen tehtävä.
       3. Lisää osoitteeseen &analyzed=true, niin vanhan vastauksen tiedot saadaan näkyviin
 -- 
-showStatistics.jsp, Paula, 4.12.
-Tehtävien nimet näkyvät pystysuorassa vain IE:ssä. Firefox ei tue ominaisuutta.
---
 composer/tehtävän tallennus, mikko 4.12
 1. Luo mallista tarkistettava täyttötehtävä ja laita "esikoodia"
 2. Muuta ohjelmointitehtäväksi
 3. Tallenna
 4. Esikoodi joka oli piilossa, on tallennut osaksi mallikoodia
 --
-composer/uuden tehtävän luonti, tuomas 5.12
-Antaa tallentaa tehtävän ilman nimeä
+showStatistics.jsp, Paula, 4.12.
+Tehtävien nimet näkyvät pystysuorassa vain IE:ssä. Firefox ei tue ominaisuutta.
 --
 
 
@@ -143,7 +140,7 @@ Korjattu: Lisätty uudelleenohjaus tehtävälistaan kolmen sekunnin päästä sivun av
 signup.jsp & modify_user.jsp, Paula, 4.12.
 Sähköpostitarkistus tarkistaa vain että vaadittu muoto on syötteen loppuosa. Esim. taro@morimoto@helsinki.fi
 menee läpi.
-Korjattu: Lisätty vaatimus, että täsmättävä myös syötteen alussa.
+Korjattu: Lisätty vaatimus, että täsmättävä myös syötteen alussa. Paula 4.12.
 --
 answer_task.jsp, Mikko, 28.11:
 Syytä harkita koodi-kentän kaventamista, jolloin tehtävän ratkaisun palauteet voisi näyttää koodin vieressä.
@@ -157,7 +154,7 @@ Korjattu: joku teki joskus
 composer.jsp, Mikko, 28.11:
 Kun on valittu malliratkaisutarkistus, rekisteri ja symbolikriteereillä on kuitenkin
 tekstikenttä näkyvissä arvojen syöttämistä varten.
-Korjattu: Paulaa epäillään
+Korjattu: joku teki joskus tai korjaantui itsestään
 --
 answer_task.jsp Analyzer, Markus, 1.12
 Jos vastaus ei mene titokoneen kääntäjästä läpi, niin Analyzer komponentin palauttama TitoState on null.
@@ -183,6 +180,10 @@ composer/tehtävän muokkaus ainakin, tuomas 5.12
 Ei tallenna kiellettyjä ja vaadittuja käskyjä
 Korjattu: Mikko 5.12 - tallensi kyllä, muttei näyttänyt niitä muokkaustilassa. Kusi koska javascriptissä 
 vertailtiin "jmp" == "JMP". toUpperCase() lisätty molempiin operandeihin niin johan toimii.
+--
+composer/uuden tehtävän luonti, tuomas 5.12
+Antaa tallentaa tehtävän ilman nimeä
+Korjattu: Vaatii nimen. Paula 7.12.
 --
 
 

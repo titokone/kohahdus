@@ -82,6 +82,11 @@ function onFormSubmit() {
 	var alertText = 'Your form contains the following errors. Please fix them before resubmitting.\n';
 	var alertCounter = 0;
 
+	if(document.task_creation_form.task_name.value.length == 0) {
+		alertCounter++;
+		alertText += '\n' + alertCounter + '. Please specify a task name.';
+	}
+
 	if(document.task_creation_form.task_name.value.length > 40) {
 		alertCounter++;
 		alertText += '\n' + alertCounter + '. Task name may only be up to 40 characters long.';
