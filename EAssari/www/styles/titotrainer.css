@@ -115,6 +115,8 @@ select {
 
 .listTable td {
 	padding: 4px;
+	border: solid #000000 1px;
+	border-collapse: collapse;
 	background-color: #FFFFFF;
 	text-align: left;
 }
