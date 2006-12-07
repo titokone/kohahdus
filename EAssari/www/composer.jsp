@@ -276,8 +276,8 @@ function addVariable() {
 		<tr>
 			<td>Task type </td>
 			<td>
-				<input name="task_type" type="radio" value="whole_program" onClick="switchToWholeProgramView();" <c:if test="${task.programmingTask}">checked</c:if>> Whole program
-				<input name="task_type" type="radio" value="partial" onClick="switchToPartOfProgramView();" <c:if test="${task.fillInTask}">checked</c:if>> Part of a program
+				<input name="task_type" type="radio" value="whole_program" onClick="switchToWholeProgramView();" <c:if test="${task.programmingTask}">checked</c:if>> Programming
+				<input name="task_type" type="radio" value="partial" onClick="switchToPartOfProgramView();" <c:if test="${task.fillInTask}">checked</c:if>> Fill-in
 			</td>
 		</tr>
 		<tr>
