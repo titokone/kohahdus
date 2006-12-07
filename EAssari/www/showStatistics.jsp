@@ -51,18 +51,27 @@ function rotateText(){
 <table class="listTable" border="1px">
 	<tr>
 		<td>Student</td>
-		<td>Student or Social Security Number</td>
-		<c:forEach var="taskName" items="${taskNames}">
-			<td>
+		<td>
+			Student or Social<br>
+			Security Number
+		</td>
+		<c:forEach var="taskName" items="${taskNames}" varStatus="status">
+			<td align="center">
+				<!-- This text rotation works only in IE
 				<div style="direction:ltr; writing-mode:tb-rl">
 					<c:out value="${taskName}"/>
 				</div>
+				-->
+				<a title="<c:out value="${taskName}"/>">
+					<c:out value="${status.count}"/>
+				</a>
 			</td>
 		</c:forEach>
+		<td>Total</td>
 	</tr>
 	<c:forEach var="student" items="${students}">
 		<tr>
-			<td style="width:100%">
+			<td>
 				<a href="showUser.jsp?userID=<c:out value="${student.userID}"/>">
 					<c:out value="${student.lastname}"/>, <c:out value="${student.firstname}"/>
 				</a>
@@ -94,14 +103,33 @@ function rotateText(){
 					</c:if>
 				</td>
 			</c:forEach>
+			<td align="center">
+				<c:out value="${student.correctAnswerCount}"/>
+			</td>
 		</tr>
 	</c:forEach>
 </table>
-
-<p><br>
+<p>
+<br>
 <img src="images/positive.gif"> accepted<br>
 <img src="images/negative.gif"> unfinished
 </p>
+
+<br>
+<c:forEach var="taskName" items="${taskNames}" varStatus="status">
+<table cellpadding="0" cellspacing="0">
+<tr>
+	<td>
+		<c:out value="${status.count}"/>
+	</td>
+	<td>=</td>
+	<td>
+		<c:out value="${taskName}"/>
+	</td>
+</tr>
+</table>
+</c:forEach>
+
 
 </body>
 </html>

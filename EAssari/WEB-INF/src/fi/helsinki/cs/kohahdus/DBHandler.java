@@ -963,7 +963,7 @@ public class DBHandler {
 		LinkedList<User> users = new LinkedList<User>();
 		try {
 			st = conn.prepareStatement("select * from eauser where lower(firstname) like ? or lower(lastname) like ? " +
-									   "or lower(extid) like ? or lower(extid2) like ? or lower(username) like ?");
+									   "or lower(extid) like ? or lower(extid2) like ? or lower(userid) like ?");
 			StringTokenizer names = new StringTokenizer(query);
 			while (names.hasMoreTokens()) {
 				String name = names.nextToken().toLowerCase();

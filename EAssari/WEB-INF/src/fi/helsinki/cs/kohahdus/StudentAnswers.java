@@ -74,6 +74,13 @@ public class StudentAnswers {
 	public void setSocialSecurityNumber(String SocialSecurityNumber) {
 		this.SocialSecurityNumber = SocialSecurityNumber;
 	}
-	
+
+	public int getCorrectAnswerCount() {
+		int count = 0;
+		for (AnswerState answer : answers.values()){
+			if (answer.getHasSucceeded()) count++;
+		}
+		return count;
+	}
 
 }
