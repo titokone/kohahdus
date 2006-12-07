@@ -46,7 +46,7 @@
 		</tr>
 		<c:forEach var="user" items="${users}">	
 			<tr>
-			<td><a href="showUser.jsp?userID=<c:out value="${user.userID}"/>"><c:out value="${user.lastName}"/>, <c:out value="${user.firstName}"/></td><td><c:out value="${user.userID}"/></td><td> <c:if test="${not empty user.studentNumber}"><c:out value="${user.studentNumber}"/></c:if></td><td><c:if test="${not empty user.socialSecurityNumber}"><c:out value="${user.socialSecurityNumber}"/></c:if></td><td> <c:if test="${user.status!='student'}"><c:out value="${user.status}"/></c:if></td></a>
+			<td><a href="showUser.jsp?userID=<c:out value="${user.userID}"/>"><c:out value="${user.lastName}"/>, <c:out value="${user.firstName}"/></td><td><c:out value="${user.userID}"/></td><td> <c:if test="${not empty user.studentNumber}"><c:out value="${user.studentNumber}"/></c:if></td><td><c:if test="${not empty user.socialSecurityNumber}"><c:out value="${user.socialSecurityNumber}"/></c:if></td><td><c:if test="${not empty user.status}"><c:out value="${user.status}"/></c:if></td></a>
 			</tr>
 		</c:forEach>
 	</table>
