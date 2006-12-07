@@ -26,8 +26,8 @@ showStatistics.jsp, Paula, 4.12.
 Tehtävien nimet näkyvät pystysuorassa vain IE:ssä. Firefox ei tue ominaisuutta.
 --
 composer/tehtävän tallennus, markus, 7.12
-Required opcodes kriteerin oletuspalaute ei tallennu oikein. Esim. demotussa register math -tehtävässä
-palaute on tyhjä.
+Kiellettyjä ja vaadittuja käskyjä mittaavat kriteerit antavat tyhjän palautteen, jos tehtävä menee oikein. 
+Esim. demotussa register math -tehtävässä palaute on tyhjä.
 --
 
 
