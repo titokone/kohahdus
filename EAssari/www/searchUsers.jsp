@@ -40,9 +40,16 @@
 	
 	<p>Search results</p>
 	<p>
+	<table class="listTable" border="1">
+		<tr>
+		<td class="titlebar">Lastname, Firstname</td><td class="titlebar">Username</td><td class="titlebar">Studentnumber</td><td class="titlebar">Social security number</td><td class="titlebar">Status</td>
+		</tr>
 		<c:forEach var="user" items="${users}">	
-			<a href="showUser.jsp?userID=<c:out value="${user.userID}"/>"> <c:out value="${user.lastName}"/>, <c:out value="${user.firstName}"/> (<c:out value="${user.userID}"/>) <c:if test="${user.status=='adm'}">(Teacher)</c:if> </a><br>
+			<tr>
+			<td><a href="showUser.jsp?userID=<c:out value="${user.userID}"/>"><c:out value="${user.lastName}"/>, <c:out value="${user.firstName}"/></td><td><c:out value="${user.userID}"/></td><td> <c:if test="${not empty user.studentNumber}"><c:out value="${user.studentNumber}"/></c:if></td><td><c:if test="${not empty user.socialSecurityNumber}"><c:out value="${user.socialSecurityNumber}"/></c:if></td><td> <c:if test="${user.status!='student'}"><c:out value="${user.status}"/></c:if></td></a>
+			</tr>
 		</c:forEach>
+	</table>
 	</p>
 </c:if>
 
