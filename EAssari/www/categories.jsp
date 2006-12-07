@@ -49,7 +49,7 @@
 
 <form name="categories_form" action="teacherTaskList.jsp" method="post">
 <input name="action" value="create_category" type="hidden">
-<h2 class="headerAboveListTable">Categories</h2>
+<h2 class="headerAboveListTable">Task categories</h2>
 <table class="listTable" border="1">
 <tbody>
 	<tr>
