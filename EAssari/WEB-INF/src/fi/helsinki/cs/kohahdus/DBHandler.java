@@ -1290,6 +1290,42 @@ public class DBHandler {
 		return taskNames;
 	}	
 
+	
+	/** Return a answer a student has given on last try */
+	public String getStudentAnswer(String userID, String courseID, String taskID) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement st = null;
+		String answer = "";
+		try {
+			String sql = "select sa.answer from storedanswer sa, taskinmodule tim " +
+			   			 "where sa.sid=? and sa.seqno=tim.seqno and tim.taskid=? and " +
+			   			 "sa.courseid=? order by sa.whenanswered desc";
+   			st = conn.prepareStatement(sql);
+			st.setString(1, userID);
+   			st.setString(2, taskID);
+   			st.setString(3, courseID);
+			ResultSet rs = st.executeQuery();
+			if (rs.next()){
+				answer = rs.getString("answer");
+				Log.write("DBHandler: Got student answer. userID="+userID+" taskID="+taskID+" answer="+answer);
+			} else {
+				Log.write("DBHandler: Failed get student answer. userID="+userID+" taskID="+taskID);
+			}
+			rs.close();
+			
+
+		} catch (SQLException e){
+			Log.write("DBHandler: Failed to get student answer: "+userID+". " +e);
+			throw e;
+		} finally {
+			release(conn);
+			if (st != null) st.close();			
+		}	
+
+		return answer;
+	}	
+	
+	
 	/** Return a list of categories */
 	public LinkedList<String> getCategories() throws SQLException {
 		Connection conn = getConnection();
