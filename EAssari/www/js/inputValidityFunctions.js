@@ -18,6 +18,14 @@ function containsHtmlCharacters(aString) {
   return false;
 }
 
+function containsSpaces(aString) {
+  if(aString.indexOf(' ') != -1) {
+    return true;
+  }
+
+  return false;	
+}
+
 function isInteger(variable)
 {
 	var integerExp = /^((\+|-)\d)?\d*$/;

@@ -134,6 +134,13 @@
 			returnvalue = false;
 		}
 		
+		// new password contains spaces
+		if((form.new_password.value != '') && (containsSpaces(form.new_password.value))) {
+			var elem = document.getElementById("new_password_error_msg_space");
+			elem.innerHTML = '<%=rb.getString("newPasswordWhitespaceWarning")%>';
+			returnvalue = false;
+		}
+		
 		// new password chosen, but not repeated
 		if((form.new_password.value != '') && (form.repeat_new_password.value == '')) {
 			var elem = document.getElementById("repeat_new_password_error_msg_space");

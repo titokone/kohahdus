@@ -18,7 +18,7 @@
 		var form = document.sign_up_form;
 		var returnvalue = true;
 		var emailExp = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/;	// name followed by @ followed by domain
-		var userNameExp = /([a-zA-Z0-9])+/;
+		var userNameExp = /^([a-zA-Z0-9])+$/;
 
 		// remove old error messages
 		document.getElementById("first_name_error_msg_space").innerHTML = '';
@@ -137,9 +137,10 @@
 		}
 
 		// user name contains illegal characters
-		if((form.user_name.value != '') && (!userNameExp.test(form.user_name.value))) {
+		if((form.user_name.value != '') && 
+		((!userNameExp.test(form.user_name.value)) || (containsSpaces(form.user_name.value)))) {
 			var elem = document.getElementById("user_name_error_msg_space");
-			elem.innerHTML = 'User name may only contain characters a-z, A-Z and 0-9.';
+			elem.innerHTML = 'User name may only contain characters a-z, A-Z and 0-9. No spaces allowed.';
 			returnvalue = false;
 		}
 		
@@ -154,6 +155,13 @@
 		if((form.password.value != '') && (form.repeat_password.value != '') && (form.password.value != form.repeat_password.value)) {
 			var elem = document.getElementById("password_error_msg_space");
 			elem.innerHTML = 'Different values in password fields. Please check your typing.';			
+			returnvalue = false;
+		}
+		
+		// password contains spaces
+		if((form.password.value != '') && (containsSpaces(form.password.value))) {
+			var elem = document.getElementById("password_error_msg_space");
+			elem.innerHTML = 'Password may not contain white space.';
 			returnvalue = false;
 		}
 		

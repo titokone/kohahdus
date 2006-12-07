@@ -50,6 +50,8 @@
 	<entry key="emailLengthWarning_FI">Sähköpostiosoite voi olla korkeintaan 80 merkkiä pitkä.</entry>
 	<entry key="newPasswordLengthWarning_EN">Password must be 6-12 characters long.</entry>
 	<entry key="newPasswordLengthWarning_FI">Salasanan tulee olla 6-12 merkkiä pitkä.</entry>
+	<entry key="newPasswordWhitespaceWarning_EN">New password may not contain white space.</entry>
+	<entry key="newPasswordWhitespaceWarning_FI">Salasanassa ei saa olla välilyöntejä.</entry>
 	<entry key="repeatNewPasswordWarning_EN">Please repeat your new password.</entry>
 	<entry key="repeatNewPasswordWarning_FI">Kirjoita uusi salasanasi uudestaan, kiitos.</entry>
 	<entry key="chooseNewPasswordWarning_EN">Please choose your new password.</entry>
