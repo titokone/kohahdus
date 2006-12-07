@@ -1307,7 +1307,7 @@ public class DBHandler {
 			ResultSet rs = st.executeQuery();
 			if (rs.next()){
 				answer = rs.getString("answer");
-				Log.write("DBHandler: Got student answer. userID="+userID+" taskID="+taskID+" answer="+answer);
+				Log.write("DBHandler: Got student answer. userID="+userID+" taskID="+taskID);
 			} else {
 				Log.write("DBHandler: Failed get student answer. userID="+userID+" taskID="+taskID);
 			}

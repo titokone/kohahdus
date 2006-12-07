@@ -30,6 +30,17 @@
 	%>
 </c:if>
 
+<c:if test="${param.action == 'load_previous'}">
+	<%	
+		// Get last given answer from DB
+		String courseID = (String)session.getAttribute("course");
+		User user = (User)session.getAttribute("user");
+		String lastAnswer = DBHandler.getInstance().getStudentAnswer(user.getUserID(), courseID, request.getParameter("task_id"));	
+		pageContext.setAttribute("programCode", lastAnswer);
+	%>
+</c:if>
+
+
 <html>
 <head>
 <title>TitoTrainer - <%=rb.getString("answerTitle")%></title>

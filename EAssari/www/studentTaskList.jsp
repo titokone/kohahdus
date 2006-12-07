@@ -112,7 +112,7 @@ function writeTaskList() {
 			}
 		
 			listHtml += '<tr><td align="center"><img src="images/' + statusImg + '"></td>';
-			listHtml += '<td><a href="answer_task.jsp?task_id=' + tasks[i].id + '">' + tasks[i].name + '</a></td>';
+			listHtml += '<td><a href="answer_task.jsp?action=load_previous&task_id=' + tasks[i].id + '">' + tasks[i].name + '</a></td>';
 			listHtml += '<td>' + tasks[i].type + '</td>';
 			listHtml += '<td>' + tasks[i].category + '</td>';
 			listHtml += '<td style="text-align: center">' + tasks[i].tries + '</td>';
