@@ -304,7 +304,7 @@ public class TitoAnalyzerTest extends TestCase {
 	 */
 	//Test fill-in task in comparison to model answer
 	public void testAnalyzeFillIn() {
-//		TASK2, answer checked by comparing to model answer, fillin task
+		//	TASK2, answer checked by comparing to model answer, fillin task
 		task2=new Task();
 		task2.setName("Some fillin task");
 		task2.setCategory("Easy tasks");
@@ -369,5 +369,81 @@ public class TitoAnalyzerTest extends TestCase {
 		assertEquals(false, feed.isSuccessful());
 	}
 	
+	//	Tests programming task with DEF command
+	public void testDEF() {
+		//TASK1, answer checked by only criteria, programming task
+		task1=new Task();
+		task1.setName("Simple Math");
+		task1.setCategory("Easy tasks");
+		task1.setLanguage("EN");
+		task1.setFillInTask(false);
+		task1.setFailFeedBack("Miss.");
+		task1.setPassFeedBack("Good game.");
+		task1.setMaximumNumberOfInstructions(1000);
+		
+		//Create criteria
+		criteria1=new LinkedList<Criterion>();
+		//registers
+		RegisterCriterion r1=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 12, false, 1);
+		r1.setAcceptanceTestValue("4");
+		r1.setAcceptanceFeedback("Rekisteri 1 on oikein.");
+		r1.setFailureFeedback("R1 vituiks.");
+		criteria1.add(r1);
+		RegisterCriterion r0=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 123, false, 0);
+		r0.setAcceptanceTestValue("3");
+		r0.setAcceptanceFeedback("Rekisteri 0 on oikein.");
+		r0.setFailureFeedback("R0 vituiks.");
+		criteria1.add(r0);
+		//symbols
+		SymbolCriterion s1=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 36, false);
+		s1.setAcceptanceFeedback("Symboli X on oikein.");
+		s1.setFailureFeedback("Symboli X vituillaan.");
+		s1.setSymbolName("x");
+		s1.setAcceptanceTestValue("3");
+		SymbolCriterion s2=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 78, false);
+		s2.setSymbolName("y");
+		s2.setAcceptanceTestValue("2");
+		s2.setAcceptanceFeedback("Symboli Y on oikein.");
+		s2.setFailureFeedback("Symboli Y vituillaan.");
+		criteria1.add(s1);
+		criteria1.add(s2);
+		//instructions
+		InstructionCriterion i1=new RequiredInstructionsCriterion(ID_REQUIRED_INSTRUCTIONS, false);
+		InstructionCriterion i2=new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false);
+		i1.setAcceptanceTestValue("STORE, ADD, SUB, DIV");
+		i1.setAcceptanceFeedback("Vaaditut käskyt täytetty.");
+		i1.setFailureFeedback("Vaaditut käskyt vituillaan.");
+		i2.setAcceptanceTestValue("");
+		i2.setAcceptanceFeedback("Kielletyt käskyt täytetty.");
+		i2.setFailureFeedback("Kielletyt käskyt vituillaan.");
+		criteria1.add(i1);
+		criteria1.add(i2);
+		
+		//no input
+		input1="";
+		//students anwer
+		programcode1="STDOUT DEF /home/tkt_koha/foobar.txt" +
+		"LOAD R1, =12345\n" +
+		"OUT R1, =STDOUT\n" +
+		"SVC SP, =HALT";
+		
+		
+		//Solve
+		TitoAnalyzer analys1=new TitoAnalyzer();
+		TitoFeedback feed=analys1.Analyze(task1, criteria1, programcode1, input1);
+		System.out.println(feed.isSuccessful());
+		System.out.println(feed.getOverallFeedback());
+		System.out.println(feed.getCompileError());
+		System.out.println(feed.getRunError());
+		
+		List<TitoCriterionFeedback>  criteriafeed=feed.getCriteriaFeedback();
+		for (TitoCriterionFeedback c : criteriafeed) {
+			System.out.print(c.getName());
+			System.out.print("    "+c.isPassedAcceptanceTest());
+			System.out.println("    "+c.getFeedback());
+		}
+		System.out.println("\n\n\n----------------------------------");
+		assertEquals(false, feed.isSuccessful());
+	}
 
 }
