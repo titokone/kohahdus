@@ -26,7 +26,16 @@ composer/tehtävän tallennus, markus, 7.12
 Kiellettyjä ja vaadittuja käskyjä mittaavat kriteerit antavat tyhjän palautteen, jos tehtävä menee oikein. 
 Esim. demotussa register math -tehtävässä palaute on tyhjä.
 --
-
+showUser.jsp, markus, 8.12
+Opettajalle pitää antaa mahdollisuus muokata käyttäjän statusta.
+Esim. muuttaa opiskelija opettajaksi.
+--
+Analyzer.java, markus, 8.12
+Estetään tiedostoon kirjoittamiseen etsimällä STDOUT DEF stringiä käyttäjän ohjelmasta.
+--
+teacherTaskList.jsp, markus, 8.12
+Listataan myös template tehtävät, jotta oletuspalautetta voisi muokata.
+--
 
 
 
