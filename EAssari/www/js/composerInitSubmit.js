@@ -78,6 +78,11 @@ function onFormSubmit() {
 		}
 	}
 	
+	// Bypass all error checks when saving a template task
+	if (document.task_creation_form.task_id.value == 'EN_TEMPLATE' || document.task_creation_form.task_id.value == 'FI_TEMPLATE'){
+		return true;
+	}
+	
 	// find and report errors
 	var alertText = 'Your form contains the following errors. Please fix them before resubmitting.\n';
 	var alertCounter = 0;

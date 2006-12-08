@@ -9,6 +9,13 @@
 	if (user != null) pageContext.setAttribute("user", user);		
 %>
 
+<c:if test="${param.action == 'changeStatus'}">
+	<%
+		user.setStatus(request.getParameter("status"));
+		DBHandler.getInstance().updateUser(user);
+	%>
+</c:if>
+
 
 <html>
 <head>
@@ -48,6 +55,14 @@ function removeUser(userID) {
 			<input type="submit" value="Remove" onclick="">
 			<span class="footNote">(Will remove user account and all user information)</span>
 		</form>
+
+		<form name="changeStatus_form" action="showUser.jsp" method="POST">
+			<input type="hidden" name="action" value="changeStatus">
+			<input type="hidden" name="userID" value="<c:out value="${user.userID}"/>">
+			<input type="hidden" name="status" value="student">
+			<input type="submit" value="Downgrade status">
+			<span class="footNote">(Will downgrade user's status to student)</span>
+		</form>
 	</c:when>
 	<c:when test="${user.student}">
 		<ul>
@@ -63,6 +78,14 @@ function removeUser(userID) {
 			<input type="hidden" name="action" value="remove">
 			<input type="submit" value="Remove" onclick="">
 			<span class="footNote">(Will remove user account and all user information)</span>
+		</form>
+		
+		<form name="changeStatus_form" action="showUser.jsp" method="POST">
+			<input type="hidden" name="action" value="changeStatus">
+			<input type="hidden" name="userID" value="<c:out value="${user.userID}"/>">
+			<input type="hidden" name="status" value="teacher">
+			<input type="submit" value="Upgrade status">
+			<span class="footNote">(Will upgrade user's status to teacher)</span>
 		</form>
 
 		<h3>Tasks</h3>
