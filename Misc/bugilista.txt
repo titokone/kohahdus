@@ -36,6 +36,9 @@ Estetään tiedostoon kirjoittamiseen etsimällä STDOUT DEF stringiä käyttäjän ohje
 teacherTaskList.jsp, markus, 8.12
 Listataan myös template tehtävät, jotta oletuspalautetta voisi muokata.
 --
+testisuunnitelma/raportti, Paula, 8.12.
+Lisättävä testitapaukset salasananpostitussivulle (send_email.jsp), oletuspalautteiden muokkaamiselle 
+ja opiskelijan statuksen muuttamiselle.
 
 
 
