@@ -29,6 +29,13 @@ Esim. demotussa register math -tehtävässä palaute on tyhjä.
 testisuunnitelma/raportti, Paula, 8.12.
 Lisättävä testitapaukset salasananpostitussivulle (send_email.jsp), oletuspalautteiden muokkaamiselle 
 ja opiskelijan statuksen muuttamiselle.
+--
+composer/uuden tehtävän luonti, tuomas 5.12
+Antaa tallentaa tehtävän ilman nimeä
+Korjattu: Vaatii nimen. Paula 7.12.
+Uusiutui, koska muokattiin template tehtävien tallennusta. Eli pitäisi tarkistaa normaalitapauksessa ja
+antaa tallentaa nimettömänä templatea muokattaessa.
+--
 
 
 
@@ -183,10 +190,6 @@ composer/tehtävän muokkaus ainakin, tuomas 5.12
 Ei tallenna kiellettyjä ja vaadittuja käskyjä
 Korjattu: Mikko 5.12 - tallensi kyllä, muttei näyttänyt niitä muokkaustilassa. Kusi koska javascriptissä 
 vertailtiin "jmp" == "JMP". toUpperCase() lisätty molempiin operandeihin niin johan toimii.
---
-composer/uuden tehtävän luonti, tuomas 5.12
-Antaa tallentaa tehtävän ilman nimeä
-Korjattu: Vaatii nimen. Paula 7.12.
 --
 showStatistics.jsp, Paula, 4.12.
 Tehtävien nimet näkyvät pystysuorassa vain IE:ssä. Firefox ei tue ominaisuutta.
