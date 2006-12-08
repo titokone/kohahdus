@@ -33,6 +33,13 @@ public class TitoAnalyzer {
 		TitoAnalyzerFeedback feedback=new TitoAnalyzerFeedback();
 		boolean hasSecretInput = !(task.getSecretInput() == null ||task.getSecretInput().equals(""));
 		feedback.setOverallFeedback(task.getFailFeedBack());
+		
+		//Check if code has file-modifying comman DEF
+		//If it has, end Analyzing and return compile error
+		if (DrParser(programCode, "def"))
+		
+		
+		
 		//TEACHER
 		//Check if task is validated by model answer
 		//if so, creates new TitoState for teacher
@@ -216,6 +223,38 @@ public class TitoAnalyzer {
 		//feedback object created, return it
 		return feedback;
 	}
+	
+	
+	/** Private method for finding word in programCode*/
+	private static boolean DrParser(String programCode, String word) {
+		programCode=programCode.toLowerCase();
+		word=word.toLowerCase();
+		int len=word.length();
+		
+		for (int i=0; i<programCode.length(); ++i) {
+			if ((i+len) < (programCode.length()) ) { //checks there's enough space for word
+				
+				if ( programCode.charAt(i)==' ' || programCode.charAt(i)=='\t' ) { //Check if it has space
+					//Lets find the word
+					int j=1;
+					boolean ok=true;
+					while (j<=len && ok==true ) {
+						if (!(programCode.charAt(i+j)==word.charAt(j-1)) ) {
+							ok=false;
+						}
+						j=j+1;
+					}
+					//found a sequence, see if it ends to space
+					if ( ok==true && (programCode.charAt((i+len+1))==' ' || programCode.charAt((i+len+1))=='\t') ) {
+						return true; //found a word that's in the String
+					}
+				}
+			}
+		}
+		return false; //didn't find word
+	}
+	
+	
 	
 
 	
