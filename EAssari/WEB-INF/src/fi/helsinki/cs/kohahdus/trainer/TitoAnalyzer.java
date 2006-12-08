@@ -36,7 +36,10 @@ public class TitoAnalyzer {
 		
 		//Check if code has file-modifying comman DEF
 		//If it has, end Analyzing and return compile error
-		if (DrParser(programCode, "def"))
+		if (DrParser(programCode, "def")) {
+			feedback.setCompileError("TitoTrainer doesn't support command DEF");
+			return feedback;
+		}
 		
 		
 		
