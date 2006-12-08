@@ -229,7 +229,7 @@ public class TitoAnalyzer {
 	
 	
 	/** Private method for finding word in programCode*/
-	private static boolean DrParser(String programCode, String word) {
+	private boolean DrParser(String programCode, String word) {
 		programCode=programCode.toLowerCase();
 		word=word.toLowerCase();
 		int len=word.length();
