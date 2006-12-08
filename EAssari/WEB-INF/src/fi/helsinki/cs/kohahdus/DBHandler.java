@@ -298,49 +298,7 @@ public class DBHandler {
 			if (st != null) st.close();			
 		}	
 		return false;
-	} 
-	
-	
-	/** Returns templates for tasks in finnish and english. Adding more templates shouldn't interfere
-	 *  with implementation on teacherTaskList.jsp */
-	public List<Task> getTemplates() throws SQLException{
-		Connection conn = getConnection();
-		PreparedStatement st = null;
-		LinkedList<Task> tasks = new LinkedList<Task>();
-		try {
-			st = conn.prepareStatement("select * from task where taskid = 'EN_TEMPLATE' or taskid = 'FI_TEMPLATE'");
-			st.executeQuery();
-			ResultSet rs = st.getResultSet();
-			while (rs.next()){
-				String taskID = rs.getString("taskid");				
-				Task task = new Task();
-				task.setTaskID(taskID);
-				task.setName(rs.getString("taskname"));
-				task.setAuthor(rs.getString("author"));
-				task.setModificationDate((rs.getDate("datecreated")));			
-				task.deserializeFromXML(rs.getString("taskmetadata"));
-				task.setNoOfTries(rs.getInt("numberoftries_def"));
-				task.setShouldStore("N".equals(rs.getString("shouldstoreanswer_def")) ? false : true);
-				task.setShouldRegister("N".equals(rs.getString("shouldregistertry_def")) ? false : true);
-				task.setShouldKnow("N".equals(rs.getString("shouldknowstudent_def")) ? false : true);
-				task.setShouldEvaluate("N".equals(rs.getString("shouldevaluate_def")) ? false : true);
-				task.setCutoffvalue(rs.getInt("cutoffvalue"));
-				tasks.add(task);
-			} 
-			Log.write("DBHandler: Fetched " +tasks.size() + " templates from DB.");
-			rs.close();			
-			
-		} catch (SQLException e){
-			Log.write("DBHandler: Failed to fetch templates from DB. " +e);
-			throw e;
-		} finally {
-			release(conn);
-			if (st != null) st.close();			
-		}	
-		return tasks;
-	}
-	
-	
+	} 		
 	
 	/** Return all tasks */
 	public List<Task> getTasks() throws SQLException{
