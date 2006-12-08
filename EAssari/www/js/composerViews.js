@@ -74,10 +74,10 @@ function switchToPrintableView(){
 		var newElement = document.getElementById(area.name + "_printable_element");
 		if (newElement == null) {
 			newElement = document.createElement('P');
-			newElement.innerHTML = area.value;
 			newElement.id = area.name + "_printable_element";
 			area.parentNode.insertBefore(newElement, area);
 		}
+		newElement.innerHTML = area.value;
 		newElement.style.display = "block";
 		area.style.display = "none";
 	}

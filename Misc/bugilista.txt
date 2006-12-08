@@ -190,7 +190,10 @@ showStatistics.jsp, Paula, 4.12.
 Tehtävien nimet näkyvät pystysuorassa vain IE:ssä. Firefox ei tue ominaisuutta.
 Korjattu: Lisätty numero joka viittaa taskin nimeen.
 --
-
+composer.jsp, asiakasdemo, 7.12.
+Tulostusnäkymä hukkaa tekstikenttien tallentamattomat muutokset.
+Korjattu: Kyse ei ollut tallentamattomista muutoksista, vaan siitä, että elementin sisältö asetettiin vain
+sitä luotaessa eli ensimmäisen napinpainalluksen yhteydessä. Paula 8.12.
 
 
  HYLÄTYT BUGIT JA PUUTTEET
