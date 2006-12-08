@@ -145,9 +145,9 @@ function onFormSubmit() {
 	// quality criteria
 	for (i=0; i<inputs.length; i++) {
 		if ((inputs[i].name.indexOf("_acceptance_limit") != -1) || (inputs[i].name.indexOf("_quality_limit") != -1)) {
-			if((inputs[i].value != "") && (!isInteger(inputs[i].value))) {
+			if((inputs[i].value != "") && ((!isInteger(inputs[i].value)) || (Number(inputs[i].value) < 0))) {
 				alertCounter++;
-				alertText += '\n' + alertCounter + '. Acceptance and quality limits of quality criteria may only be integers.';
+				alertText += '\n' + alertCounter + '. Acceptance and quality limits of quality criteria may only be non-negative integers.';
 				break;
 			}
 		}
