@@ -1,8 +1,13 @@
 package fi.helsinki.cs.kohahdus.languages;
 
 import java.util.*;
-
 import fi.helsinki.cs.kohahdus.Log;
+
+/**
+ * TitoBundle object contains language specific data for a given page in a given language.
+ *  
+ * One should note that LanguageManager handles the creation of TitoBundles instead of ResourceBundle.
+ */
 
 public class TitoBundle extends ResourceBundle {
 
@@ -13,7 +18,7 @@ public class TitoBundle extends ResourceBundle {
 	 * Initalize a new TitoBundle, which returns data from
 	 * parameter Properties object in a given language.
 	 * @param data Properties
-	 * @param lang
+	 * @param lang "FI" or "EN"
 	 */
 	public TitoBundle(Properties data, String lang) {
 		if (data == null || lang == null || !(lang.equals("EN") || lang.equals("FI"))) {
@@ -34,13 +39,12 @@ public class TitoBundle extends ResourceBundle {
 	}
 
 	/**
-	 * TODO
 	 * Returns all available key values.
+	 * 
+	 * This is required by the super class, but it isn't used anywhere.
 	 */
 	@Override
-	public Enumeration<String> getKeys() {
-		// TODO Auto-generated method stub
-		
+	public Enumeration<String> getKeys() {		
 		return null;
 	}
 }

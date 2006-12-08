@@ -11,33 +11,20 @@ import fi.helsinki.cs.kohahdus.Log;
  * resources specified in properties file. Then class proceeds to load 
  * individual resources specified in properties file.
  * 
- * One should note that all pathnames should originate from directory kohahdus/.
- *
- * Default properties file: EAssari/WEB-INF/xml/properties.xml
+ * Location of the properties file is defined in web.xml and loaded
+ * during startup.
  */
 
 public class LanguageManager {
 		
 	private static HashMap<String, ResourceBundle> bundles;
 	
-	/**
-	 * Ensure that all bundles are loaded when this class is referenced
-	 */
-	/*
-	static {
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//Toimii vain db:llä - HUOM konteksti
-		loadTextResources("tomcat/webapps/tsoha/WEB-INF/xml/properties.xml");
-		
-		//Toimii vain workspacessa
-		//loadTextResources("EAssari/WEB-INF/xml/testProperties.xml");
-	}
-	*/
 		
 	/**
 	 * Initializes all resources specified in parameter file. This method is now called from
 	 * a filter named TitoInitializer.
-	 * @param propertiesFile Contains filenames of all resources to be loaded in XML format.
+	 * @param contextPath Path to TitoTrainers tomcat context
+	 * @param propertiesFilePath Path to properties.xml inside TitoTrainers context.
 	 */
 	public static synchronized void loadTextResources(String contextPath, String propertiesFilePath) {
 		if (bundles != null)
@@ -47,6 +34,7 @@ public class LanguageManager {
 		
 		InputStream in;
 		
+		//path to properties.xml file
 		String propertiesFile = contextPath + propertiesFilePath;
 		
 		try {
@@ -57,6 +45,7 @@ public class LanguageManager {
 			return;
 		}
 		
+		//Extract locations of other xml files from properties file
 		Properties fileList = new Properties();
 		try {
 			fileList.loadFromXML(in);
@@ -71,9 +60,9 @@ public class LanguageManager {
 		
 		bundles = new HashMap<String, ResourceBundle>();
 		
+		//Load all individual xml files and create all bundles
 		Enumeration pages = fileList.keys();
 		while (pages.hasMoreElements()) {
-			//TODO: casting error?
 			String pageName = (String) pages.nextElement();
 			String xmlFile = fileList.getProperty(pageName);
 			loadBundle(pageName, contextPath + xmlFile);
@@ -83,8 +72,8 @@ public class LanguageManager {
 	/**
 	 * Loads a single xml file and adds it to HashMap.
 	 * File is loaded in both finnish & english.
-	 * @param page
-	 * @param xmlFile
+	 * @param page Name of the jsp-page
+	 * @param xmlFile Path to xml file
 	 */
 	private static void loadBundle(String page, String xmlFile) {
 		File file = new File(xmlFile);
@@ -100,6 +89,7 @@ public class LanguageManager {
 
 		Properties data = new Properties();
 		
+		//Read all data from xml file
 		try {
 			data.loadFromXML(in);
 		} catch (InvalidPropertiesFormatException e) {
@@ -110,6 +100,7 @@ public class LanguageManager {
 			return;
 		}
 
+		//Add bundles for all supported languages
 		bundles.put(page + "_EN", new TitoBundle(data, "EN"));
 		bundles.put(page + "_FI", new TitoBundle(data, "FI"));	
 		
@@ -120,7 +111,7 @@ public class LanguageManager {
 	 * Returns a ResourceBundle object containing all language specific data
 	 * on a single JSP page.
 	 * @param lang "FI" or "EN"
-	 * @param page Pagename specifies which XML file is used.
+	 * @param page Pagename specifies which XML file is used. This should equal the name of jsp-page.
 	 * @return
 	 */
 	public static ResourceBundle getTextResource(String lang, String page) {
@@ -130,15 +121,5 @@ public class LanguageManager {
 		System.out.println("Resource [page "+page+", lang "+lang+"] not found");
 		//TODO: throw ?exception
 		throw new RuntimeException("Requested language is not supported");
-	}
-	
-	public static void main(String[] args) {
-		LanguageManager lm = new LanguageManager();
-		
-		ResourceBundle fi = lm.getTextResource("FI", "studentTaskList");
-		ResourceBundle en = lm.getTextResource("EN", "studentTaskList");
-		
-		System.out.println("testi FI: "+fi.getString("testi"));
-		System.out.println("testi EN: "+en.getString("testi"));
 	}
 }
