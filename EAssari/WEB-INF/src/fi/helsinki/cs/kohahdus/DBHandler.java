@@ -133,14 +133,14 @@ public class DBHandler {
 	public String getCourseName(String courseID) throws SQLException{
 		Connection conn = getConnection();
 		PreparedStatement st = null;
+		String courseName = null;
 		try {
 			st = conn.prepareStatement("select coursename from course where courseid=?");
 			st.setString(1, courseID);
 			st.executeQuery();
 			ResultSet rs = st.getResultSet();
 			if (rs.next()){
-				rs.close();
-				return rs.getString("coursename");
+				courseName = rs.getString("coursename");
 			}
 			rs.close();
 			
@@ -151,7 +151,7 @@ public class DBHandler {
 			release(conn);
 			if (st != null) st.close();			
 		}	
-		return null;
+		return courseName;
 	}
 	
 	/**
