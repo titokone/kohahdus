@@ -145,6 +145,20 @@ function initCourses() {
 </tr>
 </table>
 
+<br>
+
+<table>
+	<tr>
+		<td valign="top"><h2 class="headerAboveListTable">Modify task templates</h2></td>
+	</tr>
+	<%
+		List<Task> DBtemplates = DBHandler.getInstance().getTemplates();
+		if (DBtemplates != null) pageContext.setAttribute("templates", DBtemplates);
+	%>
+	
+	<c:forEach var="template" items="${pageScope.templates}">
+		<tr><td><a href="composer.jsp?task_id=<c:out value="${template.taskID}"/>&save_type=update"><c:out value="${template.taskID}"/></td>
+	</c:forEach>
 </body>
 
 <script language="javascript" type="text/javascript">
