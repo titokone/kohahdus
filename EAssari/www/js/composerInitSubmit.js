@@ -113,10 +113,10 @@ function onFormSubmit() {
 	}	
 
 	
-	// registers and variables (only if correctness is determined by predefined values
-	if(document.task_creation_form.correctness_by.value == "predefined_values") {
+	// registers and variables (only if correctness is determined by predefined values)
+	if(document.task_creation_form.correctness_by[0].checked == true) {
 		for (i=0; i<inputs.length; i++) {
-			if ((inputs[i].name.indexOf(registryPrefix) != -1) || (inputs[i].name.indexOf(variablePrefix) != -1)) {
+			if ((inputs[i].name.indexOf(registerPrefix) != -1) || (inputs[i].name.indexOf(variablePrefix) != -1)) {
 				if((inputs[i].value != "") && (!isInteger(inputs[i].value))) {
 					alertCounter++;
 					alertText += '\n' + alertCounter + '. Register and variable values must be integers.';
