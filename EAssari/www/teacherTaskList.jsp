@@ -151,14 +151,16 @@ function initCourses() {
 	<tr>
 		<td valign="top"><h2 class="headerAboveListTable">Modify task templates</h2></td>
 	</tr>
-	<%
-		List<Task> DBtemplates = DBHandler.getInstance().getTemplates();
-		if (DBtemplates != null) pageContext.setAttribute("templates", DBtemplates);
-	%>
-	
-	<c:forEach var="template" items="${pageScope.templates}">
-		<tr><td><a href="composer.jsp?task_id=<c:out value="${template.taskID}"/>&save_type=update"><c:out value="${template.taskID}"/></td>
-	</c:forEach>
+	<tr>
+		<td>
+		<a href="composer.jsp?task_id=EN_TEMPLATE&save_type=update">Task template (English)</a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<a href="composer.jsp?task_id=FI_TEMPLATE&save_type=update">Task template (Finnish)</a>
+		</td>
+	</tr>
 </body>
 
 <script language="javascript" type="text/javascript">

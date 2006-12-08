@@ -1,12 +1,8 @@
 package fi.helsinki.cs.kohahdus.trainer;
 
-import java.sql.Timestamp;
-import java.util.*;
-
-import javax.security.auth.callback.LanguageCallback;
+import java.util.Date;
 
 import fi.helsinki.cs.kohahdus.Log;
-import fi.helsinki.cs.kohahdus.criteria.Criterion;
 
 //import fi.helsinki.cs.kohahdus.Criterion;
 /**
@@ -45,11 +41,12 @@ public class Task {
 	
 	private Date modificationdate;
     
-	
-	
-	
-	
-
+    private String courseID;
+    private boolean shouldStore;
+    private boolean shouldRegister;
+    private boolean shouldKnow;
+    private boolean shouldEvaluate;
+    private int cutoffvalue;
 	
 	
 //CONSTRUCTORS
@@ -474,44 +471,6 @@ public class Task {
 		return ret;
 	}
 
-	
-	
-	
-//	 **** NÄMÄ AINAKIN OVAT VANHASTA EASSARISTA *****	
-	
-    private String courseID;
-    private String moduleID;
-    private String tasktypeID;
-    private Tasktype tasktype;
-    private int seqNo;
-    private Timestamp deadLine;
-    private boolean shouldStore;
-    private boolean shouldRegister;
-    private boolean shouldKnow;
-    private boolean shouldEvaluate;
-    private int cutoffvalue;
-    private String style;	
-	
-	
-	public Task(String taskid, String courseid, String moduleid, String tasktypeid, int seqno, Timestamp deadline,
-				   boolean shouldstore, boolean shouldregister, boolean shouldknowstudent, boolean shouldevaluate, int cvalue,
-				   int nooftries, Tasktype tType) {
-		
-		taskID = taskid;
-		courseID = courseid;
-		moduleID = moduleid;
-		tasktypeID = tasktypeid;
-		seqNo = seqno;
-		deadLine = deadline;
-		shouldStore = shouldstore;
-		shouldRegister = shouldregister;
-		shouldKnow = shouldknowstudent;
-		shouldEvaluate = shouldevaluate;
-		noOfTries = nooftries;
-		cutoffvalue = cvalue;
-		tasktype = tType;
-	}  	
-	
     public boolean shouldBeAnalysed() {
         return shouldEvaluate;
     }    
@@ -521,34 +480,11 @@ public class Task {
     public boolean shouldStoreAnswer() {
         return shouldStore;
     }
-    public Tasktype getTasktype() {
-        return tasktype;
-    }    
-    public AnalyserInterface getAnalyser(String language) {
-        AnalyserInterface an = tasktype.getAnalyser(language,taskID);
-        return an;
-    }    
-    public boolean wasSuccess(int points) {
-        return points>=cutoffvalue;
-    }
-    public boolean isInTime(Timestamp when) {
-        return deadLine.after(when);
-    }
-    public boolean shouldAllowRetry(int triesSoFar) {
-        return noOfTries>triesSoFar;
-     }
-    public DisplayerInterface getDisplayer(String language) {
-        DisplayerInterface disp = tasktype.getDisplayer(language,taskID);
-        return disp;
-    }    
     public int getCutoffvalue() {
         return cutoffvalue;
     }    
-    public String getStyle() {
-        return tasktype.getStyle();
-    }
 
-	public String getCourseID() {
+    public String getCourseID() {
 		return courseID;
 	}
 
@@ -588,17 +524,9 @@ public class Task {
 		this.shouldStore = shouldStore;
 	}
 
-	
-
 	public void setCutoffvalue(int cutoffvalue) {
 		this.cutoffvalue = cutoffvalue;
 	}
 
-	public void setTasktype(Tasktype tasktype) {
-		this.tasktype = tasktype;
-	}
-
-
-	
 
 }

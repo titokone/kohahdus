@@ -51,7 +51,7 @@
 				<table>
 					<tr>
 						<td><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> (<c:out value="${user.status}"/>)</td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/login.jsp?userAction=logout">Logout</a></td>
+						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/login.jsp?role=teacher&userAction=logout">Logout</a></td>
 					</tr>
 				</table>
 			</td>

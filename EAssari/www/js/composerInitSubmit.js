@@ -79,7 +79,8 @@ function onFormSubmit() {
 	}
 	
 	// Bypass all error checks when saving a template task
-	if (document.task_creation_form.task_id.value == 'EN_TEMPLATE' || document.task_creation_form.task_id.value == 'FI_TEMPLATE'){
+	if (document.task_creation_form.save_type.value == 'update' && 
+		(document.task_creation_form.task_id.value == 'EN_TEMPLATE' || document.task_creation_form.task_id.value == 'FI_TEMPLATE')){
 		return true;
 	}
 	

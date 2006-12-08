@@ -30,12 +30,6 @@ testisuunnitelma/raportti, Paula, 8.12.
 Lisättävä testitapaukset salasananpostitussivulle (send_email.jsp), oletuspalautteiden muokkaamiselle 
 ja opiskelijan statuksen muuttamiselle.
 --
-composer/uuden tehtävän luonti, tuomas 5.12
-Antaa tallentaa tehtävän ilman nimeä
-Korjattu: Vaatii nimen. Paula 7.12.
-Uusiutui, koska muokattiin template tehtävien tallennusta. Eli pitäisi tarkistaa normaalitapauksessa ja
-antaa tallentaa nimettömänä templatea muokattaessa.
---
 
 
 
@@ -212,6 +206,13 @@ Korjattu: Så här.
 teacherTaskList.jsp, markus, 8.12
 Listataan myös template tehtävät, jotta oletuspalautetta voisi muokata.
 Korjattu: Så här.
+--
+composer/uuden tehtävän luonti, tuomas 5.12
+Antaa tallentaa tehtävän ilman nimeä
+Korjattu: Vaatii nimen. Paula 7.12.
+Uusiutui, koska muokattiin template tehtävien tallennusta. Eli pitäisi tarkistaa normaalitapauksessa ja
+antaa tallentaa nimettömänä templatea muokattaessa.
+Korjattu: Kyllä.
 --
 
 
