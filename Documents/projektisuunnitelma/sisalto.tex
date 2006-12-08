@@ -10,26 +10,28 @@ Projektin tarkoituksena on tuottaa konekielisen ohjelmoinnin harjoitusympäristö
 eAssari-ympäristöön. 
 
 Projektissa luodaan järjestelmä automaattisesti tarkastettavien TTK-91-konekielen 
-harjoitustehtävien luomiseen ja ratkomiseen. Tehtävien ratkaisuun ohjelmisto käyttää
-olemassa olevaa Titokone-simulaattoria. Projektin painopisteenä on saada aikaan
-toimiva opiskelijan ja oppilaan käyttöliittymä. 
+harjoitustehtävien luomiseen ja ratkomiseen. Lisäksi toteutetaan käyttäjien hallinta 
+ja tehtävien tilastointi. Tehtävien ratkaisuun ohjelmisto käyttää
+olemassa olevaa Titokone-simulaattoria. Projektin painopisteenä on saada aikaan valmis tuote,
+jossa painopiste on toimivassa opiskelijan ja opettajan käyttöliittymässä. 
 
 Edellinen ohjelmistotuotantoprojektiryhmä Koskelo teki pari vuotta sitten lähes 
 samoilla vaatimuksilla tuotetun ohjelmiston. Asiakas ei kuitenkaan ollut tyytyväinen 
 lopullisen tuotteen kokonaisuuteen. Tästä johtuen keskitymme hyvän käyttöliittymän 
 toteuttamiseen, jotta asiakkaan ja käyttäjien olisi helppo käyttää tuotetta. 
-Lisäksi pyrimme tarpeiden ja mahdollisuuksien mukaan käyttämään hyödyksi Koskelo-ryhmän 
-tekemia tuotoksia.
+Kohahdus projektissa ei uudelleenkäytetä edellisen projektiryhmän ohjelmistoa.  
+Koskelo-projektiryhmän dokumenttien avulla pyrimme muodostamaan realistisen käsityksen
+projektissa olevista haasteista.
 
 %% Loput Kohahdus-järjestelmän kuvauksesta tähän
 
 Toteutettava ohjelmisto sisältää
 
 \begin{itemize}
-\item webbiselainpohjaisen käyttöliittymän 
-\item tehtävien tarkastukseen käytettävän komponentin 
-\item integroimisen eAssari-kehykseen ja Titokone-simulaattoriin
-\item eAssari-kehyksen takana olevan tietokannan käyttämisen
+\item webbiselainpohjaisen käyttöliittymä (tehtävän luonti/vastaus, käyttäjien hallinta ja tilastointi)
+\item tehtävien tarkastukseen käytettävä komponentti
+\item integroiminen Titokone-simulaattoriin
+\item eAssari-kehyksen takana olevan tietokannan käyttäminen
 \end{itemize}
 
 \section{Projektiorganisaatio}
@@ -294,11 +296,16 @@ Normaalin ohjelmistotuotantoprojektin toimintopisteiden määrä on noin
 150-300.  Näin ollen arvioitu ohjelmisto on vajaa kaksi kertaa liian suuri.
 Projektin vaatimukset on priorisoitu ja ajanpuutteen sattuessa ominaisuuksia
 karsitaan pois prioriteettien mukaisesti. Myös projektin toisessa syklissä
-voidaan tilannetta vielä arvioida uudelleen.
+voidaan tilannetta vielä arvioida uudelleen.\\
+\\
+Ohjelmiston koko tulisi kaavojen mukaan olemaan 13206 LOC. \\
+\\
+Toteutunut LOC (8.12.2006): \\
+ - Java 7000 LOC\\
+ - JSP/JS 3800 LOC\\
+ -------------------\\
+ Yhteensä: 10800 LOC\\
 
-Ohjelmiston koko tulisi kaavojen mukaan olemaan 13206 LOC. Luultavasti oman FP-kaavojen 
-määrittelyjen takia ohjelmistosta näyttää tulevan liian suuri. Oma henkilökohtainen
-arvioni olisi, että Java-koodia tulee 2500-3000 riviä ja JSP-koodia 3000-4000.
 
 
 \section{Työn ositus}
@@ -346,8 +353,8 @@ Projektin tarkistuspisteet 2.sykli:
 \item To 9.11. Vaatimusmäärittelyn tarkastus ja jäädytys
 \item To 16.11. Suunnitteludokumentin tarkastus ja jäädytys
 \item To 30.11. Ohjelmisto testausvalmiina
-\item To 7.11. Ohjelmisto valmis ja demottavana
-\item Pe 15.12. Tuotteen luovutus
+\item To 7.11. Ohjelmisto valmis ja demottavana asiakkaalle
+\item To 14.12. Tuotteen luovutus
 \end{itemize}
 
 \subsection{Projektin ositus kahteen sykliin}
@@ -362,7 +369,7 @@ Ensimmäinen sykli:
 \begin{itemize}
 \item Toteutetaan toimiva käyttöliittymä
 \item Tehtävien tarkistukseen liittyvä toiminnallisuus toteutetaan vain tynkinä
-\item Integroidaan käyttöliittymä eAssari-kehykseen
+\item Integroidaan käyttöliittymä eAssari-kehykseen (tietokantaan)
 \item ....
 \end{itemize}
 
@@ -382,11 +389,9 @@ Toinen sykli:
 Projektin ajoituskaavio on esitettynä kuvassa 1. Projekti on jaettu kahteen sykliin.
 Toisen syklin ajoitus tarkennetaan, kun ollaan edetty ensimmäisen syklin loppupuolelle.
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=14cm]{kohahdus_gantt_v0.2.eps}
-\end{center}
-\caption{Projektin ajoituskaavio.}
+\begin{figure}[h]
+	\includegraphics[width=15cm]{gantkaavio20060918.eps}
+	\caption{Projektin ajoituskaavio}
 \end{figure}
 
 
