@@ -1,7 +1,6 @@
 package fi.helsinki.cs.kohahdus;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +8,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import org.apache.commons.dbcp.BasicDataSource;
 
 import fi.helsinki.cs.kohahdus.criteria.Criterion;
 import fi.helsinki.cs.kohahdus.criteria.CriterionMap;
@@ -39,8 +40,9 @@ public class DBHandler {
 	private static final String ATTRIBUTE_VALUE_TYPE_NUMERIC = "N";		// Numeric value 
 	
 	private static DBHandler instance = null;
-	private String dbDriver;
-	private String dbServer;
+	private static BasicDataSource ds = null;
+	private String dbDriver = "oracle.jdbc.driver.OracleDriver";
+	private String dbString;
 	private String dbLogin;
 	private String dbPassword; 
     
@@ -62,39 +64,50 @@ public class DBHandler {
 	}
 	
 	private boolean init(String connectionString, String username, String password){
-		dbDriver = "oracle.jdbc.OracleDriver";
-		dbServer = connectionString;
+        Log.write("Initializing DBHandler...");
+        try {
+            Class.forName(dbDriver);
+        } catch (ClassNotFoundException e) {
+        	Log.write(e);
+        }
+	        
+		dbString = connectionString;
 		dbLogin  = username;
 		dbPassword = password; 
         
-		// TODO: initialize db connection pool
-		
+		// Initialize db connection pool (Jakarta commons pool and dbcp)
+		ds = new BasicDataSource();
+        ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+        ds.setUsername(dbLogin);
+        ds.setPassword(dbPassword);
+        ds.setUrl(dbString);
+        ds.setMaxIdle(10);
+        ds.setMaxActive(10);
+        
 		Log.write("DBHandler initialized.");
 		return true;
 	}
 	
+	public static void printConnectionStats() throws SQLException {
+		Log.write("DBHandler: " + ds.getNumActive()+"/" + ds.getNumIdle()+ " connections (active/idle)");
+	}
+
+	/**
+	 * Release the db connection back to connection pool
+	 * @throws SQLException
+	 */
 	protected void release(Connection conn) throws SQLException{
 		if (conn != null) conn.close();
 	}
 
-	// TODO: DBConnectionPool
-	///      !!!!!!!!!!!!!!!!!! Tosi likainen ratkaisu ennen DBConnectionPool luokkaa
+	/**
+	 * Returns a db connection from the connection pool
+	 * @return
+	 * @throws SQLException
+	 */
 	protected Connection getConnection () throws SQLException {
-		// load database driver if not already loaded
-		//Log.write("DBHandler: Getting connection...");
-		Connection conn = null;
-		try { 
-		  Class.forName(dbDriver);               // load driver if not loaded
-		} catch (ClassNotFoundException e) { 
-			throw new SQLException ("Couldn't find the database driver "+dbDriver);
-		}
-		try {
-		   conn = DriverManager.getConnection(dbServer, dbLogin, dbPassword);
-		} catch (SQLException sex) {
-			throw new SQLException("Couldn't establish a repository connection. ");
-        }
-		//Log.write("DBHandler: Got connection.");
-        return conn;
+		printConnectionStats();
+		return ds.getConnection();
 	}	
 
 	/** Return all courses */

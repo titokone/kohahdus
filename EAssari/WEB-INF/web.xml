@@ -26,7 +26,7 @@
 		</init-param>
 		<init-param>
 			<param-name>db-string</param-name>
-			<param-value>jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test</param-value>
+			<param-value>jdbc:oracle:thin:kohahdus/b1tt1@bodbacka.cs.helsinki.fi:1521:test</param-value>
 		</init-param>
 		<init-param>
 			<param-name>db-username</param-name>
