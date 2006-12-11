@@ -17,10 +17,7 @@ composer/tehtävän tallennus, mikko 4.12
 3. Tallenna
 4. Esikoodi joka oli piilossa, on tallennut osaksi mallikoodia
 --
-testisuunnitelma/raportti, Paula, 8.12.
-Lisättävä testitapaukset salasananpostitussivulle (send_email.jsp), oletuspalautteiden muokkaamiselle 
-ja opiskelijan statuksen muuttamiselle.
---
+
 
 
 
@@ -214,6 +211,12 @@ Kiellettyjä ja vaadittuja käskyjä mittaavat kriteerit antavat tyhjän palautteen,
 Esim. demotussa register math -tehtävässä palaute on tyhjä.
 Korjattu: Kriteerejä, joiden palaute on tyhjä ei näytetä.
 --
+testisuunnitelma/raportti, Paula, 8.12.
+Lisättävä testitapaukset salasananpostitussivulle (send_email.jsp), oletuspalautteiden muokkaamiselle 
+ja opiskelijan statuksen muuttamiselle.
+Korjattu: ninjan kosto
+--
+
  HYLÄTYT BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 login.jsp, Tuomas & Markus & Mikko, 28.11:
