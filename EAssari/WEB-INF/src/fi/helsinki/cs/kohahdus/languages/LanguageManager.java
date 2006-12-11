@@ -119,7 +119,6 @@ public class LanguageManager {
 			return bundles.get(page + "_" + lang);
 		}
 		System.out.println("Resource [page "+page+", lang "+lang+"] not found");
-		//TODO: throw ?exception
 		throw new RuntimeException("Requested language is not supported");
 	}
 }

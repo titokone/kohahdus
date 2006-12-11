@@ -11,20 +11,11 @@ TitoKone, Mikko, 29.11:
 Tiedostojen lukemis ja kirjoittamis k‰skyt pit‰‰ testata. Nykyisell‰‰n vehje lukee ja kirjoittaa
 /dev/nullia, t‰ytyy varmistaa ettei t‰st‰ tule ongelmia..
 --
-answer_task.jsp, Markus, 1.12
-Vastauksen tila s‰ilyy sessiossa vaikka opiskelija siirtyisi toiselle sivulle.
-Esim. 1. Vastaa ensin yhteen teht‰v‰‰n. 2. Valitse joku toinen teht‰v‰.
-      3. Lis‰‰ osoitteeseen &analyzed=true, niin vanhan vastauksen tiedot saadaan n‰kyviin
--- 
 composer/teht‰v‰n tallennus, mikko 4.12
 1. Luo mallista tarkistettava t‰yttˆteht‰v‰ ja laita "esikoodia"
 2. Muuta ohjelmointiteht‰v‰ksi
 3. Tallenna
 4. Esikoodi joka oli piilossa, on tallennut osaksi mallikoodia
---
-composer/teht‰v‰n tallennus, markus, 7.12
-Kiellettyj‰ ja vaadittuja k‰skyj‰ mittaavat kriteerit antavat tyhj‰n palautteen, jos teht‰v‰ menee oikein. 
-Esim. demotussa register math -teht‰v‰ss‰ palaute on tyhj‰.
 --
 testisuunnitelma/raportti, Paula, 8.12.
 Lis‰tt‰v‰ testitapaukset salasananpostitussivulle (send_email.jsp), oletuspalautteiden muokkaamiselle 
@@ -218,7 +209,11 @@ login.jsp, markus, 8.12
 Jos yritt‰‰ oppilaan tunnuksilla opettajan kirjautumissivulta, niin homma kaatuu poikkeukseen.
 Korjattu: Oppilaan kirjautumisyritys ohjataan normaalille login-sivulle 
 --
-
+composer/teht‰v‰n tallennus, markus, 7.12
+Kiellettyj‰ ja vaadittuja k‰skyj‰ mittaavat kriteerit antavat tyhj‰n palautteen, jos teht‰v‰ menee oikein. 
+Esim. demotussa register math -teht‰v‰ss‰ palaute on tyhj‰.
+Korjattu: Kriteerej‰, joiden palaute on tyhj‰ ei n‰ytet‰.
+--
  HYLƒTYT BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 login.jsp, Tuomas & Markus & Mikko, 28.11:
@@ -230,4 +225,9 @@ teacherTaskList.jsp, Taro, 30.11
 Kurssien nimen muokkaus vois toteuttaa jos ehtii.
 Kommentti: Ei tehd‰
 --
-
+answer_task.jsp, Markus, 1.12
+Vastauksen tila s‰ilyy sessiossa vaikka opiskelija siirtyisi toiselle sivulle.
+Esim. 1. Vastaa ensin yhteen teht‰v‰‰n. 2. Valitse joku toinen teht‰v‰.
+      3. Lis‰‰ osoitteeseen &analyzed=true, niin vanhan vastauksen tiedot saadaan n‰kyviin
+Kommentti: Osoiterivimanipulaatioon ei varauduta      
+-- 

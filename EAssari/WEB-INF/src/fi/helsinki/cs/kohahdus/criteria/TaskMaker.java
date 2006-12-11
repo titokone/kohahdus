@@ -222,11 +222,12 @@ public class TaskMaker {
 	 * All values are set to the values defined in request.
 	 * @param req
 	 */
-	//FIXME: käskyt eivät taida löytyä tuolta. Joko javascript ongelma tai katsotaan väärästä paikasta...
 	private void addInstructionCriteria(HttpServletRequest req) {
 		RequiredInstructionsCriterion required = new RequiredInstructionsCriterion(Criterion.ID_REQUIRED_INSTRUCTIONS, false);
 		required.setAcceptanceTestValue(req.getParameter(ID_REQUIRED_INSTRUCTIONS + OPCODE_INSTRUCTIONS));
 		required.setFailureFeedback(req.getParameter(ID_REQUIRED_INSTRUCTIONS + OPCODE_FB));
+		
+		
 		
 		ForbiddenInstructionsCriterion forbidden = new ForbiddenInstructionsCriterion(Criterion.ID_FORBIDDEN_INSTRUCTIONS, false);
 		forbidden.setAcceptanceTestValue(req.getParameter(ID_FORBIDDEN_INSTRUCTIONS + OPCODE_INSTRUCTIONS));
