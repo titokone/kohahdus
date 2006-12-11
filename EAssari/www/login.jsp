@@ -71,7 +71,12 @@ function doOnLoad(){
 			<c:set var="language" value="EN" scope="session"/>
 			<c:redirect url="teacherTaskList.jsp"/>
 		</c:if>
-		<c:if test="${user.student}">	
+		<c:if test="${user.student}">
+			<%-- Student logs in from teachers page -> forwarded to normal login page --%> 
+			<c:if test="${not empty param.role}">
+				<c:remove var="user"/>
+				<c:redirect url="login.jsp"/>
+			</c:if>	
 			<%
 				Cookie cookie = new Cookie("courseID", request.getParameter("course"));
 				cookie.setMaxAge(60*60*24*365);
