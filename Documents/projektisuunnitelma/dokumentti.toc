@@ -11,4 +11,4 @@
 \contentsline {section}{\numberline {6}Ty\"on ositus}{7}
 \contentsline {subsection}{\numberline {6.1}Projektin ositus kahteen sykliin}{9}
 \contentsline {section}{\numberline {7}Aikataulu}{9}
-\contentsline {section}{\numberline {8}Seuranta- ja raportointimenetelm\"at}{9}
+\contentsline {section}{\numberline {8}Seuranta- ja raportointimenetelm\"at}{10}
