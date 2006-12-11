@@ -38,7 +38,7 @@
 		</init-param>
 		<init-param>
 			<param-name>smtp-server</param-name>
-			<param-value>mail.cs.helsinki.fi</param-value>
+			<param-value>localhost</param-value>
 		</init-param>
 		<init-param>
 			<param-name>smtp-port</param-name>

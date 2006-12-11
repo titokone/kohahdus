@@ -4,18 +4,16 @@
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
+
+<c:if test="${user.student}">
+	Student tried to load a restricted page - redirecting to students tasklisting
+	<c:redirect url="studentTaskList.jsp"/>
+</c:if>
+
 <%
 	User user = DBHandler.getInstance().getUser(request.getParameter("userID"));
 	if (user != null) pageContext.setAttribute("user", user);		
 %>
-
-<c:if test="${param.action == 'changeStatus'}">
-	<%
-		user.setStatus(request.getParameter("status"));
-		DBHandler.getInstance().updateUser(user);
-	%>
-</c:if>
-
 
 <html>
 <head>
@@ -39,6 +37,20 @@ function removeUser(userID) {
 	<% DBHandler.getInstance().removeUser(request.getParameter("userID")); %>
 	<c:redirect url="removed.jsp"/>
 </c:if>
+<c:if test="${param.action == 'changeStatus'}">
+	<%
+		user.setStatus(request.getParameter("status"));
+		DBHandler.getInstance().updateUser(user);
+	%>
+</c:if>
+<c:if test="${param.action == 'changePassword'}">
+	<%
+		user.setPassword(request.getParameter("password"));
+		DBHandler.getInstance().updateUser(user);
+	%>
+	Password updated.
+</c:if>
+
 
 <%-- Different views if the user displayed is student or teacher/admin --%>
 <c:choose>
@@ -86,6 +98,14 @@ function removeUser(userID) {
 			<input type="hidden" name="status" value="teacher">
 			<input type="submit" value="Upgrade status">
 			<span class="footNote">(Will upgrade user's status to teacher)</span>
+		</form>
+
+		<form name="changePassword_form" action="showUser.jsp" method="POST">
+			<input type="hidden" name="action" value="changePassword">
+			<input type="hidden" name="userID" value="<c:out value="${user.userID}"/>">
+			New password: <input type="password" name="password">
+			<input type="submit" value="Change password">
+			<span class="footNote">(Will update user's password)</span>
 		</form>
 
 		<h3>Tasks</h3>

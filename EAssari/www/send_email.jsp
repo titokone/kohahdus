@@ -27,12 +27,20 @@
 	</form>
 </c:if>
 <c:if test="${param.action=='send'}">
+	<p>
 	<%
 		User user = DBHandler.getInstance().getUser(request.getParameter("userID"));
-		user.setPassword(Emailer.sendNewPasswordEmail(user.getEmail()));
-		DBHandler.getInstance().updateUser(user);
+		if (user == null){
+			out.println("Username doesn't exist.");
+		} else if (user.getEmail().indexOf("cs.helsinki.fi") > -1){
+			user.setPassword(Emailer.sendNewPasswordEmail(user.getEmail()));
+			DBHandler.getInstance().updateUser(user);
+			out.println("Your new password has been sent to your email.");
+		} else {
+			out.println("Email can only be sent to cs.helsinki.fi addresses. Please contact your teacher.");
+		}
 	%>
-	<p>Your new password has been sent to your email.</p>
+	</p>
 </c:if>
 
 <br>
