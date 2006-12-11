@@ -24,6 +24,24 @@ This class and all sub-classes shall provide following quarantees:
       are not subject to validation, they are assumed to be always valid.
 \end{itemize}
 
+\begin{verbatim}
+Criterion (abstract)
++- InstructionCriterion (abstract)
+|  +- ForbiddenInstructionsCriterion
+|  +- RequiredInstructionsCriterion
++- MeasuredCriterion (abstract)
+|  +- CodeSizeCriterion
+|  +- DataAreaSizeCriterion
+|  +- DataReferencesCriterion
+|  +- ExecutetionStepsCriterion
+|  +- MemReferencesCriterion
+|  +- StackSizeCriterion
++- ScreenOutputCriterion
++- VariableCriterion (abstract)
+   +- RegisterCriterion
+   +- SymbolCriterion
+\end{verbatim}
+
 For sake of brevity, Criterion subclasses are not described in this document.}
 
 {\tt	protected static final long UNDEFINED = Long.MIN\_VALUE;}\\
