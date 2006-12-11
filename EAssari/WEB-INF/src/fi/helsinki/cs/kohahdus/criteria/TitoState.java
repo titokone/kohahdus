@@ -138,10 +138,15 @@ public class TitoState {
 	 */
 	public String getInstruction(int address) {
 		String instruction = "";
-		if (address < code.length) { 
+// This doesn't detect self-modifying code, and we really want it to
+//		if (address < code.length) { 
+//			BinaryInterpreter interp = new BinaryInterpreter();
+//			instruction = interp.binaryToString(code[address].getBinary());
+//		}
+		if (address < mem.getCodeAreaSize()) { 
 			BinaryInterpreter interp = new BinaryInterpreter();
-			instruction = interp.binaryToString(code[address].getBinary());
-		}
+			instruction = interp.binaryToString(mem.getValue(address));
+		}		
 		return instruction;
 	}
 	
