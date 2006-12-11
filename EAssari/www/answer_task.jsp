@@ -179,7 +179,7 @@ function setDefaultInput(){
 							<textarea name="programCode" style="width:100%" rows="40"><c:out value="${programCode}"/></textarea>											
 						</c:otherwise>
 					</c:choose>
-					<div style="text-align: left; float: left;"><a href="<%=rb.getString("ttk91HelpUrl")%>"><%=rb.getString("ttk91HelpLabel")%></a></div>
+					<div style="text-align: left; float: left;"><a href="<%=rb.getString("ttk91HelpUrl")%>" target="_blank"><%=rb.getString("ttk91HelpLabel")%></a></div>
 					<div style="text-align: right;"><input type="submit" value="<%=rb.getString("executeButtonValue")%>"></div>
 				</td>
 			</tr>
