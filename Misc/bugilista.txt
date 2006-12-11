@@ -30,9 +30,7 @@ testisuunnitelma/raportti, Paula, 8.12.
 Lisättävä testitapaukset salasananpostitussivulle (send_email.jsp), oletuspalautteiden muokkaamiselle 
 ja opiskelijan statuksen muuttamiselle.
 --
-login.jsp, markus, 8.12
-Jos yrittää oppilaan tunnuksilla opettajan kirjautumissivulta, niin homma kaatuu poikkeukseen.
---
+
 
 
 KORJATUT BUGIT JA PUUTTEET
@@ -216,7 +214,10 @@ Uusiutui, koska muokattiin template tehtävien tallennusta. Eli pitäisi tarkistaa
 antaa tallentaa nimettömänä templatea muokattaessa.
 Korjattu: Kyllä.
 --
-
+login.jsp, markus, 8.12
+Jos yrittää oppilaan tunnuksilla opettajan kirjautumissivulta, niin homma kaatuu poikkeukseen.
+Korjattu: Oppilaan kirjautumisyritys ohjataan normaalille login-sivulle 
+--
 
  HYLÄTYT BUGIT JA PUUTTEET
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
