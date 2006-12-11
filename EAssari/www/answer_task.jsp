@@ -297,7 +297,7 @@ function setDefaultInput(){
 				<tr>
 					<td><%=i%></td>
 					<td><%=titostate.getMemoryLocation(i)%></td>
-					<td><%=titostate.getInstruction(i)%></td>
+					<td style="white-space: nowrap;"><%=titostate.getInstruction(i)%></td>
 				</tr>
 		<%		
 			}
