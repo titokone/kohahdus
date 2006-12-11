@@ -245,18 +245,20 @@ function setDefaultInput(){
 						<td colspan="2" class="titleBar"><%=rb.getString("criteriaText")%></td>
 					</tr>
 					<c:forEach var="criterionFeedback" items="${feedback.criteriaFeedback}">
-						<c:choose>
-							<c:when test="${criterionFeedback.passedAcceptanceTest}">
-								<c:set var="image" value="images/positive.gif"/>
-							</c:when>
-							<c:otherwise>
-								<c:set var="image" value="images/negative.gif"/>
-							</c:otherwise>
-						</c:choose>	
-						<tr>
-							<td _width="20%"><b><img src="<c:out value="${image}"/>" border="0"> <c:out value="${criterionFeedback.name}"/></b></td>
-							<td _width="80%"><c:out value="${criterionFeedback.feedback}"/></td>
-						</tr>
+						<c:if test="${criterionFeedback.feedback != ''}">
+							<c:choose>
+								<c:when test="${criterionFeedback.passedAcceptanceTest}">
+									<c:set var="image" value="images/positive.gif"/>
+								</c:when>
+								<c:otherwise>
+									<c:set var="image" value="images/negative.gif"/>
+								</c:otherwise>
+							</c:choose>	
+							<tr>
+								<td _width="20%"><b><img src="<c:out value="${image}"/>" border="0"> <c:out value="${criterionFeedback.name}"/></b></td>
+								<td _width="80%"><c:out value="${criterionFeedback.feedback}"/></td>
+							</tr>
+						</c:if>	
 					</c:forEach>
 					<c:remove var="image"/>
 				</table>
