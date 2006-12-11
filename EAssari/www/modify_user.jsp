@@ -194,7 +194,7 @@
 			User user = (User) session.getAttribute("user");
 			if (user.isValid()) {
 	 			boolean testi = DBHandler.getInstance().updateUser(user);
-	 			out.print("<BR>Updated to database.");
+	 			out.print("<BR>Your user information has been updated.");
 	 			Log.write("Modify_User: Updated user "+user.getFirstName()+" "+user.getLastName());
 	 		} else {
 	 		out.print("<BR>Error in updating database");

@@ -44,7 +44,7 @@
 						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/composer.jsp?task_id=FI_TEMPLATE&save_type=new">New task (Finnish)</a></td>
 						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacherTaskList.jsp">Task list</a></td>
 						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/searchUsers.jsp">Search users</a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/modify_user.jsp">Modify user account</a></td>
+						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/modify_user.jsp">Modify own account</a></td>
 					</tr>
 				</table>
 			</td>
