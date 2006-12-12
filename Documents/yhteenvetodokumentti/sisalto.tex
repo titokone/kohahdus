@@ -13,9 +13,8 @@ luennoitaessa. Kurssin opiskelijat voivat käydä ratkaisemassa järjestelmässä teh
 saa tästä tilastotietoa.
 
 
-\section{Projekti}
+\section{Projektin kulku}
 
-\subsection{Projektin kulku}
 Projekti käynnistettiin 4.9.2006. Tällöin pidetyssä aloituspalaverissa vastuualueet jaettiin melko sujuvasti.
 Projektipäällikön, vaatimusmäärittelyvastaavan ja dokumentointivastaavan paikat jaettiin halukkaille.
 Suunnitteluvastaavan, koodivastaavan ja testausvastaavan vastuualueita pyöriteltiin aikansa, kunnes yksi 
@@ -25,9 +24,10 @@ Ryhmämme työskenteli suurimmaksi osaksi ryhmätyömuodossa. Aikaa vietettiin paljo
 työskentelytilana oli ATK-luokka Exactumissa. Tässä ATK-luokassa nähtiin lähes joka päivä. 
 Kaikki ryhmän jäsenet osallistuivat ainakin jollain tasolla projektin kaikkiin työvaiheisiin.
 
-\subsection{Aikataulu}
 
-\subsubsection{Ensimmäinen sykli}
+\subsection{Ensimmäinen sykli}
+
+\subsubsection{Vaatimusmäärittely}
 
 Projektipäällikkö laati alussa aikataulun, jossa pääosin pysyttiin koko projektin ajan.
 Projektipäällikön ehdotuksesta käyttöön otettiin iteratiivinen prosessimalli, joka osoittautui
@@ -39,8 +39,13 @@ Alussa aikaa kului paljon EAssariin ja Titokoneeseen tutustumiseen.
 Vaatimusmäärittelyyn osallistuivat kaikki, tosin vaatimusvastaava 
 Vaatimusdokumentista pidettiin epävirallinen katselmustilaisuus.
 
+\subsubsection{Suunnittelu}
+
 Suunnitteluvaihe pääsi alkamaan hieman myöhässä, ja alussa oli vähän vaikeuksia päästä alkuun, koska 
 osajärjestelmistä ei ollut kattavaa yleiskuvaa. Tutustuimme EAssarin tietokantarakenteeseen.
+EAssariin tutustuminen oli hidasta ja sen ymmärtäminen kesti kauan. Lisähaittaa aiheutti se että EAssari
+ei sisältänytkään sitä mitä oli luvattu ja sen dokumentaatio oli puutteellista.
+
 Ensimmäiseksi yritettiin miettiä luokkakaavioita, mutta niiden avulla emme päässeet asiassa alkuun.
 Sitten vain päätetiin että tehdään jotain ja aloimme tekemään sekvenssikaavioita järjestelmän 
 toiminnoista. 
@@ -48,8 +53,26 @@ toiminnoista.
 Myös suunnitteluun osallistuivat kaikki, mutta suunnitteluvastaavan panos oli kuitenkin ratkaiseva.
 Suunnitteluvastaava 
 
+\subsubsection{Toteutus}
+Toteutusvaihe pääsi alkamaan viikon 
+Ensimmäisen toteutusvaiheen hidastavana elementtinä oli alkuun se, että osa ryhmästä joutui opettelemaan JSP:tä
+ja JSTL:ää. Samaten Eclipseen ja CVS:ään tutustuttiin kunnolla vasta toteutuksen alkaessa.
 
-\subsubsection{Toinen sykli}
+Tehtävien jaossa pyrimme huomioimaan ryhmäläisten vahvuudet. Osa ryhmäläisistä alkoi tekemään JSP-sivuja ja osa
+sai tehtäväkseen java-luokkia ja yksi alkoi rakentamaan JavaScript- ja käyttöliittymäkomponentteja. Alun hankaluuksien
+ja hitaahkon käynnistymisen jälkeen päästiin kuitenkin vauhtiin, ja ryhmä onnistui tuottamaan tehokkaasti ohjelmakoodia.
+
+
+\subsubsection{Testaus}
+Ensimmäisessä iteraatiossa testaus jäi aikataulun sanelemana aika vähiin. Toteutusvaihe venyi yli osuutensa aikataulusta,
+ja testausvaiheelle jäi ensimmäisessä iteraatiossa paljon vähemmän aikaa kuin oli alkuun suunniteltu. Tämä pyrittiin 
+huomioimaan toisen iteraation testausvaiheen suunnittelussa.
+
+Testaussuunnitelma saatiin tehtyä ja toteutusvaiheen yhteydessä suoritettiin kattavia yksikkötestejä.
+
+\subsection{Toinen sykli}
+
+
 
 Projektimme sai pitää ansaitun lomaviikon yliopiston taukoviikolla. Toisessa iteraatiossa työkalut
 ja menetelmät olivat jo tuttuja, ja työt käynnistyivät huomattavasti rivakammin. Toisen iteraation
@@ -57,17 +80,38 @@ alussa esiteltiin asiakkaalle projektin sen hetkistä tuotosta, joka jo sisälsi t
 käyttöliittymän ilman statistiikkoja. Asiakkaan palautteen perusteella tehtiin joitain muutoksia ja
 otettiin muutama uusi vaatimus.
 
+\subsubsection{Vaatimusmäärittely}
+
 Toisen iteraation vaatimusmäärittely meni nopeasti, koska ensimmäisessä iteraatiossa oli jo 
 määritelty suurin osa koko projektin vaatimuksista. Toisessa iteraatiossa tehtiin tarkka syötteet
 ja tulosteet dokumentti, joka tarkasti määritteli millaisia syötteitä järjestelmä hyväksyy.
+
+\subsubsection{Suunnittelu}
 Toisessa suunnitteluvaiheessa täydennettiin suunnitteludokumenttia ja pidettiin tästä virallinen
 katselmus. Virallinen katselmus oli aika vaisu tilaisuus, ja totesimme että vaatimusdokumentin 
 epävirallinen katselmus oli tätä virallista parempi. 
 
+Toisen iteraation suunnitteluvaiheessa päätimme hylätä EAssarin, koska se ei toteuttanut tarpeellisia toimintoja.
+Tätä ei pidetty mitenkään suurena asiana, mutta asiakkaan kanssa pidettiin kuitenkin kokous aiheesta. Kokouksessa
+päästiin yhteisymmärrykseen asiakkaan ja EAssari-asiantuntijan kanssa siitä, että projektiryhmän valitsema tie on oikea.
 
-Ryhmän henki ja ilmapiiri oli erinomainen. Ryhmäläiset tukivat toisiaan, ja apua sai aina kun sitä
-tarvitsi. Ryhmässä oli vahvaa koodiosaamista.
 
+\subsubsection{Toteutus}
+Toisen iteraation toteutuksessa olimme jo kokeneempia kuin ensimmäisessä iteraatiossa. Välineet olivat jo käyneet 
+tutuiksi ja kaikilla oli suhteellisen hyvä kuva toteutettavasta järjestelmästä.
+
+Toteutusvaiheessa ei enää kohdattu suurempia ongelmia. Osittain tähän varmasti vaikutti ryhmän aiempi
+päätös jättää EAssari-yhteensopivuus projektin ulkopuolelle. Toteutusvaiheelle on vaikeaa määrittää
+selkeää lopetuspäivää, koska viilausta voisi jatkaa loputtomiin. Kaikki korkeimman prioriteetin
+vaatimukset saatiin kuitenkin toteutettua aikataulun mukaisesti. Toteutusta jatkettiin vielä
+limittäin testauksen kanssa ja lopulta saatiin lähes kaikki vaatimukset toteutettua. 
+
+\subsubsection{Testaus}
+Toisessa iteraatiossa oli varattu testauksellekin kunnolla aikaa ja se päästiin aloittamaan aikataulun mukaisesti.
+Kaikki ryhmän jäsenet osallistuivat aktiivisesti testaukseen ja testauksen yhteydessä käytetty bugilista osoittautui
+hyödylliseksi työvälineeksi.
+
+Testauksen kokonaiskattavuus saatiin lopulta aika korkeaksi, ehkä noin 85%:iin.
 
 //Tähän kuva kaikkien tunneista//
 
@@ -106,16 +150,31 @@ toteutetut ominaisuudet ovat täysin titotrainerkohtaisia.
 
 \section{Projektityöskentely}
 
-\section{Ohjaaja}
+
+\subsection{Ryhmän henki}
+Ryhmän henki ja ilmapiiri oli erinomainen. Ryhmäläiset tukivat toisiaan, ja apua sai aina kun sitä
+tarvitsi. Ryhmässä oli vahvaa koodiosaamista.
+
+\subsection{Käytetyt työkalut}
+
+Projektin alussa käytettiin ryhmälle pystytettyä Wikiä, jonka käytöstä kuitenkin luovuttiin aika pian.
+
+Ohjelmointiympäristönä käytettiin Eclipseä ja sen kautta käytettiin CVS-versionhallintaa. Eclipsen käyttö sujui kohtuullisen
+hyvin ryhmäläisiltä pienen totuttelun jälkeen.
+
+Dokumentit tehtiin pääsääntöisesti \LaTeX:lla ja muutama Open Officella. \LaTeX:in käyttökokemusta löytyi
+ennen projektia vähänlaisesti, joten siihen tutustumiseen meni hieman aikaa. Osa ryhmäläisistä meinasi kypsyä
+\LaTeX:in käyttämiseen projektin kuluessa, mutta ainakin kaikki saivat sen käyttökokemusta. Etenkin kuvien sijoittelun
+kanssa oli suuria ongelmia.
+
+
+\subsection{Ohjaaja}
 Ohjaajamme Sanna Keskioja oli erittäin pätevä ja asiansa hallitseva. Sannalta saimme rakentavaa tukea
 kokouksissa ja hän hoiti saumattomasti tarvitsemiemme tilojen ja resurssien hankkimisen.
 
 Sannalla oli hyvä asenne hommaan, ja olisi ollut vaikeaa kuvitella Sannaa parempaa ohjaajaa tälle projektille.
 
-
-
-
-\section{Asiakkaat}
+\subsection{Asiakkaat}
 Asiakkaallamme Teemu Kerolalla oli selkeä näkemys tarvittavasta tuotteesta, ja Teemu osasi selkeästi
 tuoda julki järjestelmän yksityiskohtaiset tarpeet. Osaltaan tähän varmasti vaikutti, että järjestelmä
 on ollut ohjelmistotuotantoprojektin aiheena myös aiemmin. Pyrimme hyödyntämään asiakkaan palautetta
@@ -145,7 +204,10 @@ Ensiarvoisen tärkeää oli että projektissa oli mukana henkilö (Taro "Ass" Morimot
 Eclipsen ja JSP:n. Näin muut ryhmäläiset saivat tehokkaan pikaperehdytyksen ennestään tuntemattomiin tekniikoihin.
 
 Projektiryhmämme oli ilmeisesti koottu sillä perusteella, että kaikki olivat suorittaneet Käyttöliittymät-kurssin.
-Käyttöliittymä olikin priorisoitu tärkeimmäksi yksittäiseksi osaksi järjestelmää. Kurssin suorittamisesta 
+Käyttöliittymä olikin priorisoitu tärkeimmäksi yksittäiseksi osaksi järjestelmää. Kurssin suorittamisella ei kuitenkaan
+ollut ratkaisevaa merkitystä projektin onnistumiselle, vaikkakin sen suorittamisesta oli selkeästi hyötyä projektissa.
+
+
 
 \section{Mielin määrin kahvia tupakkaa}
 
