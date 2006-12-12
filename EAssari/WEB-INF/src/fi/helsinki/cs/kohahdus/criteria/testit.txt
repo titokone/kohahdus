@@ -80,8 +80,8 @@ ScreenOutputCriterion
 ScreenOutputCriterion(String, boolean)		1/1				0/0
 serializeSubClass()							1/1				0/0
 initSubClass(String)						1/1				0/0
-setAcceptanceTestValue(String)				
-hasAcceptanceTest(boolean)					
+setAcceptanceTestValue(String)				12/12 			4/4
+hasAcceptanceTest(boolean)					1/1				0/0
 getAcceptanceTestValue()					1/1				0/0
 passesAcceptanceTest(TitoState,	TitoState)	
 
@@ -122,9 +122,9 @@ getName(ResourceBundle)						-/-				-/-
 InstructionCriterion
 --------------------
 InstructionCriterion(String, boolean)		1/1				0/0
-hasAcceptanceTest(boolean)					
-getAcceptanceTestValue()					
-setAcceptanceTestValue(String)				
+hasAcceptanceTest(boolean)					1/1				0/0
+getAcceptanceTestValue()					2/2				0/0
+setAcceptanceTestValue(String)				5/5				1/1			
 serializeSubClass()							1/1				0/0
 initSubClass(String)						1/1				0/0
 
