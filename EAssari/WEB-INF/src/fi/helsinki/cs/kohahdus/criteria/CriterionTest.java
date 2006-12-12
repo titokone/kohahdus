@@ -74,7 +74,7 @@ public class CriterionTest extends TestCase {
 				+"LOAD R5, =500\n"
 				+"LOAD R6, =500\n"
 				+"LOAD R7, =500\n"
-					+"SVC SP, =HALT\n"
+				+"SVC SP, =HALT\n"
 		);
 		tito.execute("", 5000);
 	}

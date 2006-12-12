@@ -5,8 +5,8 @@ Criterion
 ---------
 Metodi									Lausekattavuus	Haaraumakattavuus
 Criterion(String, boolean)					
-getId()
-isSecretInputCriterion()
+getId()										1/1				0/0
+isSecretInputCriterion()					0/1				0/0
 getFailureFeedback()    	   				1/1				0/0
 getAcceptanceFeedback()						1/1				0/0
 getHighQualityFeedback()					1/1				0/0
@@ -16,7 +16,7 @@ setHighQualityFeedback(String)				1/1				1/1
 serializeToXML()							7/7				0/0
 deserializeFromXML(String)					11/13			1/2	(epätodennäköinen poikkeus jää testaamatta)
 hasQualityTest(boolean)						1/1				0/0 (dummy)
-passesQualityTest(TitoState, TitoState)
+passesQualityTest(TitoState, TitoState)		0/1				0/0
 getQualityTestValue()						1/1				0/0 (dummy)
 setQualityTestValue(String)					0/0				0/0 (dummy)
 toXML(String, long)							4/4				1/1
@@ -26,6 +26,7 @@ parseXMLLong(String, String)				5/5				1/1
 parseXMLString(String, String)				7/7				0/0
 parseXMLBoolean(String, String)				2/2				1/1
 getName(ResourceBundle)						-/-				-/-
+                                            51/54
 
 
 MeasuredCriterion
@@ -34,43 +35,44 @@ MeasuredCriterion(String, boolean)			1/1				0/0
 setAcceptanceTestValue(String)				4/4				1/1
 hasAcceptanceTest(boolean)					1/1				0/0
 getAcceptanceTestValue()					4/4				1/1
-passesAcceptanceTest(TitoState,	TitoState)	
+passesAcceptanceTest(TitoState,	TitoState)	1/1				1/1
 setQualityTestValue(String)					4/4				1/1
 hasQualityTest(boolean)						1/1				0/0
 getQualityTestValue()						4/4				1/1
-passesQualityTest(TitoState, TitoState)		
+passesQualityTest(TitoState, TitoState)		1/1				1/1
 serializeSubClass()							2/2				0/0
 initSubClass(String)						2/2				0/0
+											25/25
 
 CodeSizeCriterion
 -----------------
 CodeSizeCriterion(String, boolean)			1/1				0/0
-getCriterionValue(TitoState)
+getCriterionValue(TitoState)				1/1				0/0
 
 DataAreaSizeCriterion
 ---------------------
 DataAreaSizeCriterion(String, boolean)		1/1				0/0
-getCriterionValue(TitoState)
+getCriterionValue(TitoState)				1/1				0/0
 
 DataReferencesCriterion
 -----------------------
 DataReferencesCriterion(String, boolean)	1/1				0/0
-getCriterionValue(TitoState)
+getCriterionValue(TitoState)				1/1				0/0
 
 ExecutionStepsCriterion
 -----------------------
 ExecutionStepsCriterion(String, boolean)	1/1				0/0
-getCriterionValue(TitoState)
+getCriterionValue(TitoState)				1/1				0/0
 
 MemReferencesCriterion
 ----------------------
 MemReferencesCriterion(String, boolean)		1/1				0/0
-getCriterionValue(TitoState)
+getCriterionValue(TitoState)				1/1				0/0
 
 StackSizeCriterion
 ------------------
-StackSizeCriterion
-getCriterionValue(TitoState)
+StackSizeCriterion							1/1				0/0
+getCriterionValue(TitoState)				1/1				0/0
 
 
 
@@ -83,8 +85,9 @@ initSubClass(String)						1/1				0/0
 setAcceptanceTestValue(String)				12/12 			4/4
 hasAcceptanceTest(boolean)					1/1				0/0
 getAcceptanceTestValue()					1/1				0/0
-passesAcceptanceTest(TitoState,	TitoState)	
-
+passesAcceptanceTest(TitoState,	TitoState)	1/1				1/1
+											18/18
+											
 
 VariableCriterion
 -----------------
@@ -96,16 +99,18 @@ getComparisonOperator()						9/9				6/7	(jokin case-haara toteutuu aina)
 setAcceptanceTestValue(String)				4/4				1/1
 hasAcceptanceTest(boolean)					6/6				5/5
 getAcceptanceTestValue()					4/4				1/1
-passesAcceptanceTest(TitoState,	TitoState)	
+passesAcceptanceTest(TitoState,	TitoState)	8/13			2/7
 setCompareToModel(String)					1/1				3/3					
+										    57/62
 
 RegisterCriterion
 -----------------
-RegisterCriterion(String, boolean, int)
-getCriterionValue(TitoState)
+RegisterCriterion(String, boolean, int)		3/4				0/1
+getCriterionValue(TitoState)				1/1				0/0
 serializeSubClass()							2/2				0/0
 initSubClass(String)						2/2				0/0
 getName(ResourceBundle)						-/-				-/-
+											9/9
 
 SymbolCriterion
 -----------------
@@ -113,11 +118,11 @@ SymbolCriterion(String, boolean)			1/1				0/0
 hasAcceptanceTest(boolean)					1/1				3/3
 setSymbolName(String)						4/4				3/3
 getSymbolName()								1/1				0/0
-getCriterionValue(TitoState)				
+getCriterionValue(TitoState)				3/3				1/1
 serializeSubClass()							2/2				0/0
 initSubClass(String)						2/2				0/0
 getName(ResourceBundle)						-/-				-/-
-
+											15/15
 
 InstructionCriterion
 --------------------
@@ -127,33 +132,45 @@ getAcceptanceTestValue()					2/2				0/0
 setAcceptanceTestValue(String)				5/5				1/1			
 serializeSubClass()							1/1				0/0
 initSubClass(String)						1/1				0/0
+											11/11
 
 RequiredInstructionCriterion
 ----------------------------
 RequiredInstructionCriterion(String, boolean)	1/1				0/0
-passesAcceptanceTest(TitoState,	TitoState)	
+passesAcceptanceTest(TitoState,	TitoState)		3/3				0/0
+												4/4
+
 
 
 ForbiddenInstructionCriterion
 -----------------------------
 ForbiddenInstructionCriterion(String, boolean)	1/1				0/0
-passesAcceptanceTest(TitoState,	TitoState)	
+passesAcceptanceTest(TitoState,	TitoState)		6/6				1/1
+												7/7
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+											7/7
+											4/4
+											11/11
+											15/15
+											9/9
+										    57/62
+											18/18
+											12/12											
+											25/25
+                                            51/54
+											209/217 = 96%
+											
+											
+											
+											
+TitoState											
+											
+											
+											
+											
+											
+											
+											
+											
