@@ -84,6 +84,29 @@ public class TitoStateTest extends TestCase {
 			System.out.println("Failed: " + compileError + runError);			
 		}		
 	}
+	
+	/* Test compiling with invalid code */
+	public void testCompile() {
+		tito = new TitoState();
+		assertNotNull(tito.compile("BLEEH"));
+	}
+	
+	/* Test running with bad code */
+	public void testExecute() {
+		tito = new TitoState();
+		tito.compile("NOP\n");
+		String err = tito.execute("",10000);
+		assertNotNull(err);
+		assertTrue(err.contains("SVC"));
+		
+		tito = new TitoState();
+		tito.compile("NOP\n");
+		err = tito.execute("",10);
+		assertNotNull(err);
+		assertFalse(err.contains("SVC"));
+	}
+	
+	
 
 	
 	
