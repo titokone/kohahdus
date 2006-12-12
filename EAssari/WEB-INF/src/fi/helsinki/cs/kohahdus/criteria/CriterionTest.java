@@ -296,7 +296,7 @@ public class CriterionTest extends TestCase {
 			assertFalse(c.hasAcceptanceTest(true));
 			assertFalse(c.hasAcceptanceTest(false));
 			assertEquals("", c.getAcceptanceTestValue());
-			assertEquals("X", c.getSymbolName());
+			assertEquals("x", c.getSymbolName());
 			
 			// Valid value, Valid symbol,  Model = false
 			c.setAcceptanceTestValue("500");
@@ -305,7 +305,7 @@ public class CriterionTest extends TestCase {
 			assertFalse(c.hasAcceptanceTest(true));
 			assertTrue(c.hasAcceptanceTest(false));
 			assertEquals("500", c.getAcceptanceTestValue());
-			assertEquals("X", c.getSymbolName());
+			assertEquals("x", c.getSymbolName());
 			
 			// Invalid value, Invalid symbol, Model = true
 			c.setAcceptanceTestValue(null);
@@ -332,7 +332,7 @@ public class CriterionTest extends TestCase {
 			assertTrue(c.hasAcceptanceTest(true));
 			assertFalse(c.hasAcceptanceTest(false));
 			assertEquals("", c.getAcceptanceTestValue());
-			assertEquals("X", c.getSymbolName());
+			assertEquals("x", c.getSymbolName());
 			
 			// Valid value, Valid symbol,  Model = true
 			c.setAcceptanceTestValue("500");
@@ -341,7 +341,7 @@ public class CriterionTest extends TestCase {
 			assertTrue(c.hasAcceptanceTest(true));
 			assertTrue(c.hasAcceptanceTest(false));
 			assertEquals("500", c.getAcceptanceTestValue());
-			assertEquals("X", c.getSymbolName());
+			assertEquals("x", c.getSymbolName());
 		}
 	}
 // </Acceptance Value Tests>	

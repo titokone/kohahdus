@@ -28,17 +28,17 @@ public class SymbolCriterion extends VariableCriterion {
 	}	
 	
 	
-	/** Set the symbol name this SymbolCriterion will examine
-	 * @param symbol string containing characters: A-Z, a-z, 0-9, _ */
+	/** Set the symbol name this SymbolCriterion will examine */
 	public void setSymbolName(String symbol) {
-		if ((symbol == null) || ((symbol.matches("\\W")))) { 
+		if (symbol == null) { 
 			symbolName = "";
 		} else {
 			symbolName = symbol.toLowerCase(); // Titokone always returns symbols in lowercase			
 		}		
 	}
 	
-	/** Return the symbol name this SymbolCriterion will examine */
+	/** Return the symbol name this SymbolCriterion will examine. The symbol name is in
+	 * lowercase characters, regardless of what was used in setSymbolName(..). */
 	public String getSymbolName() {
 		return symbolName;
 	}
