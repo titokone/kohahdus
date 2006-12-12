@@ -17,6 +17,13 @@ composer/tehtävän tallennus, mikko 4.12
 3. Tallenna
 4. Esikoodi joka oli piilossa, on tallennut osaksi mallikoodia
 --
+answer_task.jsp, mikko 12.12
+Otin vastaussivulta sen tehtävänanto-textarean reunat kokeeksi pois,
+mielestäni parempi näin mutta sanokaa mielipiteenne... Onhan tuossa
+textarean käytössä se hyvä puoli, että maalaus ja kopionti toimivat
+paremmin kun pelkän pre-blokin kanssa.
+--
+
 
 
 

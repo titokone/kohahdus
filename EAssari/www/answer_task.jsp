@@ -119,7 +119,7 @@ function setDefaultInput(){
 		</tr>
 		<tr>
 			<%--<td><pre><c:out value="${task.description}"/></pre></td>--%>
-			<td><textarea readonly style="width:100%" rows="20"><c:out value="${task.description}"/></textarea></td>
+			<td><textarea readonly style="width:100%; border:0;" rows="20"><c:out value="${task.description}"/></textarea></td>
 		</tr>
 	</table>
 	</td>
