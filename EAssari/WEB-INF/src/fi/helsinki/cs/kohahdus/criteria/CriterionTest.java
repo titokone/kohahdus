@@ -13,6 +13,7 @@ public class CriterionTest extends TestCase {
 	private Set<InstructionCriterion> instructionCriteria;
 	private Set<ScreenOutputCriterion> outputCriteria;
 	private Set<VariableCriterion> variableCriteria;
+	private TitoState tito;
 
 	
 	public CriterionTest(String name) {
@@ -55,6 +56,27 @@ public class CriterionTest extends TestCase {
 		allCriteria.addAll(measuredCriteria);
 		allCriteria.addAll(instructionCriteria);
 		allCriteria.addAll(outputCriteria);
+		
+		tito = new TitoState();
+		tito.compile("X DC 30\n"				
+				+"NOP  R0, R0\n"
+				+"LOAD R0, =1\n"
+				+"OUT  R0, =CRT\n"
+				+"LOAD R0, =2\n"
+				+"OUT  R0, =CRT\n"
+				+"LOAD R0, =3\n"
+				+"OUT  R0, =CRT\n"				
+				+"LOAD R0, =500\n"
+				+"LOAD R1, =500\n"
+				+"LOAD R2, =500\n"
+				+"LOAD R3, =500\n"
+				+"LOAD R4, =500\n"
+				+"LOAD R5, =500\n"
+				+"LOAD R6, =500\n"
+				+"LOAD R7, =500\n"
+					+"SVC SP, =HALT\n"
+		);
+		tito.execute("", 5000);
 	}
 
 	protected void tearDown() throws Exception {
@@ -449,8 +471,113 @@ public class CriterionTest extends TestCase {
 	}
 // </Variable comparison operator>
 	
+
+	
+	
+// <Passing and failing tests>	
+	public void testRegisterCriterionPassesAcceptanceTest() {
+		for (RegisterCriterion c : registerCriteria) {
+			if (c.hasAcceptanceTest(true)) {
+				assertTrue(c.passesAcceptanceTest(tito, tito));
+			} 
+			if (c.hasAcceptanceTest(false)) {
+				c.setAcceptanceTestValue("100");
+				assertFalse(c.passesAcceptanceTest(tito, null));
+
+				c.setAcceptanceTestValue("500");
+				assertTrue(c.passesAcceptanceTest(tito, null));
+			}
+		}		
+	}
+	
+	public void testSymbolCriterionPassesAcceptanceTest() {
+		for (SymbolCriterion c : symbolCriteria) {
+			c.setSymbolName("X");
+			if (c.hasAcceptanceTest(true)) {
+				assertTrue(c.passesAcceptanceTest(tito, tito));
+			} 
+			if (c.hasAcceptanceTest(false)) {
+				c.setAcceptanceTestValue("100");
+				assertFalse(c.passesAcceptanceTest(tito, null));
+
+				c.setAcceptanceTestValue("30");
+				assertTrue(c.passesAcceptanceTest(tito, null));
+			}
+			
+			c.setSymbolName("Y");
+			if (c.hasAcceptanceTest(true)) {
+				assertFalse(c.passesAcceptanceTest(tito, tito));
+			} 
+			if (c.hasAcceptanceTest(false)) {
+				c.setAcceptanceTestValue("100");
+				assertFalse(c.passesAcceptanceTest(tito, null));
+
+				c.setAcceptanceTestValue("30");
+				assertFalse(c.passesAcceptanceTest(tito, null));
+			}
+		}		
+	}
+	
+	public void testRequiredInstructionsCriterionPassesAcceptanceTest() {
+		Criterion c = new RequiredInstructionsCriterion(ID_REQUIRED_INSTRUCTIONS, false);
+		c.setAcceptanceTestValue("NOP");
+		assertTrue(c.passesAcceptanceTest(tito, null));
+		
+		c.setAcceptanceTestValue("");
+		assertTrue(c.passesAcceptanceTest(tito, null));
+
+		c.setAcceptanceTestValue("DIV");
+		assertFalse(c.passesAcceptanceTest(tito, null));	
+	}
+	
+	public void testForbiddenInstructionsCriterionPassesAcceptanceTest() {
+		Criterion c = new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false);
+		c.setAcceptanceTestValue("NOP");
+		assertFalse(c.passesAcceptanceTest(tito, null));
+		
+		c.setAcceptanceTestValue("DIV");
+		assertTrue(c.passesAcceptanceTest(tito, null));
+
+		c.setAcceptanceTestValue("");
+		assertTrue(c.passesAcceptanceTest(tito, null));	
+	}	
+	
+	public void testMeasuredCriterionPassesAcceptanceTest() {
+		for (Criterion c : measuredCriteria) {
+			c.setAcceptanceTestValue("0");
+			assertFalse(c.passesAcceptanceTest(tito, null));
+			
+			c.setAcceptanceTestValue("100");
+			assertTrue(c.passesAcceptanceTest(tito, null));
+		}	
+	}
+	
+	public void testMeasuredCriterionPassesQualityTest() {
+		for (Criterion c : measuredCriteria) {
+			c.setQualityTestValue("0");
+			assertFalse(c.passesQualityTest(tito, null));
+			
+			c.setQualityTestValue("100");
+			assertTrue(c.passesQualityTest(tito, null));
+		}	
+	}
+	
+	public void testScreenOutputCriterionPassesAcceptanceTest() {
+		Criterion c = new ScreenOutputCriterion(ID_PUBLIC_OUTPUT, false);
+		c.setAcceptanceTestValue("3,2,1");
+		assertFalse(c.passesAcceptanceTest(tito, null));
+		
+		c.setAcceptanceTestValue("1,2,3");
+		assertTrue(c.passesAcceptanceTest(tito, null));
+	}	
+	
+	
+	
+	
+	
 	
 	
 		
+// </Passing and failing tests>	
 
 }
