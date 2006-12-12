@@ -60,8 +60,8 @@ public class Answer extends HttpServlet {
 			req.getSession().setAttribute("keyboardInput", keyboardInput);
 			
 			// Forward the request to the answer jsp page
-			res.sendRedirect(req.getContextPath()+"/www/answer_task.jsp?analyzed=true#code");  //&keyboardInput="+keyboardInput+
-					         //"&programCode="+programCode);
+			res.sendRedirect(req.getContextPath()+"/www/answer_task.jsp?analyzed=true#code");
+					    
 		} catch (Exception e){
 			Log.write("Answer: Failed to process student's answer. " +e);
 			Log.write(e);
