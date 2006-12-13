@@ -37,7 +37,7 @@ public class CriterionMap extends HashMap<String,Criterion> {
 	
 	public int getCriterionCount(){
 		int count = this.size();
-		Log.write("getCriterionCount:"+count);
+		//Log.write("getCriterionCount:"+count);
 		return count;
 	}
 	

@@ -79,7 +79,7 @@ create table task (
   author varchar(40),                        /* Name of author - not used currently */
   datecreated date,                          /* date tasktype was definet - currently not used */
   tasktype varchar(40),                      /* the type of the task - this connects the displayer and analyser to the task */
-  taskmetadata varchar(10000),                /* other task specific metadata - xml-format, not used currently  */
+  taskmetadata varchar(4000),                /* other task specific metadata - xml-format, not used currently  */
   numberoftries_def integer,                 /* how many tries are allowed - default value */
   shouldstoreanswer_def char,                /* should the system store the answer (Y/N) - default value */
   shouldregistertry_def char,                /* should the system register the try (Y/N) - default value */
@@ -255,3 +255,6 @@ create table studentmodel (
   foreign key (courseid, moduleid, seqno) references taskinmodule
 );
 
+alter table task modify taskmetadata varchar2(4000);
+
+		
