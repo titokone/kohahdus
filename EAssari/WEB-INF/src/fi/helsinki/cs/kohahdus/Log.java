@@ -8,7 +8,7 @@ public class Log {
 	private static String context = "";
 	
 	public synchronized static void write(String data){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String aika = sdf.format(new Date());
 		System.out.println("[" + aika +"][" + context + "] " + data);		
 	}

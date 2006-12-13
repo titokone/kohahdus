@@ -607,18 +607,20 @@ public class DBHandler {
 	/** Remove task from task database (and thus all courses). This will also remove all stored
 	 * answers of the task. */
 	public boolean removeTask(Task task) throws SQLException {
-		// TODO: Tämä metodi on Mikon vääntämä, Taro saa korjata
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
-/*			st = conn.prepareStatement("delete from storedanswer where taskid=?");
+			// Poistetaan opiskelijoiden vastaukset
+			st = conn.prepareStatement("delete from studentmodel sm, taskinmodule tim " +
+									   "where sm.seqno=tim.seqno and tim.taskid=?");
 			st.setString(1, task.getTaskID());
 			st.executeUpdate();
 			
-			st = conn.prepareStatement("delete from studentmodel where taskid=?");
+			st = conn.prepareStatement("delete from storedanswer sa, taskinmodule tim " +
+									   "where sa.seqno=tim.seqno and tim.taskid=?");
 			st.setString(1, task.getTaskID());
 			st.executeUpdate();
-*/			
+
 			// Seuraava SQL-lause poistaa myös kriteerit
 			removeCriteria(task); 
 			

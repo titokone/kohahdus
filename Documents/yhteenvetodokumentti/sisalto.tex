@@ -1,7 +1,7 @@
 \section{Johdanto}
 Toteutimme Ohjelmistotuotantoprojekti-kurssina konekielisen ohjelmoinnin harjoitusympäristön (TitoTrainer).
 
-Järjestelmä sisältää kaksi puolta, opettajan ja opiskelijan käytttöliittymät. 
+Järjestelmä sisältää kaksi puolta, opettajan ja opiskelijan käyttöliittymät. 
 
 Opettajan on mahdollista luoda konekielisiä tehtäviä ja määritellä niiden tarkastuksessa käytettävät 
 kriteerit. Lisäksi opettaja voi katsoa kurssi- sekä oppilaskohtaisia statistiikkoja.
@@ -30,7 +30,8 @@ Kaikki ryhmän jäsenet osallistuivat ainakin jollain tasolla projektin kaikkiin t
 Projektipäällikkö laati alussa aikataulun, jossa pääosin pysyttiin koko projektin ajan.
 Projektipäällikön ehdotuksesta käyttöön otettiin iteratiivinen prosessimalli, joka osoittautui
 juuri tälle projektille sopivaksi. Projektin alussa ei olisi ollut riittävästi tietoa vesiputousmallin 
-käyttöönottoon. Ensimmäisen iteraation aikana projekti oli tästä aikataulusta noin viikon myöhässä.
+käyttöönottoon. Ensimmäisen iteraation aikana projekti oli tästä aikataulusta noin viikon myöhässä, mikä 
+näkyi siinä, että testaukseen varattu 1,5 viikoa kutistui puoleen viikkoon.
 
 \subsubsection{Vaatimusmäärittely}
 
@@ -45,7 +46,7 @@ Suunnitteluvaihe pääsi alkamaan hieman myöhässä, ja alussa oli vähän vaikeuksia 
 osajärjestelmistä ei ollut kattavaa yleiskuvaa. Ensimmäisen iteraation aikana tutustuimme 
 lähinnä EAssariin ja etenkin sen tietokantarakenteeseen. EAssariin tutustuminen oli hidasta ja sen 
 ymmärtäminen kesti kauan. Lisähaittaa aiheutti se että EAssari ei sisältänytkään sitä mitä oli luvattu 
-ja sen dokumentaatio oli puutteellista.
+ja sen dokumentaatio oli puutteellista. Toisin sanoen EAssari-kehys oli keskeneräinen.
 
 Ensimmäiseksi yritimme miettiä luokkakaavioita, mutta niiden avulla emme päässeet asiassa alkuun.
 Sitten vain päätetiin että tehdään jotain ja aloimme tekemään sekvenssikaavioita järjestelmän 
@@ -59,7 +60,7 @@ Myös suunnitteluun osallistuivat kaikki, mutta suunnitteluvastaavan panos oli ku
 Toteutusvaihe pääsi alkamaan viikon myöhässä aiempien vaiheiden myöhästelyn vuoksi.
 Ensimmäisen toteutusvaiheen hidastavana elementtinä oli alkuun se, että osa ryhmästä joutui opettelemaan JSP:tä
 ja JSTL:ää. Samaten Eclipseen ja CVS:ään tutustuttiin kunnolla vasta toteutuksen alkaessa. Tutustumiseen
-käytetyn ajan vuoksi testausvaihe venyi hieman aikataulustaan. 
+käytetyn ajan vuoksi testausvaiheen aloitus venyi hieman aikataulustaan. 
 
 Tehtävien jaossa pyrimme huomioimaan ryhmäläisten vahvuudet. Osa ryhmäläisistä alkoi tekemään JSP-sivuja ja osa
 sai tehtäväkseen java-luokkia ja yksi alkoi rakentamaan JavaScript- ja käyttöliittymäkomponentteja. Alun hankaluuksien
@@ -80,8 +81,8 @@ Testaussuunnitelma saatiin tehtyä ja toteutusvaiheen yhteydessä suoritettiin kat
 Projektimme sai pitää ansaitun lomaviikon yliopiston taukoviikolla. Toisessa iteraatiossa työkalut
 ja menetelmät olivat jo tuttuja, ja työt käynnistyivät huomattavasti rivakammin. Toisen iteraation
 alussa esiteltiin asiakkaalle projektin sen hetkistä tuotosta, joka jo sisälsi toimivan opettajan
-käyttöliittymän ilman statistiikkoja. Asiakkaan palautteen perusteella tehtiin joitain muutoksia ja
-otettiin muutama uusi vaatimus.
+käyttöliittymän ilman vastattujen tehtävien tilastointia. Asiakkaan palautteen perusteella tehtiin 
+joitain muutoksia ja otettiin muutama uusi vaatimus.
 
 \subsubsection{Vaatimusmäärittely}
 
@@ -94,7 +95,7 @@ Toisessa suunnitteluvaiheessa täydennettiin suunnitteludokumenttia ja pidettiin 
 katselmus. Virallinen katselmus oli aika vaisu tilaisuus, ja totesimme että vaatimusdokumentin 
 epävirallinen katselmus oli tätä virallista parempi. 
 
-Toisen iteraation suunnitteluvaiheessa päätimme hylätä EAssarin, koska se ei toteuttanut tarpeellisia toimintoja.
+Toisen iteraation suunnitteluvaiheessa päätimme hylätä EAssarin (paitsi tietokantaa), koska se ei toteuttanut tarpeellisia toimintoja.
 Tätä ei pidetty mitenkään suurena asiana, mutta asiakkaan kanssa pidettiin kuitenkin kokous aiheesta. Kokouksessa
 päästiin yhteisymmärrykseen asiakkaan ja EAssari-asiantuntijan kanssa siitä, että projektiryhmän valitsema tie on oikea.
 
@@ -104,7 +105,8 @@ Toisen iteraation toteutuksessa olimme jo kokeneempia kuin ensimmäisessä iteraat
 tutuiksi ja kaikilla oli suhteellisen hyvä kuva toteutettavasta järjestelmästä.
 
 Toteutusvaiheessa ei enää kohdattu suurempia ongelmia. Osittain tähän varmasti vaikutti ryhmän aiempi
-päätös jättää EAssari-yhteensopivuus projektin ulkopuolelle. Toteutusvaiheelle on vaikeaa määrittää
+päätös jättää EAssari-yhteensopivuus (paitsi tietokannan kanssa) projektin ulkopuolelle. 
+Toteutusvaiheelle on vaikeaa määrittää
 selkeää lopetuspäivää, koska viilausta voisi jatkaa loputtomiin. Kaikki korkeimman prioriteetin
 vaatimukset saatiin kuitenkin toteutettua aikataulun mukaisesti. Toteutusta jatkettiin vielä
 limittäin testauksen kanssa ja lopulta saatiin lähes kaikki vaatimukset toteutettua. 
@@ -144,12 +146,13 @@ totesimme parhaaksi ratkaisuksi jättää kehys täysin projektin ulkopuolelle. Käyt
 EAssarin tietokantaa sellaisenaan, jotta Titotrainer olisi tulevaisuudessa helposti siirrettävissä
 jatkokehitettyyn EAssari-kehykseen. 
 
-EAssarista puutttuu mm. käyttäjän rekisteröityminen, käyttäjän tietojen muokkaaminen, käyttäjän 
-kirjautuminen, kurssien ja moduulien hallinnointi, tehtävien selaaminen ja suoritustilastojen 
-katsominen. Kaikki listassa mainitut toiminnot kuuluvat mielestämme jokaiseen tämän tyyppiseen
+EAssarista puuttuu mm. käyttäjän rekisteröityminen, käyttäjän tietojen muokkaaminen, käyttäjän 
+kirjautuminen, kurssien ja moduulien hallinnointi, tehtävien selaaminen, suoritustilastojen 
+katsominen ja monikielisyyden hallinta. Kaikki listassa mainitut toiminnot kuuluvat mielestämme 
+jokaiseen tämän tyyppiseen
 valmiiksi kuvattuun kehykseen. Koska toimintoja ei ollut, jouduimme toteuttamaan ne itse. 
 Toteutuksessa ei kuitenkaan otettu huomioon EAssarin teoriassa mahdollistamaa geneerisyyttä, vaan
-toteutetut ominaisuudet ovat täysin titotrainerkohtaisia.
+toteutetut ominaisuudet ovat titotrainerkohtaisia.
 
 \section{Projektityöskentely}
 
@@ -190,7 +193,8 @@ ja tarpeitaan.
 
 Koska projekti luopui EAssari-yhteensopivuuden takaamisesta, niin järjestelmien integroiminen ei ole
 aivan yksinkertaista. Titotrainer ja nykyinen EAssari poikkeavat toiminnaltaan lähes täysin.
-Ainoa yhteinen elementti on EAssarin tietokanta, johon on tehty vain pieniä muutoksia. Titotrainer
+Ainoa yhteinen elementti on EAssarin tietokanta, johon on tehty vain pieniä muutoksia (lisätty sequence 
+ja kasvatetty yhtä kenttää). Titotrainer
 ei kuitenkaan käytä tietokantaa sen mahdollistamassa laajuudessa ja muutamia sen mahdollistamia
 ominaisuuksia on yksinkertaistettu.
 
