@@ -52,7 +52,13 @@ function switchToCriteriaView(){
 function switchToWholeProgramView() {
 	hideElementById('partialProgramDiv1');
 	hideElementById('partialProgramDiv2');
-	document.task_creation_form.example_code.value = document.task_creation_form.partial_code1.value +  document.task_creation_form.example_code.value +  document.task_creation_form.partial_code2.value;
+	if ((document.task_creation_form.partial_code1.value != "") && (document.task_creation_form.partial_code1.value.charAt(document.task_creation_form.partial_code1.value.lenght - 1) != "\n"))
+		document.task_creation_form.partial_code1.value = document.task_creation_form.partial_code1.value + "\n";
+	if ((document.task_creation_form.example_code.value != "") && (document.task_creation_form.example_code.value.charAt(document.task_creation_form.example_code.value.lenght - 1) != "\n"))
+		document.task_creation_form.example_code.value = document.task_creation_form.example_code.value + "\n";
+	document.task_creation_form.example_code.value = document.task_creation_form.partial_code1.value + document.task_creation_form.example_code.value + document.task_creation_form.partial_code2.value;
+    document.task_creation_form.partial_code1.value = "";
+    document.task_creation_form.partial_code2.value = "";
 
 	if(document.task_creation_form.correctness_by[0].checked == true) {
 		hideElementById('exampleTable');
