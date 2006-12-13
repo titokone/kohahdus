@@ -34,6 +34,7 @@ public class TaskMaker {
 	private static final String OUTPUT_VAL = "output_value";
 	private static final String OUTPUT_ACCEPTANCE_FB = "output_acceptance_feedback";
 	private static final String OUTPUT_FAILURE_FB = "output_failure_feedback";
+	private static final String OUTPUT_CHECKED = "output_checked";
 	
 	private static final String ACCEPTANCE_LIMIT = "_acceptance_limit";
 	private static final String QUALITY_LIMIT = "_quality_limit";
@@ -201,6 +202,7 @@ public class TaskMaker {
 		oc.setAcceptanceTestValue(req.getParameter(id + OUTPUT_VAL));
 		oc.setAcceptanceFeedback(req.getParameter(id + OUTPUT_ACCEPTANCE_FB));
 		oc.setFailureFeedback(req.getParameter(id + OUTPUT_FAILURE_FB));
+		oc.setCompareToModel(req.getParameter(id + OUTPUT_CHECKED));
 		
 		criteria.add(oc);
 	}

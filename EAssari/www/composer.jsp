@@ -556,7 +556,8 @@ function addVariable() {
 						<td>Feedback if wrong</td>
 					</tr>
 					<tr>
-						<td><textarea name="<c:out value="${pub.id}"/>output_value" cols="20" rows="4"><c:out value="${pub.acceptanceTestValue}"/></textarea></td>
+						<td><textarea name="<c:out value="${pub.id}"/>output_value" cols="20" rows="4"><c:out value="${pub.acceptanceTestValue}"/></textarea>
+						    <input type="checkbox" name="<c:out value="${pub.id}"/>output_checked" <c:if test="${pub.modelAcceptanceTest}">checked</c:if> /></td>
 						<td><textarea name="<c:out value="${pub.id}"/>output_acceptance_feedback" cols="47" rows="4"><c:out value="${pub.acceptanceFeedback}"/></textarea></td>
 						<td><textarea name="<c:out value="${pub.id}"/>output_failure_feedback" cols="47" rows="4"><c:out value="${pub.failureFeedback}"/></textarea></td>
 					</tr>
@@ -570,7 +571,8 @@ function addVariable() {
 						<td>Feedback if wrong</td>
 					</tr>
 					<tr>
-						<td><textarea name="<c:out value="${sec.id}"/>output_value" cols="20" rows="4"><c:out value="${sec.acceptanceTestValue}"/></textarea></td>
+						<td><textarea name="<c:out value="${sec.id}"/>output_value" cols="20" rows="4"><c:out value="${sec.acceptanceTestValue}"/></textarea>
+						    <input type="checkbox" name="<c:out value="${sec.id}"/>output_checked" <c:if test="${sec.modelAcceptanceTest}">checked</c:if> /></td>
 						<td><textarea name="<c:out value="${sec.id}"/>output_acceptance_feedback" cols="47" rows="4"><c:out value="${sec.acceptanceFeedback}"/></textarea></td>
 						<td><textarea name="<c:out value="${sec.id}"/>output_failure_feedback" cols="47" rows="4"><c:out value="${sec.failureFeedback}"/></textarea></td>
 					</tr>

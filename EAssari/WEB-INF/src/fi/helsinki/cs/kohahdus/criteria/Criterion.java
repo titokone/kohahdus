@@ -258,21 +258,26 @@ public abstract class Criterion {
 		return xml + "</" + tagname + ">";
 	}	
 	
-	/** Deserialize String value from XML string. Helper function for initSubClass() */
+	/** Deserialize String value from XML string. Helper function for initSubClass().
+	 * @return string value or <code>null</code> if tagname was not found */
 	protected static String parseXMLString(String XML, String tagname) {
-		int begin = XML.indexOf("<" + tagname + ">") + tagname.length() + 2;
-		int end   = XML.indexOf("</" + tagname + ">");
-		String value = XML.substring(begin, end);
-		value = value.replaceAll("&gt;", ">");
-		value = value.replaceAll("&lt;", "<");
-		value = value.replaceAll("&amp;", "&");
+		String value = null;		
+		if (XML.indexOf("<" + tagname + ">") != -1) {
+			int begin = XML.indexOf("<" + tagname + ">") + tagname.length() + 2;
+			int end   = XML.indexOf("</" + tagname + ">");
+			value = XML.substring(begin, end);
+			value = value.replaceAll("&gt;", ">");
+			value = value.replaceAll("&lt;", "<");
+			value = value.replaceAll("&amp;", "&");
+		}
 		return value;
 	}
 
-	/** Deserialize boolean value from XML string. Helper function for initSubClass() */
+	/** Deserialize boolean value from XML string. Helper function for initSubClass()
+	 * @return true/false, false if tagname was not found */
 	protected static boolean parseXMLBoolean(String XML, String tagname) {
 		String value = parseXMLString(XML, tagname);
-		return value.charAt(0) == 'T';
+		return (value != null) && (value.charAt(0) == 'T');
 	}
 	
 	/** Deserialize long value from XML string. Helper function for initSubClass()
@@ -281,7 +286,7 @@ public abstract class Criterion {
 		String value = parseXMLString(XML, tagname);
 		try {
 			return Long.parseLong(value);
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			return UNDEFINED;
 		}
 	}	
