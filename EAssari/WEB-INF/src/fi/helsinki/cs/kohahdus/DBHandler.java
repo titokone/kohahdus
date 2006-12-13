@@ -422,14 +422,6 @@ public class DBHandler {
 				task.setTaskID(taskID);
 				task.setName(rs.getString("taskname"));
 				task.setAuthor(rs.getString("author"));
-				// TODO: implement these fields
-				//most of these are needed in composer to fill default values.
-				//task.setFillInPostCode();
-				//task.setFillInPreCode();
-				//task.setFillInTask();
-				//task.setTitoTaskType();
-				//task(rs.getDate("datecreate"));			
-				//task.setTasktype(rs.getString("tasktype"));
 				task.deserializeFromXML(rs.getString("taskmetadata"));
 				task.setNoOfTries(rs.getInt("numberoftries_def"));
 				task.setShouldStore("N".equals(rs.getString("shouldstoreanswer_def")) ? false : true);
@@ -610,18 +602,18 @@ public class DBHandler {
 		Connection conn = getConnection();
 		PreparedStatement st = null;
 		try {
-			// Poistetaan opiskelijoiden vastaukset
-			st = conn.prepareStatement("delete from studentmodel sm, taskinmodule tim " +
-									   "where sm.seqno=tim.seqno and tim.taskid=?");
+			// Delete answers and statistics
+			st = conn.prepareStatement("delete from studentmodel sm where sm.seqno in " +
+									   "(select seqno from taskinmodule tim where tim.taskid=?)");
 			st.setString(1, task.getTaskID());
 			st.executeUpdate();
 			
-			st = conn.prepareStatement("delete from storedanswer sa, taskinmodule tim " +
-									   "where sa.seqno=tim.seqno and tim.taskid=?");
+			st = conn.prepareStatement("delete from storedanswer sa where sa.seqno in " +
+									   "(select seqno from taskinmodule tim where tim.taskid=?)");
 			st.setString(1, task.getTaskID());
 			st.executeUpdate();
 
-			// Seuraava SQL-lause poistaa myös kriteerit
+			// Delete criteria
 			removeCriteria(task); 
 			
 			st = conn.prepareStatement("delete from attributevalues where objecttype=? and objectid=?");
