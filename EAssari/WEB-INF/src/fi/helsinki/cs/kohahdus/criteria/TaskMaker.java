@@ -335,7 +335,7 @@ public class TaskMaker {
 		
 		if (args.length < 3){
 			System.out.println("Failed to create new template tasks.");
-			System.out.println("Usage: java fi.helsinki.cs.kohahdus.criteria.TaskMaker jdbc:oracle:thin:kohahdus/b1tt1@bodbacka.cs.helsinki.fi:1521:test kohahdus b1tt1");
+			System.out.println("Usage: java fi.helsinki.cs.kohahdus.criteria.TaskMaker jdbc:oracle:thin:kohahdus/PASSWORD@bodbacka.cs.helsinki.fi:1521:test kohahdus PASSWORD");
 			return;
 		}
 		

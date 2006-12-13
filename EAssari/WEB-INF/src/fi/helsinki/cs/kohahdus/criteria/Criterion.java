@@ -161,16 +161,7 @@ public abstract class Criterion {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	// TODO: tämä takaisin VariableCriterion luokkaan?
-	public String getComparisonOperator() {
-		return "";
-	}
-	// TODO: tämä takaisin VariableCriterion luokkaan?
-	public void setComparisonOperator(String operator) {
-		
-	}
-	
+
 	
 	/** Return true if this criterion has test for evaluating failure/success
 	 * of the student's answer. Return of false means this criterion should
