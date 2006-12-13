@@ -27,41 +27,44 @@ Kaikki ryhmän jäsenet osallistuivat ainakin jollain tasolla projektin kaikkiin t
 
 \subsection{Ensimmäinen sykli}
 
-\subsubsection{Vaatimusmäärittely}
-
 Projektipäällikkö laati alussa aikataulun, jossa pääosin pysyttiin koko projektin ajan.
 Projektipäällikön ehdotuksesta käyttöön otettiin iteratiivinen prosessimalli, joka osoittautui
 juuri tälle projektille sopivaksi. Projektin alussa ei olisi ollut riittävästi tietoa vesiputousmallin 
-käyttöönottoon. Projekti oli tästä aikataulusta ehkä viikon myöhässä ensimmäisessä iteraatiossa, ja toisessa
-iteraatiossa pysyttiin aikataulussa kokonaisuudessaan.
+käyttöönottoon. Ensimmäisen iteraation aikana projekti oli tästä aikataulusta noin viikon myöhässä.
+
+\subsubsection{Vaatimusmäärittely}
 
 Alussa aikaa kului paljon EAssariin ja Titokoneeseen tutustumiseen.
-Vaatimusmäärittelyyn osallistuivat kaikki, tosin vaatimusvastaava 
-Vaatimusdokumentista pidettiin epävirallinen katselmustilaisuus.
+Vaatimusmäärittelyyn osallistuivat kaikki, tosin vaatimusvastaavalle kertyi reilusti muita 
+enemmän työtunteja. Vaatimusdokumentista pidettiin epävirallinen katselmustilaisuus, joka
+paljasti dokumentista useita virheitä ja puutteita.
 
 \subsubsection{Suunnittelu}
 
 Suunnitteluvaihe pääsi alkamaan hieman myöhässä, ja alussa oli vähän vaikeuksia päästä alkuun, koska 
-osajärjestelmistä ei ollut kattavaa yleiskuvaa. Tutustuimme EAssarin tietokantarakenteeseen.
-EAssariin tutustuminen oli hidasta ja sen ymmärtäminen kesti kauan. Lisähaittaa aiheutti se että EAssari
-ei sisältänytkään sitä mitä oli luvattu ja sen dokumentaatio oli puutteellista.
+osajärjestelmistä ei ollut kattavaa yleiskuvaa. Ensimmäisen iteraation aikana tutustuimme 
+lähinnä EAssariin ja etenkin sen tietokantarakenteeseen. EAssariin tutustuminen oli hidasta ja sen 
+ymmärtäminen kesti kauan. Lisähaittaa aiheutti se että EAssari ei sisältänytkään sitä mitä oli luvattu 
+ja sen dokumentaatio oli puutteellista.
 
-Ensimmäiseksi yritettiin miettiä luokkakaavioita, mutta niiden avulla emme päässeet asiassa alkuun.
+Ensimmäiseksi yritimme miettiä luokkakaavioita, mutta niiden avulla emme päässeet asiassa alkuun.
 Sitten vain päätetiin että tehdään jotain ja aloimme tekemään sekvenssikaavioita järjestelmän 
-toiminnoista. 
+toiminnoista. Sekvenssikaaviot osoittautuivat hyödyllisiksi ja niiden avulla saatiin suhteellisen
+kattava kuva järjestelmän toiminnasta. 
 
 Myös suunnitteluun osallistuivat kaikki, mutta suunnitteluvastaavan panos oli kuitenkin ratkaiseva.
-Suunnitteluvastaava 
+ 
 
 \subsubsection{Toteutus}
-Toteutusvaihe pääsi alkamaan viikon 
+Toteutusvaihe pääsi alkamaan viikon myöhässä aiempien vaiheiden myöhästelyn vuoksi.
 Ensimmäisen toteutusvaiheen hidastavana elementtinä oli alkuun se, että osa ryhmästä joutui opettelemaan JSP:tä
-ja JSTL:ää. Samaten Eclipseen ja CVS:ään tutustuttiin kunnolla vasta toteutuksen alkaessa.
+ja JSTL:ää. Samaten Eclipseen ja CVS:ään tutustuttiin kunnolla vasta toteutuksen alkaessa. Tutustumiseen
+käytetyn ajan vuoksi testausvaihe venyi hieman aikataulustaan. 
 
 Tehtävien jaossa pyrimme huomioimaan ryhmäläisten vahvuudet. Osa ryhmäläisistä alkoi tekemään JSP-sivuja ja osa
 sai tehtäväkseen java-luokkia ja yksi alkoi rakentamaan JavaScript- ja käyttöliittymäkomponentteja. Alun hankaluuksien
-ja hitaahkon käynnistymisen jälkeen päästiin kuitenkin vauhtiin, ja ryhmä onnistui tuottamaan tehokkaasti ohjelmakoodia.
-
+ja hitaahkon käynnistymisen jälkeen päästiin kuitenkin vauhtiin, ja ryhmä onnistui tuottamaan ohjelmakoodia tehokkaasti.
+  
 
 \subsubsection{Testaus}
 Ensimmäisessä iteraatiossa testaus jäi aikataulun sanelemana aika vähiin. Toteutusvaihe venyi yli osuutensa aikataulusta,
@@ -153,7 +156,7 @@ toteutetut ominaisuudet ovat täysin titotrainerkohtaisia.
 
 \subsection{Ryhmän henki}
 Ryhmän henki ja ilmapiiri oli erinomainen. Ryhmäläiset tukivat toisiaan, ja apua sai aina kun sitä
-tarvitsi. Ryhmässä oli vahvaa koodiosaamista.
+tarvitsi. 
 
 \subsection{Käytetyt työkalut}
 
@@ -185,8 +188,11 @@ ja tarpeitaan.
 
 \section{Kehittämisnäkymiä}
 
-Jos tulevaisuudessa EAssarista tehtäisiin toimiva alusta erilaisille järjestelmille, Titotrainerin voisi
-liittää kohtuullisella vaivalla siihen.
+Koska projekti luopui EAssari-yhteensopivuuden takaamisesta, niin järjestelmien integroiminen ei ole
+aivan yksinkertaista. Titotrainer ja nykyinen EAssari poikkeavat toiminnaltaan lähes täysin.
+Ainoa yhteinen elementti on EAssarin tietokanta, johon on tehty vain pieniä muutoksia. Titotrainer
+ei kuitenkaan käytä tietokantaa sen mahdollistamassa laajuudessa ja muutamia sen mahdollistamia
+ominaisuuksia on yksinkertaistettu.
 
 Tulevaisuudessa järjestelmään voisi liittää dynaamisen tehtävätyypin. Dynaaminen tehtävä on sellainen
 jolle luodaan arvot vasta käynnistyshetkellä.
