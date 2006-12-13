@@ -50,7 +50,7 @@
 <br>
 
 <script language="javascript">
-	setTimeout("location.replace('teacherTaskList.jsp')", 3000);
+	setTimeout("location.replace('teacherTaskList.jsp')", 1500);
 </script>
 
 <%--
