@@ -118,8 +118,6 @@ public class TaskMaker {
 		
 		
 		//Add values that are equal to all task types to the task
-		//User user = (User) req.getSession().getAttribute("user"); <- Tehdään save_task.jsp sivulla
-		//task.setAuthor(user.getFirstName()+" "+user.getLastName());
 		task.setName(req.getParameter(TASK_NAME));
 		task.setLanguage(req.getParameter(LANGUAGE));
 		task.setCategory(req.getParameter(CATEGORY));
@@ -151,17 +149,7 @@ public class TaskMaker {
 			task.setValidateByModel(true);
 		} else {
 			task.setValidateByModel(false);
-		}
-		
-		//TODO:
-		//task.setTaskID(); <- tehdään save_task.jsp sivulla?
-		
-		/*
-		Log.write("Task created with following criteria:");
-		for (Criterion c : criteria) {
-			Log.write(c.serializeToXML());
-		}
-		*/
+		}		
 	}
 	
 	/** Returns the fully initialized Task */

@@ -157,7 +157,7 @@ public class TitoAnalyzer {
 			String cname="", cfeedback="";
 			Boolean csuccess=true;
 			
-			//get the name TODO: done?
+			//get the name
 			cname=c.getName(LanguageManager.getTextResource(task.getLanguage() ,"criterion"));
 			//cname="TESTINIMI";
 			
