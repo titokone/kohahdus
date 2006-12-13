@@ -1,0 +1,373 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>TTK-91 ohje</title>
+    <link rel="stylesheet" content="text/css" href="ttk91_ref.css"/>
+</head>
+<body>
+
+<h1>YHTEENVETO TTK-91 KÄSKYKANNASTA</h1>
+<i>This document is also available in <a href="ttk91_ref_en.html">english</a></i>
+
+<p>Symbolisessa konekielessä käskyt esitetään muodossa:</p>
+
+<pre>
+VIITE  OPER Rj,M ADDR(Ri)
+
+missä  OPER    käskyn symbolinen nimi
+       Rj      ensimmäinen operandi (rekisteri R0..R7)
+       M       osoitusmoodi:
+               =   välitön operandi
+                   suora osoitus (tyhjä, ei siis merkitä)
+               @   epäsuora osoitus
+       ADDR    osoiteosa (muistiosoite tai välitön operandi)
+       Ri      mahdollinen indeksirekisteri (rekisteri R0..R7)
+</pre>
+
+<p>Jos jollakin käskyn osalla ei ole merkitystä, sen voi jättää merkitsemättä.
+Käskyn eteen voi laittaa viitteeksi symbolisen osoitteen, jonka tulee sisältää
+vähintään yksi muu kuin numeromerkki. Kelvollisia merkkejä ovat A-Ö, 0-9 ja _.
+Vain 8 ensimmäistä merkkiä huomioidaan.</p>
+
+Lähes kaikille käskyille on käytettävissä seuraavat muodot:
+<pre>
+  OPER Rj,ADDR        suora muistiosoitus
+  OPER Rj,Ri          suora rekisteriosoitus
+  OPER Rj,=ADDR       välitön operandi 
+  OPER Rj,@ADDR       epäsuora muistiosoitus
+  OPER Rj,@Ri         epäsuora muistiosoitus
+  OPER Rj,ADDR(Ri)    indeksoitu osoitus
+  OPER Rj,=ADDR(Ri)   indeksoitu välitön operandi
+  OPER Rj,@ADDR(Ri)   indeksoitu epäsuora muistiosoitus
+</pre>
+<p>Poikkeuksia:</p>
+<table>
+<tr><td class="term">STORE</td>
+<td>jälkimmäinen operandi on aina kohdeosoite, ei voi olla rekisteri, tai vakio</td></tr>
+<tr><td class="term">POP</td>
+<td>jälkimmäisen operandin tulee aina olla rekisteri</td></tr>
+<tr><td class="term">PUSHR</td>
+<td>jälkimmäisellä operandilla ei merkitystä</td></tr>
+<tr><td class="term">POPR</td>
+<td>jälkimmäisellä operandilla ei merkitystä</td></tr>
+<tr><td class="term">NOT</td>
+<td>jälkimmäisellä operandilla ei merkitystä</td></tr>
+<tr><td class="term">NOP</td>
+<td>operandeilla ei merkitystä</td></tr>
+<tr><td class="term">Haaraumat</td>
+<td>jälkimmäinen operandi on aina kohdeosoite, ei voi olla vakio. Tilarekisteriä tutkivissa käskyissä on ensimmäinen operandi merkityksetön</td></tr>
+</table>
+
+
+
+
+
+
+
+
+
+<h2>TTK-91 symbolisen konekielen käskyt</h2>
+
+<h3>Tiedonsiirtokäskyt</h3>
+<table>
+<tr><td class="term">LOAD</td>
+<td>vie jälkimmäisen operandin arvon rekisterin Rj arvoksi.
+<tr><td class="term">STORE</td>
+<td>talleta rekisterissä Rj oleva  kokonaisluku jälkimmäisen operandin arvoksi.
+<tr><td class="term">IN</td>
+<td>lukee jälkimmäisenä operandina kerrotulta laitteelta kokonaisluvun rekisteriin Rj (esim näppäimistöltä lukeminen: IN R1, =KBD)
+<tr><td class="term">OUT</td>
+<td>tulostaa rekisterissä Rj olevan kokonaisluvun jälkimmäisenä operandina kerrotulle laitteelle (esim näytölle kirjoitus: OUT R1, =CRT)
+</table>
+
+
+<h3>Aritmeettiset ja loogiset käskyt</h3>
+<table>
+<tr><td class="term">ADD</td>
+<td>(add) lisää rekisterissä Rj olevaan lukuun jälkimmäisen operandin arvon.</td></tr>
+<tr><td class="term">SUB</td>
+<td>(subtract) vähennä rekisterissä Rj olevasta luvusta jälkimmäisen operandin arvon.</td></tr>
+<tr><td class="term">MUL</td>
+<td>(multiply) kerro rekisterissä Rj oleva luku jälkimmäisen operandin arvolla.</td></tr>
+<tr><td class="term">DIV</td>
+<td>(divide) jaa rekisterissä Rj oleva luku jälkimmäisen operandin arvolla ja vie tulos rekisteriin Rj.</td></tr>
+<tr><td class="term">MOD</td>
+<td>(modulo) jaa rekisterissä Rj oleva luku jälkimmäisen operandin arvolla ja vie jakojäännös rekisteriin Rj.</td></tr>
+
+<tr><td class="term">AND</td>
+<td>(boolean AND) looginen JA-operaatio.</td></tr>
+<tr><td class="term">OR</td>
+<td>(boolean OR) looginen TAI-operaatio.</td></tr>
+<tr><td class="term">XOR</td>
+<td>(boolean XOR) looginen poissulkeva TAI-operaatio.</td></tr>
+<tr><td class="term">NOT</td>
+<td>(boolean NOT) kääntää kaikki rekisterin Rj bitit.</td></tr>
+<tr><td class="term">SHL</td>
+<td>(shift left) siirrä rekisterin Rj bittejä vasemmalle toisen operandin ilmoittama määrä. Täytä oikeaa päätä 0-biteillä.</td></tr>
+<tr><td class="term">SHR</td>
+<td>(shift right) kuten SHL, mutta siirrä oikealle.</td></tr>
+<tr><td class="term">SHRA</td>
+<td>(arithmetic shift right) aritmeettinen siirto oikealle, säilyttää etumerkin.</td></tr>
+<tr><td class="term">COMP</td>
+<td>(compare) vertaa ensimmäisen operandin arvoa toisen operandin arvoon ja aseta vertailun tulos tilarekisterin bitteihin SR L=pienempi, E=yhtäsuuri, G=suurempi.</td></tr>
+</table>
+
+
+<h3>Haarautumiskäskyt</h3>
+<table>
+<tr><td class="term">JUMP</td>
+<td>(unconditional jump) ehdoton hyppy toisen operandin ilmaisemaan kohdeosoitteeseen.</td></tr>
+</table>
+<table>
+<tr><td class="term">JNEG</td>
+<td>(jump if negative) jos Rj < 0, niin hyppää jälkimmäisenä operandina olevaan osoitteeseen, muuten jatka seuraavasta käskystä.</td></tr>
+<tr><td class="term">JZER</td>
+<td>(jump if zero)         jos Rj = 0</td></tr>
+<tr><td class="term">JPOS</td>
+<td>(jump if positive)     jos Rj > 0</td></tr>
+<tr><td class="term">JNNEG</td>
+<td>(jump if not negative) jos Rj >= 0</td></tr>
+<tr><td class="term">JNZER</td>
+<td>(jump if not zero)     jos Rj &lt;&gt; 0</td></tr>
+<tr><td class="term">JNPOS</td>
+<td>(jump if not positive) jos Rj &lt;= 0</td></tr>
+</table>
+<table>
+<tr><td class="term">JLES</td>
+<td>(jump if less) jos tilarekisterin SR bitti L asetettu, niin hyppää jälkimmäisenä operandina olevaan osoitteeseen, muuten jatkaa seuraavasta käskystä (käyttö COMP-käskyn yhteydessä).</td></tr>
+<tr><td class="term">JEQU</td>
+<td>(jump if equal)         jos bitti E asetettu</td></tr>
+<tr><td class="term">JGRE</td>
+<td>(jump if greater)       jos bitti G asetettu</td></tr>
+<tr><td class="term">JNLES</td>
+<td>(jump if not less)      jos bitti E tai G asetettu</td></tr>
+<tr><td class="term">JNEQU</td>
+<td>(jump if not equal)     jos bitti L tai G asetettu</td></tr>
+<tr><td class="term">JNGRE</td>
+<td>(jump if not greater)   jos bitti L tai E asetettu</td></tr>
+</table>
+
+
+<h3>Pinokäskyt</h3>
+<p class="indent">Käskyn ensimmäinen operandi rekisteri Rj osoittaa pinon
+huipulle pinon päällimmäiseen alkioon. Pino-osoittimena käytetään tavallisesti
+rekisteriä SP (eli R6).</p>
+<table>
+<tr><td class="term">PUSH</td>
+<td>kasvattaa pino-osoittimen Rj arvoa yhdellä ja tallentaa jälkimmäisen operandin pinon päällimmäiseksi alkioksi.</td></tr>
+<tr><td class="term">POP</td>
+<td>poistaa pinosta päällimmäinen alkion ja vie sen jälkimmäisenä operandina kerrottuun rekisteriin (HUOM: aina rekisteri). Vähentää pino-osoittimen Rj arvoa yhdellä.</td></tr>
+<tr><td class="term">PUSHR</td>
+<td>tallentaa rekisterit R0, R1, R2, R3, R4, R5 ja R6 (SP) pinoon, tässä järjestyksessä. Pino-osoittimen Rj arvo kasvaa seitsemällä.</td></tr>
+<tr><td class="term">POPR</td>
+<td>asettaa rekisterit R6 (SP), R5, R4, R3, R2, R1 ja R0 pinosta löytyvillä arvoilla, tässä järjestyksessä. Pino-osoittimen Rj arvo vähenee seisemällä.</td></tr>
+</table>
+
+
+<h3>Aliohjelmakäskyt</h3>
+<table>
+<tr><td class="term">CALL</td>
+<td>(call procedure) aliohjelmakutsu, eli kontrollin siirto toisen operandin ilmoittamaan osoitteeseen. Tallettaa paluuosoitteen ja frame-pointterin (FP eli R7) pinoon, jonka huipulle osoittaa Rj.</td></tr>
+<tr><td class="term">EXIT</td>
+<td>palaa aliohjelmasta kutsua seuraavaan käskyyn. Hakee pinosta (Rj) frame-pointterin ja paluuosoitteen. Jälkimmäisenä operandina pinossa välitettyjen parametrien lukumäärä (myös nämä poistetaan pinosta).</td></tr>
+</table>
+
+
+<h3>Systeemikutsut</h3>
+<table>
+<tr><td class="term">SVC</td>
+<td>(supervisor call) käyttöjärjestelmän palvelurutiinin kutsu. Ensimmäisenä operandina pinon huippu Rj ja toisena operandina palvelun numero. Alla palvelunumerot:
+        <table>
+        <tr><td class="term">HALT</td>
+        <td>Lopettaa ohjelman suorituksen.</td></tr>
+        <tr><td class="term">TIME</td>
+        <td>Antaa kellonajan. Pinossa välitettävä osoitteet, jonne halutaan tunnit, minuutit, sekunnit (HUOM: järjestys!).</td></tr>
+        <tr><td class="term">DATE</td>
+        <td>Antaa päiväyksen. Pinossa välitettävä osoitteet, jonne halutaan vuosi, kuukausi ja päivä. (HUOM: järjestys!).</td></tr>
+        <tr><td class="term">READ</td>
+        <td>Lukee kokonaisluvun. Pinossa välitettävä osoite, jonne luku halutaan luettavan.</td></tr>
+        <tr><td class="term">WRITE</td>
+        <td>Kirjoittaa kokonaisluvun. Pinossa välitettävä tulostettava arvo.</td></tr>
+        </table>
+</td></tr>
+</table>
+
+
+<h3>Muut käskyt</h3>
+<table>
+<tr><td class="term">NOP</td>
+<td>(no operation) ei toimintoa, operandeilla ei merkitystä</td></tr>
+</table>
+
+<h2>Kääntäjän ohjauskäskyt (valekäskyt)</h2>
+<p>Kääntäjän ohjauskäskyt antavat ohjeita symbolisen konekielen kääntäjälle.
+Ne EIVÄT ole varsinaisia symbolisen konekielen käskyjä.</p>
+
+<p>tunnus <b>EQU</b> arvo</p>
+<p class="indent">Samaistuskäsky EQU määrittelee symboliselle tunnukselle
+kokonaislukuarvon. Tunnusta voi käyttää käskyn ADDR-kentässä, jolloin se
+käsitellään kuten vastaavaan paikkaan kirjoitettu numeroarvo.</p>
+
+<p>tunnus <b>DC</b> arvo</p>
+<p class="indent">Muistinvarauskäsky DC (data constant) varaa yhden muistisanan
+vakiota varten, samaistaa varatun muistipaikan osoitteen ja symbolisen
+osoitteen "tunnus" sekä asettaa varatun muistipaikan sisällöksi luvun "arvo".
+Tunnusta voi käyttää käskyn ADDR-kentässä kuten muistiosoitetta.</p>
+
+<p>tunnus <b>DS</b> koko</p>
+<p class="indent">Muistinvarauskäsky DS (data segment) varaa muistialueen,
+jonka koko on "koko" (sanoina) ja samaistaa varatun muistialueen alkuosoitteen
+ja symbolisen osoitteen "tunnus". Käytetään globaalien muuttujien tilanvaraukseen.
+Tunnusta voi käyttää käskyn ADDR-kentässä kuten muistiosoitetta.</p>
+
+
+
+
+
+<h2>Osoitusmoodit</h2>
+<h3>Välitön operandi</h3>
+<p>Operandin arvo voidaan määritellä itse käskyssä, sen sijaan että määriteltäisiin
+muistiosoite tai rekisteri josta arvo noudetaan. Välitön operandi on 16-bittinen
+etumerkillinen kokonaisluku, joten tuettu arvoalue on -32768...32767.</p>
+Esim:<pre>
+1) LOAD R1, =100        Vie rekisteriin R1 arvon 100.</pre>
+
+<h3>Suora osoitus</h3>
+<p>Suorassa osoituksessä määritellään operandin sisältävä 
+muistipaikka tai rekisteri.</p>
+Esim:<pre>
+2) LOAD R1, 100         Vie rekisteriin R1 muistipaikan 100 sisällön.
+3) LOAD R1, R2          Vie rekisteriin RI rekisterin R2 sisällön.</pre>
+
+<h3>Epäsuora osoitus</h3>
+<p>Epäsuorassa osoituksessa määritellään operandin sisältävän muistipaikan
+osoite.</p>
+Esim:<pre>
+4) LOAD R1, @R2         Vie rekisteriin R1 muistipaikan sisällön, jonka
+                        osoite saadaan rekisteristä R2.
+5) LOAD R1, @100        Vie rekisteriin R1 muistipaikan sisällön, jonka
+                        osoite saadaan muistipaikasta 100.
+</pre>
+
+<h3>Indeksoitu osoitus</h3>
+<p>Indeksoidusssa osoituksessa lasketaan ensin yhteen vakio ja määritellyn
+rekisterin arvo. Tämän jälkeen suoritetaan välitön, suora tai epäsuora
+operandihaku.</p>
+Esim:<pre>
+6) LOAD R1, =100(R2)    Vie rekisteriin R1 rekisterin R2 ja vakion 100
+                        summan.
+7) LOAD R1, 100(R2)     Vie rekisteriin R1 muistipaikan sisällön, jonka
+                        osoite on vakion 100 ja rekisterin R2 summa.
+8) LOAD R1, @100(R2)    Vie rekisteriin R1 muistipaikan sisällön, jonka
+                        osoite löytyy muistipaikastasta 100+R2.
+</pre>
+
+<h3>Osoitus laitetasolla</h3>
+<p>Vaikka yllä on esitelty kahdeksan erilaista osoitustapaa, todellisuudessa
+TTK-91 käskykannassa on vain kolme osoitusmoodia. Toinen operandi sisältää
+aina sekä vakio-osan, että indeksirekisterin. Symbolisen konekielen
+kääntäjä sallii näiden poisjättämisen koodista, koska ne lisätään
+käännösvaiheessa automaattisesti. Esim:</p>
+
+<pre>
+"LOAD R1, =10"  ==  "LOAD R1, =10(R0)"
+"LOAD R1, R2"   ==  "LOAD R1, =0(R2)"
+"LOAD R1, @R2"  ==  "LOAD R1, 0(R2)"
+"LOAD R1, @10"  ==  "LOAD R1, @10(R0)"
+"LOAD R1, 10"   ==  "LOAD R1, 10(R0)"
+</pre>
+
+<p>Edellisissä esimerkeissä on syytä huomioida rekisterin R0 käyttö.
+Kun rekisteriä R0 käytetään indeksirekisterinä, sen arvo on aina
+nolla. R0:lle voi asettaa nollasta poikkeavan arvon ja siihen voi
+kohdistaa ALU- ja muita operaatiota, mutta käytettäessä osana toista
+operandia sen arvoksi katsotaan aina nolla. Tämä tarkoittaa mm. että
+rekisterin R0 arvoa ei voi suoraan kopioda toiseen rekisteriin LOAD
+käskyllä. Ominaisuuden voi ohittaa kierrättämällä arvo muistin kautta:
+
+<pre>
+a) LOAD R3, R0          Vie rekisteriin R3 arvon 0, riippumatta R0:n arvosta
+
+b) STORE R0, X          Tallentaa rekisterin R0 arvon muistipaikkaan X
+   LOAD R3, X           Vie muistipaikan X sisällön rekisteriin R3
+</pre>
+
+
+
+
+
+<h2>Käskysanan binääriesitys</h2>
+<pre>
+      8 bittiä       3b    2b    3b              16 bittiä
+ +----------------+------+----+------+--------------------------------+
+ | Operaatiokoodi |  Rj  | M  |  Ri  |   osoite / välitön operandi    |
+ +----------------+------+----+------+--------------------------------+
+  31            24 23              16 15                            00
+</pre>
+
+<h3>Operaatiokoodit</h3>
+<pre>   Käsky     Koodi    Desimaali  Heksadesim.
+
+   NOP       0000 0000     0        00
+
+   STORE     0000 0001     1        01
+   LOAD      0000 0010     2        02
+   IN        0000 0011     3        03
+   OUT       0000 0100     4        04
+
+   ADD       0001 0001    17        11
+   SUB       0001 0010    18        12
+   MUL       0001 0011    19        13
+   DIV       0001 0100    20        14
+   MOD       0001 0101    21        15
+
+   AND       0001 0110    22        16
+   OR        0001 0111    23        17
+   XOR       0001 1000    24        18
+   SHL       0001 1001    25        19
+   SHR       0001 1010    26        1A
+   NOT       0001 1011    27        1B
+   SHRA      0001 1100    28        1C
+
+   COMP      0001 1111    31        1F
+
+   JUMP      0010 0000    32        20
+   JNEG      0010 0001    33        21
+   JZER      0010 0010    34        22
+   JPOS      0010 0011    35        23
+   JNNEG     0010 0100    36        24
+   JNZER     0010 0101    37        25
+   JNPOS     0010 0110    38        26
+
+   JLES      0010 0111    39        27
+   JEQU      0010 1000    40        28
+   JGRE      0010 1001    41        29
+   JNLES     0010 1010    42        2A
+   JNEQU     0010 1011    43        2B
+   JNGRE     0010 1100    44        2C
+
+   CALL      0011 0001    49        31
+   EXIT      0011 0010    50        32
+   PUSH      0011 0011    51        33
+   POP       0011 0100    52        34
+   PUSHR     0011 0101    53        35
+   POPR      0011 0110    54        36
+
+   SVC       0111 0000   112        70
+</pre>
+
+<h3>Osoitusmoodit</h3>
+<pre> Binary  Dec   Osoitusmoodi
+
+   00     0    indeksoitu suora
+   01     1    indeksoitu välitön
+   10     2    indeksoitu epäsuora
+</pre>
+
+
+
+
+
+
+</body>
+</html>

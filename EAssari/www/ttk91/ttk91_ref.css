@@ -1,0 +1,48 @@
+body {
+	margin-bottom: 20ex;
+}
+p {
+	width: 35em;
+}
+p.indent {
+	padding-left: 2ex;
+}
+.term {
+	padding-left: 2ex;
+	width: 5em;
+	float: left;
+	font-weight: bold;
+	margin-bottom: 0.5ex;
+	font-size: smaller;
+}
+td {
+	margin-bottom: 0.5ex;
+	width: 30em;
+	vertical-align: top;
+}
+td .term {
+	padding-left: 0;
+}
+h2 {
+	margin-top: 5ex;
+	padding-top: 0.6ex;
+	padding-bottom: 0.6ex;
+	border-top: double;
+	border-bottom: double;
+	width: 600px;
+	font-size: 14pt;
+	text-align: center;
+}
+h1 {
+	padding-top: 0.5ex;
+	padding-bottom: 0.5ex;
+	border-top: double;
+	border-bottom: double;
+	width: 600px;
+	font-size: 17pt;
+	text-align: center;
+}
+
+table {
+	margin-bottom: 1ex;
+}
