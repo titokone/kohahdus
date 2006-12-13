@@ -274,21 +274,6 @@ public class Task {
 	public String getTitoTaskType() {
 		return taskType;
 	}
-	//sama metodi periaatteessa, mitä halutaan?
-	//markus huom: nyt löytyy metodit getTaskType() ja getTasktype(), joista jälkimmäinen
-	//periytyy eAssarista (löytyy tuolta alempaa). EAssarin metodi palauttaa tyypin, jolla
-	//yhdistetään Displayer ja Analyzer komponentit Taskiin. Ehkä olisi parasta nimetä oma
-	//metodi uudelleen s.e. sitä ei voida sekoittaa eAssarin vastaavaan. 
-	//Vaihdoin oman metodin nimeksi get/setTitoTaskType.
-	//Allaoleva metodi on turha ja voidaan poistaa nyt kun tyyppi löytyy y.o. metodilla.
-	/** Return tasktype as a String (fill-in or programming) */
-	/* deleted permanently ?
-	public String getTaskTypeString() {
-		if (taskType==TYPE_FULL) return "programming";
-		if (taskType==TYPE_FILL) return "fill-in";
-		return "not specified";
-	}
-	*/
 	
 	/** Return the code that is prepended before student's code in a fill-in task */
 	public String getFillInPreCode() {
