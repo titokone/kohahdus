@@ -344,6 +344,13 @@ public class TaskMaker {
 	
 	
 	public static void main(String args[]) throws SQLException {
+		
+		if (args.length < 3){
+			System.out.println("Failed to create new template tasks.");
+			System.out.println("Usage: java fi.helsinki.cs.kohahdus.criteria.TaskMaker jdbc:oracle:thin:kohahdus/b1tt1@bodbacka.cs.helsinki.fi:1521:test kohahdus b1tt1");
+			return;
+		}
+		
 		// Suomenkieliset kriteerit:
 		for (int i=0; i<8; i++) {
 			fiCriteria.add(createRegisterCriterion_FI_pub(i));
@@ -417,7 +424,7 @@ public class TaskMaker {
 		
 		
 		// Viedään tietokantaan:
-		DBHandler.initialize("jdbc:oracle:thin:@bodbacka.cs.helsinki.fi:1521:test", "kohahdus", "b1tt1");
+		DBHandler.initialize(args[0], args[1], args[2]);
 		DBHandler handler=DBHandler.getInstance();
 		handler.removeTask(et);
 		handler.removeTask(ft);

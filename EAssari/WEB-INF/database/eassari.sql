@@ -257,4 +257,7 @@ create table studentmodel (
 
 alter table task modify taskmetadata varchar2(4000);
 
+insert into eauser (userid, password, lastname, firstname, status, extid2) values ('admin', 'admin', 'admin', 'admin', 'teacher', '210564-321E');
+
+
 		
