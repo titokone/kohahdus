@@ -111,12 +111,12 @@ function sortTasksByTries(tasks, asc) {
 		var j = i;
 		
 		if(asc) {	// ascending order
-			while (j > 0 && tasks[j-1].tries > temp.tries) {
+			while (j > 0 && Number(tasks[j-1].tries) > Number(temp.tries)) {
 				tasks[j] = tasks[j-1]; 
 				--j;
 			}
 		} else {	// descending order
-			while (j > 0 && tasks[j-1].tries < temp.tries) {
+			while (j > 0 && Number(tasks[j-1].tries) < Number(temp.tries)) {
 				tasks[j] = tasks[j-1]; 
 				--j;
 			}
