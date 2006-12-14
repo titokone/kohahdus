@@ -7,6 +7,11 @@ import javax.servlet.http.*;
 import fi.helsinki.cs.kohahdus.languages.LanguageManager;
 
 
+/**
+*
+* @author Taro Morimoto 
+*/
+
 public final class TitoInitializer implements Filter {
 
     private FilterConfig filterConfig = null;

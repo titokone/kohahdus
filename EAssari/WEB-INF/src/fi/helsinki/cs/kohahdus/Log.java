@@ -3,6 +3,10 @@ package fi.helsinki.cs.kohahdus;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+*
+* @author Taro Morimoto 
+*/
 
 public class Log {
 	private static String context = "";

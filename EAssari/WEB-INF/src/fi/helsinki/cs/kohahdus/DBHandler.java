@@ -19,12 +19,13 @@ import fi.helsinki.cs.kohahdus.trainer.TitoFeedback;
 import fi.helsinki.cs.kohahdus.trainer.User;
 
 
-/** Singleton class used for database interactions. Each public method of DBHandler class
+/** 
+ * Singleton class used for database interactions. Each public method of DBHandler class
  * encapsulates one database transaction, and thus may cause multiple inserts/updates/removes
  * with one call. The atomicity of the operations is quaranteed by using the transaction model
  * provided by the SQL standard.
  *
- * @author 
+ * @author Taro Morimoto
  */
 
 public class DBHandler {

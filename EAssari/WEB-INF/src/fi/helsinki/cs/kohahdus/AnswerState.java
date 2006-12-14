@@ -3,6 +3,12 @@ package fi.helsinki.cs.kohahdus;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
+
+/**
+*
+* @author Taro Morimoto 
+*/
+
 public class AnswerState implements Comparable{
 	
 	private int lastTryNumber = 0;

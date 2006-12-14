@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+*
+* @author Taro Morimoto 
+*/
+
 public class StudentAnswers {
 	private String firstname;
 	private String lastname;

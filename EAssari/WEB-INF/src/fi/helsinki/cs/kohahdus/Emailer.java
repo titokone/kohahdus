@@ -6,7 +6,8 @@ import org.apache.commons.mail.SimpleEmail;
 
 
 /**
-* 
+*
+* @author Taro Morimoto 
 */
 public class Emailer {
 	private static String hostName = "localhost";
