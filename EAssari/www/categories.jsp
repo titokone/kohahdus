@@ -43,7 +43,7 @@
 	<% } %>
 </c:if>
 <%
-	List<String> categories = DBHandler.getInstance().getCategories();
+	List categories = DBHandler.getInstance().getCategories();
 	if (categories != null) pageContext.setAttribute("categories", categories);
 %>
 

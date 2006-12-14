@@ -46,7 +46,7 @@ function initTaskList() {
 		String courseID = (String) session.getAttribute("course");
 		User u = (User) session.getAttribute("user");
 		
-		List<Task> tasks = DBHandler.getInstance().getTasks();
+		List tasks = DBHandler.getInstance().getTasks();
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 		
 		StudentAnswers answers = DBHandler.getInstance().getStudentAnswers(u.getUserID(), courseID);

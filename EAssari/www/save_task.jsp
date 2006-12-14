@@ -27,6 +27,8 @@
 
 <h2>Task saved</h2>
 
+Redirecting...
+
 <%
 	TaskMaker tm = new TaskMaker(request);
 	User user = (User)session.getAttribute("user");

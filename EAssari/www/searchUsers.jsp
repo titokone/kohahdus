@@ -34,7 +34,7 @@
 <c:if test="${param.action=='search'}">
 
 	<%
-		List<User> users = DBHandler.getInstance().getUsers(request.getParameter("query"));
+		List users = DBHandler.getInstance().getUsers(request.getParameter("query"));
 		if (users != null) pageContext.setAttribute("users", users);		
 	%>
 	

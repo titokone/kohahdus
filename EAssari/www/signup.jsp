@@ -282,7 +282,7 @@
 			<td>Course</td>
 				
 			<%	
-				List<Course> courses = DBHandler.getInstance().getCourses();
+				List courses = DBHandler.getInstance().getCourses();
 				pageContext.setAttribute("courses", courses);				
 			%>
 				

@@ -769,9 +769,9 @@ public class DBHandler {
 			ResultSet rs = st.getResultSet();
 			while (rs.next()){
 				Criterion c = Criterion.deserializeFromXML(rs.getString("attributevalue"));
-				criteria.put(c.getId(), c);
+				criteria.getMap().put(c.getId(), c);
 			} 
-			Log.write("DBHandler: Fetched " +criteria.size() + " criteria with task="+task.getName()+ ", taskid="+task.getTaskID());
+			Log.write("DBHandler: Fetched " +criteria.getMap().size() + " criteria with task="+task.getName()+ ", taskid="+task.getTaskID());
 			rs.close();
 			
 		} catch (SQLException e){

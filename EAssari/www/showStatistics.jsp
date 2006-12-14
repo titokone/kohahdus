@@ -38,9 +38,9 @@ function rotateText(){
 <% 	
 	String courseID = request.getParameter("courseID");
 	String courseName = DBHandler.getInstance().getCourseName(courseID);		
-	LinkedList<StudentAnswers> students = DBHandler.getInstance().getAllStudentAnswers(courseID);		
+	LinkedList students = DBHandler.getInstance().getAllStudentAnswers(courseID);		
 	if (students != null) pageContext.setAttribute("students", students);
-	LinkedList<String> taskNames = DBHandler.getInstance().getAnsweredTaskNames(courseID);		
+	LinkedList taskNames = DBHandler.getInstance().getAnsweredTaskNames(courseID);		
 	if (taskNames != null) pageContext.setAttribute("taskNames", taskNames);	
 %>
 

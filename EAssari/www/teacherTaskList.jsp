@@ -4,9 +4,6 @@
 <%@ page import="fi.helsinki.cs.kohahdus.*" %>
 <%@ page import="fi.helsinki.cs.kohahdus.trainer.*" %>
 
-<%--
-	TODO: poista ID kentät listauksista
---%>
 
 <c:if test="${empty user}">
 	Not logged in - redirecting to login
@@ -37,10 +34,11 @@
 		String s = request.getParameter("new_course");
 						
 		//Check whether the given course already exists
-		List<Course> courses = DBHandler.getInstance().getCourses();
+		List courses = DBHandler.getInstance().getCourses();
 		
 		boolean ok = true;
-		for (Course c : courses) {
+		for (int i=0; i<courses.size(); i++) {
+			Course c = (Course)courses.get(i);
 			if (c.getName().equals(s)) {
 				ok = false;
 				break;
@@ -91,7 +89,7 @@ function initCourses() {
 	var courseCounter = 0;
 	
 	<%  // get courses from DB
-		List<Course> DBcourses = DBHandler.getInstance().getCourses();	
+		List DBcourses = DBHandler.getInstance().getCourses();	
 		if (DBcourses != null) pageContext.setAttribute("courses", DBcourses);		
 	%>
 	<c:if test="${empty courses}">
@@ -171,7 +169,7 @@ function initTasks() {
 	var taskCounter = 0;
 	
 	<%	//Get tasks from DB
-		List<Task> tasks = DBHandler.getInstance().getTasks();	
+		List tasks = DBHandler.getInstance().getTasks();	
 		if (tasks != null) pageContext.setAttribute("tasks", tasks);
 	%>
 	<c:if test="${empty tasks}">

@@ -22,6 +22,8 @@
 	    // Get all criteria from the database
 		criteriaStatus = DBHandler.getInstance().getCriteriaMap(task);
 		if (!criteriaStatus.isEmpty()) {
+			// Criterion map is done in two parts because if you overload a class, 
+			// then in JSTL all the normal getters are disabled and the hashmap is used instead.
 			pageContext.setAttribute("criteria", criteriaStatus.getMap());
 			pageContext.setAttribute("criteriaStatus", criteriaStatus);
 		}

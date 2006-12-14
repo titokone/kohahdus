@@ -362,10 +362,10 @@ function setDefaultInput(){
 			<%
 				//Mapping symbol name strings to integer addresses
 				HashMap symbolMap = titostate.getSymbolTable();
-				Set keys = symbolMap.keySet();
-				
-				for (Object key : keys) {
-					int mem = (Integer)symbolMap.get(key);
+				Iterator keys = symbolMap.keySet().iterator();
+				while (keys.hasNext()) {
+					Object key = keys.next();
+					int mem = ((Integer)symbolMap.get(key)).intValue();
 			%>	
 					<tr>
 						<td><%=(String)key%></td>
