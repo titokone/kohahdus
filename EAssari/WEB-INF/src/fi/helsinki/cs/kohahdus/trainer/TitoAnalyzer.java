@@ -235,7 +235,7 @@ public class TitoAnalyzer {
 		int len=word.length();
 		
 		for (int i=0; i<programCode.length(); ++i) {
-			if ((i+len) < (programCode.length()) ) { //checks there's enough space for word
+			if ((i+len+1) < (programCode.length()) ) { //checks there's enough space for word
 				
 				if ( programCode.charAt(i)==' ' || programCode.charAt(i)=='\t' ) { //Check if it has space
 					//Lets find the word
