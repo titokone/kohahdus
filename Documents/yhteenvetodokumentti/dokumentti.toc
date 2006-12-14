@@ -1,0 +1,23 @@
+\select@language {finnish}
+\contentsline {section}{\numberline {1}Johdanto}{1}
+\contentsline {section}{\numberline {2}Projektin kulku}{1}
+\contentsline {subsection}{\numberline {2.1}Ensimm\"ainen sykli}{1}
+\contentsline {subsubsection}{\numberline {2.1.1}Vaatimusm\"a\"arittely}{1}
+\contentsline {subsubsection}{\numberline {2.1.2}Suunnittelu}{2}
+\contentsline {subsubsection}{\numberline {2.1.3}Toteutus}{2}
+\contentsline {subsubsection}{\numberline {2.1.4}Testaus}{2}
+\contentsline {subsection}{\numberline {2.2}Toinen sykli}{2}
+\contentsline {subsubsection}{\numberline {2.2.1}Vaatimusm\"a\"arittely}{3}
+\contentsline {subsubsection}{\numberline {2.2.2}Suunnittelu}{3}
+\contentsline {subsubsection}{\numberline {2.2.3}Toteutus}{3}
+\contentsline {subsubsection}{\numberline {2.2.4}Testaus}{4}
+\contentsline {section}{\numberline {3}Suhteet muihin osaj\"arjestelmiin}{4}
+\contentsline {subsection}{\numberline {3.1}Titokone}{4}
+\contentsline {subsection}{\numberline {3.2}EAssari-kehys}{5}
+\contentsline {section}{\numberline {4}Projektity\"oskentely}{5}
+\contentsline {subsection}{\numberline {4.1}Ryhm\"an henki}{5}
+\contentsline {subsection}{\numberline {4.2}K\"aytetyt ty\"okalut}{5}
+\contentsline {subsection}{\numberline {4.3}Ohjaaja}{6}
+\contentsline {subsection}{\numberline {4.4}Asiakkaat}{6}
+\contentsline {section}{\numberline {5}Kehitt\"amisn\"akymi\"a}{6}
+\contentsline {section}{\numberline {6}Loppusanat}{6}
