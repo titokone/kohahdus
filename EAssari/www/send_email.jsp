@@ -32,12 +32,10 @@
 		User user = DBHandler.getInstance().getUser(request.getParameter("userID"));
 		if (user == null){
 			out.println("Username doesn't exist.");
-		} else if (user.getEmail().indexOf("cs.helsinki.fi") > -1){
+		} else {
 			user.setPassword(Emailer.sendNewPasswordEmail(user.getEmail()));
 			DBHandler.getInstance().updateUser(user);
-			out.println("Your new password has been sent to your email.");
-		} else {
-			out.println("Email can only be sent to cs.helsinki.fi addresses. Please contact your teacher.");
+			out.println("Your new password has been sent to your email. If you do not receive the password email, please contact your teacher.");
 		}
 	%>
 	</p>
