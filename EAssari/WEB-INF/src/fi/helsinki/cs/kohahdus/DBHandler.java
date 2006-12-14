@@ -106,8 +106,9 @@ public class DBHandler {
 	 * @throws SQLException
 	 */
 	protected Connection getConnection () throws SQLException {
-		printConnectionStats();
-		return ds.getConnection();
+		Connection conn = ds.getConnection();
+		Log.write("DBHandler: Got connection " + ds.getNumActive()+"/" + ds.getNumIdle()+ " (active/idle)");
+		return conn;
 	}	
 
 	/** Return all courses */
