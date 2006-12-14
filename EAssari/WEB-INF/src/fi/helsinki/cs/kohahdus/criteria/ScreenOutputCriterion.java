@@ -2,6 +2,9 @@ package fi.helsinki.cs.kohahdus.criteria;
 
 import java.util.ResourceBundle;
 
+/** Concrete criterion class for screen output
+* @author Mikko Kinnunen 
+*/  
 public class ScreenOutputCriterion extends Criterion {
 	private String expectedOutput = "";
 	private boolean compareToModel = false;

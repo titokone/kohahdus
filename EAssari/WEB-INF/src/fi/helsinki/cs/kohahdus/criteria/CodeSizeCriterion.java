@@ -2,7 +2,9 @@ package fi.helsinki.cs.kohahdus.criteria;
 
 import java.util.ResourceBundle;
 
-/** Concrete criterion class for code size */  
+/** Concrete criterion class for code size
+ * @author Mikko Kinnunen
+ */  
 public class CodeSizeCriterion extends MeasuredCriterion {
 	
 	/** Empty constructor for deserialization */

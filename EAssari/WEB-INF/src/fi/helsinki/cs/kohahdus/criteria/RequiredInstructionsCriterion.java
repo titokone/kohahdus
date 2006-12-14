@@ -2,7 +2,9 @@ package fi.helsinki.cs.kohahdus.criteria;
 
 import java.util.Set;
 
-/** Concrete criterion class for required opcodes */
+/** Concrete criterion class for required opcodes
+ * @author Mikko Kinnunen 
+ */  
 public class RequiredInstructionsCriterion extends InstructionCriterion {
 
 	/** Empty constructor for deserialization */

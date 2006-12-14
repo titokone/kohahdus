@@ -6,7 +6,9 @@ import java.util.Set;
 import java.util.HashSet;
 
 
-/** Base class for banned and required opcode criteria */
+/** Base class for banned and required opcode criteria
+ * @author Mikko Kinnunen 
+ */  
 public abstract class InstructionCriterion extends Criterion {
 	protected Set<String> opcodes = new HashSet<String>();
 	

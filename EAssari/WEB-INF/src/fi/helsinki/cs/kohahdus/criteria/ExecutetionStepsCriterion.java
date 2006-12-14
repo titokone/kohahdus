@@ -2,7 +2,9 @@ package fi.helsinki.cs.kohahdus.criteria;
 
 /** Concrete criterion class for program execution steps. This measures the
  * number of _executed_ instructions, whereas CodeSizeCriterion measures
- * the size of program code. */
+ * the size of program code.
+ * @author Mikko Kinnunen 
+ */  
 public class ExecutetionStepsCriterion extends MeasuredCriterion {
 
 	/** Empty constructor for deserialization */

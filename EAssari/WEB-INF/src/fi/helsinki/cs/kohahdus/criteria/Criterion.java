@@ -24,7 +24,8 @@ import java.util.ResourceBundle;
  * <li> However, Criterion object deserialized from the database are
  *      not subject to validation, they are assumed to be always valid.
  * </ul>   
- */
+ * @author Mikko Kinnunen 
+ */  
 public abstract class Criterion {
 	public static final String ID_PUBLIC_REGISTER_PREFIX = "PUBREG";
 	public static final String ID_SECRET_REGISTER_PREFIX = "SECREG";

@@ -4,10 +4,8 @@ import java.util.ResourceBundle;
 
 /** Base class for criteria that measure runtime or compile time values of the student's answer.
  * These can be used as pass-fail criteria and/or as quality evaluators.
- * @author mkinnune
- *
- */
-
+ * @author Mikko Kinnunen 
+ */  
 public abstract class MeasuredCriterion extends Criterion {
 	protected long passingLimit = UNDEFINED;
 	protected long qualityLimit = UNDEFINED;

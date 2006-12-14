@@ -2,7 +2,9 @@ package fi.helsinki.cs.kohahdus.criteria;
 
 /** Concrete criterion class for program memory references. This measures the total
  * number of memory references, which includes the references caused by instruction
- * fetches. To measure data-references only, use DataReferenceCriterion. */
+ * fetches. To measure data-references only, use DataReferenceCriterion.
+ * @author Mikko Kinnunen 
+ */  
 public class MemReferencesCriterion extends MeasuredCriterion {
 
 	/** Empty constructor for deserialization */

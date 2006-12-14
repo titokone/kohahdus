@@ -4,7 +4,9 @@ import static fi.helsinki.cs.kohahdus.criteria.Criterion.*;
 import junit.framework.TestCase;
 import java.util.*;
 
-/** JUnit test class that tests all criterion types */
+/** JUnit test class that tests all criterion types 
+ * @author Mikko Kinnunen 
+ */  
 public class CriterionTest extends TestCase {
 	private Set<Criterion> allCriteria;
 	private Set<RegisterCriterion> registerCriteria;

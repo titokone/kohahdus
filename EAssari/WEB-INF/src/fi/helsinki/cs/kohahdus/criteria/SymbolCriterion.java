@@ -3,7 +3,9 @@ package fi.helsinki.cs.kohahdus.criteria;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-/** Concrete criterion class for symbol values */  
+/** Concrete criterion class for symbol values
+ * @author Mikko Kinnunen 
+ */  
 public class SymbolCriterion extends VariableCriterion {
 	private String symbolName = "";
 	

@@ -3,7 +3,9 @@ package fi.helsinki.cs.kohahdus.criteria;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-/** Concrete criterion class for banned opcodes */
+/** Concrete criterion class for banned opcodes
+ * @author Mikko Kinnunen 
+ */  
 public class ForbiddenInstructionsCriterion extends InstructionCriterion {
 
 	/** Empty constructor for deserialization */

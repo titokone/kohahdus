@@ -3,7 +3,9 @@ package fi.helsinki.cs.kohahdus.criteria;
 import java.util.ResourceBundle;
 import static fi.hu.cs.ttk91.TTK91Cpu.*;
 
-/** Concrete criterion class for register values */  
+/** Concrete criterion class for register values
+ * @author Mikko Kinnunen 
+ */  
 public class RegisterCriterion extends VariableCriterion {
 	private int registerNumber;
 	

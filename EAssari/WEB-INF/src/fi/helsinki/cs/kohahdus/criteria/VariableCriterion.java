@@ -1,6 +1,8 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
-/** Base class for criteria that examine register or symbol variables */
+/** Base class for criteria that examine register or symbol variables
+ * @author Mikko Kinnunen 
+ */  
 public abstract class VariableCriterion extends Criterion {
 	private static final int COMPARE_EQ = 0;
 	private static final int COMPARE_NE = 1;

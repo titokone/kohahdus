@@ -1,6 +1,8 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
-/** Concrete criterion class for program code size */
+/** Concrete criterion class for program code size
+ * @author Mikko Kinnunen 
+ */  
 public class DataAreaSizeCriterion extends MeasuredCriterion {
 	
 	/** Empty constructor for deserialization */

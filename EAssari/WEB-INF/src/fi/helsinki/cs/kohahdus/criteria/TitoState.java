@@ -19,8 +19,8 @@ import fi.hu.cs.ttk91.TTK91Exception;
 import fi.hu.cs.ttk91.TTK91RuntimeException;
 
 /** Capsulates the end-state of single run of TitoKone.
- *  
- * Tämä luokka toteutetaan toisessa iteraatiossa */
+ * @author Mikko Kinnunen 
+ */  
 public class TitoState {
 	private Control controller = new Control(new File("/dev/null"), new File("/dev/tty"));
 	private Application app;

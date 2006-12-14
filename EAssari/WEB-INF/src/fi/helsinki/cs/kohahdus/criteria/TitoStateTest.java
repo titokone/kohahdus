@@ -7,6 +7,9 @@ import java.util.Set;
 import junit.framework.TestCase;
 import static fi.hu.cs.ttk91.TTK91Cpu.*;
 
+/** TitoState JUnit test cases
+* @author Mikko Kinnunen 
+*/  
 public class TitoStateTest extends TestCase {
 	private TitoState tito;
 	

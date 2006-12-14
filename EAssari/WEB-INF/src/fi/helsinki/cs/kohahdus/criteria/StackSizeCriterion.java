@@ -1,6 +1,8 @@
 package fi.helsinki.cs.kohahdus.criteria;
 
-/** Concrete criterion class for maximum stack size */
+/** Concrete criterion class for maximum stack size
+ * @author Mikko Kinnunen 
+ */  
 public class StackSizeCriterion extends MeasuredCriterion {
 
 	/** Empty constructor for deserialization */
