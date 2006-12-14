@@ -14,14 +14,7 @@ import fi.helsinki.cs.kohahdus.criteria.*;
 
 
 /**Test class for TitoAnalyzer */
-//Tuloksia:
-//- ForbiddenInstructions kriteerin tarkistus ei toimi oikein.
-//- ScreenOutputCriterion ei toimi oikein, titostaten getScreenOutput()
-//- palauttaa 2:lla tulostuksella muotoa
-//4
-//, -8
-//olevan Stringin, oikein?
-//
+//to run TitoAnalyzer test one must change the criterion name from TitoAnalyzer to "testinimi"
 public class TitoAnalyzerTest extends TestCase {
 	Task task1, task2;
 	LinkedList<Criterion> criteria1, criteria2;
@@ -65,24 +58,24 @@ public class TitoAnalyzerTest extends TestCase {
 		RegisterCriterion r1=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 12, false, 1);
 		r1.setAcceptanceTestValue("4");
 		r1.setAcceptanceFeedback("Rekisteri 1 on oikein.");
-		r1.setFailureFeedback("R1 vituiks.");
+		r1.setFailureFeedback("R1 v‰‰rin.");
 		criteria1.add(r1);
 		RegisterCriterion r0=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 123, false, 0);
 		r0.setAcceptanceTestValue("3");
 		r0.setAcceptanceFeedback("Rekisteri 0 on oikein.");
-		r0.setFailureFeedback("R0 vituiks.");
+		r0.setFailureFeedback("R0 v‰‰rin.");
 		criteria1.add(r0);
 		//symbols
 		SymbolCriterion s1=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 36, false);
 		s1.setAcceptanceFeedback("Symboli X on oikein.");
-		s1.setFailureFeedback("Symboli X vituillaan.");
+		s1.setFailureFeedback("Symboli X v‰‰rin.");
 		s1.setSymbolName("x");
 		s1.setAcceptanceTestValue("3");
 		SymbolCriterion s2=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 78, false);
 		s2.setSymbolName("y");
 		s2.setAcceptanceTestValue("2");
 		s2.setAcceptanceFeedback("Symboli Y on oikein.");
-		s2.setFailureFeedback("Symboli Y vituillaan.");
+		s2.setFailureFeedback("Symboli Y v‰‰rin.");
 		criteria1.add(s1);
 		criteria1.add(s2);
 		//instructions
@@ -90,10 +83,10 @@ public class TitoAnalyzerTest extends TestCase {
 		InstructionCriterion i2=new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false);
 		i1.setAcceptanceTestValue("STORE, ADD, SUB, DIV");
 		i1.setAcceptanceFeedback("Vaaditut k‰skyt t‰ytetty.");
-		i1.setFailureFeedback("Vaaditut k‰skyt vituillaan.");
+		i1.setFailureFeedback("Vaaditut k‰skyt v‰‰rin.");
 		i2.setAcceptanceTestValue("");
 		i2.setAcceptanceFeedback("Kielletyt k‰skyt t‰ytetty.");
-		i2.setFailureFeedback("Kielletyt k‰skyt vituillaan.");
+		i2.setFailureFeedback("Kielletyt k‰skyt v‰‰rin.");
 		criteria1.add(i1);
 		criteria1.add(i2);
 		
@@ -165,24 +158,24 @@ public class TitoAnalyzerTest extends TestCase {
 		//registers
 		RegisterCriterion r2=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 12, false, 1);
 		r2.setAcceptanceFeedback("Rekisteri 1 on oikein.");
-		r2.setFailureFeedback("R1 vituiks.");
+		r2.setFailureFeedback("R1 v‰‰rin.");
 		r2.setCompareToModel("true");
 		criteria2.add(r2);
 		RegisterCriterion r3=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 123, false, 0);
 		r3.setAcceptanceFeedback("Rekisteri 0 on oikein.");
-		r3.setFailureFeedback("R0 vituiks.");
+		r3.setFailureFeedback("R0 v‰‰rin.");
 		r3.setCompareToModel("true");
 		criteria2.add(r3);
 		//symbols
 		SymbolCriterion s3=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 36, false);
 		s3.setAcceptanceFeedback("Symboli X on oikein.");
-		s3.setFailureFeedback("Symboli X vituillaan.");
+		s3.setFailureFeedback("Symboli X v‰‰rin.");
 		s3.setSymbolName("x");
 		s3.setCompareToModel("true");
 		SymbolCriterion s4=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 78, false);
 		s4.setSymbolName("y");
 		s4.setAcceptanceFeedback("Symboli Y on oikein.");
-		s4.setFailureFeedback("Symboli Y vituillaan.");
+		s4.setFailureFeedback("Symboli Y v‰‰rin.");
 		s4.setCompareToModel("true");
 		criteria2.add(s3);
 		criteria2.add(s4);
@@ -191,10 +184,10 @@ public class TitoAnalyzerTest extends TestCase {
 		InstructionCriterion i4=new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false);
 		i3.setAcceptanceTestValue("STORE, ADD, SUB, DIV");
 		i3.setAcceptanceFeedback("Vaaditut k‰skyt t‰ytetty.");
-		i3.setFailureFeedback("Vaaditut k‰skyt vituillaan.");
+		i3.setFailureFeedback("Vaaditut k‰skyt v‰‰rin.");
 		i4.setAcceptanceTestValue("");
 		i4.setAcceptanceFeedback("Kielletyt k‰skyt t‰ytetty.");
-		i4.setFailureFeedback("Kielletyt k‰skyt vituillaan.");
+		i4.setFailureFeedback("Kielletyt k‰skyt v‰‰rin.");
 		criteria2.add(i3);
 		criteria2.add(i4);
 		
@@ -266,8 +259,8 @@ public class TitoAnalyzerTest extends TestCase {
 		out2.setAcceptanceTestValue("12,4");
 		out1.setAcceptanceFeedback("julkisella syˆtteell‰ l‰pi");
 		out2.setAcceptanceFeedback("salaisella syˆtteell‰ l‰pi");
-		out1.setFailureFeedback("julkisella syˆtteell‰ vituiks");
-		out2.setFailureFeedback("salaisella syˆtteell‰ vituiks");
+		out1.setFailureFeedback("julkisella syˆtteell‰ v‰‰rin");
+		out2.setFailureFeedback("salaisella syˆtteell‰ v‰‰rin");
 		criteria1.add(out1);
 		criteria1.add(out2);
 		input1="1,-4"; //no sense changing
@@ -387,24 +380,24 @@ public class TitoAnalyzerTest extends TestCase {
 		RegisterCriterion r1=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 12, false, 1);
 		r1.setAcceptanceTestValue("4");
 		r1.setAcceptanceFeedback("Rekisteri 1 on oikein.");
-		r1.setFailureFeedback("R1 vituiks.");
+		r1.setFailureFeedback("R1 v‰‰rin.");
 		criteria1.add(r1);
 		RegisterCriterion r0=new RegisterCriterion(ID_PUBLIC_REGISTER_PREFIX + 123, false, 0);
 		r0.setAcceptanceTestValue("3");
 		r0.setAcceptanceFeedback("Rekisteri 0 on oikein.");
-		r0.setFailureFeedback("R0 vituiks.");
+		r0.setFailureFeedback("R0 v‰‰rin.");
 		criteria1.add(r0);
 		//symbols
 		SymbolCriterion s1=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 36, false);
 		s1.setAcceptanceFeedback("Symboli X on oikein.");
-		s1.setFailureFeedback("Symboli X vituillaan.");
+		s1.setFailureFeedback("Symboli X v‰‰rin.");
 		s1.setSymbolName("x");
 		s1.setAcceptanceTestValue("3");
 		SymbolCriterion s2=new SymbolCriterion(ID_PUBLIC_SYMBOL_PREFIX + 78, false);
 		s2.setSymbolName("y");
 		s2.setAcceptanceTestValue("2");
 		s2.setAcceptanceFeedback("Symboli Y on oikein.");
-		s2.setFailureFeedback("Symboli Y vituillaan.");
+		s2.setFailureFeedback("Symboli Y v‰‰rin.");
 		criteria1.add(s1);
 		criteria1.add(s2);
 		//instructions
@@ -412,10 +405,10 @@ public class TitoAnalyzerTest extends TestCase {
 		InstructionCriterion i2=new ForbiddenInstructionsCriterion(ID_FORBIDDEN_INSTRUCTIONS, false);
 		i1.setAcceptanceTestValue("STORE, ADD, SUB, DIV");
 		i1.setAcceptanceFeedback("Vaaditut k‰skyt t‰ytetty.");
-		i1.setFailureFeedback("Vaaditut k‰skyt vituillaan.");
+		i1.setFailureFeedback("Vaaditut k‰skyt v‰‰rin.");
 		i2.setAcceptanceTestValue("");
 		i2.setAcceptanceFeedback("Kielletyt k‰skyt t‰ytetty.");
-		i2.setFailureFeedback("Kielletyt k‰skyt vituillaan.");
+		i2.setFailureFeedback("Kielletyt k‰skyt v‰‰rin.");
 		criteria1.add(i1);
 		criteria1.add(i2);
 		

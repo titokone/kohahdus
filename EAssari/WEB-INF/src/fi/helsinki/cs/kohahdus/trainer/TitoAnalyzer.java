@@ -8,11 +8,10 @@ import fi.helsinki.cs.kohahdus.languages.LanguageManager;
 /**
  * 
  * Author Ninja
- * http://www.ebaumsworld.com/2006/06/jeopardy.html
+ * 
  */
 
-//VALMIS MUUTEN, paitsi criterion luokan getName tarvitsee ResourceBundlen
-//jota ei anneta analyzerille miss‰‰n.
+
 /** Class for running TitoKone and analyzing student's answer. */
 public class TitoAnalyzer {
 	private TitoState state;
