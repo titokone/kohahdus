@@ -16,25 +16,24 @@
 <%	
 	//Get task from DB
 	Task task = DBHandler.getInstance().getTask(request.getParameter("task_id"));	
+	CriterionMap criteriaStatus;
 	if (task != null) {
 		pageContext.setAttribute("task", task);
-		
 	    // Get all criteria from the database
-		CriterionMap criteria = DBHandler.getInstance().getCriteriaMap(task);
-		if (!criteria.isEmpty()) {
-			//Log.write("Setting criteria:" +criteria.getCriterionCount());
-			pageContext.setAttribute("criteria", criteria);
-			pageContext.setAttribute("symbolCriterionCount", criteria.getSymbolCriterionCount());
+		criteriaStatus = DBHandler.getInstance().getCriteriaMap(task);
+		if (!criteriaStatus.isEmpty()) {
+			pageContext.setAttribute("criteria", criteriaStatus.getMap());
+			pageContext.setAttribute("criteriaStatus", criteriaStatus);
 		}
 	} 
-	List<String> categories = DBHandler.getInstance().getCategories();
+	List categories = DBHandler.getInstance().getCategories();
 	if (categories != null) pageContext.setAttribute("categories", categories);
 	
 	String templateName = task.getLanguage() + "_TEMPLATE";
 	// Get template criteria from the database
 	CriterionMap templateCrit = DBHandler.getInstance().getCriteriaMap(DBHandler.getInstance().getTask(templateName));
 	if (!templateCrit.isEmpty()) {
-		pageContext.setAttribute("templateCrit", templateCrit);
+		pageContext.setAttribute("templateCrit", templateCrit.getMap());
 	}
 %>
 
@@ -62,7 +61,7 @@
 <script language="javascript" type="text/javascript" src="js/composerInitSubmit.js"></script>
 <script language="javascript">
 
-var variableCounter = <c:out value="${symbolCriterionCount}"/>;
+var variableCounter = <c:out value="${criteriaStatus.symbolCriterionCount}"/>;
 
 <c:set var="pi" value='PUBSYM${0}'/>
 <c:set var="si" value='SECSYM${0}'/>
@@ -403,7 +402,7 @@ function addVariable() {
 									<td><p>Feedback if correct</p></td>
 									<td><p>Feedback if wrong</p></td>
 								</tr>
-								<c:forEach begin="0" end="${symbolCriterionCount-1}" step="1" var="i">
+								<c:forEach begin="0" end="${criteriaStatus.symbolCriterionCount-1}" step="1" var="i">
 									<c:set var="pubIndex" value='PUBSYM${i}'/>
 									<c:set var="secIndex" value='SECSYM${i}'/>
 									<c:set var="pub" value="${criteria[pubIndex]}"/>
