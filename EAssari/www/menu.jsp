@@ -20,8 +20,8 @@
 				<table>
 					<tr>
 						<td><span style="font-family:impact; font-size:30px">TitoTrainer</span></a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/studentTaskList.jsp"><%=menu.getString("taskList")%></a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/modify_user.jsp"><%=menu.getString("modify")%></a></td>
+						<td><a href="studentTaskList.jsp"><%=menu.getString("taskList")%></a></td>
+						<td><a href="modify_user.jsp"><%=menu.getString("modify")%></a></td>
 					</tr>
 				</table>
 			</td>
@@ -30,7 +30,7 @@
 					<tr>
 						<td><%=menu.getString("courseText")%>: <c:out value="${courseName}"/></td>
 						<td><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> (<%=menu.getString("studentText")%>)</td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/login.jsp?userAction=logout"><%=menu.getString("logout")%></a></td>
+						<td><a href="login.jsp?userAction=logout"><%=menu.getString("logout")%></a></td>
 					</tr>
 				</table>
 			</td>
@@ -40,11 +40,11 @@
 				<table>
 					<tr>
 						<td><span style="font-family:impact; font-size:30px">TitoTrainer</span></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/composer.jsp?task_id=EN_TEMPLATE&save_type=new">New task (English)</a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/composer.jsp?task_id=FI_TEMPLATE&save_type=new">New task (Finnish)</a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/teacherTaskList.jsp">Task list</a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/searchUsers.jsp">Search users</a></td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/modify_user.jsp">Modify own account</a></td>
+						<td><a href="composer.jsp?task_id=EN_TEMPLATE&save_type=new">New task (English)</a></td>
+						<td><a href="composer.jsp?task_id=FI_TEMPLATE&save_type=new">New task (Finnish)</a></td>
+						<td><a href="teacherTaskList.jsp">Task list</a></td>
+						<td><a href="searchUsers.jsp">Search users</a></td>
+						<td><a href="modify_user.jsp">Modify own account</a></td>
 					</tr>
 				</table>
 			</td>
@@ -52,7 +52,7 @@
 				<table>
 					<tr>
 						<td><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/> (<c:out value="${user.status}"/>)</td>
-						<td><a href="<c:out value="${pageContext.request.contextPath}"/>/www/login.jsp?role=teacher&userAction=logout">Logout</a></td>
+						<td><a href="login.jsp?role=teacher&userAction=logout">Logout</a></td>
 					</tr>
 				</table>
 			</td>
