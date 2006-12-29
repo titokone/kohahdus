@@ -4,6 +4,17 @@
 <%@ page import="java.util.*" %>
 
 
+<%
+	// Use this because the sessionid is otherwise stored with /titotrainer -path 
+	// and cannot be used from a proxied URI
+	if (session.isNew()){
+		Cookie cookie = new Cookie("JSESSIONID", session.getId());
+	    cookie.setPath("/");
+	    response.addCookie(cookie);			
+	}
+%>
+
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
