@@ -1,14 +1,18 @@
 package fi.helsinki.cs.kohahdus;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fi.helsinki.cs.kohahdus.criteria.*;
-import fi.helsinki.cs.kohahdus.trainer.*;
+import fi.helsinki.cs.kohahdus.criteria.Criterion;
+import fi.helsinki.cs.kohahdus.criteria.CriterionMap;
+import fi.helsinki.cs.kohahdus.trainer.Task;
+import fi.helsinki.cs.kohahdus.trainer.TitoAnalyzer;
+import fi.helsinki.cs.kohahdus.trainer.TitoFeedback;
+import fi.helsinki.cs.kohahdus.trainer.User;
 
 
 /**
@@ -27,7 +31,6 @@ public class Answer extends HttpServlet {
 	 * Handles the incoming request described in this class's description.
 	 */
 	public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
-
 		try {
 			User user = (User)req.getSession().getAttribute("user");
 			String courseID = (String)req.getSession().getAttribute("course");
@@ -60,12 +63,13 @@ public class Answer extends HttpServlet {
 			req.getSession().setAttribute("keyboardInput", keyboardInput);
 			
 			// Forward the request to the answer jsp page
-			res.sendRedirect(req.getContextPath()+"/www/answer_task.jsp?analyzed=true#code");
+			Log.write("Answer: Redirecting to www/answer_task.jsp?analyzed=true#code");
+			res.sendRedirect("www/answer_task.jsp?analyzed=true#code");
 					    
 		} catch (Exception e){
 			Log.write("Answer: Failed to process student's answer. " +e);
 			Log.write(e);
-			res.sendRedirect(req.getContextPath()+"/www/error.jsp?errorMsg=answer-failed");
+			res.sendRedirect("www/error.jsp?errorMsg=answer-failed");
 		}
 	}
 	
